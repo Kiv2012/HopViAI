@@ -1614,7 +1614,9 @@ async function saveApiKeyFromModal() {
 function openQrModal() {
   const input = document.getElementById('qr-url-input');
   if (input && !input.value) {
-    input.value = window.location.origin;
+    input.value = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+      ? 'https://hop-vi-ai.vercel.app'
+      : window.location.origin;
   }
   updateQrImage();
   document.getElementById('qr-modal').classList.add('open');

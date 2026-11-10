@@ -21,6 +21,7 @@ const os = require('os');
 const DB_PATH = path.join(__dirname, '..', 'data', 'database.json');
 const TMP_DB_PATH = path.join(os.tmpdir(), 'hop_vi_ai_database.json');
 const PUBLIC_DIR = path.join(__dirname, '..', 'public');
+const BUNDLED_DB = require('../data/database.json');
 
 // Bộ nhớ đệm In-Memory giúp chạy mượt trên môi trường Serverless Read-Only (như Vercel Free)
 let memoryDbCache = null;
@@ -55,9 +56,14 @@ function loadDatabase() {
     }
   } catch (_) {}
 
-  const raw = fs.readFileSync(DB_PATH, 'utf8');
-  memoryDbCache = JSON.parse(raw);
-  return memoryDbCache;
+  try {
+    const raw = fs.readFileSync(DB_PATH, 'utf8');
+    memoryDbCache = JSON.parse(raw);
+    return memoryDbCache;
+  } catch (_) {
+    memoryDbCache = JSON.parse(JSON.stringify(BUNDLED_DB));
+    return memoryDbCache;
+  }
 }
 
 function saveDatabase(db) {
