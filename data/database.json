@@ -3,9 +3,9 @@
     "projectName": "HỢP VỊ AI",
     "slogan": "Hiểu đúng vị – Gợi đúng món",
     "targetRegion": "Tỉnh Đồng Nai (Trọng tâm: Phường Trấn Biên, Tam Hiệp, Tân Triều, Bửu Long - TP. Biên Hòa)",
-    "lastUpdated": "2026-11-10T14:20:00+07:00",
-    "totalRestaurants": 18,
-    "totalMenuItems": 130,
+    "lastUpdated": "2026-11-10T08:42:32.172Z",
+    "totalRestaurants": 19,
+    "totalMenuItems": 133,
     "totalSpecialties": 4
   },
   "restaurants": [
@@ -260,6 +260,18 @@
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
       "isSpecialtySpot": true
+    },
+    {
+      "id": "REST_19",
+      "name": "Quán Bún Riêu & Cơm Tấm Sinh Viên Trấn Biên",
+      "address": "82 Nguyễn Ái Quốc, Phường Trấn Biên, Đồng Nai",
+      "area": "Trấn Biên",
+      "openingHours": "06:30 - 20:30",
+      "status": "approved",
+      "verificationStatus": "verified",
+      "verificationSource": "Admin duyệt từ AI Scan Menu (SUB_DEMO_01)",
+      "verifiedAt": "2026-11-10",
+      "isSpecialtySpot": false
     }
   ],
   "menuItems": [
@@ -4121,6 +4133,94 @@
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 132)",
       "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_131",
+      "restaurantId": "REST_19",
+      "restaurantName": "Quán Bún Riêu & Cơm Tấm Sinh Viên Trấn Biên",
+      "area": "Trấn Biên",
+      "name": "Bún Riêu Cua Đồng Đặc Biệt",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "bun",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 35000,
+      "priceMax": 35000,
+      "priceVariants": [
+        35000
+      ],
+      "rawPriceText": "35.000đ",
+      "unit": "tô",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Đã được Admin đối chiếu ảnh thực đơn gốc và phê duyệt",
+      "status": "approved",
+      "verificationSource": "AI Scan Menu + Admin xác minh (SUB_DEMO_01)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_132",
+      "restaurantId": "REST_19",
+      "restaurantName": "Quán Bún Riêu & Cơm Tấm Sinh Viên Trấn Biên",
+      "area": "Trấn Biên",
+      "name": "Cơm Tấm Sườn Bì Chả",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "heo",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 40000,
+      "priceMax": 40000,
+      "priceVariants": [
+        40000
+      ],
+      "rawPriceText": "40.000đ",
+      "unit": "đĩa",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Đã được Admin đối chiếu ảnh thực đơn gốc và phê duyệt",
+      "status": "approved",
+      "verificationSource": "AI Scan Menu + Admin xác minh (SUB_DEMO_01)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_133",
+      "restaurantId": "REST_19",
+      "restaurantName": "Quán Bún Riêu & Cơm Tấm Sinh Viên Trấn Biên",
+      "area": "Trấn Biên",
+      "name": "Canh Bún Thập Cẩm (Size Nhỏ / Lớn)",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "bun",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 30000,
+      "priceMax": 30000,
+      "priceVariants": [
+        30000
+      ],
+      "rawPriceText": "30k / 40k",
+      "unit": "tô",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Đã được Admin đối chiếu ảnh thực đơn gốc và phê duyệt",
+      "status": "approved",
+      "verificationSource": "AI Scan Menu + Admin xác minh (SUB_DEMO_01)",
+      "verifiedAt": "2026-11-10"
     }
   ],
   "specialties": [
@@ -4228,7 +4328,7 @@
       "openingHours": "06:30 - 20:30",
       "contactPhone": "0908.123.456",
       "submissionType": "ai_scan_menu",
-      "status": "pending",
+      "status": "approved",
       "submittedAt": "2026-11-10T10:15:00+07:00",
       "sourceNote": "Ảnh chụp bảng giá thực đơn tại quán (AI Scan Menu trích xuất)",
       "items": [
@@ -4284,7 +4384,8 @@
           "needsReview": true,
           "reviewReason": "Thực đơn gốc ghi 2 mức giá (30k/40k), cần xác nhận giá mặc định"
         }
-      ]
+      ],
+      "reviewedAt": "2026-11-10T08:42:32.172Z"
     }
   ],
   "feedbacks": [
@@ -4300,6 +4401,13 @@
     }
   ],
   "auditLogs": [
+    {
+      "id": "LOG_1794300152172",
+      "action": "ADMIN_APPROVE_SUBMISSION",
+      "actor": "Admin Xác Minh",
+      "detail": "Phê duyệt quán \"Quán Bún Riêu & Cơm Tấm Sinh Viên Trấn Biên\" và công bố 3 món ăn vào cơ sở dữ liệu gợi ý chính thức.",
+      "timestamp": "2026-11-10T08:42:32.172Z"
+    },
     {
       "id": "LOG_01",
       "action": "IMPORT_VERIFIED_DATASET",
