@@ -1,4 +1,4 @@
-Add-Type -AssemblyName System.IO.Compression
+﻿Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 
 $docxPath = (Resolve-Path "BẢN MÔ TẢ CHI TIẾT.docx").Path
@@ -7,6 +7,8 @@ $backupPath = Join-Path (Split-Path $docxPath) "BẢN MÔ TẢ CHI TIẾT_GỐC.
 if (-not (Test-Path $backupPath)) {
     Copy-Item -Path $docxPath -Destination $backupPath -Force
     Write-Output "Created backup: BẢN MÔ TẢ CHI TIẾT_GỐC.docx"
+} else {
+    Copy-Item -Path $backupPath -Destination $docxPath -Force
 }
 
 $zip = [System.IO.Compression.ZipFile]::Open($docxPath, [System.IO.Compression.ZipArchiveMode]::Update)
@@ -50,7 +52,7 @@ foreach ($p in $xml.SelectNodes("//w:p", $ns)) {
         $updatedCount++
     }
     elseif ($fullText -like "Dự án đã có bản đề xuất và nguyên mẫu website gồm bốn danh mục chính*") {
-        Set-ParagraphText $p "Dự án đã hoàn thiện sản phẩm Website Full-stack (Node.js + Giao diện Web đáp ứng + Bản đồ dẫn đường trực tiếp) gồm bốn danh mục chính, ba khu vực sử dụng (Người dùng, Đối tác, Admin) và bộ giải tổ hợp món theo nguyên tắc Công bằng nhóm (Maximin Fairness) trên cơ sở dữ liệu 18 quán ăn (130 món) tại Đồng Nai."
+        Set-ParagraphText $p "Dự án đã hoàn thiện sản phẩm Website Full-stack (triển khai trực tuyến tại https://hop-vi-ai.vercel.app và kho mã nguồn https://github.com/Kiv2012/HopViAI, tối ưu giao diện máy tính & điện thoại di động kèm bản đồ dẫn đường trực tiếp) gồm bốn danh mục chính, ba khu vực sử dụng (Người dùng, Đối tác, Admin) và bộ giải tổ hợp món theo nguyên tắc Công bằng nhóm (Maximin Fairness) trên cơ sở dữ liệu 18 quán ăn (130 món) tại Đồng Nai."
         $updatedCount++
     }
     elseif ($fullText -like "Tuy nhiên, phần phân tích câu nhập trong nguyên mẫu hiện dựa trên từ khóa*") {

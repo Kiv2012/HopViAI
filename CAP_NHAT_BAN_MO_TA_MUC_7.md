@@ -35,7 +35,8 @@ Nhóm đã thiết kế bộ kiểm thử tự động gồm **30 tình huống 
 | **TỔNG CỘNG** | **30 tình huống** | **Độ chính xác kiểm tra ngân sách: 100% • Thời gian giải tổ hợp trung bình: < 5ms** | **30 / 30 (100%)** |
 
 ### 7.4. Hồ sơ minh chứng kèm theo sản phẩm
-1. **Mã nguồn hệ thống**: Toàn bộ mã nguồn Backend (`server/index.js`, `server/solver.js`, `server/geminiService.js`), giao diện (`public/`) và cơ sở dữ liệu đã xác minh (`data/database.json`).
-2. **Báo cáo kiểm thử định lượng**: Xuất tự động tại file `tests/EVALUATION_REPORT.md` khi chạy lệnh `npm test`.
-3. **Minh chứng quy trình Đối tác – Admin**: Hồ sơ mẫu tại cổng Đối tác (`AI Scan Menu`) và nhật ký kiểm toán (`Audit Logs`) trong trang Quản trị viên.
+1. **Sản phẩm trực tuyến (Production Cloud)**: Triển khai công khai tại **https://hop-vi-ai.vercel.app** (tối ưu giao diện máy tính & điện thoại di động) và Slide thuyết trình tại **https://hop-vi-ai.vercel.app/slides.html**.
+2. **Kho mã nguồn hệ thống (GitHub Repository)**: Công bố tại **https://github.com/Kiv2012/HopViAI** gồm toàn bộ mã nguồn Backend (`server/index.js`, `server/solver.js`, `server/geminiService.js`), giao diện (`public/`, bản đồ dẫn đường `Leaflet + OSRM`) và cơ sở dữ liệu đã xác minh (`data/database.json`).
+3. **Báo cáo kiểm thử định lượng**: Xuất tự động tại file `tests/EVALUATION_REPORT.md` khi chạy lệnh `npm test`.
+4. **Minh chứng quy trình Đối tác – Admin**: Hồ sơ mẫu tại cổng Đối tác (`AI Scan Menu`) và nhật ký kiểm toán (`Audit Logs`) trong trang Quản trị viên.
 
