@@ -15,8 +15,8 @@
 ### Các bước chạy trên máy cá nhân
 ```bash
 # 1. Clone dự án về máy
-git clone <LINK_GITHUB_REPO_CUA_NHOM>
-cd "Hợp vị AI"
+git clone https://github.com/Kiv2012/HopViAI.git
+cd HopViAI
 
 # 2. (Tùy chọn) Tạo file .env chứa khóa Gemini API
 cp .env.example .env
@@ -77,3 +77,4 @@ Hợp vị AI/
    - Số hóa ảnh chụp thực đơn giấy bằng `gemini-2.5-flash` Multimodal Vision, tự động đánh dấu các dòng giá phức tạp (nhiều size / tính theo `kg`) để chủ quán chỉnh sửa trước khi gửi duyệt.
 3. **Cổng Quản trị (`Admin Dashboard`)**:
    - Kiểm duyệt hồ sơ thực đơn đối tác (`pending` $\rightarrow$ `approved` / `rejected`), cô lập dữ liệu chưa duyệt 100%, và bảng giám sát chi phí Token LLM theo thời gian thực.
+
