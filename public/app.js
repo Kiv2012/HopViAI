@@ -991,7 +991,7 @@ async function runStep1Analyze() {
 
 function renderConfirmationPanel(analysis) {
   const panel = document.getElementById('confirmation-panel');
-  panel.style.display = 'block';
+  if (panel) panel.style.display = 'none';
 
   document.getElementById('ai-provider-meta').textContent =
     `Mô hình: ${analysis.aiMeta?.provider || 'AI'} (${analysis.aiMeta?.latencyMs || 0}ms)`;
@@ -1162,7 +1162,7 @@ async function runStep2Solve(fromManualUpdate = false) {
     renderSolverResults(res.data, requirements);
     if (window.innerWidth <= 768) {
       setTimeout(() => {
-        document.getElementById('confirmation-panel')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.getElementById('solver-results-container')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 100);
     }
   }
@@ -1176,21 +1176,9 @@ function applyRelaxedBudget(suggestedBudget) {
 function renderSolverResults(result, requirements) {
   const container = document.getElementById('solver-results-container');
 
-  // Trường hợp 1: Thành công (Có phương án hợp lệ)
+  // Trường hợp 1: Thành công (Có phương án hợp lệ) -> Hiển thị ngay danh sách kết quả bên dưới
   if (result.status === 'success' && result.plans.length > 0) {
     container.innerHTML = `
-      <div class="card" style="margin-bottom:1.25rem; background:var(--accent-light); border-color:#86efac;">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
-          <div>
-            <strong style="color:var(--accent); font-size:1.02rem;">🎯 ${escapeHtml(result.summary)}</strong>
-            <div style="font-size:0.83rem; color:#166534;">
-              Xếp hạng theo nguyên tắc <strong>Maximin Fairness</strong>: Ưu tiên phương án có điểm thành viên thấp nhất cao nhất → Tổng điểm sở thích nhóm → Tổng chi phí tiết kiệm nhất.
-            </div>
-          </div>
-          <span class="badge badge-verified">Thời gian giải tổ hợp: ${result.executionTimeMs}ms</span>
-        </div>
-      </div>
-
       <div class="grid-3">
         ${result.plans.map((plan, idx) => {
           const fullRest = appState.restaurants.find(r => r.id === plan.restaurant.id) || plan.restaurant;
