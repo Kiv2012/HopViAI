@@ -12,7 +12,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
   <title>HỢP VỊ AI – Hiểu đúng vị – Gợi đúng món | Ẩm thực Đồng Nai</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-  <link rel="stylesheet" href="/styles.css?v=20261110-ux5" />
+  <link rel="stylesheet" href="/styles.css?v=20261110-rbac1" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 </head>
 <body>
@@ -37,11 +37,14 @@
 
       <!-- Chuyển đổi vai trò Đối tác / Admin & Cấu hình AI / QR -->
       <div class="role-switcher">
-        <button class="role-pill active-partner hide-on-mobile" data-view="partner" onclick="switchView('partner')" title="Khu vực Đối tác & AI Scan Menu">
+        <button id="top-partner-btn" class="role-pill active-partner hide-on-mobile" data-view="partner" onclick="switchView('partner')" title="Khu vực Đối tác & AI Scan Menu">
           📸 Đối tác (AI Scan Menu)
         </button>
-        <button class="role-pill active-admin hide-on-mobile" data-view="admin" onclick="switchView('admin')" title="Khu vực Quản trị & Xác minh dữ liệu">
+        <button id="top-admin-btn" class="role-pill active-admin hide-on-mobile" data-view="admin" onclick="switchView('admin')" title="Khu vực Quản trị & Xác minh dữ liệu">
           🛡️ Admin (<span id="pending-badge-count">1</span>)
+        </button>
+        <button id="user-account-btn" class="role-pill" style="background:#fef3c7; color:#b45309; border-color:#fde68a;" onclick="openAuthModal()" title="Đăng nhập / Đăng ký Phân quyền (Khách hàng, Chủ quán, Admin)">
+          👤 <span id="user-account-label">Đăng nhập</span>
         </button>
         <button id="api-status-btn" class="api-status-badge fallback" onclick="openApiKeyModal()" title="Cấu hình Google Gemini API Key">
           ⚡ <span class="hide-on-mobile">Gemini AI: </span><span id="api-status-text">AI Sẵn sàng</span>
@@ -49,7 +52,7 @@
         <button class="role-pill" onclick="openQrModal()" title="Mã QR cho Ban giám khảo trải nghiệm">
           📱 QR<span class="hide-on-mobile"> Demo</span>
         </button>
-        <button id="btn-pwa-install" class="role-pill" style="background:#dcfce7; color:#15803d; border-color:#86efac;" onclick="triggerPwaInstall()" title="Cài đặt ứng dụng Hợp Vị AI lên màn hình chính điện thoại">
+        <button id="btn-pwa-install" class="role-pill hide-on-mobile" style="background:#dcfce7; color:#15803d; border-color:#86efac;" onclick="triggerPwaInstall()" title="Cài đặt ứng dụng Hợp Vị AI lên màn hình chính điện thoại">
           📲 Cài App
         </button>
         <a href="/slides.html" class="role-pill" style="text-decoration:none; background:#fff7ed; color:#c2410c; border-color:#fed7aa;" title="Mở bộ Slide thuyết trình dự thi">
@@ -556,49 +559,194 @@
           <div id="partner-submit-msg" style="margin-top:0.75rem; font-weight:700;"></div>
         </div>
       </div>
+
+      <!-- Lịch sử hồ sơ thực đơn của Chủ quán -->
+      <div class="card" style="margin-top:1.25rem;">
+        <h3>📋 Trạng thái Hồ sơ Thực đơn Quán của bạn đã gửi lên Admin</h3>
+        <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:0.8rem;">
+          Theo dõi trực tiếp các thực đơn bạn đã gửi qua cổng Chủ quán đang chờ duyệt hoặc đã được Admin công bố.
+        </p>
+        <div id="partner-my-submissions-list"></div>
+      </div>
     </section>
 
-    <!-- ==================== 6. KHU VỰC QUẢN TRỊ (ADMIN DASHBOARD) ==================== -->
+    <!-- ==================== 6. KHU VỰC QUẢN TRỊ (ADMIN DASHBOARD TOÀN DIỆN) ==================== -->
     <section id="view-admin" class="view-section">
       <div class="mobile-manage-subtabs">
         <button class="subtab-btn" onclick="switchView('partner')">📸 Quét Menu</button>
         <button class="subtab-btn active" onclick="switchView('admin')">🛡️ Duyệt Admin</button>
         <button class="subtab-btn" onclick="switchView('feedback')">💬 Góp ý</button>
       </div>
-      <div class="card" style="margin-bottom:1.4rem;">
+      <div class="card" style="margin-bottom:1.2rem;">
         <div class="section-header">
           <div>
-            <h2>🛡️ Khu vực Quản trị & Xác minh dữ liệu (Admin)</h2>
-            <p style="color:var(--text-muted); font-size:0.9rem;">
-              Kiểm duyệt hồ sơ quán & kết quả <strong>AI Scan Menu</strong> trước khi công bố, giám sát chi phí/token gọi API AI (theo chuẩn <code>cost-aware-llm-pipeline</code>) và theo dõi nhật ký kiểm toán dữ liệu.
+            <h2>🛡️ Trung tâm Quản trị Toàn diện Website (Admin Duy nhất)</h2>
+            <p style="color:var(--text-muted); font-size:0.88rem;">
+              Tài khoản Quản trị viên (<code>admin@hopviai.vn</code>) có toàn quyền: <strong>Duyệt thực đơn Chủ quán</strong>, <strong>Quản lý tài khoản Khách hàng & Chủ quán</strong>, <strong>Ẩn/Hiện toàn bộ 18+ Quán ăn</strong>, <strong>Xác minh Góp ý</strong> và <strong>Giám sát chi phí API AI</strong>.
             </p>
           </div>
-          <span class="badge badge-verified">Kiểm soát chất lượng dữ liệu đầu vào</span>
+          <span class="badge badge-verified">Quyền Quản trị Cao nhất (Super Admin)</span>
         </div>
 
         <!-- Thống kê Cost & Token của LLM API -->
-        <div id="admin-llm-cost-panel" class="grid-4" style="margin-top:0.5rem;"></div>
+        <div id="admin-llm-cost-panel" class="grid-4" style="margin-top:0.5rem; margin-bottom:0;"></div>
       </div>
 
-      <div class="grid-2">
+      <div class="grid-2" style="margin-bottom:1.2rem;">
         <div class="card">
-          <h3>📥 Hồ sơ Đối tác & Thực đơn chờ phê duyệt</h3>
-          <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:0.9rem;">
-            Chỉ khi Admin bấm <strong>Phê duyệt</strong>, quán và món ăn mới được phép tham gia vào thuật toán gợi ý của người dùng.
+          <h3>📥 1. Duyệt Hồ sơ Thực đơn Chủ quán (AI Scan Menu)</h3>
+          <p style="font-size:0.83rem; color:var(--text-muted); margin-bottom:0.8rem;">
+            Chỉ khi Admin bấm <strong>Phê duyệt</strong>, quán và món ăn mới được đưa vào thuật toán gợi ý công khai.
           </p>
           <div id="admin-submissions-list"></div>
         </div>
 
         <div class="card">
-          <h3>📜 Nhật ký Kiểm toán & Lịch sử thay đổi dữ liệu (Audit Logs)</h3>
-          <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:0.9rem;">
-            Lưu vết toàn bộ quá trình số hóa, duyệt thực đơn và phản hồi người dùng.
+          <h3>👥 2. Quản lý Tài khoản Người dùng & Chủ quán (<span id="admin-users-count">0</span>)</h3>
+          <p style="font-size:0.83rem; color:var(--text-muted); margin-bottom:0.8rem;">
+            Danh sách các tài khoản Khách hàng (<code>customer</code>), Chủ quán (<code>partner</code>) và Admin duy nhất. Có thể Khóa / Mở khóa tài khoản.
           </p>
-          <div id="admin-audit-logs"></div>
+          <div id="admin-users-list" style="max-height:380px; overflow-y:auto;"></div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>🏪 3. Quản lý Toàn bộ Quán ăn trên Website (<span id="admin-rests-count">18</span>)</h3>
+          <p style="font-size:0.83rem; color:var(--text-muted); margin-bottom:0.8rem;">
+            Bật/Tắt trạng thái hiển thị công khai của bất kỳ quán ăn nào trên toàn hệ thống.
+          </p>
+          <div id="admin-restaurants-list" style="max-height:380px; overflow-y:auto;"></div>
+        </div>
+
+        <div class="card">
+          <h3>💬 4. Quản lý Góp ý Khách hàng & Nhật ký Kiểm toán</h3>
+          <div id="admin-feedbacks-manage-list" style="margin-bottom:1rem; max-height:200px; overflow-y:auto;"></div>
+          <h4 style="font-size:0.9rem; margin-bottom:0.5rem; border-top:1px solid var(--border); padding-top:0.75rem;">📜 Nhật ký Kiểm toán Hệ thống (Audit Logs)</h4>
+          <div id="admin-audit-logs" style="max-height:220px; overflow-y:auto;"></div>
         </div>
       </div>
     </section>
   </main>
+
+  <!-- Modal Đăng nhập & Đăng ký Phân quyền 3 Vai trò (Khách hàng, Chủ quán, Admin) -->
+  <div id="auth-modal" class="modal-backdrop">
+    <div class="modal-box" style="max-width:520px; max-height:92vh; overflow-y:auto;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+        <h3>🔐 Tài khoản & Phân quyền HỢP VỊ AI</h3>
+        <button class="btn btn-secondary btn-sm" onclick="closeAuthModal()">✕</button>
+      </div>
+
+      <!-- Khung hiển thị trạng thái đang đăng nhập -->
+      <div id="auth-current-user-banner" style="background:var(--surface-alt); border:1px solid var(--border); border-radius:11px; padding:0.7rem 0.85rem; margin-bottom:0.85rem; font-size:0.85rem;"></div>
+
+      <!-- Thanh chuyển Tab: Đăng nhập vs Đăng ký -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.4rem; background:var(--surface-alt); padding:0.3rem; border-radius:10px; margin-bottom:0.9rem;">
+        <button id="auth-tab-login" class="subtab-btn active" onclick="switchAuthTab('login')">🔑 Đăng nhập</button>
+        <button id="auth-tab-register" class="subtab-btn" onclick="switchAuthTab('register')">📝 Đăng ký mới</button>
+      </div>
+
+      <!-- FORM 1: ĐĂNG NHẬP -->
+      <div id="auth-form-login">
+        <div class="form-group">
+          <label>Email đăng nhập:</label>
+          <input type="email" id="login-email" class="form-control" placeholder="VD: khachhang@hopviai.vn / chuquan@hopviai.vn / admin@hopviai.vn" value="khachhang@hopviai.vn" />
+        </div>
+        <div class="form-group">
+          <label>Mật khẩu:</label>
+          <input type="password" id="login-password" class="form-control" placeholder="Nhập mật khẩu..." value="123456" />
+        </div>
+        <button class="btn btn-primary" style="width:100%; min-height:42px;" onclick="submitLogin()">
+          🔑 Đăng nhập vào hệ thống
+        </button>
+      </div>
+
+      <!-- FORM 2: ĐĂNG KÝ (Chọn tư cách Khách hàng hoặc Chủ quán) -->
+      <div id="auth-form-register" style="display:none;">
+        <div class="form-group">
+          <label>Bạn muốn đăng ký với tư cách nào?</label>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
+            <label id="reg-role-customer-card" style="border:2px solid var(--primary); background:#fff7ed; padding:0.6rem; border-radius:10px; cursor:pointer; text-align:center;" onclick="selectRegisterRole('customer')">
+              <input type="radio" name="reg-role" value="customer" checked style="display:none;" />
+              <div style="font-size:1.25rem;">🙋</div>
+              <div style="font-weight:800; font-size:0.84rem; color:var(--primary);">Khách hàng</div>
+              <div style="font-size:0.72rem; color:var(--text-muted);">Tìm món AI, dẫn đường & đánh giá</div>
+            </label>
+            <label id="reg-role-partner-card" style="border:2px solid var(--border); background:var(--surface); padding:0.6rem; border-radius:10px; cursor:pointer; text-align:center;" onclick="selectRegisterRole('partner')">
+              <input type="radio" name="reg-role" value="partner" style="display:none;" />
+              <div style="font-size:1.25rem;">🏪</div>
+              <div style="font-weight:800; font-size:0.84rem; color:#1d4ed8;">Chủ quán</div>
+              <div style="font-size:0.72rem; color:var(--text-muted);">Đăng ký quán & AI Scan Menu</div>
+            </label>
+          </div>
+          <div style="font-size:0.74rem; color:var(--text-muted); margin-top:0.35rem;">
+            * Lưu ý: Tài khoản <strong>Admin (Quản trị viên)</strong> là duy nhất để quản lý toàn trang web, không cho phép tự đăng ký công khai.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Họ và tên của bạn:</label>
+          <input type="text" id="reg-name" class="form-control" placeholder="VD: Trần Quốc Bảo" />
+        </div>
+        <div class="form-group">
+          <label>Địa chỉ Email:</label>
+          <input type="email" id="reg-email" class="form-control" placeholder="VD: baotran@gmail.com" />
+        </div>
+        <div class="form-group">
+          <label>Mật khẩu (tối thiểu 4 ký tự):</label>
+          <input type="password" id="reg-password" class="form-control" placeholder="••••••" />
+        </div>
+
+        <!-- Các trường bổ sung khi chọn tư cách Chủ quán -->
+        <div id="reg-partner-extra-fields" style="display:none; background:#eff6ff; border:1px solid #bfdbfe; padding:0.75rem; border-radius:10px; margin-bottom:0.85rem;">
+          <div style="font-weight:700; font-size:0.83rem; color:#1d4ed8; margin-bottom:0.45rem;">🏪 Thông tin cơ sở kinh doanh của Chủ quán:</div>
+          <div class="form-group" style="margin-bottom:0.5rem;">
+            <label style="font-size:0.78rem;">Tên quán ăn / Nhà hàng:</label>
+            <input type="text" id="reg-rest-name" class="form-control" placeholder="VD: Phở & Bún Bò Gia Truyền Biên Hòa" />
+          </div>
+          <div class="form-group" style="margin-bottom:0.5rem;">
+            <label style="font-size:0.78rem;">Địa chỉ cụ thể:</label>
+            <input type="text" id="reg-rest-address" class="form-control" placeholder="VD: 88 Võ Thị Sáu, P. Trấn Biên, Biên Hòa" />
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label style="font-size:0.78rem;">Khu vực (Phường):</label>
+            <select id="reg-rest-area" class="form-control">
+              <option value="Trấn Biên">Phường Trấn Biên</option>
+              <option value="Tam Hiệp">Phường Tam Hiệp</option>
+              <option value="Tân Triều">Phường Tân Triều</option>
+              <option value="Bửu Long">Phường Bửu Long</option>
+              <option value="Thanh Bình">Phường Thanh Bình</option>
+              <option value="Thống Nhất">Phường Thống Nhất</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn btn-success" style="width:100%; min-height:42px;" onclick="submitRegister()">
+          ✅ Hoàn tất Đăng ký Tài khoản
+        </button>
+      </div>
+
+      <div id="auth-error-msg" style="margin-top:0.65rem; font-size:0.84rem; font-weight:700;"></div>
+
+      <!-- Khung chuyển nhanh Demo 1 chạm phục vụ Thuyết trình trước Ban Giám Khảo -->
+      <div style="margin-top:1rem; padding-top:0.85rem; border-top:1px dashed var(--border);">
+        <div style="font-size:0.78rem; font-weight:700; color:var(--text-muted); margin-bottom:0.45rem;">
+          ⚡ Chuyển nhanh Tài khoản Demo (1 Chạm dành cho Thuyết trình):
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.4rem;">
+          <button class="btn btn-secondary btn-sm" style="font-size:0.76rem; padding:0.4rem 0.3rem;" onclick="quickDemoLogin('customer')">
+            🙋 Khách hàng
+          </button>
+          <button class="btn btn-secondary btn-sm" style="font-size:0.76rem; padding:0.4rem 0.3rem; background:#eff6ff; color:#1d4ed8; border-color:#bfdbfe;" onclick="quickDemoLogin('partner')">
+            🏪 Chủ quán
+          </button>
+          <button class="btn btn-secondary btn-sm" style="font-size:0.76rem; padding:0.4rem 0.3rem; background:#f3e8ff; color:#7e22ce; border-color:#e9d5ff;" onclick="quickDemoLogin('admin')">
+            🛡️ Admin
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Modal Cấu hình nhanh Google Gemini API Key -->
   <div id="api-key-modal" class="modal-backdrop">
@@ -702,7 +850,7 @@
     </button>
   </nav>
 
-  <script src="/app.js?v=20261110-ux5"></script>
+  <script src="/app.js?v=20261110-rbac1"></script>
 </body>
 </html>
 

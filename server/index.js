@@ -6,6 +6,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const { solveMealRecommendations } = require('./solver');
 const {
@@ -45,24 +46,89 @@ if (fs.existsSync(envPath)) {
   }
 }
 
+const AUTH_SECRET = process.env.AUTH_SECRET || 'hop-vi-ai-dong-nai-secret-2026';
+
+function hashPassword(password) {
+  return crypto.createHmac('sha256', AUTH_SECRET).update(String(password)).digest('hex');
+}
+
+function createAuthToken(user) {
+  const payload = {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    restaurantName: user.restaurantName || '',
+    restaurantAddress: user.restaurantAddress || '',
+    restaurantArea: user.restaurantArea || 'Trấn Biên',
+    iat: Date.now()
+  };
+  const b64 = Buffer.from(JSON.stringify(payload), 'utf8').toString('base64url');
+  const sig = crypto.createHmac('sha256', AUTH_SECRET).update(b64).digest('base64url');
+  return `${b64}.${sig}`;
+}
+
+function sanitizeUser(u) {
+  const { passwordHash, ...safe } = u;
+  return safe;
+}
+
+function ensureDefaultUsers(db) {
+  if (!Array.isArray(db.users) || db.users.length === 0) {
+    db.users = [
+      {
+        id: 'USR_ADMIN_01',
+        name: 'Quản trị viên Hệ thống',
+        email: 'admin@hopviai.vn',
+        passwordHash: hashPassword('admin123'),
+        role: 'admin',
+        status: 'active',
+        createdAt: '2026-11-01T08:00:00.000Z'
+      },
+      {
+        id: 'USR_PARTNER_01',
+        name: 'Chủ quán Bún Thái Thành Minh',
+        email: 'chuquan@hopviai.vn',
+        passwordHash: hashPassword('123456'),
+        role: 'partner',
+        restaurantName: 'Bún Thái & Mì Trộn Thành Minh',
+        restaurantAddress: '129 Hưng Đạo Vương, Phường Trấn Biên, Đồng Nai',
+        restaurantArea: 'Trấn Biên',
+        status: 'active',
+        createdAt: '2026-11-02T09:00:00.000Z'
+      },
+      {
+        id: 'USR_CUSTOMER_01',
+        name: 'Nguyễn Minh Anh',
+        email: 'khachhang@hopviai.vn',
+        passwordHash: hashPassword('123456'),
+        role: 'customer',
+        status: 'active',
+        createdAt: '2026-11-03T10:00:00.000Z'
+      }
+    ];
+  }
+  return db;
+}
+
 function loadDatabase() {
   if (memoryDbCache) {
-    return memoryDbCache;
+    return ensureDefaultUsers(memoryDbCache);
   }
   try {
     if (process.env.VERCEL && fs.existsSync(TMP_DB_PATH)) {
       memoryDbCache = JSON.parse(fs.readFileSync(TMP_DB_PATH, 'utf8'));
-      return memoryDbCache;
+      return ensureDefaultUsers(memoryDbCache);
     }
   } catch (_) {}
 
   try {
     const raw = fs.readFileSync(DB_PATH, 'utf8');
     memoryDbCache = JSON.parse(raw);
-    return memoryDbCache;
+    return ensureDefaultUsers(memoryDbCache);
   } catch (_) {
     memoryDbCache = JSON.parse(JSON.stringify(BUNDLED_DB));
-    return memoryDbCache;
+    return ensureDefaultUsers(memoryDbCache);
   }
 }
 
@@ -318,16 +384,215 @@ async function handleApiRequest(req, res, parsedUrl) {
     // 8. GET /api/v1/admin/dashboard
     if (method === 'GET' && pathname === '/api/v1/admin/dashboard') {
       const db = loadDatabase();
+      const dishCountByRest = {};
+      for (const m of db.menuItems) {
+        dishCountByRest[m.restaurantId] = (dishCountByRest[m.restaurantId] || 0) + 1;
+      }
       return sendJson(res, 200, {
         success: true,
         data: {
           submissions: db.partnerSubmissions,
           feedbacks: db.feedbacks,
+          users: (db.users || []).map(sanitizeUser),
+          restaurants: db.restaurants.map(r => ({
+            ...r,
+            dishCount: dishCountByRest[r.id] || 0
+          })),
           auditLogs: db.auditLogs.slice(0, 30),
           costStats: getCostStats(),
           hasApiKey: Boolean(getActiveApiKey())
         }
       });
+    }
+
+    // 8b. POST /api/v1/auth/register (Đăng ký tài khoản Khách hàng hoặc Chủ quán)
+    if (method === 'POST' && pathname === '/api/v1/auth/register') {
+      const body = await parseJsonBody(req);
+      const name = (body.name || '').trim();
+      const email = (body.email || '').trim().toLowerCase();
+      const password = (body.password || '').trim();
+      const role = (body.role || 'customer').trim();
+
+      if (role === 'admin') {
+        return sendJson(res, 403, {
+          success: false,
+          error: { code: 'forbidden_role', message: 'Tài khoản Admin là duy nhất để quản trị toàn trang web, không cho phép tự đăng ký công khai.' }
+        });
+      }
+      if (!['customer', 'partner'].includes(role)) {
+        return sendJson(res, 400, {
+          success: false,
+          error: { code: 'invalid_role', message: 'Tư cách đăng ký chỉ được phép là Khách hàng (customer) hoặc Chủ quán (partner).' }
+        });
+      }
+      if (!name || !email || password.length < 4) {
+        return sendJson(res, 400, {
+          success: false,
+          error: { code: 'validation_error', message: 'Vui lòng nhập đầy đủ Họ tên, Email và Mật khẩu (tối thiểu 4 ký tự).' }
+        });
+      }
+
+      const db = loadDatabase();
+      if (db.users.some(u => u.email.toLowerCase() === email)) {
+        return sendJson(res, 409, {
+          success: false,
+          error: { code: 'email_exists', message: 'Email này đã được đăng ký trên hệ thống. Vui lòng chuyển sang tab Đăng nhập.' }
+        });
+      }
+
+      const newUser = {
+        id: `USR_${Date.now()}`,
+        name,
+        email,
+        passwordHash: hashPassword(password),
+        role,
+        restaurantName: role === 'partner' ? (body.restaurantName || `Quán của ${name}`).trim() : '',
+        restaurantAddress: role === 'partner' ? (body.restaurantAddress || 'Biên Hòa, Đồng Nai').trim() : '',
+        restaurantArea: role === 'partner' ? (body.restaurantArea || 'Trấn Biên').trim() : '',
+        status: 'active',
+        createdAt: new Date().toISOString()
+      };
+
+      db.users.push(newUser);
+      db.auditLogs.unshift({
+        id: `LOG_${Date.now()}`,
+        action: role === 'partner' ? 'PARTNER_REGISTER' : 'CUSTOMER_REGISTER',
+        actor: `${name} (${email})`,
+        detail: `Đăng ký tài khoản mới với tư cách ${role === 'partner' ? `Chủ quán (${newUser.restaurantName})` : 'Khách hàng'}.`,
+        timestamp: new Date().toISOString()
+      });
+      saveDatabase(db);
+
+      const safeUser = sanitizeUser(newUser);
+      return sendJson(res, 201, {
+        success: true,
+        data: {
+          user: safeUser,
+          token: createAuthToken(safeUser)
+        }
+      });
+    }
+
+    // 8c. POST /api/v1/auth/login (Đăng nhập bằng Email/Mật khẩu hoặc Chuyển nhanh Demo 3 vai trò)
+    if (method === 'POST' && pathname === '/api/v1/auth/login') {
+      const body = await parseJsonBody(req);
+      const db = loadDatabase();
+      let matchedUser = null;
+
+      if (body.demoRole && ['customer', 'partner', 'admin'].includes(body.demoRole)) {
+        matchedUser = db.users.find(u => u.role === body.demoRole && u.status === 'active') || db.users.find(u => u.role === body.demoRole);
+      } else {
+        const email = (body.email || '').trim().toLowerCase();
+        const password = (body.password || '').trim();
+        const pwHash = hashPassword(password);
+        matchedUser = db.users.find(u => u.email.toLowerCase() === email && u.passwordHash === pwHash);
+      }
+
+      if (!matchedUser) {
+        return sendJson(res, 401, {
+          success: false,
+          error: { code: 'invalid_credentials', message: 'Email hoặc mật khẩu không chính xác.' }
+        });
+      }
+
+      if (matchedUser.status === 'locked') {
+        return sendJson(res, 403, {
+          success: false,
+          error: { code: 'account_locked', message: 'Tài khoản này đang bị Quản trị viên (Admin) tạm khóa.' }
+        });
+      }
+
+      const safeUser = sanitizeUser(matchedUser);
+      return sendJson(res, 200, {
+        success: true,
+        data: {
+          user: safeUser,
+          token: createAuthToken(safeUser)
+        }
+      });
+    }
+
+    // 8d. POST /api/v1/admin/users/:id/toggle-status (Admin khóa/mở khóa tài khoản Khách hàng & Chủ quán)
+    const adminUserToggleMatch = pathname.match(/^\/api\/v1\/admin\/users\/([^/]+)\/toggle-status$/);
+    if (method === 'POST' && adminUserToggleMatch) {
+      const userId = adminUserToggleMatch[1];
+      const db = loadDatabase();
+      const targetUser = db.users.find(u => u.id === userId);
+      if (!targetUser) {
+        return sendJson(res, 404, { success: false, error: { code: 'not_found', message: 'Không tìm thấy tài khoản.' } });
+      }
+      if (targetUser.role === 'admin') {
+        return sendJson(res, 400, { success: false, error: { code: 'cannot_lock_admin', message: 'Không thể khóa tài khoản Quản trị viên (Admin) duy nhất của hệ thống.' } });
+      }
+      targetUser.status = targetUser.status === 'locked' ? 'active' : 'locked';
+      db.auditLogs.unshift({
+        id: `LOG_${Date.now()}`,
+        action: 'ADMIN_USER_STATUS',
+        actor: 'Admin Toàn Quyền',
+        detail: `${targetUser.status === 'locked' ? 'Tạm khóa' : 'Mở khóa'} tài khoản "${targetUser.name}" (${targetUser.email} - ${targetUser.role}).`,
+        timestamp: new Date().toISOString()
+      });
+      saveDatabase(db);
+      return sendJson(res, 200, { success: true, data: sanitizeUser(targetUser) });
+    }
+
+    // 8e. POST /api/v1/admin/restaurants/:id/toggle-status (Admin ẩn/hiện bất kỳ quán ăn nào trên toàn trang web)
+    const adminRestToggleMatch = pathname.match(/^\/api\/v1\/admin\/restaurants\/([^/]+)\/toggle-status$/);
+    if (method === 'POST' && adminRestToggleMatch) {
+      const restId = adminRestToggleMatch[1];
+      const db = loadDatabase();
+      const rest = db.restaurants.find(r => r.id === restId);
+      if (!rest) {
+        return sendJson(res, 404, { success: false, error: { code: 'not_found', message: 'Không tìm thấy quán ăn.' } });
+      }
+      rest.status = rest.status === 'approved' ? 'hidden' : 'approved';
+      for (const m of db.menuItems) {
+        if (m.restaurantId === restId) {
+          m.status = rest.status;
+        }
+      }
+      db.auditLogs.unshift({
+        id: `LOG_${Date.now()}`,
+        action: 'ADMIN_RESTAURANT_STATUS',
+        actor: 'Admin Toàn Quyền',
+        detail: `${rest.status === 'approved' ? 'Công bố hiển thị lại' : 'Tạm ẩn'} quán "${rest.name}" (${rest.area}) trên toàn trang web.`,
+        timestamp: new Date().toISOString()
+      });
+      saveDatabase(db);
+      return sendJson(res, 200, { success: true, data: rest });
+    }
+
+    // 8f. POST /api/v1/admin/feedbacks/:id/:action (Admin xác minh hoặc xóa đánh giá của khách hàng)
+    const adminFbMatch = pathname.match(/^\/api\/v1\/admin\/feedbacks\/([^/]+)\/(verify|delete)$/);
+    if (method === 'POST' && adminFbMatch) {
+      const fbId = adminFbMatch[1];
+      const action = adminFbMatch[2];
+      const db = loadDatabase();
+      const idx = db.feedbacks.findIndex(f => f.id === fbId);
+      if (idx === -1) {
+        return sendJson(res, 404, { success: false, error: { code: 'not_found', message: 'Không tìm thấy phản hồi.' } });
+      }
+      if (action === 'delete') {
+        const removed = db.feedbacks.splice(idx, 1)[0];
+        db.auditLogs.unshift({
+          id: `LOG_${Date.now()}`,
+          action: 'ADMIN_DELETE_FEEDBACK',
+          actor: 'Admin Toàn Quyền',
+          detail: `Xóa phản hồi của "${removed.userName}" về "${removed.restaurantName}".`,
+          timestamp: new Date().toISOString()
+        });
+      } else {
+        db.feedbacks[idx].status = 'verified';
+        db.auditLogs.unshift({
+          id: `LOG_${Date.now()}`,
+          action: 'ADMIN_VERIFY_FEEDBACK',
+          actor: 'Admin Toàn Quyền',
+          detail: `Đã xác minh phản hồi của "${db.feedbacks[idx].userName}" về "${db.feedbacks[idx].restaurantName}".`,
+          timestamp: new Date().toISOString()
+        });
+      }
+      saveDatabase(db);
+      return sendJson(res, 200, { success: true });
     }
 
     // 9. POST /api/v1/admin/submissions/:id/approve hoặc reject

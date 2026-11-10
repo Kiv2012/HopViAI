@@ -8,7 +8,8 @@ let appState = {
   specialties: [],
   currentAnalysis: null,
   scanDraftItems: [],
-  adminData: null
+  adminData: null,
+  currentUser: null
 };
 
 let leafletMap = null;
@@ -30,6 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').catch(() => {});
   }
+  loadSavedUserSession();
   const urlView = new URLSearchParams(window.location.search).get('view');
   if (urlView && ['home', 'recommend', 'explore', 'feedback', 'partner', 'admin'].includes(urlView)) {
     switchView(urlView);
@@ -37,6 +39,80 @@ document.addEventListener('DOMContentLoaded', async () => {
   await refreshAllData();
   await runSampleMenuScan('sample_bun_thai');
 });
+
+function loadSavedUserSession() {
+  try {
+    const raw = localStorage.getItem('hop_vi_ai_user');
+    if (raw) {
+      appState.currentUser = JSON.parse(raw);
+    }
+  } catch (_) {}
+  applyUserRolePermissions();
+}
+
+function applyUserRolePermissions() {
+  const user = appState.currentUser;
+  const labelEl = document.getElementById('user-account-label');
+  const btnEl = document.getElementById('user-account-btn');
+  const topPartnerBtn = document.getElementById('top-partner-btn');
+  const topAdminBtn = document.getElementById('top-admin-btn');
+
+  if (!user) {
+    if (labelEl) labelEl.textContent = 'Đăng nhập';
+    if (btnEl) {
+      btnEl.style.background = '#fef3c7';
+      btnEl.style.color = '#b45309';
+      btnEl.style.borderColor = '#fde68a';
+    }
+    if (topPartnerBtn) topPartnerBtn.style.display = '';
+    if (topAdminBtn) topAdminBtn.style.display = '';
+    return;
+  }
+
+  if (user.role === 'customer') {
+    if (labelEl) labelEl.textContent = `Khách: ${user.name.split(' ').slice(-2).join(' ')}`;
+    if (btnEl) {
+      btnEl.style.background = '#fff7ed';
+      btnEl.style.color = '#c2410c';
+      btnEl.style.borderColor = '#fed7aa';
+    }
+    if (topPartnerBtn) topPartnerBtn.style.display = 'none';
+    if (topAdminBtn) topAdminBtn.style.display = 'none';
+  } else if (user.role === 'partner') {
+    if (labelEl) labelEl.textContent = `Chủ quán: ${user.name.split(' ').slice(-2).join(' ')}`;
+    if (btnEl) {
+      btnEl.style.background = '#eff6ff';
+      btnEl.style.color = '#1d4ed8';
+      btnEl.style.borderColor = '#bfdbfe';
+    }
+    if (topPartnerBtn) topPartnerBtn.style.display = '';
+    if (topAdminBtn) topAdminBtn.style.display = 'none';
+
+    if (user.restaurantName && document.getElementById('partner-name')) {
+      document.getElementById('partner-name').value = user.restaurantName;
+    }
+    if (user.restaurantAddress && document.getElementById('partner-address')) {
+      document.getElementById('partner-address').value = user.restaurantAddress;
+    }
+    if (user.restaurantArea && document.getElementById('partner-area')) {
+      document.getElementById('partner-area').value = user.restaurantArea;
+    }
+  } else if (user.role === 'admin') {
+    if (labelEl) labelEl.textContent = 'Admin Toàn quyền';
+    if (btnEl) {
+      btnEl.style.background = '#f3e8ff';
+      btnEl.style.color = '#7e22ce';
+      btnEl.style.borderColor = '#e9d5ff';
+    }
+    if (topPartnerBtn) topPartnerBtn.style.display = '';
+    if (topAdminBtn) topAdminBtn.style.display = '';
+  }
+
+  const fbNameInput = document.getElementById('fb-user-name');
+  if (fbNameInput && !fbNameInput.value) {
+    fbNameInput.value = `${user.name} (${user.role === 'partner' ? 'Chủ quán' : user.role === 'admin' ? 'Admin' : 'Khách hàng'})`;
+  }
+}
 
 async function refreshAllData() {
   try {
@@ -65,6 +141,16 @@ async function refreshAllData() {
 }
 
 function switchView(viewName) {
+  const user = appState.currentUser;
+  if (viewName === 'partner' && user && user.role === 'customer') {
+    openAuthModal('🔒 Khu vực AI Scan Menu dành riêng cho Chủ quán hoặc Admin. Bạn hãy đăng ký tài khoản Chủ quán hoặc bấm nút "🏪 Chủ quán" bên dưới để truy cập nhé!');
+    return;
+  }
+  if (viewName === 'admin' && user && user.role !== 'admin') {
+    openAuthModal('🔒 Khu vực Quản trị toàn trang chỉ dành cho tài khoản Admin duy nhất (admin@hopviai.vn). Bạn có thể bấm nút "🛡️ Admin" ở cuối hộp thoại để chuyển nhanh!');
+    return;
+  }
+
   document.querySelectorAll('.view-section').forEach(sec => {
     sec.classList.toggle('active', sec.id === `view-${viewName}`);
   });
@@ -1608,7 +1694,7 @@ async function submitPartnerMenuDraft() {
 
 function renderAdminDashboard() {
   if (!appState.adminData) return;
-  const { submissions, auditLogs, costStats } = appState.adminData;
+  const { submissions, feedbacks, users, restaurants, auditLogs, costStats } = appState.adminData;
 
   const costBox = document.getElementById('admin-llm-cost-panel');
   if (costBox && costStats) {
@@ -1629,41 +1715,42 @@ function renderAdminDashboard() {
         <div style="font-size:0.75rem;">Hạn mức an toàn: $${costStats.budgetLimitUsd.toFixed(2)}</div>
       </div>
       <div style="background:var(--surface-alt); padding:0.85rem; border-radius:10px;">
-        <div style="font-size:0.78rem; color:var(--text-muted);">Cơ chế bảo vệ dữ liệu</div>
-        <div style="font-size:1.1rem; font-weight:800; color:#7e22ce;">Kiểm duyệt 2 lớp</div>
-        <div style="font-size:0.75rem;">Đối tác rà soát → Admin duyệt</div>
+        <div style="font-size:0.78rem; color:var(--text-muted);">Phân quyền Hệ thống</div>
+        <div style="font-size:1.1rem; font-weight:800; color:#7e22ce;">3 Vai trò RBAC</div>
+        <div style="font-size:0.75rem;">Khách • Chủ quán • 1 Admin</div>
       </div>
     `;
   }
 
+  // 1. Hồ sơ thực đơn Chủ quán
   const subBox = document.getElementById('admin-submissions-list');
   if (subBox) {
     if (!submissions || submissions.length === 0) {
       subBox.innerHTML = `<p style="color:var(--text-muted);">Chưa có hồ sơ đối tác nào.</p>`;
     } else {
       subBox.innerHTML = submissions.map(s => `
-        <div style="border:1px solid var(--border); border-radius:12px; padding:1rem; margin-bottom:0.9rem; background:${s.status === 'pending' ? '#fffbeb' : 'var(--surface)'};">
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.4rem;">
+        <div style="border:1px solid var(--border); border-radius:12px; padding:0.9rem; margin-bottom:0.8rem; background:${s.status === 'pending' ? '#fffbeb' : 'var(--surface)'};">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.35rem;">
             <strong>${escapeHtml(s.partnerName)}</strong>
             <span class="badge ${s.status === 'approved' ? 'badge-verified' : s.status === 'rejected' ? 'badge-danger' : 'badge-warning'}">
-              ${s.status === 'approved' ? '✓ Đã phê duyệt & Công bố' : s.status === 'rejected' ? '✕ Đã từ chối' : '⏳ Đang chờ Admin xác minh'}
+              ${s.status === 'approved' ? '✓ Đã phê duyệt & Công bố' : s.status === 'rejected' ? '✕ Đã từ chối' : '⏳ Chờ Admin duyệt'}
             </span>
           </div>
-          <div style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.5rem;">
+          <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.45rem;">
             📍 ${escapeHtml(s.address)} (${escapeHtml(s.area)}) • 🕒 ${escapeHtml(s.openingHours)}
           </div>
-          <div style="font-size:0.82rem; margin-bottom:0.65rem;">
+          <div style="font-size:0.8rem; margin-bottom:0.6rem;">
             ${(s.items || []).map(it => `
-              <div style="display:flex; justify-content:space-between; padding:0.2rem 0; border-bottom:1px dashed var(--border);">
-                <span>• ${escapeHtml(it.name)} ${it.needsReview ? '<strong style="color:var(--warning);">(Có cảnh báo giá)</strong>' : ''}</span>
+              <div style="display:flex; justify-content:space-between; padding:0.18rem 0; border-bottom:1px dashed var(--border);">
+                <span>• ${escapeHtml(it.name)} ${it.needsReview ? '<strong style="color:var(--warning);">(Cảnh báo giá)</strong>' : ''}</span>
                 <strong>${Number(it.price).toLocaleString('vi-VN')}đ</strong>
               </div>
             `).join('')}
           </div>
           ${s.status === 'pending' ? `
-            <div style="display:flex; gap:0.5rem;">
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
               <button class="btn btn-success btn-sm" onclick="adminReviewSubmission('${escapeAttr(s.id)}', 'approve')">
-                ✓ Phê duyệt & Đưa vào CSDL Gợi ý
+                ✓ Phê duyệt & Công bố
               </button>
               <button class="btn btn-danger btn-sm" onclick="adminReviewSubmission('${escapeAttr(s.id)}', 'reject')">
                 ✕ Từ chối
@@ -1675,17 +1762,141 @@ function renderAdminDashboard() {
     }
   }
 
+  // Hiển thị lịch sử hồ sơ bên trang Chủ quán
+  const partnerMySubBox = document.getElementById('partner-my-submissions-list');
+  if (partnerMySubBox && submissions) {
+    partnerMySubBox.innerHTML = submissions.map(s => `
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; padding:0.65rem 0; border-bottom:1px solid var(--border); font-size:0.85rem;">
+        <div>
+          <strong>${escapeHtml(s.partnerName)}</strong> (${(s.items || []).length} món)
+          <div style="font-size:0.76rem; color:var(--text-muted);">📍 ${escapeHtml(s.address)} • Gửi lúc: ${new Date(s.submittedAt).toLocaleString('vi-VN')}</div>
+        </div>
+        <span class="badge ${s.status === 'approved' ? 'badge-verified' : s.status === 'rejected' ? 'badge-danger' : 'badge-warning'}">
+          ${s.status === 'approved' ? '✓ Đã được Admin công bố' : s.status === 'rejected' ? '✕ Bị từ chối' : '⏳ Đang chờ Admin duyệt'}
+        </span>
+      </div>
+    `).join('');
+  }
+
+  // 2. Quản lý Tài khoản (Khách hàng, Chủ quán, Admin)
+  const usersBox = document.getElementById('admin-users-list');
+  const usersCountEl = document.getElementById('admin-users-count');
+  if (usersCountEl && users) usersCountEl.textContent = users.length;
+  if (usersBox && users) {
+    usersBox.innerHTML = users.map(u => {
+      const roleBadge = u.role === 'admin'
+        ? '<span class="badge" style="background:#f3e8ff; color:#7e22ce;">🛡️ Admin Duy nhất</span>'
+        : u.role === 'partner'
+          ? '<span class="badge" style="background:#eff6ff; color:#1d4ed8;">🏪 Chủ quán</span>'
+          : '<span class="badge badge-area">🙋 Khách hàng</span>';
+      return `
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; padding:0.6rem 0; border-bottom:1px solid var(--border); font-size:0.84rem;">
+          <div style="min-width:0;">
+            <div style="display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;">
+              <strong>${escapeHtml(u.name)}</strong>
+              ${roleBadge}
+              ${u.status === 'locked' ? '<span class="badge badge-danger">🔒 Đã khóa</span>' : ''}
+            </div>
+            <div style="font-size:0.76rem; color:var(--text-muted);">
+              ✉️ ${escapeHtml(u.email)} ${u.restaurantName ? `• 🏪 ${escapeHtml(u.restaurantName)}` : ''}
+            </div>
+          </div>
+          ${u.role !== 'admin' ? `
+            <button class="btn ${u.status === 'locked' ? 'btn-success' : 'btn-secondary'} btn-sm" style="white-space:nowrap;" onclick="adminToggleUserStatus('${escapeAttr(u.id)}')">
+              ${u.status === 'locked' ? '🔓 Mở khóa' : '🔒 Khóa'}
+            </button>
+          ` : '<span style="font-size:0.74rem; color:var(--text-muted); white-space:nowrap;">Mặc định</span>'}
+        </div>
+      `;
+    }).join('');
+  }
+
+  // 3. Quản lý Toàn bộ Quán ăn trên Website
+  const restsBox = document.getElementById('admin-restaurants-list');
+  const restsCountEl = document.getElementById('admin-rests-count');
+  if (restsCountEl && restaurants) restsCountEl.textContent = restaurants.length;
+  if (restsBox && restaurants) {
+    restsBox.innerHTML = restaurants.map(r => `
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; padding:0.55rem 0; border-bottom:1px solid var(--border); font-size:0.83rem;">
+        <div style="min-width:0;">
+          <div style="display:flex; align-items:center; gap:0.35rem; flex-wrap:wrap;">
+            <strong>${escapeHtml(r.name)}</strong>
+            <span class="badge ${r.status === 'approved' ? 'badge-verified' : 'badge-warning'}">
+              ${r.status === 'approved' ? 'Đang hiển thị' : 'Đang tạm ẩn'}
+            </span>
+          </div>
+          <div style="font-size:0.75rem; color:var(--text-muted);">
+            📍 P. ${escapeHtml(r.area)} • ${r.dishCount || 0} món • ${escapeHtml(r.openingHours)}
+          </div>
+        </div>
+        <button class="btn ${r.status === 'approved' ? 'btn-secondary' : 'btn-primary'} btn-sm" style="white-space:nowrap;" onclick="adminToggleRestaurantStatus('${escapeAttr(r.id)}')">
+          ${r.status === 'approved' ? '🙈 Tạm ẩn' : '👁️ Hiển thị'}
+        </button>
+      </div>
+    `).join('');
+  }
+
+  // 4. Quản lý Đánh giá / Phản hồi của Khách hàng
+  const fbManageBox = document.getElementById('admin-feedbacks-manage-list');
+  if (fbManageBox && feedbacks) {
+    fbManageBox.innerHTML = feedbacks.map(fb => `
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; padding:0.5rem 0; border-bottom:1px dashed var(--border); font-size:0.82rem;">
+        <div style="min-width:0;">
+          <strong>${escapeHtml(fb.userName)}</strong> → <em>${escapeHtml(fb.restaurantName)}</em>
+          <div style="color:var(--text-muted); font-size:0.78rem;">${escapeHtml(fb.comment)}</div>
+        </div>
+        <div style="display:flex; gap:0.3rem; flex-shrink:0;">
+          ${fb.status !== 'verified' ? `
+            <button class="btn btn-success btn-sm" style="padding:0.25rem 0.5rem; font-size:0.74rem;" onclick="adminManageFeedback('${escapeAttr(fb.id)}', 'verify')" title="Xác minh phản hồi">✓</button>
+          ` : '<span class="badge badge-verified">Đã duyệt</span>'}
+          <button class="btn btn-danger btn-sm" style="padding:0.25rem 0.5rem; font-size:0.74rem;" onclick="adminManageFeedback('${escapeAttr(fb.id)}', 'delete')" title="Xóa phản hồi">🗑️</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
   const logBox = document.getElementById('admin-audit-logs');
   if (logBox && auditLogs) {
     logBox.innerHTML = auditLogs.map(l => `
-      <div style="border-bottom:1px solid var(--border); padding:0.55rem 0; font-size:0.83rem;">
-        <div style="display:flex; justify-content:space-between; color:var(--text-muted); font-size:0.75rem;">
+      <div style="border-bottom:1px solid var(--border); padding:0.5rem 0; font-size:0.8rem;">
+        <div style="display:flex; justify-content:space-between; color:var(--text-muted); font-size:0.73rem;">
           <strong>[${escapeHtml(l.action)}] • ${escapeHtml(l.actor)}</strong>
           <span>${new Date(l.timestamp).toLocaleString('vi-VN')}</span>
         </div>
         <div>${escapeHtml(l.detail)}</div>
       </div>
     `).join('');
+  }
+}
+
+async function adminToggleUserStatus(userId) {
+  const res = await fetch(`/api/v1/admin/users/${encodeURIComponent(userId)}/toggle-status`, {
+    method: 'POST'
+  }).then(r => r.json());
+  if (res.success) {
+    await refreshAllData();
+  } else {
+    alert(res.error?.message || 'Không thể thay đổi trạng thái tài khoản.');
+  }
+}
+
+async function adminToggleRestaurantStatus(restId) {
+  const res = await fetch(`/api/v1/admin/restaurants/${encodeURIComponent(restId)}/toggle-status`, {
+    method: 'POST'
+  }).then(r => r.json());
+  if (res.success) {
+    await refreshAllData();
+  } else {
+    alert(res.error?.message || 'Không thể thay đổi trạng thái quán ăn.');
+  }
+}
+
+async function adminManageFeedback(fbId, action) {
+  const res = await fetch(`/api/v1/admin/feedbacks/${encodeURIComponent(fbId)}/${action}`, {
+    method: 'POST'
+  }).then(r => r.json());
+  if (res.success) {
+    await refreshAllData();
   }
 }
 
@@ -1764,6 +1975,175 @@ async function confirmNativePwaInstall() {
 
 function closePwaModal() {
   document.getElementById('pwa-install-modal')?.classList.remove('open');
+}
+
+/* ==================== HỆ THỐNG ĐĂNG NHẬP & ĐĂNG KÝ PHÂN QUYỀN (RBAC) ==================== */
+
+let selectedRegisterRole = 'customer';
+
+function openAuthModal(promptMessage = '') {
+  const errEl = document.getElementById('auth-error-msg');
+  if (errEl) {
+    errEl.style.color = 'var(--primary)';
+    errEl.textContent = promptMessage || '';
+  }
+  renderAuthCurrentBanner();
+  document.getElementById('auth-modal')?.classList.add('open');
+}
+
+function closeAuthModal() {
+  document.getElementById('auth-modal')?.classList.remove('open');
+}
+
+function renderAuthCurrentBanner() {
+  const banner = document.getElementById('auth-current-user-banner');
+  if (!banner) return;
+  const u = appState.currentUser;
+  if (!u) {
+    banner.innerHTML = `
+      <div>👋 Bạn đang truy cập ở chế độ <strong>Khách vãng lai</strong>. Hãy đăng nhập hoặc đăng ký tài khoản theo tư cách <strong>Khách hàng</strong> hoặc <strong>Chủ quán</strong>!</div>
+    `;
+    return;
+  }
+  const roleLabel = u.role === 'admin' ? '🛡️ Quản trị viên Toàn quyền (Admin)' : u.role === 'partner' ? '🏪 Chủ quán / Đối tác' : '🙋 Khách hàng';
+  banner.innerHTML = `
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+      <div>
+        <div>Đang đăng nhập: <strong>${escapeHtml(u.name)}</strong> (${escapeHtml(u.email)})</div>
+        <div style="color:var(--primary); font-weight:700; font-size:0.8rem;">Vai trò: ${roleLabel}</div>
+      </div>
+      <button class="btn btn-danger btn-sm" onclick="logoutUser()">🚪 Đăng xuất</button>
+    </div>
+  `;
+}
+
+function switchAuthTab(tab) {
+  const isLogin = tab === 'login';
+  document.getElementById('auth-tab-login')?.classList.toggle('active', isLogin);
+  document.getElementById('auth-tab-register')?.classList.toggle('active', !isLogin);
+  const loginForm = document.getElementById('auth-form-login');
+  const regForm = document.getElementById('auth-form-register');
+  if (loginForm) loginForm.style.display = isLogin ? 'block' : 'none';
+  if (regForm) regForm.style.display = isLogin ? 'none' : 'block';
+  const errEl = document.getElementById('auth-error-msg');
+  if (errEl) errEl.textContent = '';
+}
+
+function selectRegisterRole(role) {
+  selectedRegisterRole = role;
+  const custCard = document.getElementById('reg-role-customer-card');
+  const partCard = document.getElementById('reg-role-partner-card');
+  const extraFields = document.getElementById('reg-partner-extra-fields');
+  if (custCard) {
+    custCard.style.borderColor = role === 'customer' ? 'var(--primary)' : 'var(--border)';
+    custCard.style.background = role === 'customer' ? '#fff7ed' : 'var(--surface)';
+  }
+  if (partCard) {
+    partCard.style.borderColor = role === 'partner' ? '#1d4ed8' : 'var(--border)';
+    partCard.style.background = role === 'partner' ? '#eff6ff' : 'var(--surface)';
+  }
+  if (extraFields) {
+    extraFields.style.display = role === 'partner' ? 'block' : 'none';
+  }
+}
+
+async function submitLogin() {
+  const email = document.getElementById('login-email')?.value?.trim();
+  const password = document.getElementById('login-password')?.value?.trim();
+  const errEl = document.getElementById('auth-error-msg');
+
+  const res = await fetch('/api/v1/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password })
+  }).then(r => r.json());
+
+  if (!res.success) {
+    if (errEl) {
+      errEl.style.color = 'var(--danger)';
+      errEl.textContent = `⚠️ ${res.error?.message || 'Đăng nhập thất bại'}`;
+    }
+    return;
+  }
+
+  handleAuthSuccess(res.data.user, res.data.token);
+}
+
+async function submitRegister() {
+  const name = document.getElementById('reg-name')?.value?.trim();
+  const email = document.getElementById('reg-email')?.value?.trim();
+  const password = document.getElementById('reg-password')?.value?.trim();
+  const restaurantName = document.getElementById('reg-rest-name')?.value?.trim();
+  const restaurantAddress = document.getElementById('reg-rest-address')?.value?.trim();
+  const restaurantArea = document.getElementById('reg-rest-area')?.value;
+  const errEl = document.getElementById('auth-error-msg');
+
+  const res = await fetch('/api/v1/auth/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name,
+      email,
+      password,
+      role: selectedRegisterRole,
+      restaurantName,
+      restaurantAddress,
+      restaurantArea
+    })
+  }).then(r => r.json());
+
+  if (!res.success) {
+    if (errEl) {
+      errEl.style.color = 'var(--danger)';
+      errEl.textContent = `⚠️ ${res.error?.message || 'Đăng ký thất bại'}`;
+    }
+    return;
+  }
+
+  handleAuthSuccess(res.data.user, res.data.token);
+}
+
+async function quickDemoLogin(demoRole) {
+  const res = await fetch('/api/v1/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ demoRole })
+  }).then(r => r.json());
+
+  if (res.success) {
+    handleAuthSuccess(res.data.user, res.data.token);
+  }
+}
+
+async function handleAuthSuccess(user, token) {
+  appState.currentUser = user;
+  try {
+    localStorage.setItem('hop_vi_ai_user', JSON.stringify(user));
+    localStorage.setItem('hop_vi_ai_token', token || '');
+  } catch (_) {}
+
+  applyUserRolePermissions();
+  await refreshAllData();
+  closeAuthModal();
+
+  if (user.role === 'admin') {
+    switchView('admin');
+  } else if (user.role === 'partner') {
+    switchView('partner');
+  } else {
+    switchView('home');
+  }
+}
+
+function logoutUser() {
+  appState.currentUser = null;
+  try {
+    localStorage.removeItem('hop_vi_ai_user');
+    localStorage.removeItem('hop_vi_ai_token');
+  } catch (_) {}
+  applyUserRolePermissions();
+  renderAuthCurrentBanner();
+  switchView('home');
 }
 
 function updateQrImage() {
