@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HỢP VỊ AI – Hiểu đúng vị – Gợi đúng món | Ẩm thực Đồng Nai</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+</head>
+<body>
+  <!-- Thanh điều hướng chính -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand" onclick="switchView('home')">
+        <div class="brand-logo">HV</div>
+        <div>
+          <div class="brand-title">HỢP VỊ AI</div>
+          <div class="brand-slogan">Hiểu đúng vị – Gợi đúng món • Đồng Nai</div>
+        </div>
+      </div>
+
+      <!-- 4 Danh mục chính (Khu vực Người dùng) -->
+      <nav class="nav-tabs" aria-label="Danh mục chính">
+        <button class="nav-btn active" data-view="home" onclick="switchView('home')">🏠 Trang chủ</button>
+        <button class="nav-btn" data-view="recommend" onclick="switchView('recommend')">🤖 AI Gợi ý món ăn</button>
+        <button class="nav-btn" data-view="explore" onclick="switchView('explore')">🍊 Khám phá Đồng Nai</button>
+        <button class="nav-btn" data-view="feedback" onclick="switchView('feedback')">💬 Đánh giá / Góp ý</button>
+      </nav>
+
+      <!-- Chuyển đổi vai trò Đối tác / Admin & Cấu hình AI / QR -->
+      <div class="role-switcher">
+        <button class="role-pill active-partner" data-view="partner" onclick="switchView('partner')" title="Khu vực Đối tác & AI Scan Menu">
+          📸 Đối tác (AI Scan Menu)
+        </button>
+        <button class="role-pill active-admin" data-view="admin" onclick="switchView('admin')" title="Khu vực Quản trị & Xác minh dữ liệu">
+          🛡️ Admin (<span id="pending-badge-count">1</span>)
+        </button>
+        <button id="api-status-btn" class="api-status-badge fallback" onclick="openApiKeyModal()" title="Cấu hình Google Gemini API Key">
+          ⚡ Gemini AI: <span id="api-status-text">Đang kiểm tra</span>
+        </button>
+        <button class="role-pill" onclick="openQrModal()" title="Mã QR cho Ban giám khảo trải nghiệm">
+          📱 QR Demo
+        </button>
+        <a href="/slides.html" class="role-pill" style="text-decoration:none; background:#fff7ed; color:#c2410c; border-color:#fed7aa;" title="Mở bộ Slide thuyết trình dự thi">
+          🎤 Slide Thi
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- ==================== 1. TRANG CHỦ ==================== -->
+    <section id="view-home" class="view-section active">
+      <div class="hero">
+        <span class="hero-badge">✨ Dự án Khoa học Kỹ thuật & Chuyển đổi số Ẩm thực Đồng Nai</span>
+        <h1>HỢP VỊ AI – Hiểu đúng vị – Gợi đúng món</h1>
+        <p>
+          Diễn đạt nhu cầu ăn uống cá nhân hoặc nhóm bằng tiếng Việt tự nhiên. AI phân tích khẩu vị từng người,
+          bộ giải tổ hợp <strong>Maximin Fairness</strong> kiểm tra ngân sách chính xác trên cơ sở dữ liệu thực đơn đã xác minh tại Biên Hòa – Đồng Nai.
+        </p>
+
+        <div class="quick-search-box">
+          <input
+            id="home-quick-input"
+            type="text"
+            placeholder="Ví dụ: Nhóm mình có 3 người, tổng ngân sách 150.000 đồng ở Trấn Biên. 2 người thích món nước, 1 người thích mì trộn..."
+            onkeydown="if(event.key==='Enter') triggerQuickRecommend()"
+          />
+          <button class="btn btn-primary" onclick="triggerQuickRecommend()">🔍 Phân tích & Gợi ý ngay</button>
+        </div>
+
+        <div class="preset-chips">
+          <span style="font-size:0.8rem; color:#fed7aa; align-self:center;">Tình huống thử nhanh:</span>
+          <button class="preset-chip" onclick="usePresetPrompt('Nhóm mình có 3 người ở Trấn Biên, tổng ngân sách 150.000 đồng. Hai người thích món nước, một người thích mì trộn khô. Cả nhóm muốn ăn cùng một quán.')">
+            👥 Nhóm 3 người • 150k • 2 nước 1 khô (Trấn Biên)
+          </button>
+          <button class="preset-chip" onclick="usePresetPrompt('Nhóm 3 sinh viên có 140.000 đồng ở Trấn Biên, 2 bạn thích bún bò món nước, 1 bạn thích ăn cơm hoặc mì xào.')">
+            🎓 3 Sinh viên • 140k • Bún bò / Cơm
+          </button>
+          <button class="preset-chip" onclick="usePresetPrompt('Nhóm 3 người ở Trấn Biên có ngân sách tối đa 90.000 đồng, 2 người thích bún thái hải sản, 1 người thích mì trộn đặc biệt.')">
+            ⚠️ Kịch bản thiếu ngân sách (90k cho 3 phần Đặc biệt)
+          </button>
+          <button class="preset-chip" onclick="usePresetPrompt('Nhóm 3 người muốn thưởng thức đặc sản Gỏi bưởi và Gà hấp trái bưởi ở Tân Triều với ngân sách 450.000 đồng.')">
+            🍊 Đặc sản Tân Triều • 3 người • 450k
+          </button>
+        </div>
+      </div>
+
+      <!-- Thống kê dữ liệu thực tế -->
+      <div class="grid-4">
+        <div class="card stat-card">
+          <span class="stat-value" id="stat-restaurants">18</span>
+          <span class="stat-label">Quán ăn Đồng Nai đã xác minh</span>
+          <span style="font-size:0.78rem; color:var(--text-muted);">Trấn Biên, Tam Hiệp, Tân Triều, Bửu Long...</span>
+        </div>
+        <div class="card stat-card">
+          <span class="stat-value" id="stat-items">130</span>
+          <span class="stat-label">Món ăn & Combo có nguồn giá</span>
+          <span style="font-size:0.78rem; color:var(--text-muted);">Trích xuất từ khảo sát thực tế Hợp vị AI.xlsx</span>
+        </div>
+        <div class="card stat-card">
+          <span class="stat-value">Maximin</span>
+          <span class="stat-label">Thuật toán Xếp hạng Công bằng nhóm</span>
+          <span style="font-size:0.78rem; color:var(--text-muted);">Ưu tiên thành viên ít được đáp ứng nhất</span>
+        </div>
+        <div class="card stat-card">
+          <span class="stat-value">AI Kép</span>
+          <span class="stat-label">NLP Hiểu vị + Vision Quét Menu</span>
+          <span style="font-size:0.78rem; color:var(--text-muted);">Kết nối vòng lặp Số hóa → Duyệt → Gợi ý</span>
+        </div>
+      </div>
+
+      <!-- Quy trình 3 bước & Đặc sản nổi bật -->
+      <div class="section-header">
+        <h2>🍊 Đặc sản & Ẩm thực Đồng Nai nổi bật</h2>
+        <button class="btn btn-secondary btn-sm" onclick="switchView('explore')">Xem toàn bộ danh mục Khám phá →</button>
+      </div>
+      <div id="home-specialties-grid" class="grid-2" style="margin-bottom:2rem;"></div>
+
+      <!-- Bản đồ trực quan & Dẫn đường trực tiếp các khu vực ẩm thực tại Biên Hòa - Đồng Nai -->
+      <div class="dongnai-map-card" id="dongnai-map-anchor">
+        <div class="section-header" style="margin-bottom:0.75rem;">
+          <div>
+            <h2>🗺️ Bản đồ Số & Dẫn đường Trực tiếp đến 18 Quán ăn (Biên Hòa – Đồng Nai)</h2>
+            <p style="font-size:0.88rem; color:var(--text-muted);">
+              Tích hợp bản đồ đường phố thực tế và định tuyến lộ trình thông minh: Chọn điểm xuất phát của bạn và quán muốn đến để xem ngay đường đi, khoảng cách (km) và thời gian di chuyển.
+            </p>
+          </div>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <button class="btn btn-primary btn-sm" onclick="useMyGpsLocation()">📍 Định vị GPS của tôi</button>
+            <button class="btn btn-secondary btn-sm" onclick="centerMapOnActiveTarget()">🎯 Căn giữa điểm đang chọn</button>
+            <button class="btn btn-secondary btn-sm" onclick="toggleExpandMap()">🔲 Mở rộng / Thu gọn Map</button>
+            <button class="btn btn-secondary btn-sm" onclick="selectMapArea('all')">🔄 Hiện cả 18 quán</button>
+          </div>
+        </div>
+
+        <!-- Thanh công cụ chọn Điểm đi -> Điểm đến để vẽ đường dẫn trực tiếp -->
+        <div class="routing-control-bar">
+          <div style="display:flex; align-items:center; gap:0.4rem; flex:1; min-width:230px;">
+            <strong style="font-size:0.84rem; white-space:nowrap;">🚩 Điểm đi:</strong>
+            <select id="route-origin-select" class="form-control" style="padding:0.45rem 0.65rem; font-size:0.86rem;" onchange="onOriginChange()">
+              <option value="10.9508,106.8222">Công viên Biên Hùng (Trung tâm P. Trấn Biên)</option>
+              <option value="10.9635,106.8065">Đại học Lạc Hồng (P. Bửu Long)</option>
+              <option value="10.9562,106.8285">Quảng trường Tỉnh Đồng Nai</option>
+              <option value="10.9495,106.8520">Ngã tư Tam Hiệp (P. Tam Hiệp)</option>
+              <option value="10.9820,106.7880">Cổng Làng Bưởi Tân Triều</option>
+            </select>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:0.4rem; flex:1.2; min-width:250px;">
+            <strong style="font-size:0.84rem; white-space:nowrap;">🎯 Dẫn tới quán:</strong>
+            <select id="route-dest-select" class="form-control" style="padding:0.45rem 0.65rem; font-size:0.86rem;" onchange="drawRouteToSelectedRestaurant()">
+              <option value="">-- Chọn quán ăn để vẽ đường đi trực tiếp --</option>
+            </select>
+          </div>
+
+          <button class="btn btn-primary btn-sm" onclick="drawRouteToSelectedRestaurant()">
+            🧭 Vẽ đường đi
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="openExternalGoogleMapsDir()">
+            🛵 Mở App Google Maps
+          </button>
+        </div>
+
+        <!-- Hộp thông tin lộ trình sau khi tính đường đi -->
+        <div id="route-summary-box" class="route-summary-banner"></div>
+
+        <div class="map-layout">
+          <div class="map-svg-wrap">
+            <!-- Bản đồ tương tác Leaflet + OpenStreetMap -->
+            <div id="leaflet-routing-map"></div>
+            <!-- Cụm nút di chuyển Trái / Phải / Lên / Xuống trực quan -->
+            <div class="map-pan-dpad" title="Bấm để di chuyển bản đồ Lên / Xuống / Trái / Phải">
+              <div></div>
+              <button type="button" class="dpad-btn" onclick="panMapBy(0, -180)" title="Di chuyển Lên">⬆️</button>
+              <div></div>
+              <button type="button" class="dpad-btn" onclick="panMapBy(-220, 0)" title="Di chuyển sang Trái">⬅️</button>
+              <button type="button" class="dpad-btn" onclick="centerMapOnActiveTarget()" title="Căn giữa">🎯</button>
+              <button type="button" class="dpad-btn" onclick="panMapBy(220, 0)" title="Di chuyển sang Phải">➡️</button>
+              <div></div>
+              <button type="button" class="dpad-btn" onclick="panMapBy(0, 180)" title="Di chuyển Xuống">⬇️</button>
+              <div></div>
+            </div>
+          </div>
+
+          <div id="map-zone-list">
+            <button class="map-zone-btn" onclick="selectMapArea('Trấn Biên')">
+              <div>
+                <strong style="color:var(--primary);">📍 Phường Trấn Biên (Khu vực trọng điểm MVP)</strong>
+                <div style="font-size:0.78rem; color:var(--text-muted);">Bún Thái Thành Minh, Bún Bò ViNaTex, Lẩu Tôm 5 Ri, Cơm Gà S88, A Sóc...</div>
+              </div>
+              <span class="badge badge-area">7 quán</span>
+            </button>
+            <button class="map-zone-btn" onclick="selectMapArea('Tam Hiệp')">
+              <div>
+                <strong style="color:#0f766e;">📍 Phường Tam Hiệp</strong>
+                <div style="font-size:0.78rem; color:var(--text-muted);">Tiệm Ăn Nhà Túc, Bún Đậu Ngọc Thanh Tâm, Lẩu Chay Thiện Duyên 2, Gỏi Cá Kim Yến...</div>
+              </div>
+              <span class="badge badge-verified">5 quán</span>
+            </button>
+            <button class="map-zone-btn" onclick="selectMapArea('Tân Triều')">
+              <div>
+                <strong style="color:var(--accent);">📍 Phường Tân Triều (Cù lao Làng Bưởi)</strong>
+                <div style="font-size:0.78rem; color:var(--text-muted);">Làng Bưởi Năm Huệ, Vườn Bưởi Tư Trung, Cháo Hến Cô Tươi</div>
+              </div>
+              <span class="badge badge-verified">3 quán</span>
+            </button>
+            <button class="map-zone-btn" onclick="selectMapArea('Bửu Long')">
+              <div>
+                <strong style="color:#b45309;">📍 Phường Bửu Long & Thanh Bình & Thống Nhất</strong>
+                <div style="font-size:0.78rem; color:var(--text-muted);">Chả Lụi Cô Yến (Bửu Long), Tiệm Mì Vĩnh Vĩnh (Thanh Bình), Tiệm Gà Sugar (Thống Nhất)</div>
+              </div>
+              <span class="badge badge-warning">3 quán</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-header" id="restaurants-section-anchor">
+        <h2>📋 Danh sách Quán ăn đã xác minh tại Biên Hòa – Đồng Nai</h2>
+        <div>
+          <select id="home-area-filter" class="form-control" style="width:auto; display:inline-block;" onchange="renderHomeRestaurants()">
+            <option value="all">Tất cả khu vực (18 quán)</option>
+            <option value="Trấn Biên">Phường Trấn Biên</option>
+            <option value="Tam Hiệp">Phường Tam Hiệp</option>
+            <option value="Tân Triều">Phường Tân Triều</option>
+            <option value="Bửu Long">Phường Bửu Long</option>
+            <option value="Thanh Bình">Phường Thanh Bình</option>
+            <option value="Thống Nhất">Phường Thống Nhất</option>
+          </select>
+        </div>
+      </div>
+      <div id="home-restaurants-grid" class="grid-3"></div>
+    </section>
+
+    <!-- ==================== 2. GỢI Ý MÓN ĂN BẰNG AI ==================== -->
+    <section id="view-recommend" class="view-section">
+      <div class="card" style="margin-bottom:1.4rem;">
+        <div class="section-header">
+          <div>
+            <h2>🤖 Gợi ý món ăn bằng AI & Bộ giải tổ hợp Maximin</h2>
+            <p style="color:var(--text-muted); font-size:0.9rem;">
+              Nguyên tắc: <strong>AI phân tích nhu cầu ngôn ngữ tự nhiên</strong> → <strong>Người dùng xác nhận điều kiện</strong> → <strong>Chương trình kiểm tra ngân sách & xếp hạng tổ hợp</strong>.
+            </p>
+          </div>
+          <span class="badge badge-verified">Không tự bịa quán / món / giá ngoài dữ liệu</span>
+        </div>
+
+        <div class="form-group">
+          <label for="ai-prompt-input">Nhập tình huống ăn uống của bạn hoặc cả nhóm:</label>
+          <textarea
+            id="ai-prompt-input"
+            class="form-control"
+            rows="3"
+            placeholder="Ví dụ: Nhóm mình có 3 người ở Trấn Biên, tổng ngân sách 150.000 đồng. Hai người thích món nước chua cay, một người thích mì trộn khô. Cả nhóm muốn ăn cùng một quán."
+          ></textarea>
+        </div>
+
+        <div style="display:flex; gap:0.65rem; flex-wrap:wrap; align-items:center;">
+          <button id="btn-analyze-prompt" class="btn btn-primary" onclick="runStep1Analyze()">
+            1️⃣ Bước 1: AI Phân tích nhu cầu
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="fillAndAnalyze('Nhóm mình có 3 người ở Trấn Biên, tổng ngân sách 150.000 đồng. Hai người thích món nước, một người thích mì trộn. Cả nhóm muốn ăn cùng quán.')">
+            Mẫu 1: Nhóm 3 người hợp lệ (150k)
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="fillAndAnalyze('Nhóm 3 người ở Trấn Biên có 90.000 đồng, 2 người thích bún thái hải sản, 1 người thích mì trộn hải sản.')">
+            Mẫu 2: Vượt ngân sách → Gợi ý điều chỉnh (90k)
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="fillAndAnalyze('Nhóm 2 người muốn ăn ở khu vực Long Khánh với ngân sách 100.000 đồng.')">
+            Mẫu 3: Khu vực chưa có dữ liệu (Long Khánh)
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="fillAndAnalyze('Đi một mình ở Trấn Biên có tầm 45.000 đồng muốn ăn cơm gà.')">
+            Mẫu 4: Cá nhân 1 người + Ngân sách mơ hồ ("tầm 45k")
+          </button>
+        </div>
+      </div>
+
+      <!-- BƯỚC XÁC NHẬN NHU CẦU (Mục 4.3.1) -->
+      <div id="confirmation-panel" class="card" style="display:none; margin-bottom:1.4rem; border:2px solid #fb923c;">
+        <div class="section-header">
+          <div>
+            <h3>✅ Bước 2: Xác nhận & Tinh chỉnh điều kiện trước khi tìm tổ hợp món</h3>
+            <p id="ai-provider-meta" style="font-size:0.82rem; color:var(--text-muted);"></p>
+          </div>
+          <span class="badge badge-area">Human-in-the-loop Verification</span>
+        </div>
+
+        <!-- Cảnh báo làm rõ yêu cầu mơ hồ -->
+        <div id="clarification-alerts" style="margin-bottom:1rem;"></div>
+
+        <div class="grid-3" style="margin-bottom:1rem;">
+          <div class="form-group">
+            <label>Số lượng người (Bắt buộc):</label>
+            <input type="number" id="conf-party-size" class="form-control" min="1" max="6" value="3" onchange="rebuildMemberEditors()" />
+          </div>
+          <div class="form-group">
+            <label>Tổng ngân sách tối đa (VNĐ - Bắt buộc):</label>
+            <input type="number" id="conf-max-budget" class="form-control" step="5000" value="150000" />
+          </div>
+          <div class="form-group">
+            <label>Khu vực tìm kiếm tại Đồng Nai:</label>
+            <select id="conf-area" class="form-control">
+              <option value="Tất cả khu vực đã xác minh">Tất cả khu vực đã xác minh (Biên Hòa)</option>
+              <option value="Trấn Biên">Phường Trấn Biên</option>
+              <option value="Tam Hiệp">Phường Tam Hiệp</option>
+              <option value="Tân Triều">Phường Tân Triều</option>
+              <option value="Bửu Long">Phường Bửu Long</option>
+              <option value="Thanh Bình">Phường Thanh Bình</option>
+              <option value="Thống Nhất">Phường Thống Nhất</option>
+              <option value="Long Khánh">Long Khánh (Chưa có dữ liệu xác minh)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-bottom:1rem;">
+          <label style="font-weight:700; font-size:0.9rem; display:block; margin-bottom:0.5rem;">
+            Sở thích ưu tiên của từng thành viên (Dùng để tính điểm Maximin Fairness):
+          </label>
+          <div id="conf-members-list" class="grid-3"></div>
+        </div>
+
+        <div style="display:flex; gap:0.75rem; align-items:center; flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="runStep2Solve()">
+            2️⃣ Xác nhận điều kiện & Chạy Bộ giải tổ hợp món
+          </button>
+          <span style="font-size:0.84rem; color:var(--text-muted);">
+            * Chương trình sẽ kiểm tra tổng tiền chính xác và ưu tiên phương án không để thành viên nào bị thiệt thòi.
+          </span>
+        </div>
+      </div>
+
+      <!-- KẾT QUẢ PHƯƠNG ÁN ĐỀ XUẤT (Mục 4.3.4 & 4.3.5) -->
+      <div id="solver-results-container"></div>
+    </section>
+
+    <!-- ==================== 3. KHÁM PHÁ ẨM THỰC ĐỒNG NAI ==================== -->
+    <section id="view-explore" class="view-section">
+      <div class="card" style="margin-bottom:1.4rem;">
+        <div class="section-header">
+          <div>
+            <h2>🍊 Khám phá Ẩm thực Đồng Nai</h2>
+            <p style="color:var(--text-muted); font-size:0.92rem;">
+              Liên kết thông tin văn hóa ẩm thực địa phương (phân biệt rõ <strong>Đặc sản gắn với địa danh Đồng Nai</strong> và <strong>Món ăn phổ biến tại địa phương</strong>) với các quán có thực đơn đã kiểm duyệt.
+            </p>
+          </div>
+          <span class="badge badge-verified">Có nguồn tư liệu & khảo sát thực tế</span>
+        </div>
+      </div>
+
+      <div id="explore-specialties-list" class="grid-2"></div>
+    </section>
+
+    <!-- ==================== 4. ĐÁNH GIÁ / GÓP Ý ==================== -->
+    <section id="view-feedback" class="view-section">
+      <div class="grid-2">
+        <div class="card">
+          <h2>💬 Gửi Đánh giá trải nghiệm hoặc Báo sai lệch dữ liệu</h2>
+          <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1.1rem;">
+            Mọi phản hồi về giá bán thay đổi, quán ngừng phục vụ hoặc chất lượng gợi ý sẽ được chuyển đến Admin xác minh trước khi cập nhật dữ liệu chính thức.
+          </p>
+
+          <div class="form-group">
+            <label>Tên của bạn / Nhóm người dùng:</label>
+            <input type="text" id="fb-user-name" class="form-control" placeholder="VD: Nguyễn Minh Anh (Sinh viên)" />
+          </div>
+
+          <div class="form-group">
+            <label>Loại phản hồi:</label>
+            <select id="fb-type" class="form-control">
+              <option value="experience">🌟 Đánh giá chất lượng gợi ý & trải nghiệm website</option>
+              <option value="price_discrepancy">⚠️ Báo cáo thay đổi giá bán / trạng thái phục vụ của quán</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Quán ăn liên quan:</label>
+            <select id="fb-restaurant" class="form-control"></select>
+          </div>
+
+          <div class="form-group">
+            <label>Mức độ hài lòng (1 – 5 sao):</label>
+            <select id="fb-rating" class="form-control">
+              <option value="5">⭐⭐⭐⭐⭐ (5/5 - Rất hữu ích, đúng nhu cầu)</option>
+              <option value="4">⭐⭐⭐⭐ (4/5 - Tốt)</option>
+              <option value="3">⭐⭐⭐ (3/5 - Khá)</option>
+              <option value="2">⭐⭐ (2/5 - Cần cải thiện)</option>
+              <option value="1">⭐ (1/5 - Thông tin chưa chính xác)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Nội dung chi tiết:</label>
+            <textarea id="fb-comment" class="form-control" rows="4" placeholder="Nhập nhận xét hoặc thông tin giá mới tại quán..."></textarea>
+          </div>
+
+          <button class="btn btn-primary" onclick="submitUserFeedback()">📤 Gửi phản hồi đến Admin</button>
+          <div id="fb-status-msg" style="margin-top:0.8rem; font-weight:600;"></div>
+        </div>
+
+        <div class="card">
+          <h3>📌 Nhật ký phản hồi cộng đồng gần đây</h3>
+          <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">
+            Minh bạch trạng thái tiếp nhận và xác minh thông tin.
+          </p>
+          <div id="feedback-list-box"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 5. KHU VỰC ĐỐI TÁC (AI SCAN MENU) ==================== -->
+    <section id="view-partner" class="view-section">
+      <div class="card" style="margin-bottom:1.4rem;">
+        <div class="section-header">
+          <div>
+            <h2>📸 Khu vực Đối tác – Đăng ký Quán & AI Scan Menu</h2>
+            <p style="color:var(--text-muted); font-size:0.9rem;">
+              Tải ảnh thực đơn giấy hoặc bảng giá để <strong>Gemini 2.5 Flash Vision</strong> tự động trích xuất tên món – giá bán thành bảng dữ liệu có cấu trúc. Đối tác kiểm tra, chỉnh sửa bản nháp trước khi gửi Admin phê duyệt.
+            </p>
+          </div>
+          <span class="badge badge-warning">Dữ liệu mới phải qua Admin duyệt mới công bố</span>
+        </div>
+
+        <div class="grid-3">
+          <div class="form-group">
+            <label>Tên quán đăng ký / cập nhật:</label>
+            <input type="text" id="partner-name" class="form-control" value="Bún Thái & Mì Trộn Thành Minh (Cập nhật Menu)" />
+          </div>
+          <div class="form-group">
+            <label>Địa chỉ cụ thể:</label>
+            <input type="text" id="partner-address" class="form-control" value="129 Hưng Đạo Vương, Phường Trấn Biên, Đồng Nai" />
+          </div>
+          <div class="form-group">
+            <label>Khu vực (Phường) & Giờ mở cửa:</label>
+            <div style="display:flex; gap:0.5rem;">
+              <select id="partner-area" class="form-control">
+                <option value="Trấn Biên">Trấn Biên</option>
+                <option value="Tam Hiệp">Tam Hiệp</option>
+                <option value="Tân Triều">Tân Triều</option>
+                <option value="Bửu Long">Bửu Long</option>
+                <option value="Thanh Bình">Thanh Bình</option>
+                <option value="Thống Nhất">Thống Nhất</option>
+              </select>
+              <input type="text" id="partner-hours" class="form-control" value="08:00 - 21:30" placeholder="Giờ mở cửa" />
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:0.65rem; flex-wrap:wrap; align-items:center; margin-top:0.4rem;">
+          <label class="btn btn-primary" style="cursor:pointer;">
+            📷 Tải ảnh thực đơn thật từ máy (JPEG/PNG)
+            <input type="file" id="menu-file-input" accept="image/jpeg,image/png,image/webp" style="display:none;" onchange="handleMenuImageUpload(event)" />
+          </label>
+          <button class="btn btn-secondary btn-sm" onclick="runSampleMenuScan('sample_bun_thai')">
+            🧪 Test Ảnh Mẫu #1: Menu Bún Thái & Mì Trộn
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="runSampleMenuScan('sample_com_ga')">
+            🧪 Test Ảnh Mẫu #2: Menu Cơm Gà & Bún Bò
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="runSampleMenuScan('sample_tan_trieu')">
+            🧪 Test Ảnh Mẫu #3: Menu Đặc Sản Tân Triều (Có giá theo kg cần cảnh báo)
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="addManualDraftRow()">
+            ➕ Thêm dòng món thủ công
+          </button>
+        </div>
+      </div>
+
+      <!-- Giao diện đối chiếu song song: Ảnh nguồn vs Bảng trích xuất AI Scan Menu -->
+      <div class="grid-2">
+        <div class="card">
+          <h3>🖼️ Ảnh Thực Đơn Nguồn (Đối chiếu trực quan)</h3>
+          <p id="scan-ai-meta" style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.75rem;">
+            Chọn ảnh thực đơn từ máy hoặc bấm nút Test Ảnh Mẫu để xem kết quả bóc tách.
+          </p>
+          <div id="menu-source-preview" class="menu-preview-svg"></div>
+        </div>
+
+        <div class="card">
+          <div class="section-header">
+            <h3>📑 Bảng dữ liệu trích xuất (Bản nháp có thể chỉnh sửa)</h3>
+            <span class="badge badge-warning">Ô màu vàng = Cần kiểm tra lại</span>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Tên món nhận diện</th>
+                  <th>Giá (VNĐ)</th>
+                  <th>Loại món</th>
+                  <th>Độ tin cậy / Ghi chú AI</th>
+                  <th>Xóa</th>
+                </tr>
+              </thead>
+              <tbody id="scan-draft-tbody"></tbody>
+            </table>
+          </div>
+
+          <div style="margin-top:1.1rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+            <span style="font-size:0.83rem; color:var(--text-muted);">
+              Sau khi kiểm tra đúng tên món và giá, bấm gửi để chuyển sang khu vực Admin phê duyệt.
+            </span>
+            <button class="btn btn-success" onclick="submitPartnerMenuDraft()">
+              ✅ Xác nhận bản nháp & Gửi Admin phê duyệt
+            </button>
+          </div>
+          <div id="partner-submit-msg" style="margin-top:0.75rem; font-weight:700;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 6. KHU VỰC QUẢN TRỊ (ADMIN DASHBOARD) ==================== -->
+    <section id="view-admin" class="view-section">
+      <div class="card" style="margin-bottom:1.4rem;">
+        <div class="section-header">
+          <div>
+            <h2>🛡️ Khu vực Quản trị & Xác minh dữ liệu (Admin)</h2>
+            <p style="color:var(--text-muted); font-size:0.9rem;">
+              Kiểm duyệt hồ sơ quán & kết quả <strong>AI Scan Menu</strong> trước khi công bố, giám sát chi phí/token gọi API AI (theo chuẩn <code>cost-aware-llm-pipeline</code>) và theo dõi nhật ký kiểm toán dữ liệu.
+            </p>
+          </div>
+          <span class="badge badge-verified">Kiểm soát chất lượng dữ liệu đầu vào</span>
+        </div>
+
+        <!-- Thống kê Cost & Token của LLM API -->
+        <div id="admin-llm-cost-panel" class="grid-4" style="margin-top:0.5rem;"></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>📥 Hồ sơ Đối tác & Thực đơn chờ phê duyệt</h3>
+          <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:0.9rem;">
+            Chỉ khi Admin bấm <strong>Phê duyệt</strong>, quán và món ăn mới được phép tham gia vào thuật toán gợi ý của người dùng.
+          </p>
+          <div id="admin-submissions-list"></div>
+        </div>
+
+        <div class="card">
+          <h3>📜 Nhật ký Kiểm toán & Lịch sử thay đổi dữ liệu (Audit Logs)</h3>
+          <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:0.9rem;">
+            Lưu vết toàn bộ quá trình số hóa, duyệt thực đơn và phản hồi người dùng.
+          </p>
+          <div id="admin-audit-logs"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal Cấu hình nhanh Google Gemini API Key -->
+  <div id="api-key-modal" class="modal-backdrop">
+    <div class="modal-box">
+      <h3 style="margin-bottom:0.5rem;">🔑 Cấu hình Google Gemini API Key (`gemini-2.5-flash`)</h3>
+      <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1rem;">
+        Nhập khóa API từ <strong>Google AI Studio</strong> để kích hoạt trực tiếp mô hình <code>gemini-2.5-flash</code> cho phân tích ngôn ngữ tự nhiên và quét ảnh thực đơn bất kỳ. Nếu để trống, hệ thống tự động dùng bộ phân tích ngữ nghĩa tiếng Việt dự phòng (Semantic Fallback) an toàn 100%.
+      </p>
+      <div class="form-group">
+        <label>Google Gemini API Key:</label>
+        <input type="password" id="modal-api-key-input" class="form-control" placeholder="AIzaSy..." />
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:0.6rem;">
+        <button class="btn btn-secondary" onclick="closeApiKeyModal()">Đóng</button>
+        <button class="btn btn-primary" onclick="saveApiKeyFromModal()">Lưu & Kích hoạt ngay</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal QR Code cho Ban Giám Khảo -->
+  <div id="qr-modal" class="modal-backdrop">
+    <div class="modal-box" style="text-align:center;">
+      <h3 style="margin-bottom:0.4rem;">📱 Quét mã QR trải nghiệm HỢP VỊ AI</h3>
+      <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1rem;">
+        Dành cho Ban giám khảo truy cập nhanh vào hệ thống trên điện thoại hoặc máy tính bảng.
+      </p>
+      <div id="qr-image-container" style="margin:1rem auto; display:flex; justify-content:center;"></div>
+      <div class="form-group" style="text-align:left;">
+        <label>Đường dẫn truy cập hiện tại (có thể đổi sang link Render/Cloud hoặc IP LAN):</label>
+        <input type="text" id="qr-url-input" class="form-control" oninput="updateQrImage()" />
+      </div>
+      <button class="btn btn-primary" onclick="closeQrModal()">Hoàn tất</button>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
+

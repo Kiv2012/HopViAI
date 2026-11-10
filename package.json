@@ -1,0 +1,15 @@
+{
+  "name": "hop-vi-ai",
+  "version": "1.0.0",
+  "description": "HỢP VỊ AI – Hiểu đúng vị – Gợi đúng món: Hệ thống AI phân tích nhu cầu ăn uống, giải bài toán tổ hợp món ăn nhóm (Maximin Fairness), khám phá ẩm thực Đồng Nai và số hóa thực đơn bằng AI Scan Menu.",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "seed": "node scripts/seed_from_excel.js",
+    "test": "node tests/run_30_scenarios.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+

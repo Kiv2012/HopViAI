@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slide Thuyết Trình Dự Thi – HỢP VỊ AI | Hiểu đúng vị – Gợi đúng món</title>
+  <style>
+    :root {
+      --bg-dark: #180d07;
+      --bg-card: rgba(255, 247, 237, 0.07);
+      --border-card: rgba(251, 146, 60, 0.28);
+      --accent-orange: #f97316;
+      --accent-amber: #fbbf24;
+      --accent-green: #22c55e;
+      --text-main: #fff7ed;
+      --text-dim: #fed7aa;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    .deck {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      padding: clamp(2rem, 4.5vw, 4.2rem) clamp(2rem, 6vw, 6rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(18px) scale(0.99);
+      transition: opacity 0.38s ease, transform 0.38s ease;
+      background: radial-gradient(circle at 85% 15%, rgba(234, 88, 12, 0.24), transparent 45%),
+                  radial-gradient(circle at 12% 85%, rgba(21, 128, 61, 0.2), transparent 45%),
+                  linear-gradient(145deg, #180d07 0%, #27130a 60%, #1c1917 100%);
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .slide-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      align-self: flex-start;
+      padding: 0.35rem 0.95rem;
+      border-radius: 999px;
+      background: rgba(249, 115, 22, 0.18);
+      border: 1px solid var(--border-card);
+      color: var(--accent-amber);
+      font-size: clamp(0.78rem, 1.1vw, 0.95rem);
+      font-weight: 700;
+      margin-bottom: clamp(0.8rem, 1.8vh, 1.4rem);
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 4.6vw, 4rem);
+      line-height: 1.12;
+      font-weight: 800;
+      margin-bottom: clamp(0.8rem, 2vh, 1.4rem);
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      font-size: clamp(1.65rem, 3.1vw, 2.65rem);
+      line-height: 1.18;
+      font-weight: 800;
+      margin-bottom: clamp(0.8rem, 2vh, 1.4rem);
+    }
+
+    p.lead {
+      font-size: clamp(1rem, 1.55vw, 1.32rem);
+      color: var(--text-dim);
+      max-width: 920px;
+      line-height: 1.55;
+      margin-bottom: clamp(1.2rem, 2.6vh, 2rem);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(0.9rem, 1.8vw, 1.5rem);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(1rem, 2vw, 1.75rem);
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(0.8rem, 1.5vw, 1.25rem);
+    }
+
+    .box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 16px;
+      padding: clamp(1rem, 2vw, 1.5rem);
+      backdrop-filter: blur(8px);
+    }
+
+    .box h3 {
+      font-size: clamp(1.02rem, 1.45vw, 1.28rem);
+      color: var(--accent-amber);
+      margin-bottom: 0.45rem;
+    }
+
+    .box p, .box li {
+      font-size: clamp(0.86rem, 1.12vw, 1rem);
+      color: #ffedd5;
+      line-height: 1.5;
+    }
+
+    .box ul {
+      padding-left: 1.15rem;
+    }
+
+    .big-stat {
+      font-size: clamp(2rem, 3.6vw, 3.1rem);
+      font-weight: 900;
+      color: var(--accent-amber);
+      line-height: 1.05;
+      margin-bottom: 0.25rem;
+    }
+
+    .formula-bar {
+      background: rgba(21, 128, 61, 0.18);
+      border: 1px solid rgba(34, 197, 94, 0.45);
+      border-radius: 14px;
+      padding: clamp(0.85rem, 1.6vw, 1.25rem);
+      margin-top: clamp(0.9rem, 2vh, 1.4rem);
+      font-size: clamp(0.92rem, 1.25vw, 1.12rem);
+    }
+
+    /* Controls */
+    .deck-footer {
+      position: fixed;
+      bottom: 1.1rem;
+      left: 2rem;
+      right: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 50;
+      pointer-events: none;
+    }
+
+    .deck-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      pointer-events: auto;
+      background: rgba(24, 13, 7, 0.82);
+      border: 1px solid var(--border-card);
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
+    }
+
+    .ctrl-btn {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: none;
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-decoration: none;
+    }
+
+    .ctrl-btn:hover {
+      background: var(--accent-orange);
+    }
+
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-orange), var(--accent-green));
+      transition: width 0.3s ease;
+      z-index: 60;
+    }
+
+    @media (max-width: 900px) {
+      .grid-3, .grid-4, .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="progress-bar" class="progress-bar" style="width: 12.5%;"></div>
+
+  <main class="deck">
+    <!-- SLIDE 1: TRANG BÌA -->
+    <section class="slide active">
+      <span class="slide-tag">🏆 DỰ ÁN KHOA HỌC KỸ THUẬT & CHUYỂN ĐỔI SỐ ẨM THỰC ĐỊA PHƯƠNG</span>
+      <h1>HỢP VỊ AI<br/><span style="color:var(--accent-amber);">Hiểu đúng vị – Gợi đúng món</span></h1>
+      <p class="lead">
+        Website tích hợp Trí tuệ nhân tạo hỗ trợ quyết định ăn uống cho cá nhân & nhóm bằng ngôn ngữ tự nhiên,
+        kết hợp thuật toán tổ hợp công bằng nhóm (<strong>Maximin Fairness</strong>), khám phá ẩm thực Đồng Nai và số hóa thực đơn bằng <strong>AI Scan Menu</strong>.
+      </p>
+      <div class="grid-4">
+        <div class="box">
+          <div class="big-stat">18 Quán</div>
+          <p>Dữ liệu khảo sát thực tế tại Biên Hòa – Đồng Nai (Trấn Biên, Tam Hiệp, Tân Triều...)</p>
+        </div>
+        <div class="box">
+          <div class="big-stat">130 Món</div>
+          <p>Thực đơn & Combo có nguồn giá và thời điểm xác minh rõ ràng</p>
+        </div>
+        <div class="box">
+          <div class="big-stat">AI Kép</div>
+          <p>Gemini 2.5 Flash NLP (Hiểu nhu cầu) + Multimodal Vision (Quét ảnh Menu)</p>
+        </div>
+        <div class="box">
+          <div class="big-stat">30/30</div>
+          <p>Tình huống kiểm thử đạt 100% (Độ chính xác ngân sách tuyệt đối)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: BỐI CẢNH & VẤN ĐỀ THỰC TẾ -->
+    <section class="slide">
+      <span class="slide-tag">01 • BỐI CẢNH & VẤN ĐỀ THỰC TIỄN</span>
+      <h2>Tại sao chọn món ăn hàng ngày và đi ăn nhóm lại mất nhiều thời gian?</h2>
+      <div class="grid-3">
+        <div class="box">
+          <h3>1. Bài toán đa ràng buộc khi đi nhóm</h3>
+          <p>
+            Ví dụ: Nhóm 3 sinh viên có <strong>150.000đ</strong>, 2 người thích món nước chua cay, 1 người thích ăn mì trộn khô và muốn <strong>ăn tại cùng một quán</strong> ở phường Trấn Biên.
+            Các nền tảng hiện tại chỉ tìm quán theo từ khóa đơn lẻ, người dùng phải tự mở từng menu và cộng nhẩm.
+          </p>
+        </div>
+        <div class="box">
+          <h3>2. Nguy cơ AI "ảo giác" (Hallucination)</h3>
+          <p>
+            Nếu hỏi trực tiếp các chatbot AI thông thường, AI thường tự bịa ra tên quán không tồn tại, nhớ sai giá bán hoặc cộng nhầm tổng tiền vượt quá ngân sách của sinh viên.
+          </p>
+        </div>
+        <div class="box">
+          <h3>3. Rào cản số hóa thực đơn quán nhỏ</h3>
+          <p>
+            Các quán ăn địa phương tại Đồng Nai chủ yếu dùng bảng giá giấy. Việc gõ tay hàng chục món ăn lên website tốn nhiều thời gian, dẫn đến thiếu nguồn dữ liệu thực đơn đáng tin cậy.
+          </p>
+        </div>
+      </div>
+      <div class="formula-bar">
+        🎯 <strong>Mục tiêu của HỢP VỊ AI:</strong> Kết hợp khả năng hiểu ngôn ngữ & hình ảnh của AI với <strong>Chương trình kiểm tra điều kiện có thể kiểm chứng</strong> trên cơ sở dữ liệu đã xác minh.
+      </div>
+    </section>
+
+    <!-- SLIDE 3: KIẾN TRÚC AI KÉP & NGUYÊN TẮC TÁCH BẠCH -->
+    <section class="slide">
+      <span class="slide-tag">02 • KIẾN TRÚC KỸ THUẬT CỐT LÕI</span>
+      <h2>Nguyên tắc thiết kế: "AI xử lý phi cấu trúc – Chương trình xử lý kiểm chứng"</h2>
+      <div class="grid-2">
+        <div class="box">
+          <h3>🤖 Vai trò của Mô hình AI (Gemini 2.5 Flash)</h3>
+          <ul>
+            <li><strong>NLP Phân tích nhu cầu:</strong> Chuyển câu tiếng Việt tự nhiên thành JSON chuẩn (Số người, ngân sách, khu vực, sở thích từng thành viên, phát hiện câu mơ hồ như <em>"tầm 70k"</em>).</li>
+            <li><strong>Vision AI Scan Menu:</strong> Đọc ảnh thực đơn nhiều cột/nhiều cỡ giá, ghép đúng cặp <em>Tên món – Giá</em> và gắn cờ <code>needsReview</code> cho các trường nghi ngờ.</li>
+            <li><strong>Tuyệt đối KHÔNG:</strong> Không tự bịa quán/món và không tự cộng tiền ngân sách.</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>⚙️ Vai trò của Chương trình Nghiệp vụ & Cơ sở dữ liệu</h3>
+          <ul>
+            <li><strong>Bước Xác nhận nhu cầu (Human-in-the-loop):</strong> Cho phép người dùng xác nhận điều kiện bắt buộc vs sở thích ưu tiên trước khi giải.</li>
+            <li><strong>Bộ giải tổ hợp (Constraint Solver):</strong> Chỉ truy vấn trên thực đơn có <code>status === "approved"</code>, cộng tiền chính xác 100%.</li>
+            <li><strong>Giám sát chi phí API (Cost-Aware Pipeline):</strong> Theo dõi số token và chi phí USD theo thời gian thực kèm cơ chế Semantic Fallback an toàn.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: ĐIỂM MỚI HỌC THUẬT - THUẬT TOÁN MAXIMIN & VÔ NGHIỆM -->
+    <section class="slide">
+      <span class="slide-tag">03 • GIÁ TRỊ KHÁC BIỆT CÓ THỂ KIỂM CHỨNG</span>
+      <h2>Xếp hạng Công bằng nhóm (Maximin Fairness) & Chẩn đoán Vô nghiệm</h2>
+      <div class="grid-2">
+        <div class="box">
+          <h3>⚖️ 1. Nguyên tắc Xếp hạng Nhóm (Maximin)</h3>
+          <p style="margin-bottom:0.6rem;">
+            Thay vì chỉ tối đa hóa tổng điểm của số đông (khiến 1 người trong nhóm phải ăn món mình ghét), HỢP VỊ AI xếp hạng các tổ hợp hợp lệ theo thứ tự ưu tiên:
+          </p>
+          <ul>
+            <li><strong>Ưu tiên 1:</strong> Tối đa hóa điểm phù hợp của <strong>thành viên thấp điểm nhất</strong> trong nhóm (<code>Max of Min Score</code>).</li>
+            <li><strong>Ưu tiên 2:</strong> Tối đa hóa tổng điểm sở thích của cả nhóm (<code>Total Group Score</code>).</li>
+            <li><strong>Ưu tiên 3:</strong> Tối thiểu hóa tổng chi phí (<code>Total Cost</code>).</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>🔍 2. Giải thích & Điều chỉnh khi Không có kết quả</h3>
+          <p style="margin-bottom:0.6rem;">
+            Khi không tìm được tổ hợp hợp lệ, hệ thống phân biệt rõ 2 nguyên nhân và tự động tính phương án điều chỉnh:
+          </p>
+          <ul>
+            <li><strong>Chưa đủ dữ liệu xác minh:</strong> Ví dụ người dùng tìm tại khu vực chưa có quán khảo sát (Long Khánh, Nhơn Trạch).</li>
+            <li><strong>Vượt ngân sách bắt buộc:</strong> Hệ thống chạy bộ giải nới lỏng để chỉ rõ: <em>"Phương án đáp ứng đủ yêu cầu có giá thấp nhất là 120.000đ, cần bù thêm +30.000đ so với ngân sách 90.000đ"</em>.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: VÒNG LẶP SỐ HÓA AI SCAN MENU & ADMIN -->
+    <section class="slide">
+      <span class="slide-tag">04 • QUY TRÌNH SỐ HÓA & ĐỘ TIN CẬY DỮ LIỆU</span>
+      <h2>Chu trình khép kín: AI Scan Menu → Đối tác rà soát → Admin phê duyệt</h2>
+      <div class="grid-3">
+        <div class="box">
+          <h3>Bước 1: AI Scan Menu</h3>
+          <p>
+            Đối tác chụp ảnh thực đơn giấy. Mô hình <strong>Gemini 2.5 Flash Vision</strong> bóc tách tên món, đơn vị tính, giá bán và tự động tô vàng cảnh báo các món có nhiều mức giá (S/M/L) hoặc tính theo trọng lượng (<code>kg</code>).
+          </p>
+        </div>
+        <div class="box">
+          <h3>Bước 2: Đối chiếu song song</h3>
+          <p>
+            Giao diện hiển thị song song <strong>Ảnh thực đơn gốc</strong> và <strong>Bảng dữ liệu nháp</strong> để đối tác chỉnh sửa ngay các ký tự nhận diện chưa chuẩn, sau đó gửi hồ sơ vào hàng đợi <code>pending</code>.
+          </p>
+        </div>
+        <div class="box">
+          <h3>Bước 3: Admin Xác minh</h3>
+          <p>
+            Dữ liệu chờ duyệt bị cô lập hoàn toàn (100% không xuất hiện trong kết quả gợi ý của người dùng). Chỉ khi Admin đối chiếu và bấm <strong>Phê duyệt</strong>, món ăn mới được công bố kèm dấu thời gian xác minh.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: KẾT QUẢ THỰC NGHIỆM 30 TÌNH HUỐNG -->
+    <section class="slide">
+      <span class="slide-tag">05 • MINH CHỨNG ĐỊNH LƯỢNG (MỤC 7.3 & 7.4)</span>
+      <h2>Kết quả Kiểm thử Thực nghiệm trên 30 Tình huống & So sánh Thủ công</h2>
+      <div class="grid-4" style="margin-bottom:1.2rem;">
+        <div class="box">
+          <div class="big-stat">100%</div>
+          <p>Tỷ lệ đạt (30/30 tình huống kiểm thử tự động <code>run_30_scenarios.js</code>)</p>
+        </div>
+        <div class="box">
+          <div class="big-stat">100%</div>
+          <p>Độ chính xác kiểm tra ngân sách (Không phương án nào vượt trần)</p>
+        </div>
+        <div class="box">
+          <div class="big-stat">&lt; 5 ms</div>
+          <p>Thời gian giải tổ hợp & xếp hạng Maximin trung bình</p>
+        </div>
+        <div class="box">
+          <div class="big-stat">3–5 phút → 1s</div>
+          <p>Rút ngắn thời gian so với tự mở 18 thực đơn và cộng nhẩm thủ công</p>
+        </div>
+      </div>
+      <div class="box">
+        <h3>📊 Phân bổ 30 Kịch bản Kiểm thử (Đã xuất báo cáo chi tiết tại <code>tests/EVALUATION_REPORT.md</code>):</h3>
+        <p>
+          • <strong>TC_01 – TC_08:</strong> Cá nhân (1 người), đa dạng ngân sách (30k–70k), món chay, phát hiện câu nhập ngân sách mơ hồ.<br/>
+          • <strong>TC_09 – TC_20:</strong> Nhóm 2–4 người khác khẩu vị (nước/khô/cơm/lẩu/đặc sản Tân Triều) ăn tại cùng 1 quán.<br/>
+          • <strong>TC_21 – TC_26:</strong> Kịch bản thiếu ngân sách (tính tiền bù chính xác), khu vực chưa có dữ liệu và xung đột ràng buộc cứng.<br/>
+          • <strong>TC_27 – TC_30:</strong> Kiểm thử AI Scan Menu, cô lập dữ liệu chờ duyệt (<code>pending</code>) và thứ tự xếp hạng Maximin.
+        </p>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: CẨM NANG PHẢN BIỆN BAN GIÁM KHẢO -->
+    <section class="slide">
+      <span class="slide-tag">06 • HỎI – ĐÁP PHẢN BIỆN HỘI ĐỒNG GIÁM KHẢO</span>
+      <h2>Giải đáp các câu hỏi trọng tâm từ Ban Giám Khảo</h2>
+      <div class="grid-2">
+        <div class="box">
+          <h3>❓ Câu hỏi 1: "Dự án khác gì hỏi trực tiếp ChatGPT / Gemini?"</h3>
+          <p>
+            <strong>Trả lời:</strong> Chatbot thông thường sinh văn bản xác suất nên dễ bịa quán hoặc cộng sai tiền. HỢP VỊ AI chỉ dùng LLM để chuyển câu nói tự nhiên thành cấu trúc JSON và có bước xác nhận trung gian; còn việc lọc thực đơn đã duyệt, cộng ngân sách, xếp hạng <strong>Maximin Fairness</strong> và tính số tiền cần bù khi vô nghiệm được thực hiện bằng <strong>thuật toán tất định 100%</strong>.
+          </p>
+        </div>
+        <div class="box">
+          <h3>❓ Câu hỏi 2: "Làm sao xử lý khi giá thực đơn thay đổi hoặc tính theo kg?"</h3>
+          <p>
+            <strong>Trả lời:</strong> Trong CSDL (ví dụ Làng Bưởi Năm Huệ và Lẩu Tôm 5 Ri), hệ thống phân biệt rõ trạng thái <code>verified_exact</code> và <code>verified_range</code> (theo cỡ S/M/L hoặc theo kg), hiển thị rõ nguồn cùng ngày xác minh, và có cổng tiếp nhận báo sai giá từ người dùng chuyển thẳng về Admin kiểm duyệt lại.
+          </p>
+        </div>
+      </div>
+      <div class="formula-bar" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+        <span>🚀 <strong>Sẵn sàng trình diễn trực tiếp (Live Demo):</strong> Trải nghiệm ngay cả 3 vai trò Người dùng – Đối tác – Admin!</span>
+        <a href="/" class="ctrl-btn" style="background:var(--accent-orange); padding:0.65rem 1.4rem; font-size:1rem;">
+          👉 Mở Giao diện Thực nghiệm HỢP VỊ AI
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="deck-footer">
+    <div class="deck-controls">
+      <a href="/" class="ctrl-btn">🏠 Về Trang Web Chính</a>
+      <button class="ctrl-btn" onclick="prevSlide()">◀ Trước</button>
+      <span id="slide-counter" style="font-size:0.88rem; font-weight:700; padding:0 0.5rem;">1 / 7</span>
+      <button class="ctrl-btn" onclick="nextSlide()">Tiếp ▶</button>
+    </div>
+    <div class="deck-controls" style="font-size:0.8rem; color:var(--text-dim);">
+      Dùng phím mũi tên ⬅ ➡ hoặc lăn chuột để chuyển Slide
+    </div>
+  </footer>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const counterEl = document.getElementById('slide-counter');
+    const progressEl = document.getElementById('progress-bar');
+    let currentIdx = 0;
+    let wheelLock = false;
+
+    function showSlide(idx) {
+      currentIdx = Math.max(0, Math.min(slides.length - 1, idx));
+      slides.forEach((s, i) => s.classList.toggle('active', i === currentIdx));
+      counterEl.textContent = `${currentIdx + 1} / ${slides.length}`;
+      progressEl.style.width = `${((currentIdx + 1) / slides.length) * 100}%`;
+    }
+
+    function nextSlide() { showSlide(currentIdx + 1); }
+    function prevSlide() { showSlide(currentIdx - 1); }
+
+    window.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      }
+    });
+
+    window.addEventListener('wheel', e => {
+      if (wheelLock) return;
+      wheelLock = true;
+      if (e.deltaY > 25) nextSlide();
+      else if (e.deltaY < -25) prevSlide();
+      setTimeout(() => { wheelLock = false; }, 420);
+    }, { passive: true });
+  </script>
+</body>
+</html>
+

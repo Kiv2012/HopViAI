@@ -1,0 +1,4311 @@
+{
+  "metadata": {
+    "projectName": "HỢP VỊ AI",
+    "slogan": "Hiểu đúng vị – Gợi đúng món",
+    "targetRegion": "Tỉnh Đồng Nai (Trọng tâm: Phường Trấn Biên, Tam Hiệp, Tân Triều, Bửu Long - TP. Biên Hòa)",
+    "lastUpdated": "2026-11-10T14:20:00+07:00",
+    "totalRestaurants": 18,
+    "totalMenuItems": 130,
+    "totalSpecialties": 4
+  },
+  "restaurants": [
+    {
+      "id": "REST_01",
+      "name": "Chả Lụi Cô Yến",
+      "address": "9/8 Huỳnh Văn Nghệ, P. Bửu Long, TP. Biên Hòa (đối diện UBND phường Bửu Long)",
+      "area": "Bửu Long",
+      "lat": 10.9648,
+      "lng": 106.8032,
+      "openingHours": "14:00 - 21:00",
+      "status": "approved",
+      "verificationStatus": "verified",
+      "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
+      "verifiedAt": "2026-11-10",
+      "isSpecialtySpot": true
+    },
+    {
+      "id": "REST_02",
+      "name": "Tiệm Ăn Nhà Túc",
+      "address": "18 Đ. Dương Tử Giang, Tam Hiệp, Đồng Nai 810000",
+      "area": "Tam Hiệp",
+      "lat": 10.9532,
+      "lng": 106.8465,
+      "openingHours": "8:00 - 22:00",
+      "status": "approved",
+      "verificationStatus": "verified",
+      "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
+      "verifiedAt": "2026-11-10",
+      "isSpecialtySpot": false
+    },
+    {
+      "id": "REST_03",
+      "name": "Tiệm Mì Vĩnh Vĩnh",
+      "address": "55 Đường 30 Tháng 4, Thanh Bình, Biên Hòa",
+      "area": "Thanh Bình",
+      "lat": 10.9478,
+      "lng": 106.8172,
+      "openingHours": "16:00 - 22:00",
+      "status": "approved",
+      "verificationStatus": "verified",
+      "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
+      "verifiedAt": "2026-11-10",
+      "isSpecialtySpot": false
+    },
+    {
+      "id": "REST_04",
+      "name": "Tiệm Gà Sugar",
+      "address": "R16 Đường D4,KP7, phường Thống Nhất, Biên Hòa",
+      "area": "Thống Nhất",
+      "lat": 10.9515,
+      "lng": 106.8358,
+      "openingHours": "10:00 - 22:00",
+      "status": "approved",
+      "verificationStatus": "verified",
+      "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
+      "verifiedAt": "2026-11-10",
+      "isSpecialtySpot": false
+    },
+    {
+      "id": "REST_05",
+      "name": "Bún Đậu Ngọc Thanh Tâm",
+      "address": "199 Đường Trương Định, P. Tam Hiệp, TP. Biên Hòa",
+      "area": "Tam Hiệp",
+      "lat": 10.9565,
+      "lng": 106.8492,
+      "openingHours": "09:00 - 22:00",
+      "status": "approved",
+      "verificationStatus": "verified",
+      "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
+      "verifiedAt": "2026-11-10",
+      "isSpecialtySpot": false
+    },
+    {
+      "id": "REST_06",
+      "name": "Mì Bún Ốc Hến",
+      "address": "58 Hồ Văn Đại, Trấn Biên, Đồng Nai",
+      "area": "Trấn Biên",
+      "lat": 10.9535,
+      "lng": 106.8145,
+      "openingHours": "07:00 - 22:00",
+      "status": "approved",
+      "verificationStatus": "verified",
+      "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
+      "verifiedAt": "2026-11-10",
+      "isSpecialtySpot": false
+    },
+    {
+      "id": "REST_07",
+      "name": "Bún Thái & Mì Trộn Thành Minh",
+      "address": "129 Hưng Đạo Vương, Trấn Biên, Đồng Nai",
+      "area": "Trấn Biên",
+      "lat": 10.9488,
+      "lng": 106.8195,
+      "openingHours": "10:00 - 14:00 16:00 - 21:00",
+      "status": "approved",
+      "verificationStatus": "verified",
+      "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
+      "verifiedAt": "2026-11-10",
+      "isSpecialtySpot": false
+    },
+    {
+      "id": "REST_08",
+      "name": "Bún 32 Chợ Đêm Biên Hùng",
+      "address": "140 Ba Mươi Tháng Tư, Trấn Biên, Đồng Nai",
+      "area": "Trấn Biên",
+      "lat": 10.9502,
+      "lng": 106.8234,
+      "openingHours": "18:30 - 23:30",
+      "status": "approved",
+      "verificationStatus": "verified",
+      "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
+      "verifiedAt": "2026-11-10",
+      "isSpecialtySpot": false
+    },
+    {
+      "id": "REST_09",
+      "name": "Bún Bò ViNaTex",
+      "address": "2 Nguyễn Văn Nghĩa, Trấn Biên, Đồng Nai 76000",
+      "area": "Trấn Biên",
+      "lat": 10.9548,
+      "lng": 106.8156,
+      "openingHours": "6:00 - 11:00 16:00 - 22:00",
+      "status": "approved",
+      "verificationStatus": "verified",
+      "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
+      "verifiedAt": "2026-11-10",
+      "isSpecialtySpot": false
+    },
+    {
+      "id": "REST_10",
+      "name": "A Sóc Cơm Chiên - Mì Xào Giòn",
+      "address": "93 Đ. Hà Huy Giáp, Trấn Biên, Đồng Nai",
+      "area": "Trấn Biên",
+      "lat": 10.9455,
+      "lng": 106.821,
+      "openingHours": "15:00 - 23:00",
+      "status": "approved",
+      "verificationStatus": "verified",
+      "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
+      "verifiedAt": "2026-11-10",
+      "isSpecialtySpot": false
+    },
+    {
+      "id": "REST_11",
+      "name": "Lẩu Tôm 5 Ri",
+      "address": "487/20/3B Cách Mạng Tháng 8, Trấn Biên, Đồng Nai",
+      "area": "Trấn Biên",
+      "lat": 10.9522,
+      "lng": 106.8098,
+      "openingHours": "9:00 - 21:00",
+      "status": "approved",
+      "verificationStatus": "verified",
+      "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
+      "verifiedAt": "2026-11-10",
+      "isSpecialtySpot": true
+    },
+    {
+      "id": "REST_12",
+      "name": "Lẩu Chay Thiện Duyên 2",
+      "address": "66/88 Đ. Đồng Khởi, Tam Hiệp, Đồng Nai 812610",
+      "area": "Tam Hiệp",
+      "lat": 10.9595,
+      "lng": 106.854,
+      "openingHours": "10:00 - 22:00",
+      "status": "approved",
+      "verificationStatus": "verified",
+      "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
+      "verifiedAt": "2026-11-10",
+      "isSpecialtySpot": false
+    },
+    {
+      "id": "REST_13",
+      "name": "Bún Chả Hà Nội Phú Hoàng",
+      "address": "Kp3, Tam Hiệp, Đồng Nai",
+      "area": "Tam Hiệp",
+      "lat": 10.9512,
+      "lng": 106.8565,
+      "openingHours": "08:00 - 21:00",
+      "status": "approved",
+      "verificationStatus": "verified",
+      "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
+      "verifiedAt": "2026-11-10",
+      "isSpecialtySpot": false
+    },
+    {
+      "id": "REST_14",
+      "name": "Cơm Gà Phú Yên S88",
+      "address": "49/5a, Đ. Võ Thị Sáu, Trấn Biên, Đồng Nai 810000",
+      "area": "Trấn Biên",
+      "lat": 10.9468,
+      "lng": 106.8385,
+      "openingHours": "9:00 - 19:00",
+      "status": "approved",
+      "verificationStatus": "verified",
+      "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
+      "verifiedAt": "2026-11-10",
+      "isSpecialtySpot": false
+    },
+    {
+      "id": "REST_15",
+      "name": "Cháo Hến Cô Tươi",
+      "address": "60 Hẻm 1506 Nguyễn Ái Quốc, Tân Triều, Đồng Nai",
+      "area": "Tân Triều",
+      "lat": 10.9735,
+      "lng": 106.839,
+      "openingHours": "15:00 - 22:00",
+      "status": "approved",
+      "verificationStatus": "verified",
+      "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
+      "verifiedAt": "2026-11-10",
+      "isSpecialtySpot": true
+    },
+    {
+      "id": "REST_16",
+      "name": "Gỏi cá Kim Yến - Tân Mai",
+      "address": "180 Đ. Huỳnh Văn Hớn, Tam Hiệp, Đồng Nai",
+      "area": "Tam Hiệp",
+      "lat": 10.9542,
+      "lng": 106.8615,
+      "openingHours": "9:00 - 21:00",
+      "status": "approved",
+      "verificationStatus": "verified",
+      "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
+      "verifiedAt": "2026-11-10",
+      "isSpecialtySpot": true
+    },
+    {
+      "id": "REST_17",
+      "name": "VƯỜN BƯỞI TÂN TRIỀU TƯ TRUNG",
+      "address": "26/4 Khu Phố Tân Triều, Phường, Tân Triều, Đồng Nai",
+      "area": "Tân Triều",
+      "lat": 10.9852,
+      "lng": 106.7845,
+      "openingHours": "8:00 - 00:00",
+      "status": "approved",
+      "verificationStatus": "verified",
+      "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
+      "verifiedAt": "2026-11-10",
+      "isSpecialtySpot": true
+    },
+    {
+      "id": "REST_18",
+      "name": "Làng bưởi Năm Huệ Tân Triều",
+      "address": "133/17 Hương Lộ 9, Tân Triều, Đồng Nai",
+      "area": "Tân Triều",
+      "lat": 10.9885,
+      "lng": 106.7812,
+      "openingHours": "6:00 - 18:30",
+      "status": "approved",
+      "verificationStatus": "verified",
+      "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
+      "verifiedAt": "2026-11-10",
+      "isSpecialtySpot": true
+    }
+  ],
+  "menuItems": [
+    {
+      "id": "DISH_001",
+      "restaurantId": "REST_01",
+      "restaurantName": "Chả Lụi Cô Yến",
+      "area": "Bửu Long",
+      "name": "Chả lụi",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "vi_thanh",
+        "man",
+        "heo",
+        "dac_san_dong_nai",
+        "an_vat"
+      ],
+      "price": 20000,
+      "priceMax": 20000,
+      "priceVariants": [
+        20000
+      ],
+      "rawPriceText": "20.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 3)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_002",
+      "restaurantId": "REST_02",
+      "restaurantName": "Tiệm Ăn Nhà Túc",
+      "area": "Tam Hiệp",
+      "name": "Cơm Heo Chiên Xù",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "vi_thanh",
+        "man",
+        "heo"
+      ],
+      "price": 65000,
+      "priceMax": 65000,
+      "priceVariants": [
+        65000
+      ],
+      "rawPriceText": "65.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 4)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_003",
+      "restaurantId": "REST_02",
+      "restaurantName": "Tiệm Ăn Nhà Túc",
+      "area": "Tam Hiệp",
+      "name": "Cơm Thị Gà chiên giòn",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "vi_thanh",
+        "man",
+        "ga"
+      ],
+      "price": 65000,
+      "priceMax": 65000,
+      "priceVariants": [
+        65000
+      ],
+      "rawPriceText": "65.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 5)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_004",
+      "restaurantId": "REST_02",
+      "restaurantName": "Tiệm Ăn Nhà Túc",
+      "area": "Tam Hiệp",
+      "name": "Cơm Cari Nhật (Heo / Gà Xù)",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "vi_thanh",
+        "man",
+        "ga",
+        "heo"
+      ],
+      "price": 75000,
+      "priceMax": 75000,
+      "priceVariants": [
+        75000
+      ],
+      "rawPriceText": "75.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 6)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_005",
+      "restaurantId": "REST_02",
+      "restaurantName": "Tiệm Ăn Nhà Túc",
+      "area": "Tam Hiệp",
+      "name": "Cơm Cari Nhật Bánh Gà Phô Mai",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "vi_thanh",
+        "man",
+        "ga"
+      ],
+      "price": 75000,
+      "priceMax": 75000,
+      "priceVariants": [
+        75000
+      ],
+      "rawPriceText": "75.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 7)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_006",
+      "restaurantId": "REST_02",
+      "restaurantName": "Tiệm Ăn Nhà Túc",
+      "area": "Tam Hiệp",
+      "name": "Cơm Lươn",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 145000,
+      "priceMax": 145000,
+      "priceVariants": [
+        145000
+      ],
+      "rawPriceText": "145.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 8)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_007",
+      "restaurantId": "REST_02",
+      "restaurantName": "Tiệm Ăn Nhà Túc",
+      "area": "Tam Hiệp",
+      "name": "Cơm Cá Hồi Sống (Sốt Cay / Sốt Mayo Cay)",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "vi_cay",
+        "man",
+        "hai_san"
+      ],
+      "price": 155000,
+      "priceMax": 155000,
+      "priceVariants": [
+        155000
+      ],
+      "rawPriceText": "155.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 9)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_008",
+      "restaurantId": "REST_02",
+      "restaurantName": "Tiệm Ăn Nhà Túc",
+      "area": "Tam Hiệp",
+      "name": "Udon Bò Trứng",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "mi",
+        "vi_thanh",
+        "man",
+        "bo"
+      ],
+      "price": 65000,
+      "priceMax": 65000,
+      "priceVariants": [
+        65000
+      ],
+      "rawPriceText": "65.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 10)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_009",
+      "restaurantId": "REST_02",
+      "restaurantName": "Tiệm Ăn Nhà Túc",
+      "area": "Tam Hiệp",
+      "name": "Soup Sò Điệp",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 79000,
+      "priceMax": 79000,
+      "priceVariants": [
+        79000
+      ],
+      "rawPriceText": "79.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 11)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_010",
+      "restaurantId": "REST_02",
+      "restaurantName": "Tiệm Ăn Nhà Túc",
+      "area": "Tam Hiệp",
+      "name": "Soup Bào Ngư",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 125000,
+      "priceMax": 125000,
+      "priceVariants": [
+        125000
+      ],
+      "rawPriceText": "125.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 12)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_011",
+      "restaurantId": "REST_02",
+      "restaurantName": "Tiệm Ăn Nhà Túc",
+      "area": "Tam Hiệp",
+      "name": "Soup Kim Chi & Cơm Trắng",
+      "category": "com",
+      "tags": [
+        "mon_nuoc",
+        "com",
+        "vi_cay",
+        "man"
+      ],
+      "price": 79000,
+      "priceMax": 79000,
+      "priceVariants": [
+        79000
+      ],
+      "rawPriceText": "79.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 13)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_012",
+      "restaurantId": "REST_02",
+      "restaurantName": "Tiệm Ăn Nhà Túc",
+      "area": "Tam Hiệp",
+      "name": "Soup Rong biển & Cơm trắng",
+      "category": "com",
+      "tags": [
+        "mon_nuoc",
+        "com",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 79000,
+      "priceMax": 79000,
+      "priceVariants": [
+        79000
+      ],
+      "rawPriceText": "79.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 14)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_013",
+      "restaurantId": "REST_02",
+      "restaurantName": "Tiệm Ăn Nhà Túc",
+      "area": "Tam Hiệp",
+      "name": "Miến Xào Sốt XO Bò",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "vi_thanh",
+        "man",
+        "bo"
+      ],
+      "price": 89000,
+      "priceMax": 89000,
+      "priceVariants": [
+        89000
+      ],
+      "rawPriceText": "89.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 15)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_014",
+      "restaurantId": "REST_02",
+      "restaurantName": "Tiệm Ăn Nhà Túc",
+      "area": "Tam Hiệp",
+      "name": "Combo (1 người) Cơm Heo / Gà Chiên Xù Tonkatsu + Trà Tắc Mật Ong/ Nước Mơ Ngâm",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "vi_thanh",
+        "man",
+        "ga",
+        "heo"
+      ],
+      "price": 79000,
+      "priceMax": 79000,
+      "priceVariants": [
+        79000
+      ],
+      "rawPriceText": "79.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 16)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_015",
+      "restaurantId": "REST_02",
+      "restaurantName": "Tiệm Ăn Nhà Túc",
+      "area": "Tam Hiệp",
+      "name": "Combo (1 người) Cơm Lươn Nhật + Trà Tắc Mật Ong / Nước Mơ Ngâm",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 159000,
+      "priceMax": 159000,
+      "priceVariants": [
+        159000
+      ],
+      "rawPriceText": "159.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 17)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_016",
+      "restaurantId": "REST_02",
+      "restaurantName": "Tiệm Ăn Nhà Túc",
+      "area": "Tam Hiệp",
+      "name": "Combo 1 (2-3 người) Salad (Mè Rang/ Chanh Dây), Hoành Thánh Nhân Phô Mai,Cơm Phủ Trứng Ghẹ",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 170000,
+      "priceMax": 170000,
+      "priceVariants": [
+        170000
+      ],
+      "rawPriceText": "170.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 2,
+      "portionMax": 3,
+      "isSharedCombo": true,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 18)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_017",
+      "restaurantId": "REST_02",
+      "restaurantName": "Tiệm Ăn Nhà Túc",
+      "area": "Tam Hiệp",
+      "name": "Combo 2 (2-3 người) Cơm Dương Châu Phủ Trứng, Sụn Gà Cjieen Nước Mắm, Miến Xào Sốt XO Hải Sản",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "vi_thanh",
+        "man",
+        "hai_san",
+        "ga"
+      ],
+      "price": 209000,
+      "priceMax": 209000,
+      "priceVariants": [
+        209000
+      ],
+      "rawPriceText": "209.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 2,
+      "portionMax": 3,
+      "isSharedCombo": true,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 19)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_018",
+      "restaurantId": "REST_02",
+      "restaurantName": "Tiệm Ăn Nhà Túc",
+      "area": "Tam Hiệp",
+      "name": "Combo 3 (3-5 người) Salad (Mè Rang/ Chanh Dây / Dầu Giấm), Soup Kim Chi + Cơm, Gà Viên Ba Loại Sốt, Chả Giò Tôm",
+      "category": "com",
+      "tags": [
+        "mon_nuoc",
+        "com",
+        "vi_cay",
+        "man",
+        "hai_san",
+        "ga",
+        "heo"
+      ],
+      "price": 249000,
+      "priceMax": 249000,
+      "priceVariants": [
+        249000
+      ],
+      "rawPriceText": "249.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 3,
+      "portionMax": 5,
+      "isSharedCombo": true,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 20)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_019",
+      "restaurantId": "REST_02",
+      "restaurantName": "Tiệm Ăn Nhà Túc",
+      "area": "Tam Hiệp",
+      "name": "Combo 4 (3-4 người) Salad (Mè Rang/ Chanh Dây / Dầu Giấm), Tokbokki Phô Mai, Gà Viên Ba Loại Sốt, Mì Kim Chi",
+      "category": "mon_kho",
+      "tags": [
+        "mi",
+        "vi_cay",
+        "man",
+        "ga",
+        "an_vat"
+      ],
+      "price": 249000,
+      "priceMax": 249000,
+      "priceVariants": [
+        249000
+      ],
+      "rawPriceText": "249.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 3,
+      "portionMax": 4,
+      "isSharedCombo": true,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 21)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_020",
+      "restaurantId": "REST_03",
+      "restaurantName": "Tiệm Mì Vĩnh Vĩnh",
+      "area": "Thanh Bình",
+      "name": "Mì Lá Dứa",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "mi",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 55000,
+      "priceMax": 55000,
+      "priceVariants": [
+        55000
+      ],
+      "rawPriceText": "55.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 22)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_021",
+      "restaurantId": "REST_03",
+      "restaurantName": "Tiệm Mì Vĩnh Vĩnh",
+      "area": "Thanh Bình",
+      "name": "Mì Hoành Thánh",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "mi",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 55000,
+      "priceMax": 55000,
+      "priceVariants": [
+        55000
+      ],
+      "rawPriceText": "55.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 23)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_022",
+      "restaurantId": "REST_03",
+      "restaurantName": "Tiệm Mì Vĩnh Vĩnh",
+      "area": "Thanh Bình",
+      "name": "Hủ Tiếu Mì",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "mi",
+        "hu_tieu",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 55000,
+      "priceMax": 55000,
+      "priceVariants": [
+        55000
+      ],
+      "rawPriceText": "55.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 24)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_023",
+      "restaurantId": "REST_03",
+      "restaurantName": "Tiệm Mì Vĩnh Vĩnh",
+      "area": "Thanh Bình",
+      "name": "Hủ Tiếu Khô",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "hu_tieu",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 55000,
+      "priceMax": 55000,
+      "priceVariants": [
+        55000
+      ],
+      "rawPriceText": "55.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 25)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_024",
+      "restaurantId": "REST_03",
+      "restaurantName": "Tiệm Mì Vĩnh Vĩnh",
+      "area": "Thanh Bình",
+      "name": "Bún Gạo",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "bun",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 55000,
+      "priceMax": 55000,
+      "priceVariants": [
+        55000
+      ],
+      "rawPriceText": "55.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 26)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_025",
+      "restaurantId": "REST_04",
+      "restaurantName": "Tiệm Gà Sugar",
+      "area": "Thống Nhất",
+      "name": "Mì Cay Bò/ Tôm",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "mi",
+        "vi_cay",
+        "man",
+        "hai_san",
+        "bo"
+      ],
+      "price": 50000,
+      "priceMax": 50000,
+      "priceVariants": [
+        50000
+      ],
+      "rawPriceText": "50.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 27)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_026",
+      "restaurantId": "REST_04",
+      "restaurantName": "Tiệm Gà Sugar",
+      "area": "Thống Nhất",
+      "name": "Mì Cay Thập Cẩm",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "mi",
+        "vi_cay",
+        "man"
+      ],
+      "price": 65000,
+      "priceMax": 65000,
+      "priceVariants": [
+        65000
+      ],
+      "rawPriceText": "65.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 28)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_027",
+      "restaurantId": "REST_04",
+      "restaurantName": "Tiệm Gà Sugar",
+      "area": "Thống Nhất",
+      "name": "Mì SPAGHETTI size S Bò / Sate Tôm",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "mi",
+        "vi_cay",
+        "man",
+        "hai_san",
+        "bo"
+      ],
+      "price": 35000,
+      "priceMax": 35000,
+      "priceVariants": [
+        35000
+      ],
+      "rawPriceText": "35.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 29)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_028",
+      "restaurantId": "REST_04",
+      "restaurantName": "Tiệm Gà Sugar",
+      "area": "Thống Nhất",
+      "name": "Mì SPAGHETTI size L Bò / Sate Tôm",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "mi",
+        "vi_cay",
+        "man",
+        "hai_san",
+        "bo"
+      ],
+      "price": 52000,
+      "priceMax": 52000,
+      "priceVariants": [
+        52000
+      ],
+      "rawPriceText": "52.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 30)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_029",
+      "restaurantId": "REST_04",
+      "restaurantName": "Tiệm Gà Sugar",
+      "area": "Thống Nhất",
+      "name": "Combo mini Gà Rán 4 vị sốt (2miếng, Salad trộn, Cơm chiên rong biển",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "vi_thanh",
+        "man",
+        "ga"
+      ],
+      "price": 72000,
+      "priceMax": 72000,
+      "priceVariants": [
+        72000
+      ],
+      "rawPriceText": "72.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 31)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_030",
+      "restaurantId": "REST_04",
+      "restaurantName": "Tiệm Gà Sugar",
+      "area": "Thống Nhất",
+      "name": "Combo size S Gà Rán 4 vị sốt (4miếng), Salad trộn, Cơm chiên rong biển",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "vi_thanh",
+        "man",
+        "ga"
+      ],
+      "price": 125000,
+      "priceMax": 125000,
+      "priceVariants": [
+        125000
+      ],
+      "rawPriceText": "125.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 2,
+      "portionMax": 2,
+      "isSharedCombo": true,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 32)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_031",
+      "restaurantId": "REST_04",
+      "restaurantName": "Tiệm Gà Sugar",
+      "area": "Thống Nhất",
+      "name": "Combo size M Gà Rán 4 vị sốt (6 miếng), Salad trộn, Cơm chiên rong biển",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "vi_thanh",
+        "man",
+        "ga"
+      ],
+      "price": 181000,
+      "priceMax": 181000,
+      "priceVariants": [
+        181000
+      ],
+      "rawPriceText": "181.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 3,
+      "portionMax": 3,
+      "isSharedCombo": true,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 33)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_032",
+      "restaurantId": "REST_04",
+      "restaurantName": "Tiệm Gà Sugar",
+      "area": "Thống Nhất",
+      "name": "Combo size L Gà Rán 4 vị sốt (8 miếng), Salad trộn, Cơm chiên rong biển",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "vi_thanh",
+        "man",
+        "ga"
+      ],
+      "price": 245000,
+      "priceMax": 245000,
+      "priceVariants": [
+        245000
+      ],
+      "rawPriceText": "245.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 4,
+      "portionMax": 5,
+      "isSharedCombo": true,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 34)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_033",
+      "restaurantId": "REST_05",
+      "restaurantName": "Bún Đậu Ngọc Thanh Tâm",
+      "area": "Tam Hiệp",
+      "name": "Bún Đậu Đặc Biệt 1 người",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "bun",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 65000,
+      "priceMax": 65000,
+      "priceVariants": [
+        65000
+      ],
+      "rawPriceText": "65.000 VND/ 1 phân",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 35)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_034",
+      "restaurantId": "REST_05",
+      "restaurantName": "Bún Đậu Ngọc Thanh Tâm",
+      "area": "Tam Hiệp",
+      "name": "Bún Đậu Đặc Biệt 2 người",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "bun",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 60000,
+      "priceMax": 60000,
+      "priceVariants": [
+        60000
+      ],
+      "rawPriceText": "60.000 VND/1 phần",
+      "unit": "phần",
+      "portionMin": 2,
+      "portionMax": 2,
+      "isSharedCombo": true,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 36)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_035",
+      "restaurantId": "REST_05",
+      "restaurantName": "Bún Đậu Ngọc Thanh Tâm",
+      "area": "Tam Hiệp",
+      "name": "Bún Đậu Tá Lả 2 người",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "bun",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 90000,
+      "priceMax": 90000,
+      "priceVariants": [
+        90000
+      ],
+      "rawPriceText": "90.000 VND/1 phần",
+      "unit": "phần",
+      "portionMin": 2,
+      "portionMax": 2,
+      "isSharedCombo": true,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 37)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_036",
+      "restaurantId": "REST_05",
+      "restaurantName": "Bún Đậu Ngọc Thanh Tâm",
+      "area": "Tam Hiệp",
+      "name": "Bún Đậu Thịt",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "bun",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 45000,
+      "priceMax": 45000,
+      "priceVariants": [
+        45000
+      ],
+      "rawPriceText": "45.000 VND/1 phần",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 38)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_037",
+      "restaurantId": "REST_05",
+      "restaurantName": "Bún Đậu Ngọc Thanh Tâm",
+      "area": "Tam Hiệp",
+      "name": "Bún Đậu Nem Chua",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "bun",
+        "vi_thanh",
+        "man",
+        "heo"
+      ],
+      "price": 45000,
+      "priceMax": 45000,
+      "priceVariants": [
+        45000
+      ],
+      "rawPriceText": "45.000 VND/1 phần",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 39)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_038",
+      "restaurantId": "REST_05",
+      "restaurantName": "Bún Đậu Ngọc Thanh Tâm",
+      "area": "Tam Hiệp",
+      "name": "Bún Đậu Chả Cốm",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "bun",
+        "vi_thanh",
+        "man",
+        "heo"
+      ],
+      "price": 45000,
+      "priceMax": 45000,
+      "priceVariants": [
+        45000
+      ],
+      "rawPriceText": "45.000 VND/1 phần",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 40)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_039",
+      "restaurantId": "REST_06",
+      "restaurantName": "Mì Bún Ốc Hến",
+      "area": "Trấn Biên",
+      "name": "Mì Nước / Khô / Bún Ốc Hến",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "bun",
+        "mi",
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 38000,
+      "priceMax": 38000,
+      "priceVariants": [
+        38000
+      ],
+      "rawPriceText": "38.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 41)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_040",
+      "restaurantId": "REST_06",
+      "restaurantName": "Mì Bún Ốc Hến",
+      "area": "Trấn Biên",
+      "name": "Mì Nước / Khô / Bún Thập Cẩm",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "bun",
+        "mi",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 55000,
+      "priceMax": 55000,
+      "priceVariants": [
+        55000
+      ],
+      "rawPriceText": "55.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 42)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_041",
+      "restaurantId": "REST_06",
+      "restaurantName": "Mì Bún Ốc Hến",
+      "area": "Trấn Biên",
+      "name": "Mì Nước / Khô / Bún Đặc Biệt",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "bun",
+        "mi",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 65000,
+      "priceMax": 65000,
+      "priceVariants": [
+        65000
+      ],
+      "rawPriceText": "65.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 43)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_042",
+      "restaurantId": "REST_07",
+      "restaurantName": "Bún Thái & Mì Trộn Thành Minh",
+      "area": "Trấn Biên",
+      "name": "Bún Thái Viên",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "bun",
+        "vi_cay",
+        "man"
+      ],
+      "price": 39000,
+      "priceMax": 39000,
+      "priceVariants": [
+        39000
+      ],
+      "rawPriceText": "39.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 44)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_043",
+      "restaurantId": "REST_07",
+      "restaurantName": "Bún Thái & Mì Trộn Thành Minh",
+      "area": "Trấn Biên",
+      "name": "Bún Thái Bò Trứng / Thập Cẩm",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "bun",
+        "vi_cay",
+        "man",
+        "bo"
+      ],
+      "price": 55000,
+      "priceMax": 55000,
+      "priceVariants": [
+        55000
+      ],
+      "rawPriceText": "55.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 45)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_044",
+      "restaurantId": "REST_07",
+      "restaurantName": "Bún Thái & Mì Trộn Thành Minh",
+      "area": "Trấn Biên",
+      "name": "Bún Thái Hải Sản",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "bun",
+        "vi_cay",
+        "man",
+        "hai_san"
+      ],
+      "price": 60000,
+      "priceMax": 60000,
+      "priceVariants": [
+        60000
+      ],
+      "rawPriceText": "60.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 46)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_045",
+      "restaurantId": "REST_07",
+      "restaurantName": "Bún Thái & Mì Trộn Thành Minh",
+      "area": "Trấn Biên",
+      "name": "Bún Thái Đặc Biệt",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "bun",
+        "vi_cay",
+        "man"
+      ],
+      "price": 65000,
+      "priceMax": 65000,
+      "priceVariants": [
+        65000
+      ],
+      "rawPriceText": "65.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 47)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_046",
+      "restaurantId": "REST_07",
+      "restaurantName": "Bún Thái & Mì Trộn Thành Minh",
+      "area": "Trấn Biên",
+      "name": "Mì Trộn Viên",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "mi",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 42000,
+      "priceMax": 42000,
+      "priceVariants": [
+        42000
+      ],
+      "rawPriceText": "42.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 48)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_047",
+      "restaurantId": "REST_07",
+      "restaurantName": "Bún Thái & Mì Trộn Thành Minh",
+      "area": "Trấn Biên",
+      "name": "Mì Trộn Bò Trứng / Thập Cẩm",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "mi",
+        "vi_thanh",
+        "man",
+        "bo"
+      ],
+      "price": 58000,
+      "priceMax": 58000,
+      "priceVariants": [
+        58000
+      ],
+      "rawPriceText": "58.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 49)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_048",
+      "restaurantId": "REST_07",
+      "restaurantName": "Bún Thái & Mì Trộn Thành Minh",
+      "area": "Trấn Biên",
+      "name": "Mì Trộn Hải Sản",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "mi",
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 63000,
+      "priceMax": 63000,
+      "priceVariants": [
+        63000
+      ],
+      "rawPriceText": "63.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 50)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_049",
+      "restaurantId": "REST_07",
+      "restaurantName": "Bún Thái & Mì Trộn Thành Minh",
+      "area": "Trấn Biên",
+      "name": "Mì Trộn Đặc Biệt",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "mi",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 68000,
+      "priceMax": 68000,
+      "priceVariants": [
+        68000
+      ],
+      "rawPriceText": "68.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 51)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_050",
+      "restaurantId": "REST_08",
+      "restaurantName": "Bún 32 Chợ Đêm Biên Hùng",
+      "area": "Trấn Biên",
+      "name": "Bún Thịt Nướng",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "bun",
+        "vi_thanh",
+        "man",
+        "heo"
+      ],
+      "price": 35000,
+      "priceMax": 35000,
+      "priceVariants": [
+        35000
+      ],
+      "rawPriceText": "35.000 VND/1 phần",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 52)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_051",
+      "restaurantId": "REST_08",
+      "restaurantName": "Bún 32 Chợ Đêm Biên Hùng",
+      "area": "Trấn Biên",
+      "name": "Bò Lá Lốt Bánh Hỏi",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "banh_hoi",
+        "vi_thanh",
+        "man",
+        "bo"
+      ],
+      "price": 50000,
+      "priceMax": 50000,
+      "priceVariants": [
+        50000
+      ],
+      "rawPriceText": "50.000 VND/1 phần",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 53)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_052",
+      "restaurantId": "REST_08",
+      "restaurantName": "Bún 32 Chợ Đêm Biên Hùng",
+      "area": "Trấn Biên",
+      "name": "Bò Mỡ Chài Bánh Hỏi",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "banh_hoi",
+        "vi_thanh",
+        "man",
+        "bo"
+      ],
+      "price": 50000,
+      "priceMax": 50000,
+      "priceVariants": [
+        50000
+      ],
+      "rawPriceText": "50.000 VND/1 phần",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 54)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_053",
+      "restaurantId": "REST_08",
+      "restaurantName": "Bún 32 Chợ Đêm Biên Hùng",
+      "area": "Trấn Biên",
+      "name": "Nem Nướng Bánh Hỏi",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "banh_hoi",
+        "vi_thanh",
+        "man",
+        "heo"
+      ],
+      "price": 45000,
+      "priceMax": 45000,
+      "priceVariants": [
+        45000
+      ],
+      "rawPriceText": "45.000 VND/1 phần",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 55)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_054",
+      "restaurantId": "REST_08",
+      "restaurantName": "Bún 32 Chợ Đêm Biên Hùng",
+      "area": "Trấn Biên",
+      "name": "Thịt Nướng Bánh Hỏi",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "banh_hoi",
+        "vi_thanh",
+        "man",
+        "heo"
+      ],
+      "price": 45000,
+      "priceMax": 45000,
+      "priceVariants": [
+        45000
+      ],
+      "rawPriceText": "45.000 VND/1 phần",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 56)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_055",
+      "restaurantId": "REST_08",
+      "restaurantName": "Bún 32 Chợ Đêm Biên Hùng",
+      "area": "Trấn Biên",
+      "name": "Thập Cẩm 2 người",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man"
+      ],
+      "price": 170000,
+      "priceMax": 170000,
+      "priceVariants": [
+        170000
+      ],
+      "rawPriceText": "170.000 VND/1 phần",
+      "unit": "phần",
+      "portionMin": 2,
+      "portionMax": 2,
+      "isSharedCombo": true,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 57)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_056",
+      "restaurantId": "REST_08",
+      "restaurantName": "Bún 32 Chợ Đêm Biên Hùng",
+      "area": "Trấn Biên",
+      "name": "Thập Cẩm 3 người",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man"
+      ],
+      "price": 190000,
+      "priceMax": 190000,
+      "priceVariants": [
+        190000
+      ],
+      "rawPriceText": "190.000 VND/1 phần",
+      "unit": "phần",
+      "portionMin": 3,
+      "portionMax": 3,
+      "isSharedCombo": true,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 58)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_057",
+      "restaurantId": "REST_09",
+      "restaurantName": "Bún Bò ViNaTex",
+      "area": "Trấn Biên",
+      "name": "Bún Bò Trẻ Em",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "bun",
+        "vi_thanh",
+        "man",
+        "bo"
+      ],
+      "price": 30000,
+      "priceMax": 30000,
+      "priceVariants": [
+        30000
+      ],
+      "rawPriceText": "30.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 59)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_058",
+      "restaurantId": "REST_09",
+      "restaurantName": "Bún Bò ViNaTex",
+      "area": "Trấn Biên",
+      "name": "Bún Bò Thường",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "bun",
+        "vi_thanh",
+        "man",
+        "bo"
+      ],
+      "price": 35000,
+      "priceMax": 35000,
+      "priceVariants": [
+        35000
+      ],
+      "rawPriceText": "35.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 60)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_059",
+      "restaurantId": "REST_09",
+      "restaurantName": "Bún Bò ViNaTex",
+      "area": "Trấn Biên",
+      "name": "Bún Bò Tái / Giò Heo",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "bun",
+        "vi_thanh",
+        "man",
+        "bo",
+        "heo"
+      ],
+      "price": 45000,
+      "priceMax": 45000,
+      "priceVariants": [
+        45000
+      ],
+      "rawPriceText": "45.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 61)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_060",
+      "restaurantId": "REST_09",
+      "restaurantName": "Bún Bò ViNaTex",
+      "area": "Trấn Biên",
+      "name": "Bún Bò Đặc Biệt",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "bun",
+        "vi_thanh",
+        "man",
+        "bo"
+      ],
+      "price": 55000,
+      "priceMax": 55000,
+      "priceVariants": [
+        55000
+      ],
+      "rawPriceText": "55.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 62)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_061",
+      "restaurantId": "REST_09",
+      "restaurantName": "Bún Bò ViNaTex",
+      "area": "Trấn Biên",
+      "name": "Bún Bò Măng Bắp Hoa",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "bun",
+        "vi_thanh",
+        "man",
+        "bo"
+      ],
+      "price": 55000,
+      "priceMax": 55000,
+      "priceVariants": [
+        55000
+      ],
+      "rawPriceText": "55.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 63)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_062",
+      "restaurantId": "REST_09",
+      "restaurantName": "Bún Bò ViNaTex",
+      "area": "Trấn Biên",
+      "name": "Bún Bò Măng Đặc Biệt",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "bun",
+        "vi_thanh",
+        "man",
+        "bo"
+      ],
+      "price": 65000,
+      "priceMax": 65000,
+      "priceVariants": [
+        65000
+      ],
+      "rawPriceText": "65.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 64)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_063",
+      "restaurantId": "REST_10",
+      "restaurantName": "A Sóc Cơm Chiên - Mì Xào Giòn",
+      "area": "Trấn Biên",
+      "name": "Cơm Chiên Tỏi",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 40000,
+      "priceMax": 40000,
+      "priceVariants": [
+        40000
+      ],
+      "rawPriceText": "40.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 65)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_064",
+      "restaurantId": "REST_10",
+      "restaurantName": "A Sóc Cơm Chiên - Mì Xào Giòn",
+      "area": "Trấn Biên",
+      "name": "Cơm Chiên Dương Châu",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 45000,
+      "priceMax": 45000,
+      "priceVariants": [
+        45000
+      ],
+      "rawPriceText": "45.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 66)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_065",
+      "restaurantId": "REST_10",
+      "restaurantName": "A Sóc Cơm Chiên - Mì Xào Giòn",
+      "area": "Trấn Biên",
+      "name": "Cơm Chiên Cá Mặn / Hải Sản",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 55000,
+      "priceMax": 55000,
+      "priceVariants": [
+        55000
+      ],
+      "rawPriceText": "55.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 67)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_066",
+      "restaurantId": "REST_10",
+      "restaurantName": "A Sóc Cơm Chiên - Mì Xào Giòn",
+      "area": "Trấn Biên",
+      "name": "Cơm Chiên Lúc Lắc / Bò",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "vi_thanh",
+        "man",
+        "bo"
+      ],
+      "price": 75000,
+      "priceMax": 75000,
+      "priceVariants": [
+        75000
+      ],
+      "rawPriceText": "75.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 68)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_067",
+      "restaurantId": "REST_10",
+      "restaurantName": "A Sóc Cơm Chiên - Mì Xào Giòn",
+      "area": "Trấn Biên",
+      "name": "Mì Giòn / Gói / Mềm Thập Cẩm",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "mi",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 75000,
+      "priceMax": 75000,
+      "priceVariants": [
+        75000
+      ],
+      "rawPriceText": "75.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 69)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_068",
+      "restaurantId": "REST_10",
+      "restaurantName": "A Sóc Cơm Chiên - Mì Xào Giòn",
+      "area": "Trấn Biên",
+      "name": "Mì Giòn / Gói / Mềm Hải Sản",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "mi",
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 75000,
+      "priceMax": 75000,
+      "priceVariants": [
+        75000
+      ],
+      "rawPriceText": "75.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 70)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_069",
+      "restaurantId": "REST_10",
+      "restaurantName": "A Sóc Cơm Chiên - Mì Xào Giòn",
+      "area": "Trấn Biên",
+      "name": "Mì Giòn / Gói / Mềm Xào Bò",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "mi",
+        "vi_thanh",
+        "man",
+        "bo"
+      ],
+      "price": 75000,
+      "priceMax": 75000,
+      "priceVariants": [
+        75000
+      ],
+      "rawPriceText": "75.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 71)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_070",
+      "restaurantId": "REST_10",
+      "restaurantName": "A Sóc Cơm Chiên - Mì Xào Giòn",
+      "area": "Trấn Biên",
+      "name": "Hủ Tiếu Thập Cẩm / Hải Sản / Bò",
+      "category": "mon_kho",
+      "tags": [
+        "hu_tieu",
+        "vi_thanh",
+        "man",
+        "hai_san",
+        "bo"
+      ],
+      "price": 75000,
+      "priceMax": 75000,
+      "priceVariants": [
+        75000
+      ],
+      "rawPriceText": "75.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 72)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_071",
+      "restaurantId": "REST_10",
+      "restaurantName": "A Sóc Cơm Chiên - Mì Xào Giòn",
+      "area": "Trấn Biên",
+      "name": "Nui Hải Sản / Thập Cẩm / Bò",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man",
+        "hai_san",
+        "bo"
+      ],
+      "price": 75000,
+      "priceMax": 75000,
+      "priceVariants": [
+        75000
+      ],
+      "rawPriceText": "75.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 73)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_072",
+      "restaurantId": "REST_10",
+      "restaurantName": "A Sóc Cơm Chiên - Mì Xào Giòn",
+      "area": "Trấn Biên",
+      "name": "Cơm Xào Rau Thập Cẩm / Hải Sản / Bò",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "vi_thanh",
+        "man",
+        "hai_san",
+        "bo"
+      ],
+      "price": 75000,
+      "priceMax": 75000,
+      "priceVariants": [
+        75000
+      ],
+      "rawPriceText": "75.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 74)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_073",
+      "restaurantId": "REST_11",
+      "restaurantName": "Lẩu Tôm 5 Ri",
+      "area": "Trấn Biên",
+      "name": "Chạo Tôm (Bánh hỏi + Rau Sống + Nước Mắm)",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "banh_hoi",
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 27000,
+      "priceMax": 27000,
+      "priceVariants": [
+        27000
+      ],
+      "rawPriceText": "27.000 VND/1 cây",
+      "unit": "cây",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 75)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_074",
+      "restaurantId": "REST_11",
+      "restaurantName": "Lẩu Tôm 5 Ri",
+      "area": "Trấn Biên",
+      "name": "Lẩu Tôm",
+      "category": "lau",
+      "tags": [
+        "mon_nuoc",
+        "lau",
+        "vi_thanh",
+        "man",
+        "hai_san",
+        "dac_san_dong_nai"
+      ],
+      "price": 300000,
+      "priceMax": 500000,
+      "priceVariants": [
+        300000,
+        400000,
+        500000
+      ],
+      "rawPriceText": "300.000 - 400.000 - 500.000 VND",
+      "unit": "phần",
+      "portionMin": 2,
+      "portionMax": 4,
+      "isSharedCombo": true,
+      "priceStatus": "verified_range",
+      "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 76)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_075",
+      "restaurantId": "REST_11",
+      "restaurantName": "Lẩu Tôm 5 Ri",
+      "area": "Trấn Biên",
+      "name": "Lẩu Hải Sản",
+      "category": "lau",
+      "tags": [
+        "mon_nuoc",
+        "lau",
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 300000,
+      "priceMax": 500000,
+      "priceVariants": [
+        300000,
+        400000,
+        500000
+      ],
+      "rawPriceText": "300.000 - 400.000 - 500.000 VND",
+      "unit": "phần",
+      "portionMin": 2,
+      "portionMax": 4,
+      "isSharedCombo": true,
+      "priceStatus": "verified_range",
+      "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 77)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_076",
+      "restaurantId": "REST_11",
+      "restaurantName": "Lẩu Tôm 5 Ri",
+      "area": "Trấn Biên",
+      "name": "Lẩu Cua Đồng Hải Sản",
+      "category": "lau",
+      "tags": [
+        "mon_nuoc",
+        "lau",
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 300000,
+      "priceMax": 500000,
+      "priceVariants": [
+        300000,
+        400000,
+        500000
+      ],
+      "rawPriceText": "300.000 - 400.000 - 500.000 VND",
+      "unit": "phần",
+      "portionMin": 2,
+      "portionMax": 4,
+      "isSharedCombo": true,
+      "priceStatus": "verified_range",
+      "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 78)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_077",
+      "restaurantId": "REST_11",
+      "restaurantName": "Lẩu Tôm 5 Ri",
+      "area": "Trấn Biên",
+      "name": "Lẩu Cá Thác Lác Nấu Khổ Qua",
+      "category": "lau",
+      "tags": [
+        "mon_nuoc",
+        "lau",
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 300000,
+      "priceMax": 500000,
+      "priceVariants": [
+        300000,
+        400000,
+        500000
+      ],
+      "rawPriceText": "300.000 - 400.000 - 500.000 VND",
+      "unit": "phần",
+      "portionMin": 2,
+      "portionMax": 4,
+      "isSharedCombo": true,
+      "priceStatus": "verified_range",
+      "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 79)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_078",
+      "restaurantId": "REST_11",
+      "restaurantName": "Lẩu Tôm 5 Ri",
+      "area": "Trấn Biên",
+      "name": "Cá Thác Lác Chiên / Hấp",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 200000,
+      "priceMax": 250000,
+      "priceVariants": [
+        200000,
+        250000
+      ],
+      "rawPriceText": "200.000 - 250.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_range",
+      "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 80)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_079",
+      "restaurantId": "REST_11",
+      "restaurantName": "Lẩu Tôm 5 Ri",
+      "area": "Trấn Biên",
+      "name": "Gỏi Bò Rau Mầm",
+      "category": "goi",
+      "tags": [
+        "mon_kho",
+        "goi",
+        "vi_thanh",
+        "man",
+        "bo"
+      ],
+      "price": 200000,
+      "priceMax": 300000,
+      "priceVariants": [
+        200000,
+        250000,
+        300000
+      ],
+      "rawPriceText": "200.000 - 250.000 - 300.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_range",
+      "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 81)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_080",
+      "restaurantId": "REST_11",
+      "restaurantName": "Lẩu Tôm 5 Ri",
+      "area": "Trấn Biên",
+      "name": "Hàu Nướng Mọi / Mỡ Hành / Phô Mai",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 35000,
+      "priceMax": 35000,
+      "priceVariants": [
+        35000
+      ],
+      "rawPriceText": "35.000/1 con",
+      "unit": "con",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 82)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_081",
+      "restaurantId": "REST_11",
+      "restaurantName": "Lẩu Tôm 5 Ri",
+      "area": "Trấn Biên",
+      "name": "Nghêu Hấp Thái / Xả / Xào Tỏi",
+      "category": "mon_kho",
+      "tags": [
+        "vi_cay",
+        "man",
+        "hai_san"
+      ],
+      "price": 200000,
+      "priceMax": 250000,
+      "priceVariants": [
+        200000,
+        250000
+      ],
+      "rawPriceText": "200.000 - 250.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_range",
+      "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 83)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_082",
+      "restaurantId": "REST_11",
+      "restaurantName": "Lẩu Tôm 5 Ri",
+      "area": "Trấn Biên",
+      "name": "Sò Huyết Cháy Tỏi / Rang Me /Hấp Gừng / Rang Muối / Nướng",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 200000,
+      "priceMax": 250000,
+      "priceVariants": [
+        200000,
+        250000
+      ],
+      "rawPriceText": "200.000 - 250.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_range",
+      "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 84)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_083",
+      "restaurantId": "REST_11",
+      "restaurantName": "Lẩu Tôm 5 Ri",
+      "area": "Trấn Biên",
+      "name": "Ốc Len Xào Dừa",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 200000,
+      "priceMax": 250000,
+      "priceVariants": [
+        200000,
+        250000
+      ],
+      "rawPriceText": "200.000 - 250.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_range",
+      "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 85)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_084",
+      "restaurantId": "REST_11",
+      "restaurantName": "Lẩu Tôm 5 Ri",
+      "area": "Trấn Biên",
+      "name": "Cá Bông Lau Kho Tộ",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 200000,
+      "priceMax": 250000,
+      "priceVariants": [
+        200000,
+        250000
+      ],
+      "rawPriceText": "200.000 - 250.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_range",
+      "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 86)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_085",
+      "restaurantId": "REST_11",
+      "restaurantName": "Lẩu Tôm 5 Ri",
+      "area": "Trấn Biên",
+      "name": "Cá Tai Tượng Chiên Xù",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 320000,
+      "priceMax": 320000,
+      "priceVariants": [
+        320000
+      ],
+      "rawPriceText": "320.000 VND/1 con",
+      "unit": "con",
+      "portionMin": 2,
+      "portionMax": 4,
+      "isSharedCombo": true,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 87)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_086",
+      "restaurantId": "REST_11",
+      "restaurantName": "Lẩu Tôm 5 Ri",
+      "area": "Trấn Biên",
+      "name": "Cá Tai Tượng Sốt Cà Chua",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 370000,
+      "priceMax": 370000,
+      "priceVariants": [
+        370000
+      ],
+      "rawPriceText": "370.000 VND/1 con",
+      "unit": "con",
+      "portionMin": 2,
+      "portionMax": 4,
+      "isSharedCombo": true,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 88)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_087",
+      "restaurantId": "REST_11",
+      "restaurantName": "Lẩu Tôm 5 Ri",
+      "area": "Trấn Biên",
+      "name": "Cá Kèo Chiên/ Nướng / Kho",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 200000,
+      "priceMax": 300000,
+      "priceVariants": [
+        200000,
+        250000,
+        300000
+      ],
+      "rawPriceText": "200.000 - 250.000 - 300.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_range",
+      "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 89)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_088",
+      "restaurantId": "REST_11",
+      "restaurantName": "Lẩu Tôm 5 Ri",
+      "area": "Trấn Biên",
+      "name": "Cá Lóc Hấp/ Quay/ Nướng",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 330000,
+      "priceMax": 330000,
+      "priceVariants": [
+        330000
+      ],
+      "rawPriceText": "330.000/ con",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 90)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_089",
+      "restaurantId": "REST_11",
+      "restaurantName": "Lẩu Tôm 5 Ri",
+      "area": "Trấn Biên",
+      "name": "Rau Luộc Kho Quẹt",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man"
+      ],
+      "price": 80000,
+      "priceMax": 80000,
+      "priceVariants": [
+        80000
+      ],
+      "rawPriceText": "80.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 91)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_090",
+      "restaurantId": "REST_11",
+      "restaurantName": "Lẩu Tôm 5 Ri",
+      "area": "Trấn Biên",
+      "name": "Rau Muống Xào Tỏi",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man"
+      ],
+      "price": 60000,
+      "priceMax": 60000,
+      "priceVariants": [
+        60000
+      ],
+      "rawPriceText": "60.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 92)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_091",
+      "restaurantId": "REST_11",
+      "restaurantName": "Lẩu Tôm 5 Ri",
+      "area": "Trấn Biên",
+      "name": "Mực Xào Chua Ngọt/ Nướng Sa Tế/ Hấp Gừng",
+      "category": "mon_kho",
+      "tags": [
+        "vi_cay",
+        "man",
+        "hai_san"
+      ],
+      "price": 300000,
+      "priceMax": 500000,
+      "priceVariants": [
+        300000,
+        400000,
+        500000
+      ],
+      "rawPriceText": "300.000 - 400.000 - 500.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_range",
+      "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 93)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_092",
+      "restaurantId": "REST_12",
+      "restaurantName": "Lẩu Chay Thiện Duyên 2",
+      "area": "Tam Hiệp",
+      "name": "Lẩu chay 1-2 người",
+      "category": "lau",
+      "tags": [
+        "mon_nuoc",
+        "lau",
+        "vi_thanh",
+        "chay"
+      ],
+      "price": 45000,
+      "priceMax": 45000,
+      "priceVariants": [
+        45000
+      ],
+      "rawPriceText": "45.000 VND/1 người",
+      "unit": "người",
+      "portionMin": 2,
+      "portionMax": 2,
+      "isSharedCombo": true,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 94)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_093",
+      "restaurantId": "REST_12",
+      "restaurantName": "Lẩu Chay Thiện Duyên 2",
+      "area": "Tam Hiệp",
+      "name": "Lẩu chay 3 người trở lên",
+      "category": "lau",
+      "tags": [
+        "mon_nuoc",
+        "lau",
+        "vi_thanh",
+        "chay"
+      ],
+      "price": 40000,
+      "priceMax": 40000,
+      "priceVariants": [
+        40000
+      ],
+      "rawPriceText": "40.000 VND/1 người",
+      "unit": "người",
+      "portionMin": 3,
+      "portionMax": 3,
+      "isSharedCombo": true,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 95)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_094",
+      "restaurantId": "REST_12",
+      "restaurantName": "Lẩu Chay Thiện Duyên 2",
+      "area": "Tam Hiệp",
+      "name": "Đồ Ăn Vặt (Cá Viên/ Bò Viên/ Xúc Xích/ Đậu Hủ Nấm/ Chả Giò)",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "chay",
+        "hai_san",
+        "bo",
+        "heo",
+        "an_vat"
+      ],
+      "price": 20000,
+      "priceMax": 20000,
+      "priceVariants": [
+        20000
+      ],
+      "rawPriceText": "20.000 VND/1 phần",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 96)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_095",
+      "restaurantId": "REST_13",
+      "restaurantName": "Bún Chả Hà Nội Phú Hoàng",
+      "area": "Tam Hiệp",
+      "name": "Bún Chả",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "bun",
+        "vi_thanh",
+        "man",
+        "heo"
+      ],
+      "price": 35000,
+      "priceMax": 35000,
+      "priceVariants": [
+        35000
+      ],
+      "rawPriceText": "35.000 VND/1 phần",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 97)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_096",
+      "restaurantId": "REST_13",
+      "restaurantName": "Bún Chả Hà Nội Phú Hoàng",
+      "area": "Tam Hiệp",
+      "name": "Nem Cua Bể",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man",
+        "hai_san",
+        "heo",
+        "an_vat"
+      ],
+      "price": 12000,
+      "priceMax": 12000,
+      "priceVariants": [
+        12000
+      ],
+      "rawPriceText": "12.000/1 cái",
+      "unit": "cái",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 98)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_097",
+      "restaurantId": "REST_14",
+      "restaurantName": "Cơm Gà Phú Yên S88",
+      "area": "Trấn Biên",
+      "name": "Cơm Gà Xé / Cánh Gà",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "vi_thanh",
+        "man",
+        "hai_san",
+        "ga"
+      ],
+      "price": 40000,
+      "priceMax": 40000,
+      "priceVariants": [
+        40000
+      ],
+      "rawPriceText": "40.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 99)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_098",
+      "restaurantId": "REST_14",
+      "restaurantName": "Cơm Gà Phú Yên S88",
+      "area": "Trấn Biên",
+      "name": "Cơm Đùi Gà Chiên Mắm/ Sốt Thái (Đùi Tỏi, Má Đùi, Cánh)",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "vi_cay",
+        "man",
+        "hai_san",
+        "ga"
+      ],
+      "price": 45000,
+      "priceMax": 45000,
+      "priceVariants": [
+        45000
+      ],
+      "rawPriceText": "45.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 100)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_099",
+      "restaurantId": "REST_15",
+      "restaurantName": "Cháo Hến Cô Tươi",
+      "area": "Tân Triều",
+      "name": "Cháo Hến",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "chao",
+        "vi_thanh",
+        "man",
+        "hai_san",
+        "dac_san_dong_nai"
+      ],
+      "price": 30000,
+      "priceMax": 30000,
+      "priceVariants": [
+        30000
+      ],
+      "rawPriceText": "30.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 101)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_100",
+      "restaurantId": "REST_15",
+      "restaurantName": "Cháo Hến Cô Tươi",
+      "area": "Tân Triều",
+      "name": "Cháo Thêm Hến",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "chao",
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 40000,
+      "priceMax": 40000,
+      "priceVariants": [
+        40000
+      ],
+      "rawPriceText": "40.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 102)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_101",
+      "restaurantId": "REST_16",
+      "restaurantName": "Gỏi cá Kim Yến - Tân Mai",
+      "area": "Tam Hiệp",
+      "name": "Gỏi Cá",
+      "category": "goi",
+      "tags": [
+        "mon_kho",
+        "goi",
+        "vi_thanh",
+        "man",
+        "hai_san",
+        "dac_san_dong_nai"
+      ],
+      "price": 200000,
+      "priceMax": 200000,
+      "priceVariants": [
+        200000
+      ],
+      "rawPriceText": "200.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 103)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_102",
+      "restaurantId": "REST_16",
+      "restaurantName": "Gỏi cá Kim Yến - Tân Mai",
+      "area": "Tam Hiệp",
+      "name": "Cháo Cá",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "chao",
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 110000,
+      "priceMax": 110000,
+      "priceVariants": [
+        110000
+      ],
+      "rawPriceText": "110.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 104)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_103",
+      "restaurantId": "REST_16",
+      "restaurantName": "Gỏi cá Kim Yến - Tân Mai",
+      "area": "Tam Hiệp",
+      "name": "Cá Nấu Mẻ/ Nấu Canh Chua",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 200000,
+      "priceMax": 200000,
+      "priceVariants": [
+        200000
+      ],
+      "rawPriceText": "200.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 105)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_104",
+      "restaurantId": "REST_16",
+      "restaurantName": "Gỏi cá Kim Yến - Tân Mai",
+      "area": "Tam Hiệp",
+      "name": "Lươn Xào Lăn/ Chiên Giòn",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 120000,
+      "priceMax": 120000,
+      "priceVariants": [
+        120000
+      ],
+      "rawPriceText": "120.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 106)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_105",
+      "restaurantId": "REST_16",
+      "restaurantName": "Gỏi cá Kim Yến - Tân Mai",
+      "area": "Tam Hiệp",
+      "name": "Cháo Lươn",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "chao",
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 110000,
+      "priceMax": 110000,
+      "priceVariants": [
+        110000
+      ],
+      "rawPriceText": "110.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 107)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_106",
+      "restaurantId": "REST_16",
+      "restaurantName": "Gỏi cá Kim Yến - Tân Mai",
+      "area": "Tam Hiệp",
+      "name": "Mực Né/ Hấp",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 150000,
+      "priceMax": 150000,
+      "priceVariants": [
+        150000
+      ],
+      "rawPriceText": "150.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 108)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_107",
+      "restaurantId": "REST_16",
+      "restaurantName": "Gỏi cá Kim Yến - Tân Mai",
+      "area": "Tam Hiệp",
+      "name": "Bò Né/ Nhúng Giấm",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man",
+        "bo"
+      ],
+      "price": 200000,
+      "priceMax": 200000,
+      "priceVariants": [
+        200000
+      ],
+      "rawPriceText": "200.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 109)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_108",
+      "restaurantId": "REST_16",
+      "restaurantName": "Gỏi cá Kim Yến - Tân Mai",
+      "area": "Tam Hiệp",
+      "name": "Bò Bóp Thấu",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man",
+        "bo"
+      ],
+      "price": 150000,
+      "priceMax": 150000,
+      "priceVariants": [
+        150000
+      ],
+      "rawPriceText": "150.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 110)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_109",
+      "restaurantId": "REST_17",
+      "restaurantName": "VƯỜN BƯỞI TÂN TRIỀU TƯ TRUNG",
+      "area": "Tân Triều",
+      "name": "Xôi Bồ Câu",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "xoi",
+        "vi_thanh",
+        "man",
+        "ga"
+      ],
+      "price": 130000,
+      "priceMax": 130000,
+      "priceVariants": [
+        130000
+      ],
+      "rawPriceText": "130.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 111)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_110",
+      "restaurantId": "REST_17",
+      "restaurantName": "VƯỜN BƯỞI TÂN TRIỀU TƯ TRUNG",
+      "area": "Tân Triều",
+      "name": "Dồi Sụn",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man"
+      ],
+      "price": 130000,
+      "priceMax": 130000,
+      "priceVariants": [
+        130000
+      ],
+      "rawPriceText": "130.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 112)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_111",
+      "restaurantId": "REST_17",
+      "restaurantName": "VƯỜN BƯỞI TÂN TRIỀU TƯ TRUNG",
+      "area": "Tân Triều",
+      "name": "Mì Tươi Tóp Mỡ Giòn",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "mi",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 95000,
+      "priceMax": 95000,
+      "priceVariants": [
+        95000
+      ],
+      "rawPriceText": "95.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 113)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_112",
+      "restaurantId": "REST_17",
+      "restaurantName": "VƯỜN BƯỞI TÂN TRIỀU TƯ TRUNG",
+      "area": "Tân Triều",
+      "name": "Bún Gạo Xào Hải Sản",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "bun",
+        "vi_thanh",
+        "man",
+        "hai_san"
+      ],
+      "price": 115000,
+      "priceMax": 115000,
+      "priceVariants": [
+        115000
+      ],
+      "rawPriceText": "115.000 VND",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 114)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_113",
+      "restaurantId": "REST_17",
+      "restaurantName": "VƯỜN BƯỞI TÂN TRIỀU TƯ TRUNG",
+      "area": "Tân Triều",
+      "name": "Bồ Câu Rôti/ Nướng Muối Ớt",
+      "category": "mon_kho",
+      "tags": [
+        "vi_cay",
+        "man",
+        "ga"
+      ],
+      "price": 150000,
+      "priceMax": 150000,
+      "priceVariants": [
+        150000
+      ],
+      "rawPriceText": "150.000 VND/ 1 con",
+      "unit": "con",
+      "portionMin": 2,
+      "portionMax": 4,
+      "isSharedCombo": true,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 115)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_114",
+      "restaurantId": "REST_17",
+      "restaurantName": "VƯỜN BƯỞI TÂN TRIỀU TƯ TRUNG",
+      "area": "Tân Triều",
+      "name": "Gà Hấp Trái Bưởi",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man",
+        "ga",
+        "dac_san_dong_nai"
+      ],
+      "price": 250000,
+      "priceMax": 250000,
+      "priceVariants": [
+        250000
+      ],
+      "rawPriceText": "250.000 VND/1 con",
+      "unit": "con",
+      "portionMin": 2,
+      "portionMax": 4,
+      "isSharedCombo": true,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 116)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_115",
+      "restaurantId": "REST_17",
+      "restaurantName": "VƯỜN BƯỞI TÂN TRIỀU TƯ TRUNG",
+      "area": "Tân Triều",
+      "name": "Gà Tre Hấp Lá Chanh/ Hành",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man",
+        "ga"
+      ],
+      "price": 250000,
+      "priceMax": 250000,
+      "priceVariants": [
+        250000
+      ],
+      "rawPriceText": "250.000 VND/1 con",
+      "unit": "con",
+      "portionMin": 2,
+      "portionMax": 4,
+      "isSharedCombo": true,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 117)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_116",
+      "restaurantId": "REST_17",
+      "restaurantName": "VƯỜN BƯỞI TÂN TRIỀU TƯ TRUNG",
+      "area": "Tân Triều",
+      "name": "Gà Tre Luộc + Cháo + Gỏi",
+      "category": "goi",
+      "tags": [
+        "mon_nuoc",
+        "chao",
+        "mon_kho",
+        "goi",
+        "vi_thanh",
+        "man",
+        "ga"
+      ],
+      "price": 250000,
+      "priceMax": 250000,
+      "priceVariants": [
+        250000
+      ],
+      "rawPriceText": "250.000 VND/1 con",
+      "unit": "con",
+      "portionMin": 2,
+      "portionMax": 4,
+      "isSharedCombo": true,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 118)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_117",
+      "restaurantId": "REST_17",
+      "restaurantName": "VƯỜN BƯỞI TÂN TRIỀU TƯ TRUNG",
+      "area": "Tân Triều",
+      "name": "Ngọc Kê Xào Bông Hẹ",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man"
+      ],
+      "price": 100000,
+      "priceMax": 100000,
+      "priceVariants": [
+        100000
+      ],
+      "rawPriceText": "100.000 VND/1 phần",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 119)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_118",
+      "restaurantId": "REST_17",
+      "restaurantName": "VƯỜN BƯỞI TÂN TRIỀU TƯ TRUNG",
+      "area": "Tân Triều",
+      "name": "Đầu Cổ Vịt Phá Lấu",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man",
+        "ga"
+      ],
+      "price": 100000,
+      "priceMax": 100000,
+      "priceVariants": [
+        100000
+      ],
+      "rawPriceText": "100.000 VND/1 phần",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 120)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_119",
+      "restaurantId": "REST_17",
+      "restaurantName": "VƯỜN BƯỞI TÂN TRIỀU TƯ TRUNG",
+      "area": "Tân Triều",
+      "name": "Trứng non xài mướp",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man"
+      ],
+      "price": 100000,
+      "priceMax": 100000,
+      "priceVariants": [
+        100000
+      ],
+      "rawPriceText": "100.000 VND/1 con",
+      "unit": "con",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 121)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_120",
+      "restaurantId": "REST_18",
+      "restaurantName": "Làng bưởi Năm Huệ Tân Triều",
+      "area": "Tân Triều",
+      "name": "Gỏi Làng Bưởi",
+      "category": "goi",
+      "tags": [
+        "mon_kho",
+        "goi",
+        "vi_thanh",
+        "man",
+        "dac_san_dong_nai"
+      ],
+      "price": 170000,
+      "priceMax": 170000,
+      "priceVariants": [
+        170000
+      ],
+      "rawPriceText": "170.000 VND/1 đĩa",
+      "unit": "đĩa",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 122)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_121",
+      "restaurantId": "REST_18",
+      "restaurantName": "Làng bưởi Năm Huệ Tân Triều",
+      "area": "Tân Triều",
+      "name": "Gỏi Làng Bưởi Đặc Biệt",
+      "category": "goi",
+      "tags": [
+        "mon_kho",
+        "goi",
+        "vi_thanh",
+        "man",
+        "dac_san_dong_nai"
+      ],
+      "price": 170000,
+      "priceMax": 170000,
+      "priceVariants": [
+        170000
+      ],
+      "rawPriceText": "170.000 VND/1 đĩa",
+      "unit": "đĩa",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 123)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_122",
+      "restaurantId": "REST_18",
+      "restaurantName": "Làng bưởi Năm Huệ Tân Triều",
+      "area": "Tân Triều",
+      "name": "Gỏi Làng Bưởi Trong Trái Bưởi",
+      "category": "goi",
+      "tags": [
+        "mon_kho",
+        "goi",
+        "vi_thanh",
+        "man",
+        "dac_san_dong_nai"
+      ],
+      "price": 320000,
+      "priceMax": 320000,
+      "priceVariants": [
+        320000
+      ],
+      "rawPriceText": "320.000 VND/1 đĩa",
+      "unit": "đĩa",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 124)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_123",
+      "restaurantId": "REST_18",
+      "restaurantName": "Làng bưởi Năm Huệ Tân Triều",
+      "area": "Tân Triều",
+      "name": "Gà Nướng Muối Ớt/ Nồi Đất",
+      "category": "mon_kho",
+      "tags": [
+        "vi_cay",
+        "man",
+        "ga"
+      ],
+      "price": 300000,
+      "priceMax": 340000,
+      "priceVariants": [
+        300000,
+        340000
+      ],
+      "rawPriceText": "1 món 300.000 VND/1kg 2 món 340.000 VND/1 kg",
+      "unit": "kg",
+      "portionMin": 2,
+      "portionMax": 4,
+      "isSharedCombo": true,
+      "priceStatus": "verified_range",
+      "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 125)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_124",
+      "restaurantId": "REST_18",
+      "restaurantName": "Làng bưởi Năm Huệ Tân Triều",
+      "area": "Tân Triều",
+      "name": "Gà Hấp Lá Bưởi/ Lá Chanh/ Hành/ Tỏi/ Mắm Nhĩ",
+      "category": "mon_kho",
+      "tags": [
+        "vi_thanh",
+        "man",
+        "ga",
+        "dac_san_dong_nai"
+      ],
+      "price": 300000,
+      "priceMax": 340000,
+      "priceVariants": [
+        300000,
+        340000
+      ],
+      "rawPriceText": "1 món 300.000 VND/1kg 2 món 340.000 VND/1 kg",
+      "unit": "kg",
+      "portionMin": 2,
+      "portionMax": 4,
+      "isSharedCombo": true,
+      "priceStatus": "verified_range",
+      "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 126)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_125",
+      "restaurantId": "REST_18",
+      "restaurantName": "Làng bưởi Năm Huệ Tân Triều",
+      "area": "Tân Triều",
+      "name": "Gà Ta Nấu Rượu Bưởi/ Tiềm Ớt Hiểm",
+      "category": "mon_kho",
+      "tags": [
+        "vi_cay",
+        "man",
+        "ga",
+        "dac_san_dong_nai"
+      ],
+      "price": 340000,
+      "priceMax": 340000,
+      "priceVariants": [
+        340000
+      ],
+      "rawPriceText": "340.000 VND/1 kg",
+      "unit": "kg",
+      "portionMin": 2,
+      "portionMax": 4,
+      "isSharedCombo": true,
+      "priceStatus": "verified_range",
+      "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 127)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_126",
+      "restaurantId": "REST_18",
+      "restaurantName": "Làng bưởi Năm Huệ Tân Triều",
+      "area": "Tân Triều",
+      "name": "Gà Ta Nướng/ Nấu Lẩu/ Trộn Gỏi + Rượu Bưởi",
+      "category": "goi",
+      "tags": [
+        "mon_nuoc",
+        "lau",
+        "mon_kho",
+        "goi",
+        "vi_thanh",
+        "man",
+        "ga",
+        "dac_san_dong_nai"
+      ],
+      "price": 350000,
+      "priceMax": 350000,
+      "priceVariants": [
+        350000
+      ],
+      "rawPriceText": "350.000 VND/1 kg",
+      "unit": "kg",
+      "portionMin": 2,
+      "portionMax": 4,
+      "isSharedCombo": true,
+      "priceStatus": "verified_range",
+      "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 128)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_127",
+      "restaurantId": "REST_18",
+      "restaurantName": "Làng bưởi Năm Huệ Tân Triều",
+      "area": "Tân Triều",
+      "name": "Gà Ta Hấp Trái Bưởi + Trộn Gỏi",
+      "category": "goi",
+      "tags": [
+        "mon_kho",
+        "goi",
+        "vi_thanh",
+        "man",
+        "ga",
+        "dac_san_dong_nai"
+      ],
+      "price": 310000,
+      "priceMax": 310000,
+      "priceVariants": [
+        310000
+      ],
+      "rawPriceText": "310.000 VND/1 kg",
+      "unit": "kg",
+      "portionMin": 2,
+      "portionMax": 4,
+      "isSharedCombo": true,
+      "priceStatus": "verified_range",
+      "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 129)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_128",
+      "restaurantId": "REST_18",
+      "restaurantName": "Làng bưởi Năm Huệ Tân Triều",
+      "area": "Tân Triều",
+      "name": "Gà Ta Hấp Trái Bưởi + Nấu Cháo",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "chao",
+        "vi_thanh",
+        "man",
+        "ga",
+        "dac_san_dong_nai"
+      ],
+      "price": 330000,
+      "priceMax": 330000,
+      "priceVariants": [
+        330000
+      ],
+      "rawPriceText": "330.000 VND/1 kg",
+      "unit": "kg",
+      "portionMin": 2,
+      "portionMax": 4,
+      "isSharedCombo": true,
+      "priceStatus": "verified_range",
+      "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 130)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_129",
+      "restaurantId": "REST_18",
+      "restaurantName": "Làng bưởi Năm Huệ Tân Triều",
+      "area": "Tân Triều",
+      "name": "Gà Ta Hấp Trái Bưởi + Nấu Lẩu",
+      "category": "lau",
+      "tags": [
+        "mon_nuoc",
+        "lau",
+        "vi_thanh",
+        "man",
+        "ga",
+        "dac_san_dong_nai"
+      ],
+      "price": 400000,
+      "priceMax": 400000,
+      "priceVariants": [
+        400000
+      ],
+      "rawPriceText": "400.000 VND/1kg",
+      "unit": "kg",
+      "portionMin": 2,
+      "portionMax": 4,
+      "isSharedCombo": true,
+      "priceStatus": "verified_range",
+      "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 131)",
+      "verifiedAt": "2026-11-10"
+    },
+    {
+      "id": "DISH_130",
+      "restaurantId": "REST_18",
+      "restaurantName": "Làng bưởi Năm Huệ Tân Triều",
+      "area": "Tân Triều",
+      "name": "Gà Ta Nướng + Gỏi Bưởi",
+      "category": "goi",
+      "tags": [
+        "mon_kho",
+        "goi",
+        "vi_thanh",
+        "man",
+        "ga",
+        "dac_san_dong_nai"
+      ],
+      "price": 360000,
+      "priceMax": 360000,
+      "priceVariants": [
+        360000
+      ],
+      "rawPriceText": "360.000 VND/1kg",
+      "unit": "kg",
+      "portionMin": 2,
+      "portionMax": 4,
+      "isSharedCombo": true,
+      "priceStatus": "verified_range",
+      "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
+      "status": "approved",
+      "verificationSource": "Hợp vị AI.xlsx (Dòng 132)",
+      "verifiedAt": "2026-11-10"
+    }
+  ],
+  "specialties": [
+    {
+      "id": "SPEC_01",
+      "name": "Gỏi Bưởi Tân Triều",
+      "classification": "Đặc sản gắn với địa danh Đồng Nai (Làng bưởi Tân Triều)",
+      "originArea": "Phường Tân Triều, TP. Biên Hòa / Vĩnh Cửu, Đồng Nai",
+      "summary": "Món gỏi trứ danh xứ cù lao Tân Triều kết hợp tép bưởi đường lá cam mọng nước, vị thanh ngọt pha chua dịu cùng tôm sông Đồng Nai, thịt ba chỉ, rau răm và đậu phộng.",
+      "culturalStory": "Làng bưởi Tân Triều hình thành từ thế kỷ XIX trên vùng đất phù sa cù lao ven sông Đồng Nai. Người dân địa phương sử dụng giống bưởi đường lá cam có tép ráo, vị ngọt thanh không đắng để trộn gỏi cùng tôm sông và thịt heo luộc, tạo nên món khai vị đặc trưng trong các dịp lễ Tết và đãi khách phương xa.",
+      "ingredients": [
+        "Tép bưởi đường lá cam Tân Triều",
+        "Tôm sông Đồng Nai",
+        "Thịt ba chỉ luộc thái chỉ",
+        "Nước mắm chua ngọt, hành phi, đậu phộng, rau răm"
+      ],
+      "flavorProfile": "Chua dịu, ngọt thanh tự nhiên, giòn mát, không ngấy",
+      "referencePriceRange": "170.000đ – 320.000đ / đĩa (dùng cho 2–4 người)",
+      "sources": [
+        "Cổng thông tin điện tử tỉnh Đồng Nai – Chuyên mục Văn hóa & Du lịch sinh thái Tân Triều",
+        "Khảo sát thực đơn thực tế tại Làng bưởi Năm Huệ Tân Triều (133/17 Hương Lộ 9)"
+      ],
+      "linkedRestaurantIds": [
+        "REST_17",
+        "REST_18"
+      ],
+      "suggestedQuery": "Nhóm 3 người muốn thưởng thức đặc sản Gỏi bưởi Tân Triều và món gà tại Tân Triều với ngân sách 500.000 đồng"
+    },
+    {
+      "id": "SPEC_02",
+      "name": "Gà Hấp Trái Bưởi Tân Triều",
+      "classification": "Đặc sản gắn với địa danh Đồng Nai (Làng bưởi Tân Triều)",
+      "originArea": "Phường Tân Triều, Đồng Nai",
+      "summary": "Gà ta hoặc gà tre thả vườn được ướp gia vị, đặt nguyên trong vỏ trái bưởi Tân Triều khoét rỗng và đem hấp cách thủy, giúp thịt gà thấm tinh dầu vỏ bưởi thơm dịu và ngọt mềm.",
+      "culturalStory": "Bên cạnh gỏi bưởi và rượu bưởi, người dân Tân Triều tận dụng chính lớp vỏ bưởi giàu tinh dầu thơm để làm nồi hấp tự nhiên cho thịt gà ta thả vườn. Khi hấp chín, hương bưởi quyện vào từng thớ thịt gà vàng ươm, ăn kèm muối tiêu chanh hoặc lá bưởi non.",
+      "ingredients": [
+        "Gà ta / Gà tre thả vườn",
+        "Trái bưởi Tân Triều nguyên vỏ",
+        "Lá bưởi non, sả, hành tím, gia vị truyền thống"
+      ],
+      "flavorProfile": "Thơm nồng tinh dầu bưởi, thịt gà mềm ngọt đậm đà",
+      "referencePriceRange": "250.000đ – 330.000đ / con hoặc phần",
+      "sources": [
+        "Cẩm nang Du lịch Đồng Nai – Ẩm thực cù lao Tân Triều",
+        "Khảo sát thực đơn thực tế tại Vườn Bưởi Tân Triều Tư Trung (26/4 KP Tân Triều) & Làng bưởi Năm Huệ"
+      ],
+      "linkedRestaurantIds": [
+        "REST_17",
+        "REST_18"
+      ],
+      "suggestedQuery": "Nhóm 3 người muốn ăn Gà hấp trái bưởi ở khu vực Tân Triều với ngân sách 350.000 đồng"
+    },
+    {
+      "id": "SPEC_03",
+      "name": "Lẩu Tôm Sông & Chạo Tôm Biên Hòa",
+      "classification": "Món ẩm thực tiêu biểu gắn với vùng sông nước Đồng Nai",
+      "originArea": "Phường Trấn Biên, TP. Biên Hòa, Đồng Nai",
+      "summary": "Nước lẩu chua thanh nấu cùng tôm tươi chắc thịt, ăn kèm bún, rau đồng nội và món chạo tôm nướng mía thơm lừng cuốn bánh hỏi.",
+      "culturalStory": "Nhờ lợi thế dòng sông Đồng Nai chảy qua trung tâm Biên Hòa, các món chế biến từ tôm sông và thủy sản nước ngọt đã trở thành nét văn hóa ẩm thực quen thuộc của người dân địa phương và du khách khi ghé thăm Trấn Biên.",
+      "ingredients": [
+        "Tôm tươi",
+        "Chạo tôm quết nướng mía",
+        "Nước dùng chua thanh, cà chua, thơm, bạc hà, bông súng, rau sống"
+      ],
+      "flavorProfile": "Chua cay thanh mát, đậm vị ngọt tự nhiên từ tôm",
+      "referencePriceRange": "Chạo tôm 27.000đ/cây; Lẩu tôm 300.000đ – 500.000đ/nồi (3–5 người)",
+      "sources": [
+        "Khảo sát thực đơn thực tế tại quán Lẩu Tôm 5 Ri (487/20/3B Cách Mạng Tháng 8, Trấn Biên, Đồng Nai)"
+      ],
+      "linkedRestaurantIds": [
+        "REST_11"
+      ],
+      "suggestedQuery": "Nhóm 4 người ở Trấn Biên muốn ăn Lẩu tôm và Chạo tôm với ngân sách 450.000 đồng"
+    },
+    {
+      "id": "SPEC_04",
+      "name": "Chả Lụi Bửu Long & Gỏi Cá Tân Mai",
+      "classification": "Món ăn địa phương phổ biến tại Biên Hòa – Đồng Nai",
+      "originArea": "Phường Bửu Long & Phường Tam Hiệp, TP. Biên Hòa, Đồng Nai",
+      "summary": "Những món ăn gắn liền với đời sống học sinh, sinh viên và gia đình tại Biên Hòa: từ chả lụi nướng than hồng giá bình dân 20.000đ ở Bửu Long đến món gỏi cá truyền thống khu vực Tân Mai – Tam Hiệp.",
+      "culturalStory": "Ẩm thực Biên Hòa là nơi giao thoa của nhiều vùng miền. Các hàng chả lụi ven đường Huỳnh Văn Nghệ (khu danh thắng Bửu Long) hay các quán gỏi cá lâu năm tại Tân Mai – Tam Hiệp phản ánh sinh động nhịp sống ẩm thực từ bình dân cho sinh viên đến sum họp gia đình.",
+      "ingredients": [
+        "Bánh tráng cuốn tôm thịt nướng than (Chả lụi)",
+        "Cá tươi trộn thính riềng sả (Gỏi cá)",
+        "Rau sống, xoài xanh, nước chấm đậu phộng cay ngọt"
+      ],
+      "flavorProfile": "Giòn rụm, béo bùi của nước chấm đậu phộng và thơm nồng gia vị",
+      "referencePriceRange": "20.000đ/phần (Chả lụi) – 200.000đ/phần (Gỏi cá)",
+      "sources": [
+        "Khảo sát thực đơn thực tế tại Chả Lụi Cô Yến (9/8 Huỳnh Văn Nghệ, Bửu Long) và Gỏi cá Kim Yến (180 Huỳnh Văn Hớn, Tam Hiệp)"
+      ],
+      "linkedRestaurantIds": [
+        "REST_01",
+        "REST_16"
+      ],
+      "suggestedQuery": "Nhóm 3 sinh viên có 80.000 đồng muốn ăn vặt Chả lụi ở Bửu Long"
+    }
+  ],
+  "partnerSubmissions": [
+    {
+      "id": "SUB_DEMO_01",
+      "partnerName": "Quán Bún Riêu & Cơm Tấm Sinh Viên Trấn Biên (Demo Chờ Duyệt)",
+      "address": "82 Nguyễn Ái Quốc, Phường Trấn Biên, Đồng Nai",
+      "area": "Trấn Biên",
+      "openingHours": "06:30 - 20:30",
+      "contactPhone": "0908.123.456",
+      "submissionType": "ai_scan_menu",
+      "status": "pending",
+      "submittedAt": "2026-11-10T10:15:00+07:00",
+      "sourceNote": "Ảnh chụp bảng giá thực đơn tại quán (AI Scan Menu trích xuất)",
+      "items": [
+        {
+          "tempId": "TMP_01",
+          "name": "Bún Riêu Cua Đồng Đặc Biệt",
+          "price": 35000,
+          "rawPriceText": "35.000đ",
+          "unit": "tô",
+          "category": "mon_nuoc",
+          "tags": [
+            "mon_nuoc",
+            "bun",
+            "vi_thanh",
+            "man"
+          ],
+          "confidence": 0.98,
+          "needsReview": false,
+          "reviewReason": ""
+        },
+        {
+          "tempId": "TMP_02",
+          "name": "Cơm Tấm Sườn Bì Chả",
+          "price": 40000,
+          "rawPriceText": "40.000đ",
+          "unit": "đĩa",
+          "category": "com",
+          "tags": [
+            "com",
+            "mon_kho",
+            "heo",
+            "vi_thanh",
+            "man"
+          ],
+          "confidence": 0.96,
+          "needsReview": false,
+          "reviewReason": ""
+        },
+        {
+          "tempId": "TMP_03",
+          "name": "Canh Bún Thập Cẩm (Size Nhỏ / Lớn)",
+          "price": 30000,
+          "rawPriceText": "30k / 40k",
+          "unit": "tô",
+          "category": "mon_nuoc",
+          "tags": [
+            "mon_nuoc",
+            "bun",
+            "vi_thanh",
+            "man"
+          ],
+          "confidence": 0.78,
+          "needsReview": true,
+          "reviewReason": "Thực đơn gốc ghi 2 mức giá (30k/40k), cần xác nhận giá mặc định"
+        }
+      ]
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": "FB_01",
+      "userName": "Bạn Minh Khoa (Sinh viên ĐH Lạc Hồng)",
+      "type": "experience",
+      "rating": 5,
+      "restaurantName": "Bún Thái & Mì Trộn Thành Minh",
+      "comment": "Nhóm mình 3 người có 150k, 2 bạn thích món nước chua cay, 1 bạn thích mì khô. Hệ thống gợi ý Bún Thái và Mì Trộn ở cùng quán Thành Minh (Trấn Biên) hết 136k vừa khít ngân sách!",
+      "status": "verified",
+      "createdAt": "2026-11-10T09:30:00+07:00"
+    }
+  ],
+  "auditLogs": [
+    {
+      "id": "LOG_01",
+      "action": "IMPORT_VERIFIED_DATASET",
+      "actor": "Admin Hệ Thống",
+      "detail": "Khởi tạo cơ sở dữ liệu đã xác minh từ Hợp vị AI.xlsx gồm 18 quán ăn và 130 món ăn tại Đồng Nai.",
+      "timestamp": "2026-11-10T11:33:00+07:00"
+    }
+  ]
+}
