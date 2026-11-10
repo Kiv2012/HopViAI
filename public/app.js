@@ -17,6 +17,7 @@ let originMarker = null;
 let routePolyline = null;
 let currentOriginCoords = { lat: 10.9508, lng: 106.8222, label: 'Công viên Biên Hùng (P. Trấn Biên)' };
 let deferredPwaPrompt = null;
+let showAllMobileRestaurants = false;
 
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
@@ -67,8 +68,12 @@ function switchView(viewName) {
   document.querySelectorAll('.view-section').forEach(sec => {
     sec.classList.toggle('active', sec.id === `view-${viewName}`);
   });
-  document.querySelectorAll('.nav-btn, .mobile-nav-item').forEach(btn => {
+  document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.view === viewName);
+  });
+  document.querySelectorAll('.mobile-nav-item').forEach(btn => {
+    const isManageGroup = ['partner', 'admin', 'feedback'].includes(viewName) && btn.dataset.view === 'partner';
+    btn.classList.toggle('active', btn.dataset.view === viewName || isManageGroup);
   });
   window.scrollTo({ top: 0, behavior: 'smooth' });
   if (viewName === 'home' && leafletMap) {
@@ -78,12 +83,18 @@ function switchView(viewName) {
 
 function scrollToSection(elementId) {
   switchView('home');
+  if (elementId === 'dongnai-map-anchor') {
+    document.querySelectorAll('.mobile-nav-item').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.view === 'map');
+    });
+  }
   setTimeout(() => {
     const el = document.getElementById(elementId);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  }, 120);
+    if (leafletMap) leafletMap.invalidateSize();
+  }, 140);
 }
 
 function renderHeaderStats() {
@@ -757,46 +768,77 @@ function renderHomeSpecialties() {
 
 function renderHomeRestaurants() {
   const box = document.getElementById('home-restaurants-grid');
+  const moreWrap = document.getElementById('home-restaurants-more-wrap');
   if (!box) return;
   const filterVal = (document.getElementById('home-area-filter')?.value || 'all').toLowerCase();
-  const list = filterVal === 'all'
+  const fullList = filterVal === 'all'
     ? appState.restaurants
     : appState.restaurants.filter(r => r.area.toLowerCase() === filterVal);
 
+  const isMobile = window.innerWidth <= 768;
+  const shouldLimit = isMobile && !showAllMobileRestaurants && filterVal === 'all' && fullList.length > 4;
+  const list = shouldLimit ? fullList.slice(0, 4) : fullList;
+
   box.innerHTML = list.map(r => {
-    const sampleDishes = (r.menu || []).slice(0, 4);
+    const sampleDishes = (r.menu || []).slice(0, 3);
     return `
       <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
         <div>
           ${buildRestaurantGalleryHtml(r, 'home')}
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.45rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
             <span class="badge badge-area">📍 P. ${escapeHtml(r.area)}</span>
-            <span class="badge badge-verified">✓ Đã duyệt (${r.verifiedAt})</span>
+            <span class="badge badge-verified">✓ Đã xác minh</span>
           </div>
-          <h3 style="font-size:1.05rem; margin-bottom:0.25rem;">${escapeHtml(r.name)}</h3>
-          <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.3rem;">🏠 ${escapeHtml(r.address)}</p>
-          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.65rem;">🕒 Giờ mở cửa: ${escapeHtml(r.openingHours)}</p>
-          <div style="border-top:1px solid var(--border); padding-top:0.55rem;">
-            <div style="font-size:0.8rem; font-weight:700; margin-bottom:0.35rem;">Thực đơn tiêu biểu (${(r.menu || []).length} món):</div>
+          <h3 style="font-size:1.05rem; margin-bottom:0.2rem;">${escapeHtml(r.name)}</h3>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.25rem;">🏠 ${escapeHtml(r.address)}</p>
+          <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:0.55rem;">🕒 ${escapeHtml(r.openingHours)}</p>
+          <div style="border-top:1px solid var(--border); padding-top:0.45rem;">
+            <div style="font-size:0.78rem; font-weight:700; margin-bottom:0.25rem;">Món tiêu biểu (${(r.menu || []).length} món):</div>
             ${sampleDishes.map(d => `
-              <div style="display:flex; justify-content:space-between; font-size:0.82rem; padding:0.18rem 0;">
-                <span>• ${escapeHtml(d.name)}</span>
+              <div style="display:flex; justify-content:space-between; font-size:0.8rem; padding:0.15rem 0;">
+                <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">• ${escapeHtml(d.name)}</span>
                 <strong style="color:var(--primary); white-space:nowrap; margin-left:0.5rem;">${escapeHtml(d.rawPriceText)}</strong>
               </div>
             `).join('')}
           </div>
         </div>
-        <div style="margin-top:0.8rem; padding-top:0.55rem; border-top:1px dashed var(--border); display:flex; justify-content:space-between; align-items:center; gap:0.4rem; flex-wrap:wrap;">
+        <div class="card-action-pair">
           <button class="btn btn-secondary btn-sm" onclick="routeToRestaurantById('${escapeAttr(r.id)}')">
-            🧭 Dẫn đường trực tiếp
+            🧭 Dẫn đường
           </button>
           <button class="btn btn-primary btn-sm" onclick="usePresetPrompt('Nhóm 2 người muốn ăn tại khu vực ${escapeAttr(r.area)} với ngân sách 130.000 đồng')">
-            🤖 AI Gợi ý tại đây
+            🤖 Gợi ý tại đây
           </button>
         </div>
       </div>
     `;
   }).join('');
+
+  if (moreWrap) {
+    if (shouldLimit) {
+      moreWrap.innerHTML = `
+        <button class="btn btn-secondary" style="width:100%; max-width:420px; border:2px solid var(--primary); color:var(--primary);" onclick="toggleMobileRestaurantsList(true)">
+          👇 Xem thêm toàn bộ ${fullList.length} quán ăn đã xác minh (+${fullList.length - 4} quán)
+        </button>
+      `;
+    } else if (isMobile && showAllMobileRestaurants && filterVal === 'all' && fullList.length > 4) {
+      moreWrap.innerHTML = `
+        <button class="btn btn-secondary btn-sm" onclick="toggleMobileRestaurantsList(false)">
+          🔼 Thu gọn danh sách quán (Chỉ hiện 4 quán nổi bật)
+        </button>
+      `;
+    } else {
+      moreWrap.innerHTML = '';
+    }
+  }
+}
+
+function toggleMobileRestaurantsList(expand) {
+  showAllMobileRestaurants = expand;
+  renderHomeRestaurants();
+  if (!expand) {
+    document.getElementById('restaurants-section-anchor')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 }
 
 /* ==================== LUỒNG AI GỢI Ý MÓN ĂN (2 BƯỚC) ==================== */
@@ -866,7 +908,7 @@ function renderConfirmationPanel(analysis) {
   panel.style.display = 'block';
 
   document.getElementById('ai-provider-meta').textContent =
-    `Mô hình xử lý: ${analysis.aiMeta?.provider || 'AI'} (${analysis.aiMeta?.latencyMs || 0}ms)`;
+    `Mô hình: ${analysis.aiMeta?.provider || 'AI'} (${analysis.aiMeta?.latencyMs || 0}ms)`;
 
   document.getElementById('conf-party-size').value = analysis.partySize || 1;
   document.getElementById('conf-max-budget').value = analysis.maxBudget || 0;
@@ -883,8 +925,8 @@ function renderConfirmationPanel(analysis) {
   const alertsBox = document.getElementById('clarification-alerts');
   if (analysis.clarifications && analysis.clarifications.length > 0) {
     alertsBox.innerHTML = analysis.clarifications.map(c => `
-      <div style="background:var(--warning-light); color:var(--warning); padding:0.6rem 0.9rem; border-radius:9px; font-size:0.86rem; margin-bottom:0.4rem; border:1px solid #fde68a;">
-        💡 <strong>Điểm cần xác nhận:</strong> ${escapeHtml(c)}
+      <div style="background:var(--warning-light); color:var(--warning); padding:0.5rem 0.75rem; border-radius:9px; font-size:0.82rem; margin-bottom:0.35rem; border:1px solid #fde68a;">
+        💡 <strong>Lưu ý:</strong> ${escapeHtml(c)}
       </div>
     `).join('');
   } else {
@@ -892,6 +934,35 @@ function renderConfirmationPanel(analysis) {
   }
 
   renderMemberEditors(analysis.members || []);
+  updateConfSummaryText();
+
+  // Mặc định đóng ngăn kéo chi tiết để Kết quả Phương án #1 hiển thị ngay trước mắt người dùng
+  const drawer = document.getElementById('conf-details-drawer');
+  const toggleBtn = document.getElementById('btn-toggle-conf-drawer');
+  if (drawer) drawer.style.display = 'none';
+  if (toggleBtn) toggleBtn.textContent = '⚙️ Tinh chỉnh ▾';
+}
+
+function toggleConfirmationDrawer() {
+  const drawer = document.getElementById('conf-details-drawer');
+  const toggleBtn = document.getElementById('btn-toggle-conf-drawer');
+  if (!drawer) return;
+  const isHidden = drawer.style.display === 'none';
+  drawer.style.display = isHidden ? 'block' : 'none';
+  if (toggleBtn) {
+    toggleBtn.textContent = isHidden ? '🔼 Thu gọn' : '⚙️ Tinh chỉnh ▾';
+  }
+}
+
+function updateConfSummaryText() {
+  const partySize = parseInt(document.getElementById('conf-party-size')?.value, 10) || 1;
+  const maxBudget = parseInt(document.getElementById('conf-max-budget')?.value, 10) || 0;
+  const area = document.getElementById('conf-area')?.value || 'Biên Hòa';
+  const shortArea = area === 'Tất cả khu vực đã xác minh' ? 'Toàn Biên Hòa' : `P. ${area}`;
+  const summaryEl = document.getElementById('conf-compact-summary-text');
+  if (summaryEl) {
+    summaryEl.textContent = `👥 ${partySize} người • 💰 Tối đa ${maxBudget.toLocaleString('vi-VN')}đ • 📍 ${shortArea}`;
+  }
 }
 
 function rebuildMemberEditors() {
@@ -973,11 +1044,19 @@ function collectMembersFromDom() {
   return members;
 }
 
-async function runStep2Solve() {
+async function runStep2Solve(fromManualUpdate = false) {
   const partySize = Math.max(1, Math.min(6, parseInt(document.getElementById('conf-party-size').value, 10) || 1));
   const maxBudget = Math.max(0, parseInt(document.getElementById('conf-max-budget').value, 10) || 0);
   const area = document.getElementById('conf-area').value;
   const members = collectMembersFromDom();
+  updateConfSummaryText();
+
+  if (fromManualUpdate) {
+    const drawer = document.getElementById('conf-details-drawer');
+    const toggleBtn = document.getElementById('btn-toggle-conf-drawer');
+    if (drawer) drawer.style.display = 'none';
+    if (toggleBtn) toggleBtn.textContent = '⚙️ Tinh chỉnh ▾';
+  }
 
   const requirements = {
     partySize,
@@ -995,6 +1074,11 @@ async function runStep2Solve() {
 
   if (res.success) {
     renderSolverResults(res.data, requirements);
+    if (window.innerWidth <= 768) {
+      setTimeout(() => {
+        document.getElementById('confirmation-panel')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
   }
 }
 
@@ -1408,30 +1492,30 @@ function renderScanDraftTable() {
   if (!tbody) return;
 
   tbody.innerHTML = appState.scanDraftItems.map((it, idx) => `
-    <tr class="${it.needsReview ? 'row-needs-review' : ''}">
-      <td>
+    <tr class="scan-draft-row ${it.needsReview ? 'row-needs-review' : ''}">
+      <td class="scan-td-name">
         <input
           type="text"
           class="form-control"
-          style="padding:0.35rem 0.5rem; font-size:0.85rem;"
+          style="padding:0.4rem 0.55rem; font-size:0.88rem; font-weight:600;"
           value="${escapeAttr(it.name)}"
           onchange="updateDraftItem(${idx}, 'name', this.value)"
         />
       </td>
-      <td>
+      <td class="scan-td-price">
         <input
           type="number"
           class="form-control"
-          style="padding:0.35rem 0.5rem; font-size:0.85rem; width:105px;"
+          style="padding:0.4rem 0.55rem; font-size:0.88rem;"
           value="${it.price}"
           step="1000"
           onchange="updateDraftItem(${idx}, 'price', this.value)"
         />
       </td>
-      <td>
+      <td class="scan-td-cat">
         <select
           class="form-control"
-          style="padding:0.35rem 0.5rem; font-size:0.83rem;"
+          style="padding:0.4rem 0.5rem; font-size:0.84rem;"
           onchange="updateDraftItem(${idx}, 'category', this.value)"
         >
           <option value="mon_nuoc" ${it.category === 'mon_nuoc' ? 'selected' : ''}>Món nước</option>
@@ -1442,14 +1526,14 @@ function renderScanDraftTable() {
           <option value="an_vat" ${it.category === 'an_vat' ? 'selected' : ''}>Ăn vặt</option>
         </select>
       </td>
-      <td style="font-size:0.78rem;">
+      <td class="scan-td-conf" style="font-size:0.78rem;">
         <span class="badge ${it.needsReview ? 'badge-warning' : 'badge-verified'}">
           ${Math.round((it.confidence || 0.95) * 100)}%
         </span>
-        ${it.needsReview ? `<div style="color:var(--warning); margin-top:0.2rem;">⚠️ ${escapeHtml(it.reviewReason || 'Cần kiểm tra')}</div>` : '<div style="color:var(--accent);">Khớp rõ ràng</div>'}
+        ${it.needsReview ? `<span style="color:var(--warning); margin-left:0.25rem;">⚠️ ${escapeHtml(it.reviewReason || 'Cần kiểm tra')}</span>` : '<span style="color:var(--accent); margin-left:0.25rem;">Khớp rõ</span>'}
       </td>
-      <td>
-        <button class="btn btn-danger btn-sm" onclick="removeDraftItem(${idx})">✕</button>
+      <td class="scan-td-del">
+        <button class="btn btn-danger btn-sm" onclick="removeDraftItem(${idx})" title="Xóa món này">✕</button>
       </td>
     </tr>
   `).join('');

@@ -4,7 +4,7 @@
  * tự động dùng bản lưu dự phòng (Offline Cache) nếu rớt mạng đột xuất khi thuyết trình.
  */
 
-const CACHE_NAME = 'hop-vi-ai-pwa-v1';
+const CACHE_NAME = 'hop-vi-ai-pwa-v2';
 const CORE_ASSETS = [
   '/',
   '/index.html',
@@ -44,3 +44,4 @@ self.addEventListener('fetch', event => {
       .catch(() => caches.match(event.request).then(cached => cached || caches.match('/')))
   );
 });
+
