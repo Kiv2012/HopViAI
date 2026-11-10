@@ -87,6 +87,26 @@
         </div>
       </div>
 
+      <!-- Thanh lối tắt nhanh trên Điện thoại (Mobile Quick Actions) -->
+      <div class="mobile-quick-jump">
+        <button class="quick-jump-card" onclick="scrollToSection('dongnai-map-anchor')">
+          <span class="qj-icon">🗺️</span>
+          <span class="qj-label">Bản đồ & Dẫn đường</span>
+        </button>
+        <button class="quick-jump-card" onclick="scrollToSection('restaurants-section-anchor')">
+          <span class="qj-icon">🏪</span>
+          <span class="qj-label">18 Quán xác minh</span>
+        </button>
+        <button class="quick-jump-card" onclick="switchView('partner')">
+          <span class="qj-icon">📸</span>
+          <span class="qj-label">AI Scan Menu</span>
+        </button>
+        <button class="quick-jump-card" onclick="openQrModal()">
+          <span class="qj-icon">📱</span>
+          <span class="qj-label">Mã QR Chia sẻ</span>
+        </button>
+      </div>
+
       <!-- Thống kê dữ liệu thực tế -->
       <div class="grid-4">
         <div class="card stat-card">
@@ -579,6 +599,30 @@
       <button class="btn btn-primary" onclick="closeQrModal()">Hoàn tất</button>
     </div>
   </div>
+
+  <!-- Thanh điều hướng đáy cố định cho Điện thoại (Mobile Bottom App Bar) -->
+  <nav class="mobile-bottom-nav" aria-label="Điều hướng di động">
+    <button class="mobile-nav-item active" data-view="home" onclick="switchView('home')">
+      <span class="m-icon">🏠</span>
+      <span class="m-label">Trang chủ</span>
+    </button>
+    <button class="mobile-nav-item" data-view="recommend" onclick="switchView('recommend')">
+      <span class="m-icon">🤖</span>
+      <span class="m-label">Gợi ý AI</span>
+    </button>
+    <button class="mobile-nav-item" data-view="explore" onclick="switchView('explore')">
+      <span class="m-icon">🍊</span>
+      <span class="m-label">Đặc sản</span>
+    </button>
+    <button class="mobile-nav-item" data-view="partner" onclick="switchView('partner')">
+      <span class="m-icon">📸</span>
+      <span class="m-label">Quét Menu</span>
+    </button>
+    <button class="mobile-nav-item" data-view="admin" onclick="switchView('admin')">
+      <span class="m-icon">🛡️</span>
+      <span class="m-label">Admin</span>
+    </button>
+  </nav>
 
   <script src="/app.js"></script>
 </body>

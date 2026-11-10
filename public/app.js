@@ -52,10 +52,23 @@ function switchView(viewName) {
   document.querySelectorAll('.view-section').forEach(sec => {
     sec.classList.toggle('active', sec.id === `view-${viewName}`);
   });
-  document.querySelectorAll('.nav-btn').forEach(btn => {
+  document.querySelectorAll('.nav-btn, .mobile-nav-item').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.view === viewName);
   });
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (viewName === 'home' && leafletMap) {
+    setTimeout(() => leafletMap.invalidateSize(), 180);
+  }
+}
+
+function scrollToSection(elementId) {
+  switchView('home');
+  setTimeout(() => {
+    const el = document.getElementById(elementId);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 120);
 }
 
 function renderHeaderStats() {
@@ -1031,7 +1044,8 @@ function renderSolverResults(result, requirements) {
             </div>
 
             <!-- Bảng phân bổ món cho từng thành viên -->
-            <table class="data-table" style="margin-bottom:0.85rem;">
+            <div class="table-responsive" style="margin-bottom:0.85rem;">
+            <table class="data-table" style="margin-top:0;">
               <thead>
                 <tr>
                   <th>Thành viên</th>
@@ -1057,6 +1071,7 @@ function renderSolverResults(result, requirements) {
                 `).join('')}
               </tbody>
             </table>
+            </div>
 
             <!-- Tổng chi phí & số tiền còn dư -->
             <div style="background:#fff7ed; border:1px solid #fed7aa; padding:0.75rem; border-radius:10px; margin-bottom:0.75rem;">
