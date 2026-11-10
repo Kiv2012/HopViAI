@@ -305,11 +305,9 @@ function initOrUpdateLeafletMap() {
     leafletMap = L.map('leaflet-routing-map', {
       center: [10.9535, 106.8250],
       zoom: 13.5,
-      zoomSnap: 0.5,
+      zoomSnap: 0.25,
       zoomDelta: 0.5,
-      wheelPxPerZoomLevel: 110,
-      wheelDebounceTime: 25,
-      scrollWheelZoom: true,
+      scrollWheelZoom: false, // Tắt auto-zoom khi cuộn dọc để vuốt 2 ngón Lên/Xuống/Trái/Phải đều di chuyển bản đồ mượt mà
       dragging: true,
       tap: false,
       keyboard: true,
@@ -324,16 +322,50 @@ function initOrUpdateLeafletMap() {
       attribution: '© OpenStreetMap • HỢP VỊ AI Đồng Nai'
     }).addTo(leafletMap);
 
-    // Hỗ trợ vuốt ngang 2 ngón trên Touchpad hoặc giữ Shift + Lăn chuột để di chuyển Trái/Phải mượt mà
+    // Điều khiển chuẩn Touchpad & Chuột:
+    // - Vuốt 2 ngón tay Lên/Xuống/Trái/Phải (hoặc lăn chuột): Di chuyển bản đồ theo cả 2 trục X (Trái/Phải) và Y (Lên/Xuống)
+    // - Chụm/mở 2 ngón tay (Ctrl + Wheel): Zoom phóng to / thu nhỏ tại vị trí con trỏ
     mapContainer.addEventListener('wheel', e => {
       if (!leafletMap) return;
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY) || e.shiftKey) {
-        e.preventDefault();
-        e.stopPropagation();
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (e.ctrlKey || e.metaKey) {
+        // Chụm/mở 2 ngón trên Touchpad hoặc giữ Ctrl + lăn chuột -> Zoom
+        const zoomStep = e.deltaY < 0 ? 0.45 : -0.45;
+        const mouseLatLng = leafletMap.mouseEventToLatLng(e);
+        leafletMap.setZoomAround(mouseLatLng, leafletMap.getZoom() + zoomStep, { animate: false });
+      } else {
+        // Vuốt Lên/Xuống (deltaY) và Trái/Phải (deltaX) -> Di chuyển bản đồ tự do cả 4 hướng
         const dx = e.shiftKey && e.deltaX === 0 ? e.deltaY : e.deltaX;
-        leafletMap.panBy([dx * 1.2, 0], { animate: false });
+        const dy = e.shiftKey && e.deltaX === 0 ? 0 : e.deltaY;
+        leafletMap.panBy([dx * 1.15, dy * 1.15], { animate: false });
       }
     }, { passive: false });
+
+    // Bổ sung bộ kéo giữ chuột trái 4 hướng trực tiếp (đảm bảo kéo Lên/Xuống/Trái/Phải trên mọi trình duyệt)
+    let isPointerDown = false;
+    let lastClientX = 0;
+    let lastClientY = 0;
+    mapContainer.addEventListener('pointerdown', e => {
+      if (e.target.closest('.map-pan-dpad') || e.target.closest('.leaflet-control') || e.target.closest('.leaflet-popup')) return;
+      isPointerDown = true;
+      lastClientX = e.clientX;
+      lastClientY = e.clientY;
+    });
+    window.addEventListener('pointermove', e => {
+      if (!isPointerDown || !leafletMap) return;
+      const moveX = lastClientX - e.clientX;
+      const moveY = lastClientY - e.clientY;
+      if (Math.abs(moveX) > 1 || Math.abs(moveY) > 1) {
+        leafletMap.panBy([moveX, moveY], { animate: false });
+        lastClientX = e.clientX;
+        lastClientY = e.clientY;
+      }
+    });
+    window.addEventListener('pointerup', () => {
+      isPointerDown = false;
+    });
 
     // Tự động đồng bộ kích thước khung bản đồ
     setTimeout(() => {
