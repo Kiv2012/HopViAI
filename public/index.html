@@ -12,7 +12,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
   <title>HỢP VỊ AI – Hiểu đúng vị – Gợi đúng món | Ẩm thực Đồng Nai</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-  <link rel="stylesheet" href="/styles.css?v=20261110-3roles" />
+  <link rel="stylesheet" href="/styles.css?v=20261110-autogrow" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 </head>
 <body data-role="customer">
@@ -85,12 +85,14 @@
         </div>
 
         <div class="quick-search-box">
-          <input
+          <textarea
             id="home-quick-input"
-            type="text"
-            placeholder="VD: Nhóm 3 người có 150k ở Trấn Biên, 2 người thích món nước, 1 người thích mì trộn..."
-            onkeydown="if(event.key==='Enter') triggerQuickRecommend()"
-          />
+            class="auto-expand-textarea"
+            rows="1"
+            placeholder="VD: Nhóm 3 người có 150k ở Trấn Biên, 2 món nước, 1 mì trộn..."
+            oninput="autoResizeTextarea(this)"
+            onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); triggerQuickRecommend(); }"
+          ></textarea>
           <button class="btn btn-primary" onclick="triggerQuickRecommend()">🔍 Tìm món ngay</button>
         </div>
 
@@ -154,9 +156,10 @@
         <div class="form-group" style="margin-bottom:0.65rem;">
           <textarea
             id="ai-prompt-input"
-            class="form-control"
+            class="form-control auto-expand-textarea"
             rows="2"
-            placeholder="Ví dụ: Nhóm mình có 3 người ở Trấn Biên, tổng ngân sách 150.000 đồng. Hai người thích món nước chua cay, một người thích mì trộn khô..."
+            placeholder="VD: Nhóm 3 người ở Trấn Biên, ngân sách 150.000đ. 2 người thích món nước chua cay, 1 người thích mì trộn..."
+            oninput="autoResizeTextarea(this)"
           ></textarea>
         </div>
 
@@ -350,7 +353,7 @@
 
           <div class="form-group">
             <label>Nội dung nhận xét:</label>
-            <textarea id="fb-comment" class="form-control" rows="3" placeholder="Nhập cảm nhận của bạn hoặc thông tin giá mới tại quán..."></textarea>
+            <textarea id="fb-comment" class="form-control auto-expand-textarea" rows="3" oninput="autoResizeTextarea(this)" placeholder="Nhập cảm nhận của bạn hoặc thông tin giá mới tại quán..."></textarea>
           </div>
 
           <button class="btn btn-primary" style="width:100%;" onclick="submitUserFeedback()">📤 Gửi đánh giá</button>
@@ -854,6 +857,6 @@
     </button>
   </nav>
 
-  <script src="/app.js?v=20261110-3roles"></script>
+  <script src="/app.js?v=20261110-autogrow"></script>
 </body>
 </html>

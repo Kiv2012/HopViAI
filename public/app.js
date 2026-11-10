@@ -169,6 +169,17 @@ async function refreshAllData() {
   }
 }
 
+function autoResizeTextarea(el) {
+  if (!el) return;
+  el.style.height = 'auto';
+  const minH = el.id === 'home-quick-input' ? 46 : 76;
+  el.style.height = `${Math.max(minH, el.scrollHeight)}px`;
+}
+
+window.addEventListener('resize', () => {
+  document.querySelectorAll('.auto-expand-textarea').forEach(el => autoResizeTextarea(el));
+});
+
 function switchView(viewName) {
   document.querySelectorAll('.view-section').forEach(sec => {
     sec.classList.toggle('active', sec.id === `view-${viewName}`);
@@ -180,6 +191,9 @@ function switchView(viewName) {
     btn.classList.toggle('active', btn.dataset.view === viewName);
   });
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.auto-expand-textarea').forEach(el => autoResizeTextarea(el));
+  });
   if ((viewName === 'map' || viewName === 'home') && leafletMap) {
     setTimeout(() => leafletMap.invalidateSize(), 180);
   }
@@ -954,7 +968,10 @@ function triggerQuickRecommend() {
 function usePresetPrompt(promptText) {
   switchView('recommend');
   const input = document.getElementById('ai-prompt-input');
-  if (input) input.value = promptText;
+  if (input) {
+    input.value = promptText;
+    requestAnimationFrame(() => autoResizeTextarea(input));
+  }
   runStep1Analyze();
 }
 
@@ -964,7 +981,10 @@ function useSpecialtyPrompt(promptText) {
 
 function fillAndAnalyze(promptText) {
   const input = document.getElementById('ai-prompt-input');
-  if (input) input.value = promptText;
+  if (input) {
+    input.value = promptText;
+    autoResizeTextarea(input);
+  }
   runStep1Analyze();
 }
 

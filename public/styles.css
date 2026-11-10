@@ -234,13 +234,29 @@ body {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
-.quick-search-box input {
+.quick-search-box input,
+.quick-search-box textarea {
   flex: 1;
   border: none;
   padding: 0.75rem 1rem;
   font-size: 0.98rem;
+  font-family: inherit;
+  line-height: 1.45;
   outline: none;
   color: var(--text);
+  background: transparent;
+}
+
+.auto-expand-textarea {
+  overflow-y: hidden;
+  resize: none;
+  line-height: 1.5;
+  min-height: 76px;
+  transition: height 0.08s ease;
+}
+
+#home-quick-input.auto-expand-textarea {
+  min-height: 46px;
 }
 
 .preset-chips {
@@ -992,7 +1008,8 @@ body {
     width: 100%;
   }
 
-  .quick-search-box input {
+  .quick-search-box input,
+  .quick-search-box textarea {
     width: 100%;
     font-size: 16px;
     padding: 0.55rem 0.65rem;
