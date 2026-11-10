@@ -1402,4 +1402,102 @@ body {
   }
 }
 
+/* ==================== 3 GIAO DIỆN THEO 3 VAI TRÒ (KHÁCH HÀNG - CHỦ QUÁN - ADMIN) ==================== */
+
+.account-trigger-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  padding: 0.44rem 0.9rem;
+  font-size: 0.84rem;
+  font-weight: 800;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Banner đầu mỗi cổng Chủ Quán & Admin */
+.role-portal-banner {
+  border-radius: 16px;
+  padding: 1.15rem 1.35rem;
+  margin-bottom: 1.15rem;
+  color: #fff;
+  box-shadow: var(--shadow);
+}
+
+.partner-banner {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 60%, #2563eb 100%);
+}
+
+.admin-banner {
+  background: linear-gradient(135deg, #4c1d95 0%, #6d28d9 60%, #7e22ce 100%);
+}
+
+.role-portal-banner h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.2rem;
+  color: #fff;
+}
+
+/* Thẻ chọn nhanh 3 giao diện trong Modal */
+.role-switch-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  padding: 0.6rem 0.35rem;
+  border-radius: 11px;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  transition: all 0.16s ease;
+  text-align: center;
+}
+
+.role-switch-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.role-switch-card.active-role-card {
+  border-color: var(--primary);
+  background: #fff7ed;
+  box-shadow: 0 3px 10px rgba(194, 65, 12, 0.14);
+}
+
+/* Tông màu nhận diện riêng khi ở Giao diện Chủ quán */
+body[data-role="partner"] .brand-logo {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  box-shadow: 0 3px 10px rgba(29, 78, 216, 0.3);
+}
+body[data-role="partner"] .brand-title {
+  color: #1d4ed8;
+}
+body[data-role="partner"] .nav-btn.active {
+  background: #1d4ed8;
+  color: #fff;
+}
+body[data-role="partner"] .mobile-nav-item.active {
+  color: #1d4ed8;
+  background: #dbeafe;
+}
+
+/* Tông màu nhận diện riêng khi ở Giao diện Admin */
+body[data-role="admin"] .brand-logo {
+  background: linear-gradient(135deg, #7e22ce, #581c87);
+  box-shadow: 0 3px 10px rgba(126, 34, 206, 0.3);
+}
+body[data-role="admin"] .brand-title {
+  color: #7e22ce;
+}
+body[data-role="admin"] .nav-btn.active {
+  background: #7e22ce;
+  color: #fff;
+}
+body[data-role="admin"] .mobile-nav-item.active {
+  color: #7e22ce;
+  background: #f3e8ff;
+}
+
+
 

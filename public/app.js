@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
   loadSavedUserSession();
   const urlView = new URLSearchParams(window.location.search).get('view');
-  if (urlView && ['home', 'recommend', 'explore', 'feedback', 'partner', 'admin'].includes(urlView)) {
+  if (urlView) {
     switchView(urlView);
   }
   await refreshAllData();
@@ -48,69 +48,98 @@ function loadSavedUserSession() {
     }
   } catch (_) {}
   applyUserRolePermissions();
+  const role = appState.currentUser?.role || 'customer';
+  if (role === 'partner') {
+    switchView('partner');
+  } else if (role === 'admin') {
+    switchView('admin');
+  } else {
+    switchView('home');
+  }
+}
+
+function onBrandClick() {
+  const role = appState.currentUser?.role || 'customer';
+  if (role === 'partner') switchView('partner');
+  else if (role === 'admin') switchView('admin');
+  else switchView('home');
 }
 
 function applyUserRolePermissions() {
   const user = appState.currentUser;
+  const activeRole = user?.role || 'customer';
+  document.body.dataset.role = activeRole;
+
+  const iconEl = document.getElementById('user-account-icon');
   const labelEl = document.getElementById('user-account-label');
   const btnEl = document.getElementById('user-account-btn');
-  const topPartnerBtn = document.getElementById('top-partner-btn');
-  const topAdminBtn = document.getElementById('top-admin-btn');
+  const logoBox = document.getElementById('brand-logo-box');
+  const titleText = document.getElementById('brand-title-text');
+  const sloganText = document.getElementById('brand-slogan-text');
 
-  if (!user) {
-    if (labelEl) labelEl.textContent = 'Đăng nhập';
-    if (btnEl) {
-      btnEl.style.background = '#fef3c7';
-      btnEl.style.color = '#b45309';
-      btnEl.style.borderColor = '#fde68a';
-    }
-    if (topPartnerBtn) topPartnerBtn.style.display = '';
-    if (topAdminBtn) topAdminBtn.style.display = '';
-    return;
-  }
+  // Ẩn/Hiện thanh menu Desktop và thanh menu Mobile tương ứng đúng với từng vai trò
+  document.querySelectorAll('.role-nav').forEach(nav => {
+    nav.style.display = nav.dataset.forRole === activeRole ? '' : 'none';
+  });
+  document.querySelectorAll('.role-mobile-nav').forEach(nav => {
+    nav.style.display = nav.dataset.forRole === activeRole ? '' : 'none';
+  });
 
-  if (user.role === 'customer') {
-    if (labelEl) labelEl.textContent = `Khách: ${user.name.split(' ').slice(-2).join(' ')}`;
-    if (btnEl) {
-      btnEl.style.background = '#fff7ed';
-      btnEl.style.color = '#c2410c';
-      btnEl.style.borderColor = '#fed7aa';
-    }
-    if (topPartnerBtn) topPartnerBtn.style.display = 'none';
-    if (topAdminBtn) topAdminBtn.style.display = 'none';
-  } else if (user.role === 'partner') {
-    if (labelEl) labelEl.textContent = `Chủ quán: ${user.name.split(' ').slice(-2).join(' ')}`;
+  // Đánh dấu nút chuyển nhanh trong Modal
+  ['customer', 'partner', 'admin'].forEach(r => {
+    const card = document.getElementById(`quick-role-btn-${r}`);
+    if (card) card.classList.toggle('active-role-card', r === activeRole);
+  });
+
+  if (activeRole === 'partner') {
+    if (logoBox) logoBox.textContent = '🏪';
+    if (titleText) titleText.textContent = 'HỢP VỊ AI • CHỦ QUÁN';
+    if (sloganText) sloganText.textContent = 'Cổng Quản lý Thực đơn & Nhà hàng • Đồng Nai';
+    if (iconEl) iconEl.textContent = '🏪';
+    if (labelEl) labelEl.textContent = user ? `Chủ quán: ${user.name.split(' ').slice(-2).join(' ')}` : 'Chủ quán';
     if (btnEl) {
       btnEl.style.background = '#eff6ff';
       btnEl.style.color = '#1d4ed8';
       btnEl.style.borderColor = '#bfdbfe';
     }
-    if (topPartnerBtn) topPartnerBtn.style.display = '';
-    if (topAdminBtn) topAdminBtn.style.display = 'none';
-
-    if (user.restaurantName && document.getElementById('partner-name')) {
+    if (user?.restaurantName && document.getElementById('partner-name')) {
       document.getElementById('partner-name').value = user.restaurantName;
     }
-    if (user.restaurantAddress && document.getElementById('partner-address')) {
+    if (user?.restaurantAddress && document.getElementById('partner-address')) {
       document.getElementById('partner-address').value = user.restaurantAddress;
     }
-    if (user.restaurantArea && document.getElementById('partner-area')) {
+    if (user?.restaurantArea && document.getElementById('partner-area')) {
       document.getElementById('partner-area').value = user.restaurantArea;
     }
-  } else if (user.role === 'admin') {
+  } else if (activeRole === 'admin') {
+    if (logoBox) logoBox.textContent = '🛡️';
+    if (titleText) titleText.textContent = 'HỢP VỊ AI • ADMIN';
+    if (sloganText) sloganText.textContent = 'Trung tâm Quản trị Toàn trang Web';
+    if (iconEl) iconEl.textContent = '🛡️';
     if (labelEl) labelEl.textContent = 'Admin Toàn quyền';
     if (btnEl) {
       btnEl.style.background = '#f3e8ff';
       btnEl.style.color = '#7e22ce';
       btnEl.style.borderColor = '#e9d5ff';
     }
-    if (topPartnerBtn) topPartnerBtn.style.display = '';
-    if (topAdminBtn) topAdminBtn.style.display = '';
+  } else {
+    if (logoBox) logoBox.textContent = 'HV';
+    if (titleText) titleText.textContent = 'HỢP VỊ AI';
+    if (sloganText) sloganText.textContent = 'Ẩm thực Biên Hòa – Đồng Nai';
+    if (iconEl) iconEl.textContent = '🙋';
+    if (labelEl) {
+      labelEl.textContent = user ? `Khách: ${user.name.split(' ').slice(-2).join(' ')}` : 'Khách hàng • Đổi vai trò';
+    }
+    if (btnEl) {
+      btnEl.style.background = '#fff7ed';
+      btnEl.style.color = '#c2410c';
+      btnEl.style.borderColor = '#fed7aa';
+    }
   }
 
   const fbNameInput = document.getElementById('fb-user-name');
-  if (fbNameInput && !fbNameInput.value) {
-    fbNameInput.value = `${user.name} (${user.role === 'partner' ? 'Chủ quán' : user.role === 'admin' ? 'Admin' : 'Khách hàng'})`;
+  if (fbNameInput && user) {
+    fbNameInput.value = user.name;
   }
 }
 
@@ -141,16 +170,6 @@ async function refreshAllData() {
 }
 
 function switchView(viewName) {
-  const user = appState.currentUser;
-  if (viewName === 'partner' && user && user.role === 'customer') {
-    openAuthModal('🔒 Khu vực AI Scan Menu dành riêng cho Chủ quán hoặc Admin. Bạn hãy đăng ký tài khoản Chủ quán hoặc bấm nút "🏪 Chủ quán" bên dưới để truy cập nhé!');
-    return;
-  }
-  if (viewName === 'admin' && user && user.role !== 'admin') {
-    openAuthModal('🔒 Khu vực Quản trị toàn trang chỉ dành cho tài khoản Admin duy nhất (admin@hopviai.vn). Bạn có thể bấm nút "🛡️ Admin" ở cuối hộp thoại để chuyển nhanh!');
-    return;
-  }
-
   document.querySelectorAll('.view-section').forEach(sec => {
     sec.classList.toggle('active', sec.id === `view-${viewName}`);
   });
@@ -158,22 +177,20 @@ function switchView(viewName) {
     btn.classList.toggle('active', btn.dataset.view === viewName);
   });
   document.querySelectorAll('.mobile-nav-item').forEach(btn => {
-    const isManageGroup = ['partner', 'admin', 'feedback'].includes(viewName) && btn.dataset.view === 'partner';
-    btn.classList.toggle('active', btn.dataset.view === viewName || isManageGroup);
+    btn.classList.toggle('active', btn.dataset.view === viewName);
   });
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  if (viewName === 'home' && leafletMap) {
+  if ((viewName === 'map' || viewName === 'home') && leafletMap) {
     setTimeout(() => leafletMap.invalidateSize(), 180);
   }
 }
 
 function scrollToSection(elementId) {
-  switchView('home');
   if (elementId === 'dongnai-map-anchor') {
-    document.querySelectorAll('.mobile-nav-item').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.view === 'map');
-    });
+    switchView('map');
+    return;
   }
+  switchView('home');
   setTimeout(() => {
     const el = document.getElementById(elementId);
     if (el) {
@@ -734,12 +751,11 @@ async function drawRouteToSelectedRestaurant() {
 }
 
 function routeToRestaurantById(restId) {
-  switchView('home');
+  switchView('map');
   const destSelect = document.getElementById('route-dest-select');
   if (destSelect) {
     destSelect.value = restId;
   }
-  document.getElementById('dongnai-map-anchor')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   setTimeout(() => {
     if (leafletMap) leafletMap.invalidateSize();
     drawRouteToSelectedRestaurant();
@@ -1409,14 +1425,15 @@ function renderFeedbackSection() {
   }
 
   const listBox = document.getElementById('feedback-list-box');
-  if (listBox && appState.adminData) {
+  const partnerFbBox = document.getElementById('partner-feedback-list-box');
+  if (appState.adminData) {
     const fbs = appState.adminData.feedbacks || [];
-    listBox.innerHTML = fbs.map(fb => `
+    const html = fbs.map(fb => `
       <div style="border-bottom:1px solid var(--border); padding:0.75rem 0;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.25rem;">
           <strong>${escapeHtml(fb.userName)}</strong>
           <span class="badge ${fb.status === 'verified' ? 'badge-verified' : 'badge-warning'}">
-            ${fb.status === 'verified' ? '✓ Admin đã xác minh' : '⏳ Đã tiếp nhận – Chờ Admin kiểm tra'}
+            ${fb.status === 'verified' ? '✓ Đã xác minh' : '⏳ Mới tiếp nhận'}
           </span>
         </div>
         <div style="font-size:0.8rem; color:var(--primary); font-weight:600; margin-bottom:0.25rem;">
@@ -1425,6 +1442,8 @@ function renderFeedbackSection() {
         <p style="font-size:0.86rem;">${escapeHtml(fb.comment)}</p>
       </div>
     `).join('');
+    if (listBox) listBox.innerHTML = html;
+    if (partnerFbBox) partnerFbBox.innerHTML = html;
   }
 }
 
@@ -1802,7 +1821,9 @@ function renderAdminDashboard() {
   // 3. Quản lý Toàn bộ Quán ăn trên Website
   const restsBox = document.getElementById('admin-restaurants-list');
   const restsCountEl = document.getElementById('admin-rests-count');
+  const restsCountTopEl = document.getElementById('admin-rests-count-top');
   if (restsCountEl && restaurants) restsCountEl.textContent = restaurants.length;
+  if (restsCountTopEl && restaurants) restsCountTopEl.textContent = restaurants.length;
   if (restsBox && restaurants) {
     restsBox.innerHTML = restaurants.map(r => `
       <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; padding:0.55rem 0; border-bottom:1px solid var(--border); font-size:0.83rem;">

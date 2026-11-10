@@ -12,254 +12,116 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
   <title>HỢP VỊ AI – Hiểu đúng vị – Gợi đúng món | Ẩm thực Đồng Nai</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-  <link rel="stylesheet" href="/styles.css?v=20261110-rbac1" />
+  <link rel="stylesheet" href="/styles.css?v=20261110-3roles" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 </head>
-<body>
-  <!-- Thanh điều hướng chính -->
+<body data-role="customer">
+  <!-- ==================== THANH ĐIỀU HƯỚNG TỰ ĐỘNG THEO 3 VAI TRÒ ==================== -->
   <header class="topbar">
     <div class="topbar-inner">
-      <div class="brand" onclick="switchView('home')">
-        <div class="brand-logo">HV</div>
+      <div class="brand" onclick="onBrandClick()">
+        <div class="brand-logo" id="brand-logo-box">HV</div>
         <div>
-          <div class="brand-title">HỢP VỊ AI</div>
-          <div class="brand-slogan">Hiểu đúng vị – Gợi đúng món • Đồng Nai</div>
+          <div class="brand-title" id="brand-title-text">HỢP VỊ AI</div>
+          <div class="brand-slogan" id="brand-slogan-text">Hiểu đúng vị – Gợi đúng món • Đồng Nai</div>
         </div>
       </div>
 
-      <!-- 4 Danh mục chính (Khu vực Người dùng - Hiển thị trên Desktop) -->
-      <nav class="nav-tabs" aria-label="Danh mục chính">
-        <button class="nav-btn active" data-view="home" onclick="switchView('home')">🏠 Trang chủ</button>
-        <button class="nav-btn" data-view="recommend" onclick="switchView('recommend')">🤖 AI Gợi ý món ăn</button>
-        <button class="nav-btn" data-view="explore" onclick="switchView('explore')">🍊 Khám phá Đồng Nai</button>
-        <button class="nav-btn" data-view="feedback" onclick="switchView('feedback')">💬 Đánh giá / Góp ý</button>
+      <!-- MENU DESKTOP 1: GIAO DIỆN KHÁCH HÀNG -->
+      <nav id="desktop-nav-customer" class="nav-tabs role-nav" data-for-role="customer" aria-label="Menu Khách hàng">
+        <button class="nav-btn active" data-view="home" onclick="switchView('home')">🏠 Quán ngon</button>
+        <button class="nav-btn" data-view="recommend" onclick="switchView('recommend')">🤖 Tìm món AI</button>
+        <button class="nav-btn" data-view="map" onclick="switchView('map')">🗺️ Bản đồ</button>
+        <button class="nav-btn" data-view="explore" onclick="switchView('explore')">🍊 Đặc sản</button>
+        <button class="nav-btn" data-view="feedback" onclick="switchView('feedback')">💬 Đánh giá</button>
       </nav>
 
-      <!-- Chuyển đổi vai trò Đối tác / Admin & Cấu hình AI / QR -->
+      <!-- MENU DESKTOP 2: GIAO DIỆN CHỦ QUÁN (PARTNER PORTAL) -->
+      <nav id="desktop-nav-partner" class="nav-tabs role-nav" data-for-role="partner" style="display:none;" aria-label="Menu Chủ quán">
+        <button class="nav-btn" data-view="partner" onclick="switchView('partner')">📸 AI Quét Thực đơn</button>
+        <button class="nav-btn" data-view="partner-menus" onclick="switchView('partner-menus')">📋 Hồ sơ Quán của tôi</button>
+        <button class="nav-btn" data-view="partner-reviews" onclick="switchView('partner-reviews')">💬 Phản hồi Khách hàng</button>
+      </nav>
+
+      <!-- MENU DESKTOP 3: GIAO DIỆN QUẢN TRỊ VIÊN (ADMIN CONSOLE) -->
+      <nav id="desktop-nav-admin" class="nav-tabs role-nav" data-for-role="admin" style="display:none;" aria-label="Menu Admin">
+        <button class="nav-btn" data-view="admin" onclick="switchView('admin')">
+          📥 Duyệt Menu (<span id="pending-badge-count">1</span>)
+        </button>
+        <button class="nav-btn" data-view="admin-restaurants" onclick="switchView('admin-restaurants')">
+          🏪 Quản lý Quán (<span id="admin-rests-count-top">18</span>)
+        </button>
+        <button class="nav-btn" data-view="admin-users" onclick="switchView('admin-users')">
+          👥 Quản lý User
+        </button>
+        <button class="nav-btn" data-view="admin-system" onclick="switchView('admin-system')">
+          ⚙️ Hệ thống & AI
+        </button>
+      </nav>
+
+      <!-- Góc phải gọn gàng: Chỉ 1 nút Tài khoản / Đổi vai trò duy nhất -->
       <div class="role-switcher">
-        <button id="top-partner-btn" class="role-pill active-partner hide-on-mobile" data-view="partner" onclick="switchView('partner')" title="Khu vực Đối tác & AI Scan Menu">
-          📸 Đối tác (AI Scan Menu)
+        <button id="user-account-btn" class="role-pill account-trigger-btn" onclick="openAuthModal()" title="Đăng nhập / Đăng ký hoặc Chuyển đổi giữa 3 giao diện: Khách hàng - Chủ quán - Admin">
+          <span id="user-account-icon">🙋</span>
+          <span id="user-account-label">Khách hàng</span>
+          <span style="font-size:0.7rem; opacity:0.75;">▾</span>
         </button>
-        <button id="top-admin-btn" class="role-pill active-admin hide-on-mobile" data-view="admin" onclick="switchView('admin')" title="Khu vực Quản trị & Xác minh dữ liệu">
-          🛡️ Admin (<span id="pending-badge-count">1</span>)
-        </button>
-        <button id="user-account-btn" class="role-pill" style="background:#fef3c7; color:#b45309; border-color:#fde68a;" onclick="openAuthModal()" title="Đăng nhập / Đăng ký Phân quyền (Khách hàng, Chủ quán, Admin)">
-          👤 <span id="user-account-label">Đăng nhập</span>
-        </button>
-        <button id="api-status-btn" class="api-status-badge fallback" onclick="openApiKeyModal()" title="Cấu hình Google Gemini API Key">
-          ⚡ <span class="hide-on-mobile">Gemini AI: </span><span id="api-status-text">AI Sẵn sàng</span>
-        </button>
-        <button class="role-pill" onclick="openQrModal()" title="Mã QR cho Ban giám khảo trải nghiệm">
-          📱 QR<span class="hide-on-mobile"> Demo</span>
-        </button>
-        <button id="btn-pwa-install" class="role-pill hide-on-mobile" style="background:#dcfce7; color:#15803d; border-color:#86efac;" onclick="triggerPwaInstall()" title="Cài đặt ứng dụng Hợp Vị AI lên màn hình chính điện thoại">
-          📲 Cài App
-        </button>
-        <a href="/slides.html" class="role-pill" style="text-decoration:none; background:#fff7ed; color:#c2410c; border-color:#fed7aa;" title="Mở bộ Slide thuyết trình dự thi">
-          🎤 Slide<span class="hide-on-mobile"> Thi</span>
-        </a>
       </div>
     </div>
   </header>
 
   <main class="container">
-    <!-- ==================== 1. TRANG CHỦ ==================== -->
+    <!-- ================================================================================== -->
+    <!-- PHẦN I: GIAO DIỆN DÀNH CHO KHÁCH HÀNG (GỌN GÀNG, TRỰC QUAN, KHÔNG RỐI MẮT)         -->
+    <!-- ================================================================================== -->
+
+    <!-- 1.1. KHÁCH HÀNG - TRANG CHỦ & DANH SÁCH QUÁN ĂN -->
     <section id="view-home" class="view-section active">
-      <div class="hero">
-        <span class="hero-badge">✨ Dự án Khoa học Kỹ thuật & Chuyển đổi số Ẩm thực Đồng Nai</span>
-        <h1>HỢP VỊ AI – Hiểu đúng vị – Gợi đúng món</h1>
-        <p>
-          Diễn đạt nhu cầu ăn uống cá nhân hoặc nhóm bằng tiếng Việt tự nhiên. AI phân tích khẩu vị từng người,
-          bộ giải tổ hợp <strong>Maximin Fairness</strong> kiểm tra ngân sách chính xác trên cơ sở dữ liệu thực đơn đã xác minh tại Biên Hòa – Đồng Nai.
-        </p>
+      <div class="hero hero-clean">
+        <div class="hero-clean-top">
+          <span class="hero-badge">🍜 Ẩm thực Biên Hòa – Đồng Nai • 18 Quán thực đơn xác minh</span>
+          <h1>Hôm nay đi ăn gì cùng nhóm bạn?</h1>
+          <p>Nhập số người, ngân sách và món yêu thích — AI sẽ chọn ngay combo món ăn vừa vặn túi tiền tại cùng 1 quán.</p>
+        </div>
 
         <div class="quick-search-box">
           <input
             id="home-quick-input"
             type="text"
-            placeholder="Ví dụ: Nhóm mình có 3 người, tổng ngân sách 150.000 đồng ở Trấn Biên. 2 người thích món nước, 1 người thích mì trộn..."
+            placeholder="VD: Nhóm 3 người có 150k ở Trấn Biên, 2 người thích món nước, 1 người thích mì trộn..."
             onkeydown="if(event.key==='Enter') triggerQuickRecommend()"
           />
-          <button class="btn btn-primary" onclick="triggerQuickRecommend()">🔍 Phân tích & Gợi ý ngay</button>
+          <button class="btn btn-primary" onclick="triggerQuickRecommend()">🔍 Tìm món ngay</button>
         </div>
 
         <div class="preset-chips">
-          <span style="font-size:0.8rem; color:#fed7aa; align-self:center;">Tình huống thử nhanh:</span>
           <button class="preset-chip" onclick="usePresetPrompt('Nhóm mình có 3 người ở Trấn Biên, tổng ngân sách 150.000 đồng. Hai người thích món nước, một người thích mì trộn khô. Cả nhóm muốn ăn cùng một quán.')">
-            👥 Nhóm 3 người • 150k • 2 nước 1 khô (Trấn Biên)
+            ⚡ Nhóm 3 người • 150k (Trấn Biên)
+          </button>
+          <button class="preset-chip" onclick="usePresetPrompt('Đi một mình ở Trấn Biên có tầm 45.000 đồng muốn ăn cơm gà.')">
+            👤 Đi 1 mình • 45k (Cơm gà)
           </button>
           <button class="preset-chip" onclick="usePresetPrompt('Nhóm 3 sinh viên có 140.000 đồng ở Trấn Biên, 2 bạn thích bún bò món nước, 1 bạn thích ăn cơm hoặc mì xào.')">
-            🎓 3 Sinh viên • 140k • Bún bò / Cơm
-          </button>
-          <button class="preset-chip" onclick="usePresetPrompt('Nhóm 3 người ở Trấn Biên có ngân sách tối đa 90.000 đồng, 2 người thích bún thái hải sản, 1 người thích mì trộn đặc biệt.')">
-            ⚠️ Kịch bản thiếu ngân sách (90k cho 3 phần Đặc biệt)
+            🎓 3 Sinh viên • 140k (Bún bò / Cơm)
           </button>
           <button class="preset-chip" onclick="usePresetPrompt('Nhóm 3 người muốn thưởng thức đặc sản Gỏi bưởi và Gà hấp trái bưởi ở Tân Triều với ngân sách 450.000 đồng.')">
-            🍊 Đặc sản Tân Triều • 3 người • 450k
+            🍊 Đặc sản Bưởi Tân Triều • 450k
           </button>
         </div>
       </div>
 
-      <!-- Thanh lối tắt nhanh trên Điện thoại (Mobile Quick Actions) -->
-      <div class="mobile-quick-jump">
-        <button class="quick-jump-card" onclick="scrollToSection('dongnai-map-anchor')">
-          <span class="qj-icon">🗺️</span>
-          <span class="qj-label">Bản đồ & Dẫn đường</span>
-        </button>
-        <button class="quick-jump-card" onclick="scrollToSection('restaurants-section-anchor')">
-          <span class="qj-icon">🏪</span>
-          <span class="qj-label">18 Quán xác minh</span>
-        </button>
-        <button class="quick-jump-card" onclick="switchView('partner')">
-          <span class="qj-icon">📸</span>
-          <span class="qj-label">AI Scan Menu</span>
-        </button>
-        <button class="quick-jump-card" onclick="triggerPwaInstall()">
-          <span class="qj-icon">📲</span>
-          <span class="qj-label">Cài App lên máy</span>
-        </button>
-      </div>
-
-      <!-- Thống kê dữ liệu thực tế -->
-      <div class="grid-4">
-        <div class="card stat-card">
-          <span class="stat-value" id="stat-restaurants">18</span>
-          <span class="stat-label">Quán ăn Đồng Nai đã xác minh</span>
-          <span style="font-size:0.78rem; color:var(--text-muted);">Trấn Biên, Tam Hiệp, Tân Triều, Bửu Long...</span>
+      <!-- Danh sách Quán ăn xác minh đặt ngay bên dưới để khách lướt chọn ngay -->
+      <div class="section-header" id="restaurants-section-anchor" style="margin-top:0.5rem;">
+        <div>
+          <h2>🏪 Quán ngon đã xác minh giá tại Biên Hòa</h2>
+          <p style="font-size:0.84rem; color:var(--text-muted);">Bấm vào từng quán để xem thực đơn hoặc bấm chỉ đường.</p>
         </div>
-        <div class="card stat-card">
-          <span class="stat-value" id="stat-items">130</span>
-          <span class="stat-label">Món ăn & Combo có nguồn giá</span>
-          <span style="font-size:0.78rem; color:var(--text-muted);">Trích xuất từ khảo sát thực tế Hợp vị AI.xlsx</span>
-        </div>
-        <div class="card stat-card">
-          <span class="stat-value">Maximin</span>
-          <span class="stat-label">Thuật toán Xếp hạng Công bằng nhóm</span>
-          <span style="font-size:0.78rem; color:var(--text-muted);">Ưu tiên thành viên ít được đáp ứng nhất</span>
-        </div>
-        <div class="card stat-card">
-          <span class="stat-value">AI Kép</span>
-          <span class="stat-label">NLP Hiểu vị + Vision Quét Menu</span>
-          <span style="font-size:0.78rem; color:var(--text-muted);">Kết nối vòng lặp Số hóa → Duyệt → Gợi ý</span>
-        </div>
-      </div>
-
-      <!-- Quy trình 3 bước & Đặc sản nổi bật -->
-      <div class="section-header">
-        <h2>🍊 Đặc sản & Ẩm thực Đồng Nai nổi bật</h2>
-        <button class="btn btn-secondary btn-sm" onclick="switchView('explore')">Xem toàn bộ danh mục Khám phá →</button>
-      </div>
-      <div id="home-specialties-grid" class="grid-2" style="margin-bottom:2rem;"></div>
-
-      <!-- Bản đồ trực quan & Dẫn đường trực tiếp các khu vực ẩm thực tại Biên Hòa - Đồng Nai -->
-      <div class="dongnai-map-card" id="dongnai-map-anchor">
-        <div class="section-header" style="margin-bottom:0.65rem;">
-          <div>
-            <h2>🗺️ Bản đồ & Dẫn đường 18 Quán ăn (Biên Hòa)</h2>
-            <p class="hide-on-mobile" style="font-size:0.88rem; color:var(--text-muted);">
-              Tích hợp bản đồ đường phố thực tế và định tuyến lộ trình thông minh: Chọn điểm xuất phát của bạn và quán muốn đến để xem ngay đường đi, khoảng cách (km) và thời gian di chuyển.
-            </p>
-          </div>
-          <div class="map-top-actions" style="display:flex; gap:0.45rem; flex-wrap:wrap;">
-            <button class="btn btn-primary btn-sm" onclick="useMyGpsLocation()">📍 Định vị GPS</button>
-            <button class="btn btn-secondary btn-sm hide-on-mobile" onclick="centerMapOnActiveTarget()">🎯 Căn giữa</button>
-            <button class="btn btn-secondary btn-sm hide-on-mobile" onclick="toggleExpandMap()">🔲 Mở rộng Map</button>
-            <button class="btn btn-secondary btn-sm" onclick="selectMapArea('all')">🔄 Hiện 18 quán</button>
-          </div>
-        </div>
-
-        <!-- Thanh công cụ chọn Điểm đi -> Điểm đến để vẽ đường dẫn trực tiếp -->
-        <div class="routing-control-bar">
-          <div style="display:flex; align-items:center; gap:0.4rem; flex:1; min-width:210px;">
-            <strong style="font-size:0.82rem; white-space:nowrap;">🚩 Điểm đi:</strong>
-            <select id="route-origin-select" class="form-control" style="padding:0.45rem 0.65rem; font-size:0.86rem;" onchange="onOriginChange()">
-              <option value="10.9508,106.8222">Công viên Biên Hùng (P. Trấn Biên)</option>
-              <option value="10.9635,106.8065">Đại học Lạc Hồng (P. Bửu Long)</option>
-              <option value="10.9562,106.8285">Quảng trường Tỉnh Đồng Nai</option>
-              <option value="10.9495,106.8520">Ngã tư Tam Hiệp (P. Tam Hiệp)</option>
-              <option value="10.9820,106.7880">Cổng Làng Bưởi Tân Triều</option>
-            </select>
-          </div>
-
-          <div style="display:flex; align-items:center; gap:0.4rem; flex:1.2; min-width:220px;">
-            <strong style="font-size:0.82rem; white-space:nowrap;">🎯 Quán đến:</strong>
-            <select id="route-dest-select" class="form-control" style="padding:0.45rem 0.65rem; font-size:0.86rem;" onchange="drawRouteToSelectedRestaurant()">
-              <option value="">-- Chọn quán ăn để vẽ đường đi trực tiếp --</option>
-            </select>
-          </div>
-
-          <div class="routing-btn-pair">
-            <button class="btn btn-primary btn-sm" onclick="drawRouteToSelectedRestaurant()">
-              🧭 Vẽ đường đi
-            </button>
-            <button class="btn btn-secondary btn-sm" onclick="openExternalGoogleMapsDir()">
-              🛵 Mở Google Maps
-            </button>
-          </div>
-        </div>
-
-        <!-- Hộp thông tin lộ trình sau khi tính đường đi -->
-        <div id="route-summary-box" class="route-summary-banner"></div>
-
-        <div class="map-layout">
-          <div class="map-svg-wrap">
-            <!-- Bản đồ tương tác Leaflet + OpenStreetMap -->
-            <div id="leaflet-routing-map"></div>
-            <!-- Cụm nút di chuyển Trái / Phải / Lên / Xuống trực quan -->
-            <div class="map-pan-dpad" title="Bấm để di chuyển bản đồ Lên / Xuống / Trái / Phải">
-              <div></div>
-              <button type="button" class="dpad-btn" onclick="panMapBy(0, -180)" title="Di chuyển Lên">⬆️</button>
-              <div></div>
-              <button type="button" class="dpad-btn" onclick="panMapBy(-220, 0)" title="Di chuyển sang Trái">⬅️</button>
-              <button type="button" class="dpad-btn" onclick="centerMapOnActiveTarget()" title="Căn giữa">🎯</button>
-              <button type="button" class="dpad-btn" onclick="panMapBy(220, 0)" title="Di chuyển sang Phải">➡️</button>
-              <div></div>
-              <button type="button" class="dpad-btn" onclick="panMapBy(0, 180)" title="Di chuyển Xuống">⬇️</button>
-              <div></div>
-            </div>
-          </div>
-
-          <div id="map-zone-list">
-            <button class="map-zone-btn" onclick="selectMapArea('Trấn Biên')">
-              <div>
-                <strong style="color:var(--primary);">📍 P. Trấn Biên</strong>
-                <div class="hide-on-mobile" style="font-size:0.78rem; color:var(--text-muted);">Bún Thái Thành Minh, Bún Bò ViNaTex, Lẩu Tôm 5 Ri, Cơm Gà S88, A Sóc...</div>
-              </div>
-              <span class="badge badge-area">7 quán</span>
-            </button>
-            <button class="map-zone-btn" onclick="selectMapArea('Tam Hiệp')">
-              <div>
-                <strong style="color:#0f766e;">📍 P. Tam Hiệp</strong>
-                <div class="hide-on-mobile" style="font-size:0.78rem; color:var(--text-muted);">Tiệm Ăn Nhà Túc, Bún Đậu Ngọc Thanh Tâm, Lẩu Chay Thiện Duyên 2, Gỏi Cá Kim Yến...</div>
-              </div>
-              <span class="badge badge-verified">5 quán</span>
-            </button>
-            <button class="map-zone-btn" onclick="selectMapArea('Tân Triều')">
-              <div>
-                <strong style="color:var(--accent);">📍 P. Tân Triều</strong>
-                <div class="hide-on-mobile" style="font-size:0.78rem; color:var(--text-muted);">Làng Bưởi Năm Huệ, Vườn Bưởi Tư Trung, Cháo Hến Cô Tươi</div>
-              </div>
-              <span class="badge badge-verified">3 quán</span>
-            </button>
-            <button class="map-zone-btn" onclick="selectMapArea('Bửu Long')">
-              <div>
-                <strong style="color:#b45309;">📍 Bửu Long & Khác</strong>
-                <div class="hide-on-mobile" style="font-size:0.78rem; color:var(--text-muted);">Chả Lụi Cô Yến (Bửu Long), Tiệm Mì Vĩnh Vĩnh (Thanh Bình), Tiệm Gà Sugar (Thống Nhất)</div>
-              </div>
-              <span class="badge badge-warning">3 quán</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-header" id="restaurants-section-anchor">
-        <h2>📋 Danh sách Quán ăn đã xác minh tại Biên Hòa – Đồng Nai</h2>
         <div>
           <select id="home-area-filter" class="form-control" style="width:auto; display:inline-block;" onchange="renderHomeRestaurants()">
-            <option value="all">Tất cả khu vực (18 quán)</option>
-            <option value="Trấn Biên">Phường Trấn Biên</option>
-            <option value="Tam Hiệp">Phường Tam Hiệp</option>
-            <option value="Tân Triều">Phường Tân Triều</option>
+            <option value="all">📍 Tất cả khu vực (18 quán)</option>
+            <option value="Trấn Biên">Phường Trấn Biên (7 quán)</option>
+            <option value="Tam Hiệp">Phường Tam Hiệp (5 quán)</option>
+            <option value="Tân Triều">Phường Tân Triều (3 quán)</option>
             <option value="Bửu Long">Phường Bửu Long</option>
             <option value="Thanh Bình">Phường Thanh Bình</option>
             <option value="Thống Nhất">Phường Thống Nhất</option>
@@ -268,23 +130,28 @@
       </div>
       <div id="home-restaurants-grid" class="grid-3"></div>
       <div id="home-restaurants-more-wrap" style="text-align:center; margin-bottom:1.5rem;"></div>
+
+      <!-- Đặc sản nổi bật rút gọn ở cuối trang chủ -->
+      <div class="section-header">
+        <h2>🍊 Đặc sản Đồng Nai nổi bật</h2>
+        <button class="btn btn-secondary btn-sm" onclick="switchView('explore')">Xem tất cả đặc sản →</button>
+      </div>
+      <div id="home-specialties-grid" class="grid-2" style="margin-bottom:1.5rem;"></div>
     </section>
 
-    <!-- ==================== 2. GỢI Ý MÓN ĂN BẰNG AI ==================== -->
+    <!-- 1.2. KHÁCH HÀNG - TÌM MÓN BẰNG AI (RA KẾT QUẢ NGAY BÊN DƯỚI) -->
     <section id="view-recommend" class="view-section">
       <div class="card" style="margin-bottom:1rem;">
-        <div class="section-header" style="margin-bottom:0.65rem;">
+        <div class="section-header" style="margin-bottom:0.5rem;">
           <div>
-            <h2>🤖 Gợi ý món ăn bằng AI & Bộ giải Maximin</h2>
-            <p class="hide-on-mobile" style="color:var(--text-muted); font-size:0.9rem;">
-              Nguyên tắc: <strong>AI phân tích nhu cầu ngôn ngữ tự nhiên</strong> → <strong>Người dùng xác nhận điều kiện</strong> → <strong>Chương trình kiểm tra ngân sách & xếp hạng tổ hợp</strong>.
+            <h2>🤖 Tìm món ăn theo Ngân sách & Khẩu vị</h2>
+            <p style="color:var(--text-muted); font-size:0.85rem;">
+              Nhập câu tự nhiên mô tả số người, số tiền hiện có và món muốn ăn.
             </p>
           </div>
-          <span class="badge badge-verified">100% Dữ liệu thật đã xác minh</span>
         </div>
 
         <div class="form-group" style="margin-bottom:0.65rem;">
-          <label for="ai-prompt-input">Nhập nhu cầu ăn uống của bạn hoặc cả nhóm:</label>
           <textarea
             id="ai-prompt-input"
             class="form-control"
@@ -308,115 +175,160 @@
             📍 Mẫu 3: Khu vực chưa có dữ liệu
           </button>
           <button class="btn btn-secondary btn-sm" onclick="fillAndAnalyze('Đi một mình ở Trấn Biên có tầm 45.000 đồng muốn ăn cơm gà.')">
-            👤 Mẫu 4: Đi 1 mình ("tầm 45k")
+            👤 Mẫu 4: Đi 1 mình (45k)
           </button>
         </div>
       </div>
 
-      <!-- BƯỚC XÁC NHẬN NHU CẦU (Thu gọn thông minh để thấy ngay Kết quả trên Điện thoại) -->
-      <div id="confirmation-panel" class="card" style="display:none; margin-bottom:1rem; border:2px solid #fb923c;">
-        <div class="conf-summary-bar" onclick="toggleConfirmationDrawer()">
-          <div>
-            <div style="font-size:0.78rem; color:var(--primary); font-weight:800; text-transform:uppercase;">
-              ✅ Điều kiện AI đã trích xuất (Human-in-the-loop)
-            </div>
-            <div id="conf-compact-summary-text" style="font-weight:700; font-size:0.95rem; margin-top:0.15rem;">
-              👥 3 người • 💰 Tối đa 150.000đ • 📍 Trấn Biên
-            </div>
-            <div id="ai-provider-meta" style="font-size:0.75rem; color:var(--text-muted);"></div>
-          </div>
-          <button type="button" id="btn-toggle-conf-drawer" class="btn btn-secondary btn-sm" onclick="event.stopPropagation(); toggleConfirmationDrawer();">
-            ⚙️ Tinh chỉnh ▾
-          </button>
-        </div>
-
-        <!-- Cảnh báo làm rõ yêu cầu mơ hồ (Luôn hiển thị nếu có) -->
-        <div id="clarification-alerts" style="margin-top:0.6rem;"></div>
-
-        <!-- Ngăn kéo chi tiết (Thu gọn mặc định trên Điện thoại để nhường chỗ cho Kết quả) -->
-        <div id="conf-details-drawer" style="display:none; margin-top:0.85rem; padding-top:0.85rem; border-top:1px dashed var(--border);">
-          <div class="grid-3" style="margin-bottom:0.85rem;">
-            <div class="form-group" style="margin-bottom:0.4rem;">
-              <label>Số lượng người (Bắt buộc):</label>
-              <input type="number" id="conf-party-size" class="form-control" min="1" max="6" value="3" onchange="rebuildMemberEditors()" />
-            </div>
-            <div class="form-group" style="margin-bottom:0.4rem;">
-              <label>Tổng ngân sách tối đa (VNĐ):</label>
-              <input type="number" id="conf-max-budget" class="form-control" step="5000" value="150000" />
-            </div>
-            <div class="form-group" style="margin-bottom:0.4rem;">
-              <label>Khu vực tìm kiếm tại Đồng Nai:</label>
-              <select id="conf-area" class="form-control">
-                <option value="Tất cả khu vực đã xác minh">Tất cả khu vực đã xác minh (Biên Hòa)</option>
-                <option value="Trấn Biên">Phường Trấn Biên</option>
-                <option value="Tam Hiệp">Phường Tam Hiệp</option>
-                <option value="Tân Triều">Phường Tân Triều</option>
-                <option value="Bửu Long">Phường Bửu Long</option>
-                <option value="Thanh Bình">Phường Thanh Bình</option>
-                <option value="Thống Nhất">Phường Thống Nhất</option>
-                <option value="Long Khánh">Long Khánh (Chưa có dữ liệu xác minh)</option>
-              </select>
-            </div>
-          </div>
-
-          <div style="margin-bottom:0.85rem;">
-            <label style="font-weight:700; font-size:0.88rem; display:block; margin-bottom:0.45rem;">
-              Sở thích ưu tiên của từng thành viên (Maximin Fairness):
-            </label>
-            <div id="conf-members-list" class="grid-3"></div>
-          </div>
-
-          <button class="btn btn-primary" style="width:100%;" onclick="runStep2Solve(true)">
-            ✅ Cập nhật điều kiện & Tính lại phương án
-          </button>
+      <!-- Khung ẩn lưu trữ biến điều kiện cho Solver (Không hiển thị làm rối mắt khách hàng) -->
+      <div id="confirmation-panel" style="display:none !important;">
+        <div id="conf-compact-summary-text"></div>
+        <div id="ai-provider-meta"></div>
+        <div id="clarification-alerts"></div>
+        <div id="conf-details-drawer">
+          <input type="number" id="conf-party-size" value="3" />
+          <input type="number" id="conf-max-budget" value="150000" />
+          <select id="conf-area">
+            <option value="Tất cả khu vực đã xác minh">Tất cả khu vực đã xác minh</option>
+            <option value="Trấn Biên">Trấn Biên</option>
+            <option value="Tam Hiệp">Tam Hiệp</option>
+            <option value="Tân Triều">Tân Triều</option>
+            <option value="Bửu Long">Bửu Long</option>
+            <option value="Thanh Bình">Thanh Bình</option>
+            <option value="Thống Nhất">Thống Nhất</option>
+            <option value="Long Khánh">Long Khánh</option>
+          </select>
+          <div id="conf-members-list"></div>
         </div>
       </div>
 
-      <!-- KẾT QUẢ PHƯƠNG ÁN ĐỀ XUẤT (Mục 4.3.4 & 4.3.5) -->
+      <!-- KẾT QUẢ PHƯƠNG ÁN ĐỀ XUẤT HIỆN NGAY TRỰC TIẾP BÊN DƯỚI -->
       <div id="solver-results-container"></div>
     </section>
 
-    <!-- ==================== 3. KHÁM PHÁ ẨM THỰC ĐỒNG NAI ==================== -->
-    <section id="view-explore" class="view-section">
-      <div class="card" style="margin-bottom:1.4rem;">
-        <div class="section-header">
+    <!-- 1.3. KHÁCH HÀNG - BẢN ĐỒ & DẪN ĐƯỜNG RIÊNG BIỆT -->
+    <section id="view-map" class="view-section">
+      <div class="dongnai-map-card" id="dongnai-map-anchor" style="margin-bottom:1rem;">
+        <div class="section-header" style="margin-bottom:0.65rem;">
           <div>
-            <h2>🍊 Khám phá Ẩm thực Đồng Nai</h2>
-            <p style="color:var(--text-muted); font-size:0.92rem;">
-              Liên kết thông tin văn hóa ẩm thực địa phương (phân biệt rõ <strong>Đặc sản gắn với địa danh Đồng Nai</strong> và <strong>Món ăn phổ biến tại địa phương</strong>) với các quán có thực đơn đã kiểm duyệt.
+            <h2>🗺️ Bản đồ & Dẫn đường 18 Quán ăn (Biên Hòa)</h2>
+            <p class="hide-on-mobile" style="font-size:0.86rem; color:var(--text-muted);">
+              Chọn điểm xuất phát và quán muốn đến để xem ngay lộ trình, khoảng cách (km) và thời gian di chuyển.
             </p>
           </div>
-          <span class="badge badge-verified">Có nguồn tư liệu & khảo sát thực tế</span>
+          <div class="map-top-actions" style="display:flex; gap:0.45rem; flex-wrap:wrap;">
+            <button class="btn btn-primary btn-sm" onclick="useMyGpsLocation()">📍 Định vị GPS</button>
+            <button class="btn btn-secondary btn-sm" onclick="selectMapArea('all')">🔄 Hiện 18 quán</button>
+          </div>
+        </div>
+
+        <div class="routing-control-bar">
+          <div style="display:flex; align-items:center; gap:0.4rem; flex:1; min-width:200px;">
+            <strong style="font-size:0.82rem; white-space:nowrap;">🚩 Điểm đi:</strong>
+            <select id="route-origin-select" class="form-control" style="padding:0.45rem 0.65rem; font-size:0.86rem;" onchange="onOriginChange()">
+              <option value="10.9508,106.8222">Công viên Biên Hùng (P. Trấn Biên)</option>
+              <option value="10.9635,106.8065">Đại học Lạc Hồng (P. Bửu Long)</option>
+              <option value="10.9562,106.8285">Quảng trường Tỉnh Đồng Nai</option>
+              <option value="10.9495,106.8520">Ngã tư Tam Hiệp (P. Tam Hiệp)</option>
+              <option value="10.9820,106.7880">Cổng Làng Bưởi Tân Triều</option>
+            </select>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:0.4rem; flex:1.2; min-width:210px;">
+            <strong style="font-size:0.82rem; white-space:nowrap;">🎯 Quán đến:</strong>
+            <select id="route-dest-select" class="form-control" style="padding:0.45rem 0.65rem; font-size:0.86rem;" onchange="drawRouteToSelectedRestaurant()">
+              <option value="">-- Chọn quán ăn để vẽ đường đi --</option>
+            </select>
+          </div>
+
+          <div class="routing-btn-pair">
+            <button class="btn btn-primary btn-sm" onclick="drawRouteToSelectedRestaurant()">🧭 Vẽ đường</button>
+            <button class="btn btn-secondary btn-sm" onclick="openExternalGoogleMapsDir()">🛵 Google Maps</button>
+          </div>
+        </div>
+
+        <div id="route-summary-box" class="route-summary-banner"></div>
+
+        <div class="map-layout">
+          <div class="map-svg-wrap">
+            <div id="leaflet-routing-map"></div>
+            <div class="map-pan-dpad" title="Di chuyển bản đồ">
+              <div></div>
+              <button type="button" class="dpad-btn" onclick="panMapBy(0, -180)">⬆️</button>
+              <div></div>
+              <button type="button" class="dpad-btn" onclick="panMapBy(-220, 0)">⬅️</button>
+              <button type="button" class="dpad-btn" onclick="centerMapOnActiveTarget()">🎯</button>
+              <button type="button" class="dpad-btn" onclick="panMapBy(220, 0)">➡️</button>
+              <div></div>
+              <button type="button" class="dpad-btn" onclick="panMapBy(0, 180)">⬇️</button>
+              <div></div>
+            </div>
+          </div>
+
+          <div id="map-zone-list">
+            <button class="map-zone-btn" onclick="selectMapArea('Trấn Biên')">
+              <div>
+                <strong style="color:var(--primary);">📍 P. Trấn Biên</strong>
+                <div class="hide-on-mobile" style="font-size:0.78rem; color:var(--text-muted);">Bún Thái Thành Minh, Bún Bò ViNaTex, Lẩu Tôm 5 Ri, Cơm Gà S88...</div>
+              </div>
+              <span class="badge badge-area">7 quán</span>
+            </button>
+            <button class="map-zone-btn" onclick="selectMapArea('Tam Hiệp')">
+              <div>
+                <strong style="color:#0f766e;">📍 P. Tam Hiệp</strong>
+                <div class="hide-on-mobile" style="font-size:0.78rem; color:var(--text-muted);">Tiệm Ăn Nhà Túc, Bún Đậu Ngọc Thanh Tâm, Chay Thiện Duyên 2...</div>
+              </div>
+              <span class="badge badge-verified">5 quán</span>
+            </button>
+            <button class="map-zone-btn" onclick="selectMapArea('Tân Triều')">
+              <div>
+                <strong style="color:var(--accent);">📍 P. Tân Triều</strong>
+                <div class="hide-on-mobile" style="font-size:0.78rem; color:var(--text-muted);">Làng Bưởi Năm Huệ, Vườn Bưởi Tư Trung, Cháo Hến Cô Tươi</div>
+              </div>
+              <span class="badge badge-verified">3 quán</span>
+            </button>
+            <button class="map-zone-btn" onclick="selectMapArea('Bửu Long')">
+              <div>
+                <strong style="color:#b45309;">📍 Bửu Long & Khác</strong>
+                <div class="hide-on-mobile" style="font-size:0.78rem; color:var(--text-muted);">Chả Lụi Cô Yến, Tiệm Mì Vĩnh Vĩnh, Tiệm Gà Sugar</div>
+              </div>
+              <span class="badge badge-warning">3 quán</span>
+            </button>
+          </div>
         </div>
       </div>
+    </section>
 
+    <!-- 1.4. KHÁCH HÀNG - KHÁM PHÁ ĐẶC SẢN ĐỒNG NAI -->
+    <section id="view-explore" class="view-section">
+      <div class="card" style="margin-bottom:1.1rem;">
+        <h2>🍊 Khám phá Đặc sản Ẩm thực Đồng Nai</h2>
+        <p style="color:var(--text-muted); font-size:0.88rem;">
+          Tìm hiểu nguồn gốc các món đặc sản trứ danh Biên Hòa – Đồng Nai và đặt lộ trình đến thưởng thức tại các quán chính gốc.
+        </p>
+      </div>
       <div id="explore-specialties-list" class="grid-2"></div>
     </section>
 
-    <!-- ==================== 4. ĐÁNH GIÁ / GÓP Ý ==================== -->
+    <!-- 1.5. KHÁCH HÀNG - ĐÁNH GIÁ & BÁO GIÁ QUÁN ĂN -->
     <section id="view-feedback" class="view-section">
-      <div class="mobile-manage-subtabs">
-        <button class="subtab-btn" onclick="switchView('partner')">📸 Quét Menu</button>
-        <button class="subtab-btn" onclick="switchView('admin')">🛡️ Duyệt Admin</button>
-        <button class="subtab-btn active" onclick="switchView('feedback')">💬 Góp ý</button>
-      </div>
       <div class="grid-2">
         <div class="card">
-          <h2>💬 Gửi Đánh giá trải nghiệm hoặc Báo sai lệch dữ liệu</h2>
-          <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1.1rem;">
-            Mọi phản hồi về giá bán thay đổi, quán ngừng phục vụ hoặc chất lượng gợi ý sẽ được chuyển đến Admin xác minh trước khi cập nhật dữ liệu chính thức.
+          <h2>💬 Đánh giá Quán ăn & Báo cập nhật giá</h2>
+          <p style="color:var(--text-muted); font-size:0.86rem; margin-bottom:1rem;">
+            Chia sẻ trải nghiệm của bạn hoặc báo cho hệ thống nếu quán thay đổi giá bán.
           </p>
 
           <div class="form-group">
-            <label>Tên của bạn / Nhóm người dùng:</label>
-            <input type="text" id="fb-user-name" class="form-control" placeholder="VD: Nguyễn Minh Anh (Sinh viên)" />
+            <label>Tên của bạn:</label>
+            <input type="text" id="fb-user-name" class="form-control" placeholder="VD: Nguyễn Minh Anh" />
           </div>
 
           <div class="form-group">
             <label>Loại phản hồi:</label>
             <select id="fb-type" class="form-control">
-              <option value="experience">🌟 Đánh giá chất lượng gợi ý & trải nghiệm website</option>
-              <option value="price_discrepancy">⚠️ Báo cáo thay đổi giá bán / trạng thái phục vụ của quán</option>
+              <option value="experience">🌟 Đánh giá chất lượng món ăn & quán</option>
+              <option value="price_discrepancy">⚠️ Báo cáo thay đổi giá bán / giờ mở cửa</option>
             </select>
           </div>
 
@@ -426,64 +338,63 @@
           </div>
 
           <div class="form-group">
-            <label>Mức độ hài lòng (1 – 5 sao):</label>
+            <label>Mức độ hài lòng:</label>
             <select id="fb-rating" class="form-control">
-              <option value="5">⭐⭐⭐⭐⭐ (5/5 - Rất hữu ích, đúng nhu cầu)</option>
+              <option value="5">⭐⭐⭐⭐⭐ (5/5 - Rất ngon & đáng tiền)</option>
               <option value="4">⭐⭐⭐⭐ (4/5 - Tốt)</option>
               <option value="3">⭐⭐⭐ (3/5 - Khá)</option>
               <option value="2">⭐⭐ (2/5 - Cần cải thiện)</option>
-              <option value="1">⭐ (1/5 - Thông tin chưa chính xác)</option>
+              <option value="1">⭐ (1/5 - Chưa hài lòng)</option>
             </select>
           </div>
 
           <div class="form-group">
-            <label>Nội dung chi tiết:</label>
-            <textarea id="fb-comment" class="form-control" rows="4" placeholder="Nhập nhận xét hoặc thông tin giá mới tại quán..."></textarea>
+            <label>Nội dung nhận xét:</label>
+            <textarea id="fb-comment" class="form-control" rows="3" placeholder="Nhập cảm nhận của bạn hoặc thông tin giá mới tại quán..."></textarea>
           </div>
 
-          <button class="btn btn-primary" onclick="submitUserFeedback()">📤 Gửi phản hồi đến Admin</button>
-          <div id="fb-status-msg" style="margin-top:0.8rem; font-weight:600;"></div>
+          <button class="btn btn-primary" style="width:100%;" onclick="submitUserFeedback()">📤 Gửi đánh giá</button>
+          <div id="fb-status-msg" style="margin-top:0.75rem; font-weight:600;"></div>
         </div>
 
         <div class="card">
-          <h3>📌 Nhật ký phản hồi cộng đồng gần đây</h3>
-          <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;">
-            Minh bạch trạng thái tiếp nhận và xác minh thông tin.
+          <h3>📌 Đánh giá gần đây từ thực khách</h3>
+          <p style="color:var(--text-muted); font-size:0.84rem; margin-bottom:0.85rem;">
+            Các nhận xét thực tế từ cộng đồng ăn uống tại Biên Hòa.
           </p>
           <div id="feedback-list-box"></div>
         </div>
       </div>
     </section>
 
-    <!-- ==================== 5. KHU VỰC ĐỐI TÁC (AI SCAN MENU) ==================== -->
-    <section id="view-partner" class="view-section">
-      <div class="mobile-manage-subtabs">
-        <button class="subtab-btn active" onclick="switchView('partner')">📸 Quét Menu</button>
-        <button class="subtab-btn" onclick="switchView('admin')">🛡️ Duyệt Admin</button>
-        <button class="subtab-btn" onclick="switchView('feedback')">💬 Góp ý</button>
-      </div>
-      <div class="card" style="margin-bottom:1.4rem;">
-        <div class="section-header">
-          <div>
-            <h2>📸 Khu vực Đối tác – Đăng ký Quán & AI Scan Menu</h2>
-            <p style="color:var(--text-muted); font-size:0.9rem;">
-              Tải ảnh thực đơn giấy hoặc bảng giá để <strong>Gemini 2.5 Flash Vision</strong> tự động trích xuất tên món – giá bán thành bảng dữ liệu có cấu trúc. Đối tác kiểm tra, chỉnh sửa bản nháp trước khi gửi Admin phê duyệt.
-            </p>
-          </div>
-          <span class="badge badge-warning">Dữ liệu mới phải qua Admin duyệt mới công bố</span>
-        </div>
+    <!-- ================================================================================== -->
+    <!-- PHẦN II: GIAO DIỆN DÀNH RIÊNG CHO CHỦ QUÁN (PARTNER PORTAL)                        -->
+    <!-- ================================================================================== -->
 
+    <!-- 2.1. CHỦ QUÁN - QUÉT THỰC ĐƠN BẰNG AI (AI SCAN MENU) -->
+    <section id="view-partner" class="view-section">
+      <div class="role-portal-banner partner-banner">
+        <div>
+          <span class="badge" style="background:#dbeafe; color:#1e40af; margin-bottom:0.25rem;">🏪 CỔNG DÀNH RIÊNG CHO CHỦ QUÁN</span>
+          <h2>📸 Số hóa Thực đơn Quán bằng AI (Gemini Vision)</h2>
+          <p style="font-size:0.86rem; opacity:0.9;">
+            Chụp ảnh thực đơn giấy của quán để AI tự động đọc tên món và giá bán. Sau khi kiểm tra, hãy bấm gửi để Admin công bố quán lên hệ thống.
+          </p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:1.1rem;">
         <div class="grid-3">
           <div class="form-group">
-            <label>Tên quán đăng ký / cập nhật:</label>
-            <input type="text" id="partner-name" class="form-control" value="Bún Thái & Mì Trộn Thành Minh (Cập nhật Menu)" />
+            <label>Tên quán ăn của bạn:</label>
+            <input type="text" id="partner-name" class="form-control" value="Bún Thái & Mì Trộn Thành Minh" />
           </div>
           <div class="form-group">
-            <label>Địa chỉ cụ thể:</label>
+            <label>Địa chỉ quán:</label>
             <input type="text" id="partner-address" class="form-control" value="129 Hưng Đạo Vương, Phường Trấn Biên, Đồng Nai" />
           </div>
           <div class="form-group">
-            <label>Khu vực (Phường) & Giờ mở cửa:</label>
+            <label>Phường & Giờ mở cửa:</label>
             <div style="display:flex; gap:0.5rem;">
               <select id="partner-area" class="form-control">
                 <option value="Trấn Biên">Trấn Biên</option>
@@ -498,49 +409,48 @@
           </div>
         </div>
 
-        <div style="display:flex; gap:0.65rem; flex-wrap:wrap; align-items:center; margin-top:0.4rem;">
-          <label class="btn btn-primary" style="cursor:pointer;">
-            📷 Tải ảnh thực đơn thật từ máy (JPEG/PNG)
+        <div style="display:flex; gap:0.55rem; flex-wrap:wrap; align-items:center; margin-top:0.25rem;">
+          <label class="btn btn-primary" style="cursor:pointer; background:#1d4ed8;">
+            📷 Tải ảnh thực đơn từ máy
             <input type="file" id="menu-file-input" accept="image/jpeg,image/png,image/webp" style="display:none;" onchange="handleMenuImageUpload(event)" />
           </label>
           <button class="btn btn-secondary btn-sm" onclick="runSampleMenuScan('sample_bun_thai')">
-            🧪 Test Ảnh Mẫu #1: Menu Bún Thái & Mì Trộn
+            🧪 Mẫu #1: Bún Thái & Mì Trộn
           </button>
           <button class="btn btn-secondary btn-sm" onclick="runSampleMenuScan('sample_com_ga')">
-            🧪 Test Ảnh Mẫu #2: Menu Cơm Gà & Bún Bò
+            🧪 Mẫu #2: Cơm Gà & Bún Bò
           </button>
           <button class="btn btn-secondary btn-sm" onclick="runSampleMenuScan('sample_tan_trieu')">
-            🧪 Test Ảnh Mẫu #3: Menu Đặc Sản Tân Triều (Có giá theo kg cần cảnh báo)
+            🧪 Mẫu #3: Đặc Sản Tân Triều (Có giá thời giá/kg)
           </button>
           <button class="btn btn-secondary btn-sm" onclick="addManualDraftRow()">
-            ➕ Thêm dòng món thủ công
+            ➕ Thêm món thủ công
           </button>
         </div>
       </div>
 
-      <!-- Giao diện đối chiếu song song: Ảnh nguồn vs Bảng trích xuất AI Scan Menu -->
       <div class="grid-2">
         <div class="card">
-          <h3>🖼️ Ảnh Thực Đơn Nguồn (Đối chiếu trực quan)</h3>
-          <p id="scan-ai-meta" style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.75rem;">
-            Chọn ảnh thực đơn từ máy hoặc bấm nút Test Ảnh Mẫu để xem kết quả bóc tách.
+          <h3>🖼️ Ảnh Thực Đơn Gốc</h3>
+          <p id="scan-ai-meta" style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.65rem;">
+            Tải ảnh menu hoặc chọn mẫu thử để AI bóc tách tự động.
           </p>
           <div id="menu-source-preview" class="menu-preview-svg"></div>
         </div>
 
         <div class="card">
           <div class="section-header">
-            <h3>📑 Bảng dữ liệu trích xuất (Bản nháp có thể chỉnh sửa)</h3>
-            <span class="badge badge-warning">Ô màu vàng = Cần kiểm tra lại</span>
+            <h3>📑 Danh sách món AI đã đọc (Chỉnh sửa trực tiếp)</h3>
+            <span class="badge badge-warning">Ô vàng = Cần kiểm tra giá</span>
           </div>
           <div class="scan-table-wrap">
             <table class="data-table scan-draft-table">
               <thead>
                 <tr>
-                  <th>Tên món nhận diện</th>
+                  <th>Tên món</th>
                   <th>Giá (VNĐ)</th>
-                  <th>Loại món</th>
-                  <th>Độ tin cậy / Ghi chú AI</th>
+                  <th>Phân loại</th>
+                  <th>Ghi chú AI</th>
                   <th>Xóa</th>
                 </tr>
               </thead>
@@ -548,148 +458,243 @@
             </table>
           </div>
 
-          <div style="margin-top:1.1rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
-            <span style="font-size:0.83rem; color:var(--text-muted);">
-              Sau khi kiểm tra đúng tên món và giá, bấm gửi để chuyển sang khu vực Admin phê duyệt.
-            </span>
-            <button class="btn btn-success" onclick="submitPartnerMenuDraft()">
-              ✅ Xác nhận bản nháp & Gửi Admin phê duyệt
+          <div style="margin-top:1rem; display:flex; justify-content:flex-end;">
+            <button class="btn btn-success" style="width:100%; min-height:44px;" onclick="submitPartnerMenuDraft()">
+              ✅ Gửi Thực đơn lên Admin Phê duyệt
             </button>
           </div>
           <div id="partner-submit-msg" style="margin-top:0.75rem; font-weight:700;"></div>
         </div>
       </div>
+    </section>
 
-      <!-- Lịch sử hồ sơ thực đơn của Chủ quán -->
-      <div class="card" style="margin-top:1.25rem;">
-        <h3>📋 Trạng thái Hồ sơ Thực đơn Quán của bạn đã gửi lên Admin</h3>
-        <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:0.8rem;">
-          Theo dõi trực tiếp các thực đơn bạn đã gửi qua cổng Chủ quán đang chờ duyệt hoặc đã được Admin công bố.
-        </p>
+    <!-- 2.2. CHỦ QUÁN - HỒ SƠ & LỊCH SỬ DUYỆT MENU CỦA QUÁN -->
+    <section id="view-partner-menus" class="view-section">
+      <div class="role-portal-banner partner-banner">
+        <div>
+          <span class="badge" style="background:#dbeafe; color:#1e40af; margin-bottom:0.25rem;">🏪 QUẢN LÝ HỒ SƠ QUÁN</span>
+          <h2>📋 Trạng thái Hồ sơ Thực đơn của Quán</h2>
+          <p style="font-size:0.86rem; opacity:0.9;">
+            Theo dõi các bản cập nhật thực đơn bạn đã gửi và kiểm tra xem Admin đã phê duyệt công bố lên trang tìm kiếm chưa.
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.85rem;">
+          <h3>📌 Danh sách hồ sơ thực đơn đã gửi</h3>
+          <button class="btn btn-primary btn-sm" style="background:#1d4ed8;" onclick="switchView('partner')">
+            ➕ Quét & Gửi thực đơn mới
+          </button>
+        </div>
         <div id="partner-my-submissions-list"></div>
       </div>
     </section>
 
-    <!-- ==================== 6. KHU VỰC QUẢN TRỊ (ADMIN DASHBOARD TOÀN DIỆN) ==================== -->
+    <!-- 2.3. CHỦ QUÁN - XEM PHẢN HỒI CỦA KHÁCH HÀNG VỀ QUÁN -->
+    <section id="view-partner-reviews" class="view-section">
+      <div class="role-portal-banner partner-banner">
+        <div>
+          <span class="badge" style="background:#dbeafe; color:#1e40af; margin-bottom:0.25rem;">🏪 CHĂM SÓC THỰC KHÁCH</span>
+          <h2>💬 Đánh giá & Báo giá từ Khách hàng</h2>
+          <p style="font-size:0.86rem; opacity:0.9;">
+            Theo dõi nhận xét của thực khách và các báo cáo thay đổi giá để kịp thời cập nhật thực đơn.
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>📌 Toàn bộ phản hồi từ thực khách</h3>
+        <div id="partner-feedback-list-box" style="margin-top:0.75rem;"></div>
+      </div>
+    </section>
+
+    <!-- ================================================================================== -->
+    <!-- PHẦN III: GIAO DIỆN DÀNH RIÊNG CHO ADMIN (QUẢN TRỊ TOÀN TRANG WEB)                 -->
+    <!-- ================================================================================== -->
+
+    <!-- 3.1. ADMIN TAB 1: DUYỆT HỒ SƠ THỰC ĐƠN CHỦ QUÁN -->
     <section id="view-admin" class="view-section">
-      <div class="mobile-manage-subtabs">
-        <button class="subtab-btn" onclick="switchView('partner')">📸 Quét Menu</button>
-        <button class="subtab-btn active" onclick="switchView('admin')">🛡️ Duyệt Admin</button>
-        <button class="subtab-btn" onclick="switchView('feedback')">💬 Góp ý</button>
+      <div class="role-portal-banner admin-banner">
+        <div>
+          <span class="badge" style="background:#f3e8ff; color:#6b21a8; margin-bottom:0.25rem;">🛡️ QUẢN TRỊ VIÊN DUY NHẤT (SUPER ADMIN)</span>
+          <h2>📥 Phê duyệt Hồ sơ Thực đơn Chủ quán</h2>
+          <p style="font-size:0.86rem; opacity:0.9;">
+            Kiểm tra các thực đơn do Chủ quán gửi qua AI Scan Menu. Chỉ khi Admin bấm <strong>Phê duyệt</strong>, quán mới xuất hiện cho Khách hàng.
+          </p>
+        </div>
       </div>
-      <div class="card" style="margin-bottom:1.2rem;">
-        <div class="section-header">
+
+      <div class="card">
+        <div id="admin-submissions-list"></div>
+      </div>
+    </section>
+
+    <!-- 3.2. ADMIN TAB 2: QUẢN LÝ TOÀN BỘ 18+ QUÁN ĂN TRÊN WEBSITE -->
+    <section id="view-admin-restaurants" class="view-section">
+      <div class="role-portal-banner admin-banner">
+        <div>
+          <span class="badge" style="background:#f3e8ff; color:#6b21a8; margin-bottom:0.25rem;">🛡️ QUẢN LÝ CƠ SỞ DỮ LIỆU QUÁN</span>
+          <h2>🏪 Quản lý Hiển thị Quán ăn (<span id="admin-rests-count">18</span> quán)</h2>
+          <p style="font-size:0.86rem; opacity:0.9;">
+            Bật hoặc tạm ẩn bất kỳ quán ăn nào trên toàn hệ thống gợi ý và bản đồ của Khách hàng.
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div id="admin-restaurants-list"></div>
+      </div>
+    </section>
+
+    <!-- 3.3. ADMIN TAB 3: QUẢN LÝ TÀI KHOẢN KHÁCH HÀNG & CHỦ QUÁN -->
+    <section id="view-admin-users" class="view-section">
+      <div class="role-portal-banner admin-banner">
+        <div>
+          <span class="badge" style="background:#f3e8ff; color:#6b21a8; margin-bottom:0.25rem;">🛡️ QUẢN TRỊ NGƯỜI DÙNG (RBAC)</span>
+          <h2>👥 Quản lý Tài khoản Khách hàng & Chủ quán (<span id="admin-users-count">3</span>)</h2>
+          <p style="font-size:0.86rem; opacity:0.9;">
+            Kiểm soát toàn bộ tài khoản đã đăng ký trên hệ thống. Admin có quyền tạm khóa hoặc mở khóa tài khoản vi phạm.
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div id="admin-users-list"></div>
+      </div>
+    </section>
+
+    <!-- 3.4. ADMIN TAB 4: HỆ THỐNG, DUYỆT GÓP Ý, CHI PHÍ AI & CÔNG CỤ DEMO -->
+    <section id="view-admin-system" class="view-section">
+      <div class="role-portal-banner admin-banner">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
           <div>
-            <h2>🛡️ Trung tâm Quản trị Toàn diện Website (Admin Duy nhất)</h2>
-            <p style="color:var(--text-muted); font-size:0.88rem;">
-              Tài khoản Quản trị viên (<code>admin@hopviai.vn</code>) có toàn quyền: <strong>Duyệt thực đơn Chủ quán</strong>, <strong>Quản lý tài khoản Khách hàng & Chủ quán</strong>, <strong>Ẩn/Hiện toàn bộ 18+ Quán ăn</strong>, <strong>Xác minh Góp ý</strong> và <strong>Giám sát chi phí API AI</strong>.
-            </p>
+            <span class="badge" style="background:#f3e8ff; color:#6b21a8; margin-bottom:0.25rem;">🛡️ GIÁM SÁT HỆ THỐNG & AI</span>
+            <h2>⚙️ Cấu hình AI, Kiểm duyệt Góp ý & Nhật ký Hệ thống</h2>
           </div>
-          <span class="badge badge-verified">Quyền Quản trị Cao nhất (Super Admin)</span>
+          <div style="display:flex; gap:0.45rem; flex-wrap:wrap;">
+            <button id="api-status-btn" class="btn btn-secondary btn-sm" onclick="openApiKeyModal()">
+              ⚡ <span id="api-status-text">Cấu hình Gemini Key</span>
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="openQrModal()">📱 Mã QR Demo</button>
+            <button class="btn btn-secondary btn-sm" onclick="triggerPwaInstall()">📲 Cài App PWA</button>
+            <a href="/slides.html" class="btn btn-secondary btn-sm" style="text-decoration:none;">🎤 Mở Slide Thi</a>
+          </div>
         </div>
-
-        <!-- Thống kê Cost & Token của LLM API -->
-        <div id="admin-llm-cost-panel" class="grid-4" style="margin-top:0.5rem; margin-bottom:0;"></div>
       </div>
 
-      <div class="grid-2" style="margin-bottom:1.2rem;">
-        <div class="card">
-          <h3>📥 1. Duyệt Hồ sơ Thực đơn Chủ quán (AI Scan Menu)</h3>
-          <p style="font-size:0.83rem; color:var(--text-muted); margin-bottom:0.8rem;">
-            Chỉ khi Admin bấm <strong>Phê duyệt</strong>, quán và món ăn mới được đưa vào thuật toán gợi ý công khai.
-          </p>
-          <div id="admin-submissions-list"></div>
-        </div>
-
-        <div class="card">
-          <h3>👥 2. Quản lý Tài khoản Người dùng & Chủ quán (<span id="admin-users-count">0</span>)</h3>
-          <p style="font-size:0.83rem; color:var(--text-muted); margin-bottom:0.8rem;">
-            Danh sách các tài khoản Khách hàng (<code>customer</code>), Chủ quán (<code>partner</code>) và Admin duy nhất. Có thể Khóa / Mở khóa tài khoản.
-          </p>
-          <div id="admin-users-list" style="max-height:380px; overflow-y:auto;"></div>
-        </div>
+      <!-- Thống kê Cost & Token của LLM API -->
+      <div id="admin-llm-cost-panel" class="grid-4" style="margin-bottom:1.1rem;"></div>
+      <div style="display:none;">
+        <span id="stat-restaurants">18</span>
+        <span id="stat-items">130</span>
       </div>
 
       <div class="grid-2">
         <div class="card">
-          <h3>🏪 3. Quản lý Toàn bộ Quán ăn trên Website (<span id="admin-rests-count">18</span>)</h3>
-          <p style="font-size:0.83rem; color:var(--text-muted); margin-bottom:0.8rem;">
-            Bật/Tắt trạng thái hiển thị công khai của bất kỳ quán ăn nào trên toàn hệ thống.
+          <h3>💬 Kiểm duyệt Đánh giá & Báo giá từ Khách hàng</h3>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.75rem;">
+            Xác minh hoặc xóa các phản hồi không hợp lệ của người dùng.
           </p>
-          <div id="admin-restaurants-list" style="max-height:380px; overflow-y:auto;"></div>
+          <div id="admin-feedbacks-manage-list"></div>
         </div>
 
         <div class="card">
-          <h3>💬 4. Quản lý Góp ý Khách hàng & Nhật ký Kiểm toán</h3>
-          <div id="admin-feedbacks-manage-list" style="margin-bottom:1rem; max-height:200px; overflow-y:auto;"></div>
-          <h4 style="font-size:0.9rem; margin-bottom:0.5rem; border-top:1px solid var(--border); padding-top:0.75rem;">📜 Nhật ký Kiểm toán Hệ thống (Audit Logs)</h4>
-          <div id="admin-audit-logs" style="max-height:220px; overflow-y:auto;"></div>
+          <h3>📜 Nhật ký Kiểm toán Hệ thống (Audit Logs)</h3>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.75rem;">
+            Ghi nhận tự động mọi thao tác đăng ký, gửi menu và phê duyệt trên hệ thống.
+          </p>
+          <div id="admin-audit-logs" style="max-height:360px; overflow-y:auto;"></div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Modal Đăng nhập & Đăng ký Phân quyền 3 Vai trò (Khách hàng, Chủ quán, Admin) -->
+  <!-- ==================== MODAL ĐĂNG NHẬP / ĐĂNG KÝ & CHUYỂN NHANH 3 GIAO DIỆN ==================== -->
   <div id="auth-modal" class="modal-backdrop">
     <div class="modal-box" style="max-width:520px; max-height:92vh; overflow-y:auto;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
-        <h3>🔐 Tài khoản & Phân quyền HỢP VỊ AI</h3>
+        <h3>🔐 Chuyển Vai trò & Tài khoản</h3>
         <button class="btn btn-secondary btn-sm" onclick="closeAuthModal()">✕</button>
       </div>
 
+      <!-- BỘ CHUYỂN NHANH 3 GIAO DIỆN RIÊNG BIỆT (1 CHẠM) -->
+      <div style="background:var(--surface-alt); border:1px solid var(--border); border-radius:12px; padding:0.75rem; margin-bottom:0.9rem;">
+        <div style="font-size:0.78rem; font-weight:800; color:var(--text-muted); text-transform:uppercase; margin-bottom:0.5rem;">
+          ⚡ Chọn nhanh 1 trong 3 Giao diện theo Vai trò:
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.45rem;">
+          <button type="button" id="quick-role-btn-customer" class="role-switch-card" onclick="quickDemoLogin('customer')">
+            <span style="font-size:1.35rem;">🙋</span>
+            <strong style="font-size:0.8rem; color:#c2410c;">Khách hàng</strong>
+            <span style="font-size:0.68rem; color:var(--text-muted);">Tìm món & Bản đồ</span>
+          </button>
+          <button type="button" id="quick-role-btn-partner" class="role-switch-card" onclick="quickDemoLogin('partner')">
+            <span style="font-size:1.35rem;">🏪</span>
+            <strong style="font-size:0.8rem; color:#1d4ed8;">Chủ quán</strong>
+            <span style="font-size:0.68rem; color:var(--text-muted);">AI Quét Menu</span>
+          </button>
+          <button type="button" id="quick-role-btn-admin" class="role-switch-card" onclick="quickDemoLogin('admin')">
+            <span style="font-size:1.35rem;">🛡️</span>
+            <strong style="font-size:0.8rem; color:#7e22ce;">Admin</strong>
+            <span style="font-size:0.68rem; color:var(--text-muted);">Quản trị toàn web</span>
+          </button>
+        </div>
+      </div>
+
       <!-- Khung hiển thị trạng thái đang đăng nhập -->
-      <div id="auth-current-user-banner" style="background:var(--surface-alt); border:1px solid var(--border); border-radius:11px; padding:0.7rem 0.85rem; margin-bottom:0.85rem; font-size:0.85rem;"></div>
+      <div id="auth-current-user-banner" style="background:#fff7ed; border:1px solid #fed7aa; border-radius:11px; padding:0.65rem 0.85rem; margin-bottom:0.85rem; font-size:0.84rem;"></div>
 
       <!-- Thanh chuyển Tab: Đăng nhập vs Đăng ký -->
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.4rem; background:var(--surface-alt); padding:0.3rem; border-radius:10px; margin-bottom:0.9rem;">
-        <button id="auth-tab-login" class="subtab-btn active" onclick="switchAuthTab('login')">🔑 Đăng nhập</button>
-        <button id="auth-tab-register" class="subtab-btn" onclick="switchAuthTab('register')">📝 Đăng ký mới</button>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.4rem; background:var(--surface-alt); padding:0.3rem; border-radius:10px; margin-bottom:0.85rem;">
+        <button id="auth-tab-login" class="subtab-btn active" onclick="switchAuthTab('login')">🔑 Đăng nhập bằng Email</button>
+        <button id="auth-tab-register" class="subtab-btn" onclick="switchAuthTab('register')">📝 Đăng ký tài khoản</button>
       </div>
 
       <!-- FORM 1: ĐĂNG NHẬP -->
       <div id="auth-form-login">
         <div class="form-group">
           <label>Email đăng nhập:</label>
-          <input type="email" id="login-email" class="form-control" placeholder="VD: khachhang@hopviai.vn / chuquan@hopviai.vn / admin@hopviai.vn" value="khachhang@hopviai.vn" />
+          <input type="email" id="login-email" class="form-control" placeholder="khachhang@hopviai.vn / chuquan@hopviai.vn / admin@hopviai.vn" value="khachhang@hopviai.vn" />
         </div>
         <div class="form-group">
           <label>Mật khẩu:</label>
           <input type="password" id="login-password" class="form-control" placeholder="Nhập mật khẩu..." value="123456" />
         </div>
         <button class="btn btn-primary" style="width:100%; min-height:42px;" onclick="submitLogin()">
-          🔑 Đăng nhập vào hệ thống
+          🔑 Đăng nhập
         </button>
       </div>
 
       <!-- FORM 2: ĐĂNG KÝ (Chọn tư cách Khách hàng hoặc Chủ quán) -->
       <div id="auth-form-register" style="display:none;">
         <div class="form-group">
-          <label>Bạn muốn đăng ký với tư cách nào?</label>
+          <label>Bạn đăng ký với tư cách nào?</label>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
             <label id="reg-role-customer-card" style="border:2px solid var(--primary); background:#fff7ed; padding:0.6rem; border-radius:10px; cursor:pointer; text-align:center;" onclick="selectRegisterRole('customer')">
               <input type="radio" name="reg-role" value="customer" checked style="display:none;" />
-              <div style="font-size:1.25rem;">🙋</div>
+              <div style="font-size:1.2rem;">🙋</div>
               <div style="font-weight:800; font-size:0.84rem; color:var(--primary);">Khách hàng</div>
-              <div style="font-size:0.72rem; color:var(--text-muted);">Tìm món AI, dẫn đường & đánh giá</div>
+              <div style="font-size:0.72rem; color:var(--text-muted);">Giao diện Tìm món & Bản đồ</div>
             </label>
             <label id="reg-role-partner-card" style="border:2px solid var(--border); background:var(--surface); padding:0.6rem; border-radius:10px; cursor:pointer; text-align:center;" onclick="selectRegisterRole('partner')">
               <input type="radio" name="reg-role" value="partner" style="display:none;" />
-              <div style="font-size:1.25rem;">🏪</div>
+              <div style="font-size:1.2rem;">🏪</div>
               <div style="font-weight:800; font-size:0.84rem; color:#1d4ed8;">Chủ quán</div>
-              <div style="font-size:0.72rem; color:var(--text-muted);">Đăng ký quán & AI Scan Menu</div>
+              <div style="font-size:0.72rem; color:var(--text-muted);">Giao diện Quản lý Quán</div>
             </label>
           </div>
-          <div style="font-size:0.74rem; color:var(--text-muted); margin-top:0.35rem;">
-            * Lưu ý: Tài khoản <strong>Admin (Quản trị viên)</strong> là duy nhất để quản lý toàn trang web, không cho phép tự đăng ký công khai.
+          <div style="font-size:0.73rem; color:var(--text-muted); margin-top:0.35rem;">
+            * Tài khoản <strong>Admin</strong> là duy nhất (<code>admin@hopviai.vn</code>), không mở đăng ký công khai.
           </div>
         </div>
 
         <div class="form-group">
-          <label>Họ và tên của bạn:</label>
+          <label>Họ và tên:</label>
           <input type="text" id="reg-name" class="form-control" placeholder="VD: Trần Quốc Bảo" />
         </div>
         <div class="form-group">
-          <label>Địa chỉ Email:</label>
+          <label>Email:</label>
           <input type="email" id="reg-email" class="form-control" placeholder="VD: baotran@gmail.com" />
         </div>
         <div class="form-group">
@@ -697,11 +702,10 @@
           <input type="password" id="reg-password" class="form-control" placeholder="••••••" />
         </div>
 
-        <!-- Các trường bổ sung khi chọn tư cách Chủ quán -->
         <div id="reg-partner-extra-fields" style="display:none; background:#eff6ff; border:1px solid #bfdbfe; padding:0.75rem; border-radius:10px; margin-bottom:0.85rem;">
-          <div style="font-weight:700; font-size:0.83rem; color:#1d4ed8; margin-bottom:0.45rem;">🏪 Thông tin cơ sở kinh doanh của Chủ quán:</div>
+          <div style="font-weight:700; font-size:0.83rem; color:#1d4ed8; margin-bottom:0.45rem;">🏪 Thông tin Quán đăng ký:</div>
           <div class="form-group" style="margin-bottom:0.5rem;">
-            <label style="font-size:0.78rem;">Tên quán ăn / Nhà hàng:</label>
+            <label style="font-size:0.78rem;">Tên quán ăn:</label>
             <input type="text" id="reg-rest-name" class="form-control" placeholder="VD: Phở & Bún Bò Gia Truyền Biên Hòa" />
           </div>
           <div class="form-group" style="margin-bottom:0.5rem;">
@@ -709,7 +713,7 @@
             <input type="text" id="reg-rest-address" class="form-control" placeholder="VD: 88 Võ Thị Sáu, P. Trấn Biên, Biên Hòa" />
           </div>
           <div class="form-group" style="margin-bottom:0;">
-            <label style="font-size:0.78rem;">Khu vực (Phường):</label>
+            <label style="font-size:0.78rem;">Phường:</label>
             <select id="reg-rest-area" class="form-control">
               <option value="Trấn Biên">Phường Trấn Biên</option>
               <option value="Tam Hiệp">Phường Tam Hiệp</option>
@@ -722,38 +726,20 @@
         </div>
 
         <button class="btn btn-success" style="width:100%; min-height:42px;" onclick="submitRegister()">
-          ✅ Hoàn tất Đăng ký Tài khoản
+          ✅ Tạo tài khoản & Mở giao diện tương ứng
         </button>
       </div>
 
       <div id="auth-error-msg" style="margin-top:0.65rem; font-size:0.84rem; font-weight:700;"></div>
-
-      <!-- Khung chuyển nhanh Demo 1 chạm phục vụ Thuyết trình trước Ban Giám Khảo -->
-      <div style="margin-top:1rem; padding-top:0.85rem; border-top:1px dashed var(--border);">
-        <div style="font-size:0.78rem; font-weight:700; color:var(--text-muted); margin-bottom:0.45rem;">
-          ⚡ Chuyển nhanh Tài khoản Demo (1 Chạm dành cho Thuyết trình):
-        </div>
-        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.4rem;">
-          <button class="btn btn-secondary btn-sm" style="font-size:0.76rem; padding:0.4rem 0.3rem;" onclick="quickDemoLogin('customer')">
-            🙋 Khách hàng
-          </button>
-          <button class="btn btn-secondary btn-sm" style="font-size:0.76rem; padding:0.4rem 0.3rem; background:#eff6ff; color:#1d4ed8; border-color:#bfdbfe;" onclick="quickDemoLogin('partner')">
-            🏪 Chủ quán
-          </button>
-          <button class="btn btn-secondary btn-sm" style="font-size:0.76rem; padding:0.4rem 0.3rem; background:#f3e8ff; color:#7e22ce; border-color:#e9d5ff;" onclick="quickDemoLogin('admin')">
-            🛡️ Admin
-          </button>
-        </div>
-      </div>
     </div>
   </div>
 
-  <!-- Modal Cấu hình nhanh Google Gemini API Key -->
+  <!-- Modal Cấu hình Google Gemini API Key -->
   <div id="api-key-modal" class="modal-backdrop">
     <div class="modal-box">
       <h3 style="margin-bottom:0.5rem;">🔑 Cấu hình Google Gemini API Key (`gemini-2.5-flash`)</h3>
       <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1rem;">
-        Nhập khóa API từ <strong>Google AI Studio</strong> để kích hoạt trực tiếp mô hình <code>gemini-2.5-flash</code> cho phân tích ngôn ngữ tự nhiên và quét ảnh thực đơn bất kỳ. Nếu để trống, hệ thống tự động dùng bộ phân tích ngữ nghĩa tiếng Việt dự phòng (Semantic Fallback) an toàn 100%.
+        Nhập khóa API từ <strong>Google AI Studio</strong> để kích hoạt trực tiếp mô hình <code>gemini-2.5-flash</code>. Nếu để trống, hệ thống tự động dùng bộ phân tích ngữ nghĩa tiếng Việt dự phòng (Semantic Fallback).
       </p>
       <div class="form-group">
         <label>Google Gemini API Key:</label>
@@ -766,77 +752,59 @@
     </div>
   </div>
 
-  <!-- Modal QR Code cho Ban Giám Khảo -->
+  <!-- Modal QR Code -->
   <div id="qr-modal" class="modal-backdrop">
     <div class="modal-box" style="text-align:center;">
       <h3 style="margin-bottom:0.4rem;">📱 Quét mã QR trải nghiệm HỢP VỊ AI</h3>
-      <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1rem;">
-        Dành cho Ban giám khảo truy cập nhanh vào hệ thống trên điện thoại hoặc máy tính bảng.
-      </p>
       <div id="qr-image-container" style="margin:1rem auto; display:flex; justify-content:center;"></div>
       <div class="form-group" style="text-align:left;">
-        <label>Đường dẫn truy cập hiện tại (có thể đổi sang link Render/Cloud hoặc IP LAN):</label>
+        <label>Đường dẫn truy cập:</label>
         <input type="text" id="qr-url-input" class="form-control" oninput="updateQrImage()" />
       </div>
-      <button class="btn btn-primary" onclick="closeQrModal()">Hoàn tất</button>
+      <button class="btn btn-primary" onclick="closeQrModal()">Đóng</button>
     </div>
   </div>
 
-  <!-- Modal Hướng dẫn & Cài đặt Ứng dụng HỢP VỊ AI lên Màn hình chính (PWA) -->
+  <!-- Modal Hướng dẫn cài PWA -->
   <div id="pwa-install-modal" class="modal-backdrop">
     <div class="modal-box">
       <div style="display:flex; align-items:center; gap:0.85rem; margin-bottom:0.85rem;">
-        <img src="/icons/icon-192.png" alt="Hợp Vị AI Icon" width="56" height="56" style="border-radius:14px; box-shadow:0 4px 12px rgba(194,65,12,0.28);" />
+        <img src="/icons/icon-192.png" alt="Hợp Vị AI Icon" width="56" height="56" style="border-radius:14px;" />
         <div>
           <h3 style="margin-bottom:0.15rem;">📲 Cài đặt App HỢP VỊ AI</h3>
-          <span class="badge badge-verified">Chạy toàn màn hình như Ứng dụng gốc (PWA)</span>
+          <span class="badge badge-verified">Chạy toàn màn hình như Ứng dụng gốc</span>
         </div>
       </div>
-
-      <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:0.9rem;">
-        Thêm biểu tượng <strong>Hợp Vị AI</strong> ra màn hình chính điện thoại hoặc máy tính để mở nhanh chỉ với 1 chạm, giao diện toàn màn hình không vướng thanh địa chỉ trình duyệt.
-      </p>
-
       <div id="pwa-native-install-box" style="display:none; margin-bottom:1rem;">
-        <button class="btn btn-primary" style="width:100%; min-height:46px; font-size:0.98rem;" onclick="confirmNativePwaInstall()">
+        <button class="btn btn-primary" style="width:100%; min-height:46px;" onclick="confirmNativePwaInstall()">
           ⬇️ Cài đặt Ứng dụng Hợp Vị AI ngay (1 Chạm)
         </button>
       </div>
-
-      <div style="background:var(--surface-alt); border:1px solid var(--border); border-radius:12px; padding:0.9rem; font-size:0.85rem; margin-bottom:0.85rem;">
-        <div style="font-weight:700; color:var(--primary); margin-bottom:0.35rem;">🍎 Trên iPhone / iPad (Trình duyệt Safari):</div>
-        <ol style="padding-left:1.2rem; line-height:1.6;">
-          <li>Bấm vào nút <strong>Chia sẻ (Share ⬆️)</strong> ở thanh công cụ phía dưới trình duyệt Safari.</li>
-          <li>Cuộn xuống và chọn <strong>"Thêm vào MH chính" (Add to Home Screen ➕)</strong>.</li>
-          <li>Bấm <strong>Thêm (Add)</strong> ở góc trên bên phải để hoàn tất.</li>
-        </ol>
+      <div style="background:var(--surface-alt); border:1px solid var(--border); border-radius:12px; padding:0.85rem; font-size:0.84rem; margin-bottom:0.85rem;">
+        <strong>🍎 Trên iPhone (Safari):</strong> Bấm nút <strong>Chia sẻ (⬆️)</strong> → Chọn <strong>"Thêm vào MH chính" (➕)</strong>.
       </div>
-
-      <div style="background:var(--surface-alt); border:1px solid var(--border); border-radius:12px; padding:0.9rem; font-size:0.85rem; margin-bottom:1rem;">
-        <div style="font-weight:700; color:var(--accent); margin-bottom:0.35rem;">🤖 Trên Điện thoại Android (Trình duyệt Chrome):</div>
-        <ol style="padding-left:1.2rem; line-height:1.6;">
-          <li>Bấm nút <strong>Cài đặt 1 Chạm</strong> bên trên hoặc bấm biểu tượng <strong>Menu 3 chấm (⋮)</strong> ở góc phải trên Chrome.</li>
-          <li>Chọn <strong>"Cài đặt ứng dụng" (Install app)</strong> hoặc <strong>"Thêm vào Màn hình chính"</strong>.</li>
-        </ol>
+      <div style="background:var(--surface-alt); border:1px solid var(--border); border-radius:12px; padding:0.85rem; font-size:0.84rem; margin-bottom:1rem;">
+        <strong>🤖 Trên Android (Chrome):</strong> Bấm menu <strong>3 chấm (⋮)</strong> → Chọn <strong>"Cài đặt ứng dụng"</strong>.
       </div>
-
       <div style="display:flex; justify-content:flex-end;">
         <button class="btn btn-primary" onclick="closePwaModal()">Đã hiểu</button>
       </div>
     </div>
   </div>
 
-  <!-- Thanh điều hướng đáy cố định cho Điện thoại (5 Tab lớn chuẩn Mobile App) -->
-  <nav class="mobile-bottom-nav" aria-label="Điều hướng di động">
+  <!-- ==================== 3 THANH ĐIỀU HƯỚNG ĐÁY ĐIỆN THOẠI RIÊNG BIỆT CHO 3 VAI TRÒ ==================== -->
+
+  <!-- MOBILE NAV 1: KHÁCH HÀNG (5 Tab thuần Khách hàng) -->
+  <nav id="mobile-nav-customer" class="mobile-bottom-nav role-mobile-nav" data-for-role="customer" aria-label="Menu di động Khách hàng">
     <button class="mobile-nav-item active" data-view="home" onclick="switchView('home')">
       <span class="m-icon">🏠</span>
-      <span class="m-label">Trang chủ</span>
+      <span class="m-label">Quán ngon</span>
     </button>
     <button class="mobile-nav-item" data-view="recommend" onclick="switchView('recommend')">
       <span class="m-icon">🤖</span>
-      <span class="m-label">Gợi ý AI</span>
+      <span class="m-label">Tìm món AI</span>
     </button>
-    <button class="mobile-nav-item" data-view="map" onclick="scrollToSection('dongnai-map-anchor')">
+    <button class="mobile-nav-item" data-view="map" onclick="switchView('map')">
       <span class="m-icon">🗺️</span>
       <span class="m-label">Bản đồ</span>
     </button>
@@ -844,13 +812,48 @@
       <span class="m-icon">🍊</span>
       <span class="m-label">Đặc sản</span>
     </button>
-    <button class="mobile-nav-item" data-view="partner" onclick="switchView('partner')">
-      <span class="m-icon">⚙️</span>
-      <span class="m-label">Quét & Admin</span>
+    <button class="mobile-nav-item" data-view="feedback" onclick="switchView('feedback')">
+      <span class="m-icon">💬</span>
+      <span class="m-label">Đánh giá</span>
     </button>
   </nav>
 
-  <script src="/app.js?v=20261110-direct1"></script>
+  <!-- MOBILE NAV 2: CHỦ QUÁN (3 Tab thuần Quản lý Quán) -->
+  <nav id="mobile-nav-partner" class="mobile-bottom-nav role-mobile-nav" data-for-role="partner" style="display:none; grid-template-columns:repeat(3, minmax(0, 1fr));" aria-label="Menu di động Chủ quán">
+    <button class="mobile-nav-item" data-view="partner" onclick="switchView('partner')">
+      <span class="m-icon">📸</span>
+      <span class="m-label">Quét Menu AI</span>
+    </button>
+    <button class="mobile-nav-item" data-view="partner-menus" onclick="switchView('partner-menus')">
+      <span class="m-icon">📋</span>
+      <span class="m-label">Hồ sơ Quán</span>
+    </button>
+    <button class="mobile-nav-item" data-view="partner-reviews" onclick="switchView('partner-reviews')">
+      <span class="m-icon">💬</span>
+      <span class="m-label">Đánh giá Khách</span>
+    </button>
+  </nav>
+
+  <!-- MOBILE NAV 3: ADMIN (4 Tab thuần Quản trị Hệ thống) -->
+  <nav id="mobile-nav-admin" class="mobile-bottom-nav role-mobile-nav" data-for-role="admin" style="display:none; grid-template-columns:repeat(4, minmax(0, 1fr));" aria-label="Menu di động Admin">
+    <button class="mobile-nav-item" data-view="admin" onclick="switchView('admin')">
+      <span class="m-icon">📥</span>
+      <span class="m-label">Duyệt Menu</span>
+    </button>
+    <button class="mobile-nav-item" data-view="admin-restaurants" onclick="switchView('admin-restaurants')">
+      <span class="m-icon">🏪</span>
+      <span class="m-label">18+ Quán</span>
+    </button>
+    <button class="mobile-nav-item" data-view="admin-users" onclick="switchView('admin-users')">
+      <span class="m-icon">👥</span>
+      <span class="m-label">Tài khoản</span>
+    </button>
+    <button class="mobile-nav-item" data-view="admin-system" onclick="switchView('admin-system')">
+      <span class="m-icon">⚙️</span>
+      <span class="m-label">Hệ thống</span>
+    </button>
+  </nav>
+
+  <script src="/app.js?v=20261110-3roles"></script>
 </body>
 </html>
-
