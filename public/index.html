@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HỢP VỊ AI – Hiểu đúng vị – Gợi đúng món | Ẩm thực Đồng Nai</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/styles.css?v=20261110-m4" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 </head>
 <body>
@@ -20,7 +20,7 @@
         </div>
       </div>
 
-      <!-- 4 Danh mục chính (Khu vực Người dùng) -->
+      <!-- 4 Danh mục chính (Khu vực Người dùng - Hiển thị trên Desktop) -->
       <nav class="nav-tabs" aria-label="Danh mục chính">
         <button class="nav-btn active" data-view="home" onclick="switchView('home')">🏠 Trang chủ</button>
         <button class="nav-btn" data-view="recommend" onclick="switchView('recommend')">🤖 AI Gợi ý món ăn</button>
@@ -30,20 +30,20 @@
 
       <!-- Chuyển đổi vai trò Đối tác / Admin & Cấu hình AI / QR -->
       <div class="role-switcher">
-        <button class="role-pill active-partner" data-view="partner" onclick="switchView('partner')" title="Khu vực Đối tác & AI Scan Menu">
+        <button class="role-pill active-partner hide-on-mobile" data-view="partner" onclick="switchView('partner')" title="Khu vực Đối tác & AI Scan Menu">
           📸 Đối tác (AI Scan Menu)
         </button>
-        <button class="role-pill active-admin" data-view="admin" onclick="switchView('admin')" title="Khu vực Quản trị & Xác minh dữ liệu">
+        <button class="role-pill active-admin hide-on-mobile" data-view="admin" onclick="switchView('admin')" title="Khu vực Quản trị & Xác minh dữ liệu">
           🛡️ Admin (<span id="pending-badge-count">1</span>)
         </button>
         <button id="api-status-btn" class="api-status-badge fallback" onclick="openApiKeyModal()" title="Cấu hình Google Gemini API Key">
-          ⚡ Gemini AI: <span id="api-status-text">Đang kiểm tra</span>
+          ⚡ <span class="hide-on-mobile">Gemini AI: </span><span id="api-status-text">AI Sẵn sàng</span>
         </button>
         <button class="role-pill" onclick="openQrModal()" title="Mã QR cho Ban giám khảo trải nghiệm">
-          📱 QR Demo
+          📱 QR<span class="hide-on-mobile"> Demo</span>
         </button>
         <a href="/slides.html" class="role-pill" style="text-decoration:none; background:#fff7ed; color:#c2410c; border-color:#fed7aa;" title="Mở bộ Slide thuyết trình dự thi">
-          🎤 Slide Thi
+          🎤 Slide<span class="hide-on-mobile"> Thi</span>
         </a>
       </div>
     </div>
@@ -600,7 +600,7 @@
     </div>
   </div>
 
-  <!-- Thanh điều hướng đáy cố định cho Điện thoại (Mobile Bottom App Bar) -->
+  <!-- Thanh điều hướng đáy cố định cho Điện thoại (Mobile Bottom App Bar - 6 phân mục đầy đủ) -->
   <nav class="mobile-bottom-nav" aria-label="Điều hướng di động">
     <button class="mobile-nav-item active" data-view="home" onclick="switchView('home')">
       <span class="m-icon">🏠</span>
@@ -614,6 +614,10 @@
       <span class="m-icon">🍊</span>
       <span class="m-label">Đặc sản</span>
     </button>
+    <button class="mobile-nav-item" data-view="feedback" onclick="switchView('feedback')">
+      <span class="m-icon">💬</span>
+      <span class="m-label">Góp ý</span>
+    </button>
     <button class="mobile-nav-item" data-view="partner" onclick="switchView('partner')">
       <span class="m-icon">📸</span>
       <span class="m-label">Quét Menu</span>
@@ -624,7 +628,7 @@
     </button>
   </nav>
 
-  <script src="/app.js"></script>
+  <script src="/app.js?v=20261110-m4"></script>
 </body>
 </html>
 

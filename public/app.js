@@ -86,10 +86,10 @@ function renderHeaderStats() {
   const badgeText = document.getElementById('api-status-text');
   if (aiStatus.hasApiKey) {
     badgeBtn.className = 'api-status-badge online';
-    badgeText.textContent = 'Live (2.5 Flash)';
+    badgeText.textContent = 'Live AI';
   } else {
     badgeBtn.className = 'api-status-badge fallback';
-    badgeText.textContent = 'Semantic Mode (Cài Key)';
+    badgeText.textContent = 'Cài Key';
   }
 }
 
@@ -361,6 +361,7 @@ function initOrUpdateLeafletMap() {
     let lastClientX = 0;
     let lastClientY = 0;
     mapContainer.addEventListener('pointerdown', e => {
+      if (e.pointerType === 'touch') return;
       if (e.target.closest('.map-pan-dpad') || e.target.closest('.leaflet-control') || e.target.closest('.leaflet-popup')) return;
       isPointerDown = true;
       lastClientX = e.clientX;
