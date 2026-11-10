@@ -16,8 +16,23 @@ let leafletMarkers = [];
 let originMarker = null;
 let routePolyline = null;
 let currentOriginCoords = { lat: 10.9508, lng: 106.8222, label: 'Công viên Biên Hùng (P. Trấn Biên)' };
+let deferredPwaPrompt = null;
+
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPwaPrompt = e;
+  const nativeBox = document.getElementById('pwa-native-install-box');
+  if (nativeBox) nativeBox.style.display = 'block';
+});
 
 document.addEventListener('DOMContentLoaded', async () => {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  }
+  const urlView = new URLSearchParams(window.location.search).get('view');
+  if (urlView && ['home', 'recommend', 'explore', 'feedback', 'partner', 'admin'].includes(urlView)) {
+    switchView(urlView);
+  }
   await refreshAllData();
   await runSampleMenuScan('sample_bun_thai');
 });
@@ -1640,6 +1655,31 @@ function openQrModal() {
 
 function closeQrModal() {
   document.getElementById('qr-modal').classList.remove('open');
+}
+
+function triggerPwaInstall() {
+  if (deferredPwaPrompt) {
+    confirmNativePwaInstall();
+    return;
+  }
+  document.getElementById('pwa-install-modal')?.classList.add('open');
+}
+
+async function confirmNativePwaInstall() {
+  if (!deferredPwaPrompt) {
+    document.getElementById('pwa-install-modal')?.classList.add('open');
+    return;
+  }
+  deferredPwaPrompt.prompt();
+  await deferredPwaPrompt.userChoice;
+  deferredPwaPrompt = null;
+  const nativeBox = document.getElementById('pwa-native-install-box');
+  if (nativeBox) nativeBox.style.display = 'none';
+  closePwaModal();
+}
+
+function closePwaModal() {
+  document.getElementById('pwa-install-modal')?.classList.remove('open');
 }
 
 function updateQrImage() {

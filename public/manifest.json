@@ -1,0 +1,45 @@
+{
+  "name": "HỢP VỊ AI – Ẩm thực Đồng Nai",
+  "short_name": "Hợp Vị AI",
+  "description": "Hiểu đúng vị – Gợi đúng món: Trợ lý AI gợi ý món ăn cá nhân hóa & đồng thuận thực đơn nhóm tại Biên Hòa – Đồng Nai.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#faf7f2",
+  "theme_color": "#c2410c",
+  "lang": "vi",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "AI Gợi ý món nhóm",
+      "short_name": "Gợi ý AI",
+      "url": "/?view=recommend",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "AI Scan Menu (Đối tác)",
+      "short_name": "Quét Menu",
+      "url": "/?view=partner",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

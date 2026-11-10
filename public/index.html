@@ -2,10 +2,17 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#c2410c" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Hợp Vị AI" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
   <title>HỢP VỊ AI – Hiểu đúng vị – Gợi đúng món | Ẩm thực Đồng Nai</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-  <link rel="stylesheet" href="/styles.css?v=20261110-m4" />
+  <link rel="stylesheet" href="/styles.css?v=20261110-pwa1" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 </head>
 <body>
@@ -41,6 +48,9 @@
         </button>
         <button class="role-pill" onclick="openQrModal()" title="Mã QR cho Ban giám khảo trải nghiệm">
           📱 QR<span class="hide-on-mobile"> Demo</span>
+        </button>
+        <button id="btn-pwa-install" class="role-pill" style="background:#dcfce7; color:#15803d; border-color:#86efac;" onclick="triggerPwaInstall()" title="Cài đặt ứng dụng Hợp Vị AI lên màn hình chính điện thoại">
+          📲 Cài App
         </button>
         <a href="/slides.html" class="role-pill" style="text-decoration:none; background:#fff7ed; color:#c2410c; border-color:#fed7aa;" title="Mở bộ Slide thuyết trình dự thi">
           🎤 Slide<span class="hide-on-mobile"> Thi</span>
@@ -101,9 +111,9 @@
           <span class="qj-icon">📸</span>
           <span class="qj-label">AI Scan Menu</span>
         </button>
-        <button class="quick-jump-card" onclick="openQrModal()">
-          <span class="qj-icon">📱</span>
-          <span class="qj-label">Mã QR Chia sẻ</span>
+        <button class="quick-jump-card" onclick="triggerPwaInstall()">
+          <span class="qj-icon">📲</span>
+          <span class="qj-label">Cài App lên máy</span>
         </button>
       </div>
 
@@ -600,6 +610,50 @@
     </div>
   </div>
 
+  <!-- Modal Hướng dẫn & Cài đặt Ứng dụng HỢP VỊ AI lên Màn hình chính (PWA) -->
+  <div id="pwa-install-modal" class="modal-backdrop">
+    <div class="modal-box">
+      <div style="display:flex; align-items:center; gap:0.85rem; margin-bottom:0.85rem;">
+        <img src="/icons/icon-192.png" alt="Hợp Vị AI Icon" width="56" height="56" style="border-radius:14px; box-shadow:0 4px 12px rgba(194,65,12,0.28);" />
+        <div>
+          <h3 style="margin-bottom:0.15rem;">📲 Cài đặt App HỢP VỊ AI</h3>
+          <span class="badge badge-verified">Chạy toàn màn hình như Ứng dụng gốc (PWA)</span>
+        </div>
+      </div>
+
+      <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:0.9rem;">
+        Thêm biểu tượng <strong>Hợp Vị AI</strong> ra màn hình chính điện thoại hoặc máy tính để mở nhanh chỉ với 1 chạm, giao diện toàn màn hình không vướng thanh địa chỉ trình duyệt.
+      </p>
+
+      <div id="pwa-native-install-box" style="display:none; margin-bottom:1rem;">
+        <button class="btn btn-primary" style="width:100%; min-height:46px; font-size:0.98rem;" onclick="confirmNativePwaInstall()">
+          ⬇️ Cài đặt Ứng dụng Hợp Vị AI ngay (1 Chạm)
+        </button>
+      </div>
+
+      <div style="background:var(--surface-alt); border:1px solid var(--border); border-radius:12px; padding:0.9rem; font-size:0.85rem; margin-bottom:0.85rem;">
+        <div style="font-weight:700; color:var(--primary); margin-bottom:0.35rem;">🍎 Trên iPhone / iPad (Trình duyệt Safari):</div>
+        <ol style="padding-left:1.2rem; line-height:1.6;">
+          <li>Bấm vào nút <strong>Chia sẻ (Share ⬆️)</strong> ở thanh công cụ phía dưới trình duyệt Safari.</li>
+          <li>Cuộn xuống và chọn <strong>"Thêm vào MH chính" (Add to Home Screen ➕)</strong>.</li>
+          <li>Bấm <strong>Thêm (Add)</strong> ở góc trên bên phải để hoàn tất.</li>
+        </ol>
+      </div>
+
+      <div style="background:var(--surface-alt); border:1px solid var(--border); border-radius:12px; padding:0.9rem; font-size:0.85rem; margin-bottom:1rem;">
+        <div style="font-weight:700; color:var(--accent); margin-bottom:0.35rem;">🤖 Trên Điện thoại Android (Trình duyệt Chrome):</div>
+        <ol style="padding-left:1.2rem; line-height:1.6;">
+          <li>Bấm nút <strong>Cài đặt 1 Chạm</strong> bên trên hoặc bấm biểu tượng <strong>Menu 3 chấm (⋮)</strong> ở góc phải trên Chrome.</li>
+          <li>Chọn <strong>"Cài đặt ứng dụng" (Install app)</strong> hoặc <strong>"Thêm vào Màn hình chính"</strong>.</li>
+        </ol>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end;">
+        <button class="btn btn-primary" onclick="closePwaModal()">Đã hiểu</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Thanh điều hướng đáy cố định cho Điện thoại (Mobile Bottom App Bar - 6 phân mục đầy đủ) -->
   <nav class="mobile-bottom-nav" aria-label="Điều hướng di động">
     <button class="mobile-nav-item active" data-view="home" onclick="switchView('home')">
@@ -628,7 +682,7 @@
     </button>
   </nav>
 
-  <script src="/app.js?v=20261110-m4"></script>
+  <script src="/app.js?v=20261110-pwa1"></script>
 </body>
 </html>
 
