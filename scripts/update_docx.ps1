@@ -1,4 +1,4 @@
-﻿Add-Type -AssemblyName System.IO.Compression
+Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 
 $docxPath = (Resolve-Path "BẢN MÔ TẢ CHI TIẾT.docx").Path

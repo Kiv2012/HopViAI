@@ -362,46 +362,99 @@ function buildRestaurantGalleryHtml(r, prefix = 'home') {
   const trackId = `gal-${prefix}-${r.id}`;
   const dishes = r.menu || [];
 
-  const slides = [
-    {
-      gradient: theme.gradients[0],
-      icon: theme.icons[0],
-      badge: `📸 Ảnh 1/4 • Không gian & Nhận diện`,
-      title: r.name,
-      sub: `📍 ${r.area} • Giờ mở cửa: ${r.openingHours}`
-    },
-    ...dishes.slice(0, 3).map((d, i) => ({
-      gradient: theme.gradients[(i + 1) % theme.gradients.length],
-      icon: theme.icons[(i + 1) % theme.icons.length],
-      badge: `📸 Ảnh ${i + 2}/4 • Món tiêu biểu #${i + 1}`,
-      title: d.name,
-      sub: `💰 Giá niêm yết: ${d.rawPriceText}`
-    }))
-  ];
+  const slides = [];
 
-  while (slides.length < 4) {
-    const idx = slides.length;
-    slides.push({
-      gradient: theme.gradients[idx % theme.gradients.length],
-      icon: theme.icons[idx % theme.icons.length],
-      badge: `📸 Ảnh ${idx + 1}/4 • Thực đơn xác minh`,
-      title: theme.label,
-      sub: `✓ Đã đối chiếu từ Hợp vị AI.xlsx (${r.verifiedAt})`
-    });
+  // 1. Ảnh nhận diện / Không gian quán
+  const mainPhotoUrl = r.avatarUrl || (r.photos && r.photos[0] && r.photos[0].url) || '';
+  slides.push({
+    imageUrl: mainPhotoUrl,
+    badge: '📸 Không gian & Nhận diện',
+    tag: `📍 P. ${r.area || ''}`,
+    title: r.name,
+    sub: `🕒 ${r.openingHours || 'Đang mở cửa'} • 🏠 ${r.address || ''}`,
+    gradient: theme.gradients[0],
+    icon: theme.icons[0]
+  });
+
+  // 2. Các món ăn có ảnh thực tế từ thực đơn khảo sát
+  const seenUrls = new Set();
+  if (mainPhotoUrl) seenUrls.add(mainPhotoUrl);
+
+  for (const d of dishes) {
+    if (d.imageUrl && !seenUrls.has(d.imageUrl)) {
+      seenUrls.add(d.imageUrl);
+      const idx = slides.length;
+      slides.push({
+        imageUrl: d.imageUrl,
+        badge: `🍽️ Món tiêu biểu`,
+        tag: d.rawPriceText || `${(d.price || 0).toLocaleString('vi-VN')}đ`,
+        title: d.name,
+        sub: `💰 Giá niêm yết: ${d.rawPriceText || `${(d.price || 0).toLocaleString('vi-VN')}đ`} • ${d.portionMin || 1} người`,
+        gradient: theme.gradients[idx % theme.gradients.length],
+        icon: theme.icons[idx % theme.icons.length]
+      });
+      if (slides.length >= 6) break;
+    }
   }
+
+  // 3. Nếu chưa đủ slides, lấy thêm từ r.photos (ảnh khảo sát chụp thêm)
+  if (r.photos && r.photos.length > 0 && slides.length < 5) {
+    for (const p of r.photos) {
+      if (p.url && !seenUrls.has(p.url)) {
+        seenUrls.add(p.url);
+        const idx = slides.length;
+        const cleanTitle = p.title ? p.title.replace(/\.[^/.]+$/, '').replace(/_/g, ' ') : r.name;
+        slides.push({
+          imageUrl: p.url,
+          badge: `📸 Ảnh thực tế tại quán`,
+          tag: theme.label,
+          title: cleanTitle.charAt(0).toUpperCase() + cleanTitle.slice(1),
+          sub: `✓ Xác minh thực tế tại ${r.name}`,
+          gradient: theme.gradients[idx % theme.gradients.length],
+          icon: theme.icons[idx % theme.icons.length]
+        });
+        if (slides.length >= 5) break;
+      }
+    }
+  }
+
+  // 4. Nếu vẫn ít hơn 3 slide, bổ sung các món khác trong menu với giao diện gradient/icon fallback
+  if (slides.length < 3) {
+    for (const d of dishes) {
+      if (!slides.some(s => s.title === d.name)) {
+        const idx = slides.length;
+        slides.push({
+          imageUrl: '',
+          badge: `🍽️ Thực đơn xác minh`,
+          tag: d.rawPriceText || `${(d.price || 0).toLocaleString('vi-VN')}đ`,
+          title: d.name,
+          sub: `💰 Giá niêm yết: ${d.rawPriceText || `${(d.price || 0).toLocaleString('vi-VN')}đ`}`,
+          gradient: theme.gradients[idx % theme.gradients.length],
+          icon: theme.icons[idx % theme.icons.length]
+        });
+        if (slides.length >= 3) break;
+      }
+    }
+  }
+
+  const total = slides.length;
 
   return `
     <div class="rest-gallery-wrapper">
       <button type="button" class="gallery-nav-btn prev" onclick="scrollGallery('${trackId}', -1)" title="Ảnh trước">‹</button>
       <button type="button" class="gallery-nav-btn next" onclick="scrollGallery('${trackId}', 1)" title="Ảnh tiếp theo">›</button>
       <div id="${trackId}" class="rest-gallery-track">
-        ${slides.map(s => `
+        ${slides.map((s, idx) => `
           <div class="rest-gallery-slide" style="background:${s.gradient};">
+            ${s.imageUrl ? `
+              <img class="rest-slide-img" src="${s.imageUrl}" alt="${escapeHtml(s.title)}" loading="lazy"
+                onerror="this.style.display='none'; this.parentElement.querySelector('.rest-slide-center')?.classList.remove('hidden-for-img');" />
+            ` : ''}
             <div class="rest-slide-top">
-              <span class="rest-visual-tag">${escapeHtml(s.badge)}</span>
-              <span class="rest-visual-tag">${escapeHtml(theme.label)}</span>
+              <span class="rest-visual-tag">📸 Ảnh ${idx + 1}/${total} • ${escapeHtml(s.badge.replace(/^📸\s*/, ''))}</span>
+              <span class="rest-visual-tag">${escapeHtml(s.tag || theme.label)}</span>
             </div>
-            <div class="rest-slide-center">${s.icon}</div>
+            <div class="rest-slide-center ${s.imageUrl ? 'hidden-for-img' : ''}">${s.icon}</div>
             <div class="rest-slide-bottom">
               <div>
                 <div class="rest-slide-caption">${escapeHtml(s.title)}</div>
@@ -412,8 +465,8 @@ function buildRestaurantGalleryHtml(r, prefix = 'home') {
         `).join('')}
       </div>
       <div class="gallery-hint-bar">
-        <span>↔️ Cuộn ngang hoặc bấm nút ‹ › để xem 4 ảnh quán & món ăn</span>
-        <span>4 ảnh</span>
+        <span>↔️ Cuộn ngang hoặc bấm nút ‹ › để xem ${total} ảnh quán & món ăn</span>
+        <span>${total} ảnh thực tế</span>
       </div>
     </div>
   `;
@@ -806,45 +859,64 @@ function openMapLocation(name, address, restId = '') {
 function renderHomeSpecialties() {
   const box = document.getElementById('home-specialties-grid');
   if (!box) return;
-  const specGalList = [
-    [
-      { g: 'linear-gradient(135deg, #14532d 0%, #16a34a 60%, #eab308 100%)', icon: '🍊🥗', title: 'Gỏi Bưởi Tân Triều Chính Gốc', sub: 'Tép bưởi đường lá cam trộn tôm sông Đồng Nai' },
-      { g: 'linear-gradient(135deg, #365314 0%, #65a30d 60%, #facc15 100%)', icon: '🦐🌿', title: 'Gỏi Bưởi Trong Trái Bưởi', sub: 'Trình bày nghệ thuật trong vỏ bưởi tươi Tân Triều' },
-      { g: 'linear-gradient(135deg, #064e3b 0%, #059669 60%, #10b981 100%)', icon: '🏡🌳', title: 'Không Gian Sinh Thái Cù Lao Tân Triều', sub: 'Làng bưởi Năm Huệ & Vườn Bưởi Tư Trung' }
-    ],
-    [
-      { g: 'linear-gradient(135deg, #713f12 0%, #ca8a04 60%, #15803d 100%)', icon: '🍗🍊', title: 'Gà Ta Hấp Trái Bưởi Tân Triều', sub: 'Thịt gà thấm tinh dầu vỏ bưởi thơm ngọt tự nhiên' },
-      { g: 'linear-gradient(135deg, #78350f 0%, #d97706 60%, #f59e0b 100%)', icon: '🍲🔥', title: 'Gà Hấp Lá Bưởi & Rượu Bưởi', sub: 'Đặc sản trứ danh đãi khách quý tại Đồng Nai' },
-      { g: 'linear-gradient(135deg, #14532d 0%, #15803d 60%, #ca8a04 100%)', icon: '🍋🌿', title: 'Nguyên Liệu Vườn Bưởi Địa Phương', sub: '250.000đ – 330.000đ / con hoặc phần' }
-    ],
-    [
-      { g: 'linear-gradient(135deg, #7f1d1d 0%, #dc2626 60%, #f97316 100%)', icon: '🦐🍲', title: 'Lẩu Tôm Sông Biên Hòa (5 Ri)', sub: 'Vị chua thanh đậm đà tôm tươi vùng sông Đồng Nai' },
-      { g: 'linear-gradient(135deg, #9a3412 0%, #ea580c 60%, #fbbf24 100%)', icon: '🍢🥬', title: 'Chạo Tôm Nướng Mía Bánh Hỏi', sub: '27.000đ / cây ăn kèm bánh hỏi rau sống' },
-      { g: 'linear-gradient(135deg, #0c4a6e 0%, #0284c7 60%, #38bdf8 100%)', icon: '🐟🔥', title: 'Đặc Sản Thủy Sản Phường Trấn Biên', sub: 'Lẩu Tôm 5 Ri – Cách Mạng Tháng 8, Trấn Biên' }
-    ],
-    [
-      { g: 'linear-gradient(135deg, #7c2d12 0%, #ea580c 60%, #f59e0b 100%)', icon: '🍢🔥', title: 'Chả Lụi Nướng Than Bửu Long', sub: 'Món ăn vặt sinh viên 20.000đ/phần tại Huỳnh Văn Nghệ' },
-      { g: 'linear-gradient(135deg, #0c4a6e 0%, #0369a1 60%, #38bdf8 100%)', icon: '🐟🥗', title: 'Gỏi Cá Tân Mai – Tam Hiệp', sub: 'Hương vị truyền thống lâu năm tại Biên Hòa' },
-      { g: 'linear-gradient(135deg, #78350f 0%, #b45309 60%, #fbbf24 100%)', icon: '🥜🌶️', title: 'Nước Chấm Đậu Phộng & Rau Sống', sub: 'Khảo sát thực tế tại Cô Yến & Kim Yến' }
-    ]
+  const fallbackGradients = [
+    'linear-gradient(135deg, #14532d 0%, #16a34a 60%, #eab308 100%)',
+    'linear-gradient(135deg, #713f12 0%, #ca8a04 60%, #15803d 100%)',
+    'linear-gradient(135deg, #7f1d1d 0%, #dc2626 60%, #f97316 100%)',
+    'linear-gradient(135deg, #7c2d12 0%, #ea580c 60%, #f59e0b 100%)'
   ];
+
   box.innerHTML = appState.specialties.slice(0, 4).map((sp, idx) => {
-    const slides = specGalList[idx % specGalList.length];
+    const slides = [];
+    if (sp.photos && sp.photos.length > 0) {
+      sp.photos.forEach((p, pIdx) => {
+        slides.push({
+          url: p.url,
+          title: p.title || sp.name,
+          sub: p.sub || sp.summary,
+          g: fallbackGradients[(idx + pIdx) % fallbackGradients.length],
+          icon: idx === 0 ? '🍊🥗' : idx === 1 ? '🍗🍊' : idx === 2 ? '🦐🍲' : '🍢🔥'
+        });
+      });
+    } else if (sp.imageUrl) {
+      slides.push({
+        url: sp.imageUrl,
+        title: sp.name,
+        sub: sp.summary,
+        g: fallbackGradients[idx % fallbackGradients.length],
+        icon: idx === 0 ? '🍊🥗' : idx === 1 ? '🍗🍊' : idx === 2 ? '🦐🍲' : '🍢🔥'
+      });
+    }
+
+    if (slides.length === 0) {
+      slides.push({
+        url: '',
+        title: sp.name,
+        sub: sp.originArea,
+        g: fallbackGradients[idx % fallbackGradients.length],
+        icon: '🍲'
+      });
+    }
+
     const trackId = `spec-gal-${idx}`;
     return `
     <div class="card" style="display:flex; flex-direction:column; justify-content:space-between; gap:0.85rem;">
       <div>
         <div class="rest-gallery-wrapper">
-          <button type="button" class="gallery-nav-btn prev" onclick="scrollGallery('${trackId}', -1)">‹</button>
-          <button type="button" class="gallery-nav-btn next" onclick="scrollGallery('${trackId}', 1)">›</button>
+          <button type="button" class="gallery-nav-btn prev" onclick="scrollGallery('${trackId}', -1)" title="Ảnh trước">‹</button>
+          <button type="button" class="gallery-nav-btn next" onclick="scrollGallery('${trackId}', 1)" title="Ảnh tiếp theo">›</button>
           <div id="${trackId}" class="rest-gallery-track">
             ${slides.map((s, sIdx) => `
               <div class="rest-gallery-slide" style="background:${s.g};">
+                ${s.url ? `
+                  <img class="rest-slide-img" src="${s.url}" alt="${escapeHtml(s.title)}" loading="lazy"
+                    onerror="this.style.display='none'; this.parentElement.querySelector('.rest-slide-center')?.classList.remove('hidden-for-img');" />
+                ` : ''}
                 <div class="rest-slide-top">
-                  <span class="rest-visual-tag">📸 Ảnh ${sIdx + 1}/${slides.length}</span>
+                  <span class="rest-visual-tag">📸 Ảnh ${sIdx + 1}/${slides.length} • Đặc sản</span>
                   <span class="rest-visual-tag">📍 ${escapeHtml(sp.originArea)}</span>
                 </div>
-                <div class="rest-slide-center">${s.icon}</div>
+                <div class="rest-slide-center ${s.url ? 'hidden-for-img' : ''}">${s.icon}</div>
                 <div class="rest-slide-bottom">
                   <div>
                     <div class="rest-slide-caption">${escapeHtml(s.title)}</div>
@@ -855,13 +927,13 @@ function renderHomeSpecialties() {
             `).join('')}
           </div>
           <div class="gallery-hint-bar">
-            <span>↔️ Lướt ngang hoặc bấm ‹ › để xem bộ ảnh đặc sản</span>
-            <span>${slides.length} ảnh</span>
+            <span>↔️ Lướt ngang hoặc bấm ‹ › để xem bộ ảnh thực tế</span>
+            <span>${slides.length} ảnh thực tế</span>
           </div>
         </div>
         <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; margin-bottom:0.4rem;">
           <span class="badge badge-area">${escapeHtml(sp.classification)}</span>
-          <span class="badge badge-verified">Có tư liệu xác minh</span>
+          <span class="badge badge-verified">Có ảnh & tư liệu xác minh</span>
         </div>
         <h3 style="margin-bottom:0.35rem; color:var(--primary);">${escapeHtml(sp.name)}</h3>
         <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:0.5rem;">${escapeHtml(sp.summary)}</p>
@@ -911,9 +983,12 @@ function renderHomeRestaurants() {
           <div style="border-top:1px solid var(--border); padding-top:0.45rem;">
             <div style="font-size:0.78rem; font-weight:700; margin-bottom:0.25rem;">Món tiêu biểu (${(r.menu || []).length} món):</div>
             ${sampleDishes.map(d => `
-              <div style="display:flex; justify-content:space-between; font-size:0.8rem; padding:0.15rem 0;">
-                <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">• ${escapeHtml(d.name)}</span>
-                <strong style="color:var(--primary); white-space:nowrap; margin-left:0.5rem;">${escapeHtml(d.rawPriceText)}</strong>
+              <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; padding:0.22rem 0; gap:0.5rem;">
+                <div style="display:flex; align-items:center; gap:0.45rem; overflow:hidden; min-width:0;">
+                  ${d.imageUrl ? `<img src="${d.imageUrl}" alt="${escapeHtml(d.name)}" class="dish-mini-thumb" loading="lazy" onerror="this.style.display='none'" />` : '<span style="color:var(--text-muted);">•</span>'}
+                  <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(d.name)}</span>
+                </div>
+                <strong style="color:var(--primary); white-space:nowrap; flex-shrink:0;">${escapeHtml(d.rawPriceText)}</strong>
               </div>
             `).join('')}
           </div>
@@ -1271,8 +1346,13 @@ function renderSolverResults(result, requirements) {
                       <div style="font-size:0.73rem; color:var(--accent);">Độ hợp: ${a.score}/100</div>
                     </td>
                     <td>
-                      <div style="font-weight:600;">${escapeHtml(a.dishName)}</div>
-                      <div style="font-size:0.74rem; color:var(--text-muted);">${escapeHtml((a.reasons || []).join(', '))}</div>
+                      <div style="display:flex; align-items:center; gap:0.6rem;">
+                        ${a.imageUrl ? `<img src="${a.imageUrl}" alt="${escapeHtml(a.dishName)}" class="dish-plan-thumb" loading="lazy" onerror="this.style.display='none'" />` : ''}
+                        <div>
+                          <div style="font-weight:600;">${escapeHtml(a.dishName)}</div>
+                          <div style="font-size:0.74rem; color:var(--text-muted);">${escapeHtml((a.reasons || []).join(', '))}</div>
+                        </div>
+                      </div>
                     </td>
                     <td style="font-weight:700; white-space:nowrap;">
                       ${a.displayPrice ? escapeHtml(a.displayPrice) : `${a.price.toLocaleString('vi-VN')}đ`}
@@ -1387,9 +1467,57 @@ function renderSolverResults(result, requirements) {
 function renderExploreSpecialties() {
   const box = document.getElementById('explore-specialties-list');
   if (!box) return;
-  box.innerHTML = appState.specialties.map(sp => `
+  const fallbackGradients = [
+    'linear-gradient(135deg, #14532d 0%, #16a34a 60%, #eab308 100%)',
+    'linear-gradient(135deg, #713f12 0%, #ca8a04 60%, #15803d 100%)',
+    'linear-gradient(135deg, #7f1d1d 0%, #dc2626 60%, #f97316 100%)',
+    'linear-gradient(135deg, #7c2d12 0%, #ea580c 60%, #f59e0b 100%)'
+  ];
+
+  box.innerHTML = appState.specialties.map((sp, idx) => {
+    const trackId = `exp-spec-gal-${idx}`;
+    const slides = (sp.photos || []).map((p, pIdx) => ({
+      url: p.url,
+      title: p.title || sp.name,
+      sub: p.sub || sp.summary,
+      g: fallbackGradients[(idx + pIdx) % fallbackGradients.length],
+      icon: idx === 0 ? '🍊🥗' : idx === 1 ? '🍗🍊' : idx === 2 ? '🦐🍲' : '🍢🔥'
+    }));
+
+    return `
     <div class="card" style="display:flex; flex-direction:column; justify-content:space-between; gap:1rem;">
       <div>
+        ${slides.length > 0 ? `
+          <div class="rest-gallery-wrapper">
+            <button type="button" class="gallery-nav-btn prev" onclick="scrollGallery('${trackId}', -1)" title="Ảnh trước">‹</button>
+            <button type="button" class="gallery-nav-btn next" onclick="scrollGallery('${trackId}', 1)" title="Ảnh tiếp theo">›</button>
+            <div id="${trackId}" class="rest-gallery-track">
+              ${slides.map((s, sIdx) => `
+                <div class="rest-gallery-slide" style="background:${s.g};">
+                  ${s.url ? `
+                    <img class="rest-slide-img" src="${s.url}" alt="${escapeHtml(s.title)}" loading="lazy"
+                      onerror="this.style.display='none'; this.parentElement.querySelector('.rest-slide-center')?.classList.remove('hidden-for-img');" />
+                  ` : ''}
+                  <div class="rest-slide-top">
+                    <span class="rest-visual-tag">📸 Ảnh ${sIdx + 1}/${slides.length} • Đặc sản Đồng Nai</span>
+                    <span class="rest-visual-tag">📍 ${escapeHtml(sp.originArea)}</span>
+                  </div>
+                  <div class="rest-slide-center ${s.url ? 'hidden-for-img' : ''}">${s.icon}</div>
+                  <div class="rest-slide-bottom">
+                    <div>
+                      <div class="rest-slide-caption">${escapeHtml(s.title)}</div>
+                      <div class="rest-slide-sub">${escapeHtml(s.sub)}</div>
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            <div class="gallery-hint-bar">
+              <span>↔️ Lướt ngang hoặc bấm ‹ › để xem ảnh thực tế đặc sản</span>
+              <span>${slides.length} ảnh thực tế</span>
+            </div>
+          </div>
+        ` : ''}
         <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.5rem;">
           <span class="badge badge-area">${escapeHtml(sp.classification)}</span>
           <span class="badge badge-verified">📍 ${escapeHtml(sp.originArea)}</span>
@@ -1432,7 +1560,8 @@ function renderExploreSpecialties() {
         🤖 Gợi ý quán để thưởng thức món này (Chuyển sang bộ giải AI)
       </button>
     </div>
-  `).join('');
+  `;
+  }).join('');
 }
 
 /* ==================== ĐÁNH GIÁ & GÓP Ý ==================== */

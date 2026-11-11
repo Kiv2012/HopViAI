@@ -96,3 +96,4 @@
   1. Mở rộng dữ liệu khảo sát sang các huyện/thành phố khác của tỉnh Đồng Nai (*Long Khánh, Nhơn Trạch, Long Thành, Vĩnh Cửu*).
   2. Tích hợp đặt bàn trước / đặt món nhóm qua mã QR tại bàn cho các hộ kinh doanh ẩm thực nhỏ lẻ.
   3. Phối hợp với các trang thông tin du lịch địa phương để quảng bá bản đồ số **Đặc sản Bưởi Tân Triều & Ẩm thực Biên Hòa** đến du khách.
+

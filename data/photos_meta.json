@@ -1,0 +1,1100 @@
+[
+  {
+    "rId": "REST_01",
+    "rName": "Chả Lụi Cô Yến",
+    "title": "chả lụi.jpg",
+    "cleanName": "cha_lui.jpg",
+    "url": "https://lh3.googleusercontent.com/d/18Y_l0qPHQ086pSqjAoETjSt-t_9urXgF=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_01\\cha_lui.jpg",
+    "localUrl": "/images/restaurants/REST_01/cha_lui.jpg"
+  },
+  {
+    "rId": "REST_02",
+    "rName": "Tiệm Ăn Nhà Túc",
+    "title": "Combo 1",
+    "cleanName": "combo_1.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1KTPAVqUtDXvYQnG5aVqAS7gb97Wa3Osh=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_02\\combo_1.jpg",
+    "localUrl": "/images/restaurants/REST_02/combo_1.jpg"
+  },
+  {
+    "rId": "REST_02",
+    "rName": "Tiệm Ăn Nhà Túc",
+    "title": "Combo 2",
+    "cleanName": "combo_2.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1xLKUItV7KE31mlfmYEhYj-oUNk7BVqB6=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_02\\combo_2.jpg",
+    "localUrl": "/images/restaurants/REST_02/combo_2.jpg"
+  },
+  {
+    "rId": "REST_02",
+    "rName": "Tiệm Ăn Nhà Túc",
+    "title": "Combo 3",
+    "cleanName": "combo_3.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1ohqs8o7UISBaAlNeKBgaughMLtt7zfeS=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_02\\combo_3.jpg",
+    "localUrl": "/images/restaurants/REST_02/combo_3.jpg"
+  },
+  {
+    "rId": "REST_02",
+    "rName": "Tiệm Ăn Nhà Túc",
+    "title": "Combo 4",
+    "cleanName": "combo_4.jpg",
+    "url": "https://lh3.googleusercontent.com/d/10sR7JkRAfUgjPj6oz3VfQgRdHC17vLJt=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_02\\combo_4.jpg",
+    "localUrl": "/images/restaurants/REST_02/combo_4.jpg"
+  },
+  {
+    "rId": "REST_02",
+    "rName": "Tiệm Ăn Nhà Túc",
+    "title": "Combo Heo/Gà + Trà Tắc/Mơ Ngâm",
+    "cleanName": "combo_heo_ga_tra_tac_mo_ngam.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1P1hpqfqQ6UQicakRZoHgdfPlpcZ6K74q=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_02\\combo_heo_ga_tra_tac_mo_ngam.jpg",
+    "localUrl": "/images/restaurants/REST_02/combo_heo_ga_tra_tac_mo_ngam.jpg"
+  },
+  {
+    "rId": "REST_02",
+    "rName": "Tiệm Ăn Nhà Túc",
+    "title": "Cơm Cari Nhật (Heo/Gà)",
+    "cleanName": "com_cari_nhat_heo_ga.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1FD6BSyTECKPNAzCrxjQ1D9svgVjVGXRn=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_02\\com_cari_nhat_heo_ga.jpg",
+    "localUrl": "/images/restaurants/REST_02/com_cari_nhat_heo_ga.jpg"
+  },
+  {
+    "rId": "REST_02",
+    "rName": "Tiệm Ăn Nhà Túc",
+    "title": "Cơm Cá Hồi Sống",
+    "cleanName": "com_ca_hoi_song.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1EAQzh1joBVisqC8hZ9mkVCti99sXfuan=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_02\\com_ca_hoi_song.jpg",
+    "localUrl": "/images/restaurants/REST_02/com_ca_hoi_song.jpg"
+  },
+  {
+    "rId": "REST_02",
+    "rName": "Tiệm Ăn Nhà Túc",
+    "title": "Cơm gà chiên giòn",
+    "cleanName": "com_ga_chien_gion.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1TbgSWHL4Ify0he7lNMHKv_-LlVPmKsUp=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_02\\com_ga_chien_gion.jpg",
+    "localUrl": "/images/restaurants/REST_02/com_ga_chien_gion.jpg"
+  },
+  {
+    "rId": "REST_02",
+    "rName": "Tiệm Ăn Nhà Túc",
+    "title": "Cơm heo Chiên Xù",
+    "cleanName": "com_heo_chien_xu.jpg",
+    "url": "https://lh3.googleusercontent.com/d/14f30k8hnyHvSvDswp6mrT8DCt3tXXzav=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_02\\com_heo_chien_xu.jpg",
+    "localUrl": "/images/restaurants/REST_02/com_heo_chien_xu.jpg"
+  },
+  {
+    "rId": "REST_02",
+    "rName": "Tiệm Ăn Nhà Túc",
+    "title": "Cơm Lươn",
+    "cleanName": "com_luon.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1GWyzEpY7I-wPkGqWfwt4teesu3d5lPKA=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_02\\com_luon.jpg",
+    "localUrl": "/images/restaurants/REST_02/com_luon.jpg"
+  },
+  {
+    "rId": "REST_02",
+    "rName": "Tiệm Ăn Nhà Túc",
+    "title": "Cơm Lươn + Trà Tắc/Mơ Ngâm",
+    "cleanName": "com_luon_tra_tac_mo_ngam.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1hocqtf0B2S-iWhSYLT8p24EVbTSrpbPV=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_02\\com_luon_tra_tac_mo_ngam.jpg",
+    "localUrl": "/images/restaurants/REST_02/com_luon_tra_tac_mo_ngam.jpg"
+  },
+  {
+    "rId": "REST_02",
+    "rName": "Tiệm Ăn Nhà Túc",
+    "title": "Kim Ch Cơm Trắng",
+    "cleanName": "kim_ch_com_trang.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1oP9eiYHCfg8bvOFyTTk1U3Ueg8jrEo_h=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_02\\kim_ch_com_trang.jpg",
+    "localUrl": "/images/restaurants/REST_02/kim_ch_com_trang.jpg"
+  },
+  {
+    "rId": "REST_02",
+    "rName": "Tiệm Ăn Nhà Túc",
+    "title": "Miến Xào Sốt Bò XO",
+    "cleanName": "mien_xao_sot_bo_xo.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1hfLTpap8ysGf95XoROfE2WZCfzCDJUmq=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_02\\mien_xao_sot_bo_xo.jpg",
+    "localUrl": "/images/restaurants/REST_02/mien_xao_sot_bo_xo.jpg"
+  },
+  {
+    "rId": "REST_02",
+    "rName": "Tiệm Ăn Nhà Túc",
+    "title": "rong biển cơm trắng",
+    "cleanName": "rong_bien_com_trang.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1YjL7lFQkLzf4cjyYq6BavQ5x6yYfn18b=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_02\\rong_bien_com_trang.jpg",
+    "localUrl": "/images/restaurants/REST_02/rong_bien_com_trang.jpg"
+  },
+  {
+    "rId": "REST_02",
+    "rName": "Tiệm Ăn Nhà Túc",
+    "title": "Soup Bào Ngư",
+    "cleanName": "soup_bao_ngu.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1dx-EhIW1R23zv2Bh2KApqzY1oAnjkIqE=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_02\\soup_bao_ngu.jpg",
+    "localUrl": "/images/restaurants/REST_02/soup_bao_ngu.jpg"
+  },
+  {
+    "rId": "REST_02",
+    "rName": "Tiệm Ăn Nhà Túc",
+    "title": "Soup Sò Điệp",
+    "cleanName": "soup_so_diep.jpg",
+    "url": "https://lh3.googleusercontent.com/d/11quyZ_JmtQOZT3a_7X0ltqkY4BMJ5y_f=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_02\\soup_so_diep.jpg",
+    "localUrl": "/images/restaurants/REST_02/soup_so_diep.jpg"
+  },
+  {
+    "rId": "REST_02",
+    "rName": "Tiệm Ăn Nhà Túc",
+    "title": "Udon Bò Trứng",
+    "cleanName": "udon_bo_trung.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1opvTng6cLaQiITcehMjarCoE8MfYDqLb=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_02\\udon_bo_trung.jpg",
+    "localUrl": "/images/restaurants/REST_02/udon_bo_trung.jpg"
+  },
+  {
+    "rId": "REST_03",
+    "rName": "Tiệm Mì Vĩnh Vĩnh",
+    "title": "Bún gạo",
+    "cleanName": "bun_gao.jpg",
+    "url": "https://lh3.googleusercontent.com/d/12CaipJQIocctX8vGG0rEtm13zpO2j8IQ=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_03\\bun_gao.jpg",
+    "localUrl": "/images/restaurants/REST_03/bun_gao.jpg"
+  },
+  {
+    "rId": "REST_03",
+    "rName": "Tiệm Mì Vĩnh Vĩnh",
+    "title": "Hoành Thánh",
+    "cleanName": "hoanh_thanh.jpg",
+    "url": "https://lh3.googleusercontent.com/d/151uWS_6UySfqd4bLp2DuIr3AIXzUsZFw=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_03\\hoanh_thanh.jpg",
+    "localUrl": "/images/restaurants/REST_03/hoanh_thanh.jpg"
+  },
+  {
+    "rId": "REST_03",
+    "rName": "Tiệm Mì Vĩnh Vĩnh",
+    "title": "Hủ tiếu khô",
+    "cleanName": "hu_tieu_kho.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1hw_Idn4Kshs4PrbNEXNIgXMhIqYTJLhg=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_03\\hu_tieu_kho.jpg",
+    "localUrl": "/images/restaurants/REST_03/hu_tieu_kho.jpg"
+  },
+  {
+    "rId": "REST_03",
+    "rName": "Tiệm Mì Vĩnh Vĩnh",
+    "title": "Hủ tiếu mì",
+    "cleanName": "hu_tieu_mi.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1P0PARkieB5bUa9UkOt-Q655Jb6u3dMcq=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_03\\hu_tieu_mi.jpg",
+    "localUrl": "/images/restaurants/REST_03/hu_tieu_mi.jpg"
+  },
+  {
+    "rId": "REST_03",
+    "rName": "Tiệm Mì Vĩnh Vĩnh",
+    "title": "Mì Lá Dứa",
+    "cleanName": "mi_la_dua.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1siFOL5NpEHaJ0O5WLhFw0wkvkObvfzSI=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_03\\mi_la_dua.jpg",
+    "localUrl": "/images/restaurants/REST_03/mi_la_dua.jpg"
+  },
+  {
+    "rId": "REST_04",
+    "rName": "Tiệm Gà Sugar",
+    "title": "Comb size M",
+    "cleanName": "comb_size_m.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1LHbYuS9EXAJsQoALlnIUeknBp7CByQIo=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_04\\comb_size_m.jpg",
+    "localUrl": "/images/restaurants/REST_04/comb_size_m.jpg"
+  },
+  {
+    "rId": "REST_04",
+    "rName": "Tiệm Gà Sugar",
+    "title": "Combo mini",
+    "cleanName": "combo_mini.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1MinSchuiL8jCYULoNrkR4M-rxif4jRDN=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_04\\combo_mini.jpg",
+    "localUrl": "/images/restaurants/REST_04/combo_mini.jpg"
+  },
+  {
+    "rId": "REST_04",
+    "rName": "Tiệm Gà Sugar",
+    "title": "Combo size L",
+    "cleanName": "combo_size_l.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1l75y5n1k8fJIeXpbZ1c4YoAxo_ZNYRqJ=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_04\\combo_size_l.jpg",
+    "localUrl": "/images/restaurants/REST_04/combo_size_l.jpg"
+  },
+  {
+    "rId": "REST_04",
+    "rName": "Tiệm Gà Sugar",
+    "title": "Combo size S",
+    "cleanName": "combo_size_s.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1kpUSanCLJ1cbvvfXgcXe1tGQdD5IgmzJ=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_04\\combo_size_s.jpg",
+    "localUrl": "/images/restaurants/REST_04/combo_size_s.jpg"
+  },
+  {
+    "rId": "REST_04",
+    "rName": "Tiệm Gà Sugar",
+    "title": "Mì Cay Bò/Tôm",
+    "cleanName": "mi_cay_bo_tom.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1h4kQWka24xXbZunoHp0ChEOuttLhivsJ=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_04\\mi_cay_bo_tom.jpg",
+    "localUrl": "/images/restaurants/REST_04/mi_cay_bo_tom.jpg"
+  },
+  {
+    "rId": "REST_04",
+    "rName": "Tiệm Gà Sugar",
+    "title": "Mì Spaghetti size M",
+    "cleanName": "mi_spaghetti_size_m.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1SPql38BfNSwds9uijD2MMIl1WiybqiXy=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_04\\mi_spaghetti_size_m.jpg",
+    "localUrl": "/images/restaurants/REST_04/mi_spaghetti_size_m.jpg"
+  },
+  {
+    "rId": "REST_04",
+    "rName": "Tiệm Gà Sugar",
+    "title": "Mì spaghetti size S",
+    "cleanName": "mi_spaghetti_size_s.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1jmw9zwdxQ6fho3-vt_T4g5J_cyCN7VsP=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_04\\mi_spaghetti_size_s.jpg",
+    "localUrl": "/images/restaurants/REST_04/mi_spaghetti_size_s.jpg"
+  },
+  {
+    "rId": "REST_04",
+    "rName": "Tiệm Gà Sugar",
+    "title": "Mì Thập Cẩm",
+    "cleanName": "mi_thap_cam.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1cGo8boyHGcjHZAi4hTexVTNOy8tTRIWV=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_04\\mi_thap_cam.jpg",
+    "localUrl": "/images/restaurants/REST_04/mi_thap_cam.jpg"
+  },
+  {
+    "rId": "REST_05",
+    "rName": "Bún Đậu Ngọc Thanh Tâm",
+    "title": "Bún Đậu Đặc Biệt 1 người",
+    "cleanName": "bun_dau_dac_biet_1_nguoi.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1Vx7rj9_kwv4DgWWND1qbkkJ2rmFky5H8=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_05\\bun_dau_dac_biet_1_nguoi.jpg",
+    "localUrl": "/images/restaurants/REST_05/bun_dau_dac_biet_1_nguoi.jpg"
+  },
+  {
+    "rId": "REST_05",
+    "rName": "Bún Đậu Ngọc Thanh Tâm",
+    "title": "Bún đậu chả cốm",
+    "cleanName": "bun_dau_cha_com.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1KG2qjFa0O5qIMOFEecwoDICeddUS1Z6U=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_05\\bun_dau_cha_com.jpg",
+    "localUrl": "/images/restaurants/REST_05/bun_dau_cha_com.jpg"
+  },
+  {
+    "rId": "REST_05",
+    "rName": "Bún Đậu Ngọc Thanh Tâm",
+    "title": "Bún đậu nem chua rán",
+    "cleanName": "bun_dau_nem_chua_ran.jpg",
+    "url": "https://lh3.googleusercontent.com/d/14nsGEBYyeX70ZfQm-WSrL4Y7BFjFvr7K=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_05\\bun_dau_nem_chua_ran.jpg",
+    "localUrl": "/images/restaurants/REST_05/bun_dau_nem_chua_ran.jpg"
+  },
+  {
+    "rId": "REST_05",
+    "rName": "Bún Đậu Ngọc Thanh Tâm",
+    "title": "Bún đậu thịt luộc",
+    "cleanName": "bun_dau_thit_luoc.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1kHV52tBOghVmI3M_4w-aOAlg9bLw4uHx=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_05\\bun_dau_thit_luoc.jpg",
+    "localUrl": "/images/restaurants/REST_05/bun_dau_thit_luoc.jpg"
+  },
+  {
+    "rId": "REST_05",
+    "rName": "Bún Đậu Ngọc Thanh Tâm",
+    "title": "Tá lả 2 người trở lên",
+    "cleanName": "ta_la_2_nguoi_tro_len.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1hyow4kif3nWvMK8Gw0iu9tjStxHaR_rm=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_05\\ta_la_2_nguoi_tro_len.jpg",
+    "localUrl": "/images/restaurants/REST_05/ta_la_2_nguoi_tro_len.jpg"
+  },
+  {
+    "rId": "REST_05",
+    "rName": "Bún Đậu Ngọc Thanh Tâm",
+    "title": "Đặc Biệt 2 người",
+    "cleanName": "dac_biet_2_nguoi.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1RifJ_1sAI1Dv9Bjj7bhmlpGFs8-TOJLY=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_05\\dac_biet_2_nguoi.jpg",
+    "localUrl": "/images/restaurants/REST_05/dac_biet_2_nguoi.jpg"
+  },
+  {
+    "rId": "REST_06",
+    "rName": "Mì Bún Ốc Hến",
+    "title": "thập cẩm",
+    "cleanName": "thap_cam.jpg",
+    "url": "https://lh3.googleusercontent.com/d/10qiKYxDGc0plgyBJj1mS43ruwlRnGc0G=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_06\\thap_cam.jpg",
+    "localUrl": "/images/restaurants/REST_06/thap_cam.jpg"
+  },
+  {
+    "rId": "REST_06",
+    "rName": "Mì Bún Ốc Hến",
+    "title": "đặc biệt",
+    "cleanName": "dac_biet.jpg",
+    "url": "https://lh3.googleusercontent.com/d/16EwuhjqwBiJ9djN9m7_33Bl7LFIFjEqo=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_06\\dac_biet.jpg",
+    "localUrl": "/images/restaurants/REST_06/dac_biet.jpg"
+  },
+  {
+    "rId": "REST_06",
+    "rName": "Mì Bún Ốc Hến",
+    "title": "ốc hến thường",
+    "cleanName": "oc_hen_thuong.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1_hpnnFzGKxrfyk4bqCJbLhi4kEdk_A8M=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_06\\oc_hen_thuong.jpg",
+    "localUrl": "/images/restaurants/REST_06/oc_hen_thuong.jpg"
+  },
+  {
+    "rId": "REST_07",
+    "rName": "Bún Thái & Mì Trộn Thành Minh",
+    "title": "Bún Thái Bò Trứng",
+    "cleanName": "bun_thai_bo_trung.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1VVSFjKwuJ7nhWal8OM803-PzkjTyFalM=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_07\\bun_thai_bo_trung.jpg",
+    "localUrl": "/images/restaurants/REST_07/bun_thai_bo_trung.jpg"
+  },
+  {
+    "rId": "REST_07",
+    "rName": "Bún Thái & Mì Trộn Thành Minh",
+    "title": "Bún Thái Hải Sản",
+    "cleanName": "bun_thai_hai_san.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1Ob_hNqUSm7wMR11mc2OCMjZS2tsTqd1y=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_07\\bun_thai_hai_san.jpg",
+    "localUrl": "/images/restaurants/REST_07/bun_thai_hai_san.jpg"
+  },
+  {
+    "rId": "REST_07",
+    "rName": "Bún Thái & Mì Trộn Thành Minh",
+    "title": "Bún Thái Viên",
+    "cleanName": "bun_thai_vien.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1zB7t74GPgimvxqJV9Ut9B5uVjqoTxqgo=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_07\\bun_thai_vien.jpg",
+    "localUrl": "/images/restaurants/REST_07/bun_thai_vien.jpg"
+  },
+  {
+    "rId": "REST_07",
+    "rName": "Bún Thái & Mì Trộn Thành Minh",
+    "title": "Bún Thái Đặc Biệt",
+    "cleanName": "bun_thai_dac_biet.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1tW3ac0xmx7Wo1LNxeNrO8jKYYUPUaBev=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_07\\bun_thai_dac_biet.jpg",
+    "localUrl": "/images/restaurants/REST_07/bun_thai_dac_biet.jpg"
+  },
+  {
+    "rId": "REST_07",
+    "rName": "Bún Thái & Mì Trộn Thành Minh",
+    "title": "Mì trộn bò trứng",
+    "cleanName": "mi_tron_bo_trung.jpg",
+    "url": "https://lh3.googleusercontent.com/d/16ljxhNW7ifrxo7A8-htwjV7AF4xnLvoS=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_07\\mi_tron_bo_trung.jpg",
+    "localUrl": "/images/restaurants/REST_07/mi_tron_bo_trung.jpg"
+  },
+  {
+    "rId": "REST_07",
+    "rName": "Bún Thái & Mì Trộn Thành Minh",
+    "title": "Mì trộn cá viên",
+    "cleanName": "mi_tron_ca_vien.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1xHPdXIXMd2lclpR58sA5WvYWT9D5Nsn2=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_07\\mi_tron_ca_vien.jpg",
+    "localUrl": "/images/restaurants/REST_07/mi_tron_ca_vien.jpg"
+  },
+  {
+    "rId": "REST_07",
+    "rName": "Bún Thái & Mì Trộn Thành Minh",
+    "title": "Mì trộn Hải Sản",
+    "cleanName": "mi_tron_hai_san.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1VsW7nMIZnvLxEH_ptOXHZ0nN8vZxCPE1=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_07\\mi_tron_hai_san.jpg",
+    "localUrl": "/images/restaurants/REST_07/mi_tron_hai_san.jpg"
+  },
+  {
+    "rId": "REST_07",
+    "rName": "Bún Thái & Mì Trộn Thành Minh",
+    "title": "Mì trộn đặc biệt",
+    "cleanName": "mi_tron_dac_biet.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1tYM1ryNeHIGF2j9FAC6dvydx-ODAG_Ym=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_07\\mi_tron_dac_biet.jpg",
+    "localUrl": "/images/restaurants/REST_07/mi_tron_dac_biet.jpg"
+  },
+  {
+    "rId": "REST_08",
+    "rName": "Bún 32 Chợ Đêm Biên Hùng",
+    "title": "Bò Lá Lốt Bánh hỏi",
+    "cleanName": "bo_la_lot_banh_hoi.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1w412fkPzcj6gHbrsEX2ibUxeFQX7oLfL=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_08\\bo_la_lot_banh_hoi.jpg",
+    "localUrl": "/images/restaurants/REST_08/bo_la_lot_banh_hoi.jpg"
+  },
+  {
+    "rId": "REST_08",
+    "rName": "Bún 32 Chợ Đêm Biên Hùng",
+    "title": "Bò mở chài bánh hỏi",
+    "cleanName": "bo_mo_chai_banh_hoi.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1mPPFsFmiMN3MJ_EfosJzrZckB-ghLCQo=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_08\\bo_mo_chai_banh_hoi.jpg",
+    "localUrl": "/images/restaurants/REST_08/bo_mo_chai_banh_hoi.jpg"
+  },
+  {
+    "rId": "REST_08",
+    "rName": "Bún 32 Chợ Đêm Biên Hùng",
+    "title": "Bún Thịt Nướng",
+    "cleanName": "bun_thit_nuong.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1Wgx6HOVLeDn2Hf8XedEjohDztluKbGhF=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_08\\bun_thit_nuong.jpg",
+    "localUrl": "/images/restaurants/REST_08/bun_thit_nuong.jpg"
+  },
+  {
+    "rId": "REST_08",
+    "rName": "Bún 32 Chợ Đêm Biên Hùng",
+    "title": "Nem nướng bánh hỏi",
+    "cleanName": "nem_nuong_banh_hoi.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1z_5ceDXtNRW325RBL3GLvcoUIqF61Vv7=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_08\\nem_nuong_banh_hoi.jpg",
+    "localUrl": "/images/restaurants/REST_08/nem_nuong_banh_hoi.jpg"
+  },
+  {
+    "rId": "REST_08",
+    "rName": "Bún 32 Chợ Đêm Biên Hùng",
+    "title": "Thập cẩm 2người",
+    "cleanName": "thap_cam_2nguoi.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1dT2zcEEMMWaCNR7l-pJAAq4Dgnvtnw-a=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_08\\thap_cam_2nguoi.jpg",
+    "localUrl": "/images/restaurants/REST_08/thap_cam_2nguoi.jpg"
+  },
+  {
+    "rId": "REST_08",
+    "rName": "Bún 32 Chợ Đêm Biên Hùng",
+    "title": "Thập Cẩm 3 người",
+    "cleanName": "thap_cam_3_nguoi.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1kwL9_UGSO3yWJgY24zlKHiGNdMSZyq82=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_08\\thap_cam_3_nguoi.jpg",
+    "localUrl": "/images/restaurants/REST_08/thap_cam_3_nguoi.jpg"
+  },
+  {
+    "rId": "REST_08",
+    "rName": "Bún 32 Chợ Đêm Biên Hùng",
+    "title": "Thịt Nướng Bánh Hỏi",
+    "cleanName": "thit_nuong_banh_hoi.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1cH2lNRdOexR8xIynou-nkhC_oyM5blaX=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_08\\thit_nuong_banh_hoi.jpg",
+    "localUrl": "/images/restaurants/REST_08/thit_nuong_banh_hoi.jpg"
+  },
+  {
+    "rId": "REST_09",
+    "rName": "Bún Bò ViNaTex",
+    "title": "măng bắp hoa",
+    "cleanName": "mang_bap_hoa.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1W75V_-7nYRKF7eVnUXCBhkq9t9ShhFrs=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_09\\mang_bap_hoa.jpg",
+    "localUrl": "/images/restaurants/REST_09/mang_bap_hoa.jpg"
+  },
+  {
+    "rId": "REST_09",
+    "rName": "Bún Bò ViNaTex",
+    "title": "thường",
+    "cleanName": "thuong.jpg",
+    "url": "https://lh3.googleusercontent.com/d/13tJRhAA9BoO9FfJL5VUJPKAoGI8yQZ2h=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_09\\thuong.jpg",
+    "localUrl": "/images/restaurants/REST_09/thuong.jpg"
+  },
+  {
+    "rId": "REST_09",
+    "rName": "Bún Bò ViNaTex",
+    "title": "tái/ giò heo",
+    "cleanName": "tai_gio_heo.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1m5mJfUNuM4VnsvZTc5Lf9IzyBASBCzq_=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_09\\tai_gio_heo.jpg",
+    "localUrl": "/images/restaurants/REST_09/tai_gio_heo.jpg"
+  },
+  {
+    "rId": "REST_09",
+    "rName": "Bún Bò ViNaTex",
+    "title": "đặc biệt",
+    "cleanName": "dac_biet.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1pS6Ad-ZQCrOuRMyIqx7pDNY-N2lJjnln=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_09\\dac_biet.jpg",
+    "localUrl": "/images/restaurants/REST_09/dac_biet.jpg"
+  },
+  {
+    "rId": "REST_10",
+    "rName": "A Sóc Cơm Chiên - Mì Xào Giòn",
+    "title": "Cơm chiên dương châu",
+    "cleanName": "com_chien_duong_chau.jpg",
+    "url": "https://lh3.googleusercontent.com/d/15aicLrDCfuCQPTe9sXgMcMUvJh-xlxJn=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_10\\com_chien_duong_chau.jpg",
+    "localUrl": "/images/restaurants/REST_10/com_chien_duong_chau.jpg"
+  },
+  {
+    "rId": "REST_10",
+    "rName": "A Sóc Cơm Chiên - Mì Xào Giòn",
+    "title": "Cơm chiên hải sản",
+    "cleanName": "com_chien_hai_san.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1ywauQm_G1LwHl7Crv2yDOtsxyA63-9G9=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_10\\com_chien_hai_san.jpg",
+    "localUrl": "/images/restaurants/REST_10/com_chien_hai_san.jpg"
+  },
+  {
+    "rId": "REST_10",
+    "rName": "A Sóc Cơm Chiên - Mì Xào Giòn",
+    "title": "Cơm chiên lúc lắc bò",
+    "cleanName": "com_chien_luc_lac_bo.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1q5IgaXe_u6HqRPFL_8iqWEH82R_t9IW2=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_10\\com_chien_luc_lac_bo.jpg",
+    "localUrl": "/images/restaurants/REST_10/com_chien_luc_lac_bo.jpg"
+  },
+  {
+    "rId": "REST_10",
+    "rName": "A Sóc Cơm Chiên - Mì Xào Giòn",
+    "title": "Cơm chiên tỏi",
+    "cleanName": "com_chien_toi.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1fY1-UgzZU3BLlvYtnTvaVBYf8Immt5BN=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_10\\com_chien_toi.jpg",
+    "localUrl": "/images/restaurants/REST_10/com_chien_toi.jpg"
+  },
+  {
+    "rId": "REST_10",
+    "rName": "A Sóc Cơm Chiên - Mì Xào Giòn",
+    "title": "Hủ tiếu xào hải sản",
+    "cleanName": "hu_tieu_xao_hai_san.jpg",
+    "url": "https://lh3.googleusercontent.com/d/14oCNVGiZXOI00p3jC4MpWqugo7sd7gw-=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_10\\hu_tieu_xao_hai_san.jpg",
+    "localUrl": "/images/restaurants/REST_10/hu_tieu_xao_hai_san.jpg"
+  },
+  {
+    "rId": "REST_10",
+    "rName": "A Sóc Cơm Chiên - Mì Xào Giòn",
+    "title": "Mì Xào Bò",
+    "cleanName": "mi_xao_bo.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1CJMFH23N5jQ9u3GD_Js4Xo6CqJTWlcv1=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_10\\mi_xao_bo.jpg",
+    "localUrl": "/images/restaurants/REST_10/mi_xao_bo.jpg"
+  },
+  {
+    "rId": "REST_10",
+    "rName": "A Sóc Cơm Chiên - Mì Xào Giòn",
+    "title": "Mì xào Hải Sản",
+    "cleanName": "mi_xao_hai_san.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1Qmv-dGEjwLWYGLCEOWw_56Bvt_wJUs4F=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_10\\mi_xao_hai_san.jpg",
+    "localUrl": "/images/restaurants/REST_10/mi_xao_hai_san.jpg"
+  },
+  {
+    "rId": "REST_10",
+    "rName": "A Sóc Cơm Chiên - Mì Xào Giòn",
+    "title": "Mì Xào Thập Cẩm",
+    "cleanName": "mi_xao_thap_cam.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1FVA9PfZ-weIjuMDf9mQkHrU1gFGJ4797=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_10\\mi_xao_thap_cam.jpg",
+    "localUrl": "/images/restaurants/REST_10/mi_xao_thap_cam.jpg"
+  },
+  {
+    "rId": "REST_10",
+    "rName": "A Sóc Cơm Chiên - Mì Xào Giòn",
+    "title": "Nui Xào Bò",
+    "cleanName": "nui_xao_bo.jpg",
+    "url": "https://lh3.googleusercontent.com/d/12A2nCUrwZcrIZzg-SlaEYZ7eihCU1bb5=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_10\\nui_xao_bo.jpg",
+    "localUrl": "/images/restaurants/REST_10/nui_xao_bo.jpg"
+  },
+  {
+    "rId": "REST_11",
+    "rName": "Lẩu Tôm 5 Ri",
+    "title": "Chạo tôm",
+    "cleanName": "chao_tom.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1Y3V47d0DlQQJ9UCPhtohWe5ySScea5kn=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_11\\chao_tom.jpg",
+    "localUrl": "/images/restaurants/REST_11/chao_tom.jpg"
+  },
+  {
+    "rId": "REST_11",
+    "rName": "Lẩu Tôm 5 Ri",
+    "title": "Cá bông lau kho tộ",
+    "cleanName": "ca_bong_lau_kho_to.jpg",
+    "url": "https://lh3.googleusercontent.com/d/130SaJQ3TrXlVWC_tkWjqvN2DgWCL5qyP=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_11\\ca_bong_lau_kho_to.jpg",
+    "localUrl": "/images/restaurants/REST_11/ca_bong_lau_kho_to.jpg"
+  },
+  {
+    "rId": "REST_11",
+    "rName": "Lẩu Tôm 5 Ri",
+    "title": "Cá Lóc Hấp",
+    "cleanName": "ca_loc_hap.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1IeptJGGqb7-LCwzNHyXsL0hN_JD9UK9V=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_11\\ca_loc_hap.jpg",
+    "localUrl": "/images/restaurants/REST_11/ca_loc_hap.jpg"
+  },
+  {
+    "rId": "REST_11",
+    "rName": "Lẩu Tôm 5 Ri",
+    "title": "Cá Tai tượng chiên xù",
+    "cleanName": "ca_tai_tuong_chien_xu.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1H_VvhV_cSEqr_KZ-IbJHKFQrPnejkrI3=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_11\\ca_tai_tuong_chien_xu.jpg",
+    "localUrl": "/images/restaurants/REST_11/ca_tai_tuong_chien_xu.jpg"
+  },
+  {
+    "rId": "REST_11",
+    "rName": "Lẩu Tôm 5 Ri",
+    "title": "gỏi bò rau mầm",
+    "cleanName": "goi_bo_rau_mam.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1vO0w-ftPJPeON_J03GsEICyyjoBGRMuu=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_11\\goi_bo_rau_mam.jpg",
+    "localUrl": "/images/restaurants/REST_11/goi_bo_rau_mam.jpg"
+  },
+  {
+    "rId": "REST_11",
+    "rName": "Lẩu Tôm 5 Ri",
+    "title": "Hàu nướng",
+    "cleanName": "hau_nuong.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1_3ojP1Qf2qLzf7TRVkOqaygucdR6ATn-=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_11\\hau_nuong.jpg",
+    "localUrl": "/images/restaurants/REST_11/hau_nuong.jpg"
+  },
+  {
+    "rId": "REST_11",
+    "rName": "Lẩu Tôm 5 Ri",
+    "title": "Lẩu Cua đồng hải sản",
+    "cleanName": "lau_cua_dong_hai_san.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1rp3fCfmjI6NK-rJHYMp6ChLA6owx8cgL=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_11\\lau_cua_dong_hai_san.jpg",
+    "localUrl": "/images/restaurants/REST_11/lau_cua_dong_hai_san.jpg"
+  },
+  {
+    "rId": "REST_11",
+    "rName": "Lẩu Tôm 5 Ri",
+    "title": "Lẩu Tôm",
+    "cleanName": "lau_tom.jpg",
+    "url": "https://lh3.googleusercontent.com/d/15_Oxh0vI8fXug0XpfnmnKb5ApmYjtQaT=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_11\\lau_tom.jpg",
+    "localUrl": "/images/restaurants/REST_11/lau_tom.jpg"
+  },
+  {
+    "rId": "REST_11",
+    "rName": "Lẩu Tôm 5 Ri",
+    "title": "Mực nướng sa tế",
+    "cleanName": "muc_nuong_sa_te.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1jOhJSV4GhNHxoFc9Xhe_4end-_QaOm7V=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_11\\muc_nuong_sa_te.jpg",
+    "localUrl": "/images/restaurants/REST_11/muc_nuong_sa_te.jpg"
+  },
+  {
+    "rId": "REST_11",
+    "rName": "Lẩu Tôm 5 Ri",
+    "title": "nghêu hấp",
+    "cleanName": "ngheu_hap.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1LN-xaVifvN0jEkGbaNbZVvionZ0u37vr=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_11\\ngheu_hap.jpg",
+    "localUrl": "/images/restaurants/REST_11/ngheu_hap.jpg"
+  },
+  {
+    "rId": "REST_11",
+    "rName": "Lẩu Tôm 5 Ri",
+    "title": "Rau luộc kho quẹt",
+    "cleanName": "rau_luoc_kho_quet.jpg",
+    "url": "https://lh3.googleusercontent.com/d/17HtxFdI79aJDcyQ3PK62Gs94cRaCZA3Z=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_11\\rau_luoc_kho_quet.jpg",
+    "localUrl": "/images/restaurants/REST_11/rau_luoc_kho_quet.jpg"
+  },
+  {
+    "rId": "REST_11",
+    "rName": "Lẩu Tôm 5 Ri",
+    "title": "Sò huyết cháy tỏi",
+    "cleanName": "so_huyet_chay_toi.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1IHZzOWOqz2PM3lmXJhZXKiYB0KbNbxux=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_11\\so_huyet_chay_toi.jpg",
+    "localUrl": "/images/restaurants/REST_11/so_huyet_chay_toi.jpg"
+  },
+  {
+    "rId": "REST_11",
+    "rName": "Lẩu Tôm 5 Ri",
+    "title": "Ốc len xào dừa",
+    "cleanName": "oc_len_xao_dua.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1rhdRgx9lvte-Zmmik7LRjC73Xcc3DWB-=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_11\\oc_len_xao_dua.jpg",
+    "localUrl": "/images/restaurants/REST_11/oc_len_xao_dua.jpg"
+  },
+  {
+    "rId": "REST_12",
+    "rName": "Lẩu Chay Thiện Duyên 2",
+    "title": "Lẩu 1-2ng",
+    "cleanName": "lau_1_2ng.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1TSJ7lWnO_b5dsN1F_JAHGXDsMAJomRzz=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_12\\lau_1_2ng.jpg",
+    "localUrl": "/images/restaurants/REST_12/lau_1_2ng.jpg"
+  },
+  {
+    "rId": "REST_12",
+    "rName": "Lẩu Chay Thiện Duyên 2",
+    "title": "Lẩu 3 người trở lên",
+    "cleanName": "lau_3_nguoi_tro_len.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1o6dimL441tIYt5Oj6ffj5sOh4sQvWVxS=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_12\\lau_3_nguoi_tro_len.jpg",
+    "localUrl": "/images/restaurants/REST_12/lau_3_nguoi_tro_len.jpg"
+  },
+  {
+    "rId": "REST_12",
+    "rName": "Lẩu Chay Thiện Duyên 2",
+    "title": "Đồ ăn vặt chay",
+    "cleanName": "do_an_vat_chay.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1uzVNMKP-NbyIi-79vE-3RKzfJ_zKN4X6=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_12\\do_an_vat_chay.jpg",
+    "localUrl": "/images/restaurants/REST_12/do_an_vat_chay.jpg"
+  },
+  {
+    "rId": "REST_13",
+    "rName": "Bún Chả Hà Nội Phú Hoàng",
+    "title": "Bún chả",
+    "cleanName": "bun_cha.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1UbE7zoT-KBbK8k-VDRWIVjWJu2uY8uez=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_13\\bun_cha.jpg",
+    "localUrl": "/images/restaurants/REST_13/bun_cha.jpg"
+  },
+  {
+    "rId": "REST_13",
+    "rName": "Bún Chả Hà Nội Phú Hoàng",
+    "title": "Nem Cua Bể",
+    "cleanName": "nem_cua_be.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1YLl1Feru40-k-56IHo8hnjXBv1eHOvDZ=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_13\\nem_cua_be.jpg",
+    "localUrl": "/images/restaurants/REST_13/nem_cua_be.jpg"
+  },
+  {
+    "rId": "REST_14",
+    "rName": "Cơm Gà Phú Yên S88",
+    "title": "Cơm gà xé",
+    "cleanName": "com_ga_xe.jpg",
+    "url": "https://lh3.googleusercontent.com/d/16cw8ynFl0VjRN2BQnuj0WETaofRrnI-h=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_14\\com_ga_xe.jpg",
+    "localUrl": "/images/restaurants/REST_14/com_ga_xe.jpg"
+  },
+  {
+    "rId": "REST_14",
+    "rName": "Cơm Gà Phú Yên S88",
+    "title": "Cơm đùi gà chiên mắm",
+    "cleanName": "com_dui_ga_chien_mam.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1ky-wyvbg5sdGtCFsncIj9LWkaP5qQ9Wq=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_14\\com_dui_ga_chien_mam.jpg",
+    "localUrl": "/images/restaurants/REST_14/com_dui_ga_chien_mam.jpg"
+  },
+  {
+    "rId": "REST_15",
+    "rName": "Cháo Hến Cô Tươi",
+    "title": "Cháo hến",
+    "cleanName": "chao_hen.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1QAwOhz_9e2Rl1MI4BN5V9DZLNT6rbiiU=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_15\\chao_hen.jpg",
+    "localUrl": "/images/restaurants/REST_15/chao_hen.jpg"
+  },
+  {
+    "rId": "REST_15",
+    "rName": "Cháo Hến Cô Tươi",
+    "title": "Cháo thêm hến",
+    "cleanName": "chao_them_hen.jpg",
+    "url": "https://lh3.googleusercontent.com/d/18raZK2KU4HWtKazkI6hUBNJVKvp0DaBa=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_15\\chao_them_hen.jpg",
+    "localUrl": "/images/restaurants/REST_15/chao_them_hen.jpg"
+  },
+  {
+    "rId": "REST_16",
+    "rName": "Gỏi cá Kim Yến - Tân Mai",
+    "title": "Bò Bóp Thấu",
+    "cleanName": "bo_bop_thau.jpg",
+    "url": "https://lh3.googleusercontent.com/d/149_g6QzrmSN1SL8WVaPEKQdlprhgTUEf=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_16\\bo_bop_thau.jpg",
+    "localUrl": "/images/restaurants/REST_16/bo_bop_thau.jpg"
+  },
+  {
+    "rId": "REST_16",
+    "rName": "Gỏi cá Kim Yến - Tân Mai",
+    "title": "Bò Nhúng Giấm",
+    "cleanName": "bo_nhung_giam.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1u-72_d_PI5hQMhNCr_bz6PpsLy5hxsG8=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_16\\bo_nhung_giam.jpg",
+    "localUrl": "/images/restaurants/REST_16/bo_nhung_giam.jpg"
+  },
+  {
+    "rId": "REST_16",
+    "rName": "Gỏi cá Kim Yến - Tân Mai",
+    "title": "Cháo cá",
+    "cleanName": "chao_ca.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1EC9gBx9EtGbdifCWe0NTqJZVmfbax0n2=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_16\\chao_ca.jpg",
+    "localUrl": "/images/restaurants/REST_16/chao_ca.jpg"
+  },
+  {
+    "rId": "REST_16",
+    "rName": "Gỏi cá Kim Yến - Tân Mai",
+    "title": "Cháo lươn",
+    "cleanName": "chao_luon.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1R9d4UaSPfKqZPVshfCaQG5UqWgsTxm8R=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_16\\chao_luon.jpg",
+    "localUrl": "/images/restaurants/REST_16/chao_luon.jpg"
+  },
+  {
+    "rId": "REST_16",
+    "rName": "Gỏi cá Kim Yến - Tân Mai",
+    "title": "Cá Nấu Mẻ",
+    "cleanName": "ca_nau_me.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1kAg-hhGFOlSZDaG0Bz25KahN71ISRYFB=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_16\\ca_nau_me.jpg",
+    "localUrl": "/images/restaurants/REST_16/ca_nau_me.jpg"
+  },
+  {
+    "rId": "REST_16",
+    "rName": "Gỏi cá Kim Yến - Tân Mai",
+    "title": "Gỏi cá",
+    "cleanName": "goi_ca.jpg",
+    "url": "https://lh3.googleusercontent.com/d/12yixSxigN7dUzdZAxJYUNj3fjWjCz4vF=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_16\\goi_ca.jpg",
+    "localUrl": "/images/restaurants/REST_16/goi_ca.jpg"
+  },
+  {
+    "rId": "REST_16",
+    "rName": "Gỏi cá Kim Yến - Tân Mai",
+    "title": "lươn xào lăn",
+    "cleanName": "luon_xao_lan.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1VIc3IYmwUWi84V5PO-ErWRew8R7f8BB_=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_16\\luon_xao_lan.jpg",
+    "localUrl": "/images/restaurants/REST_16/luon_xao_lan.jpg"
+  },
+  {
+    "rId": "REST_16",
+    "rName": "Gỏi cá Kim Yến - Tân Mai",
+    "title": "mực né",
+    "cleanName": "muc_ne.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1Uhe7SBXhV4L0ygW_Qq6groEU4eZGTOaZ=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_16\\muc_ne.jpg",
+    "localUrl": "/images/restaurants/REST_16/muc_ne.jpg"
+  },
+  {
+    "rId": "REST_17",
+    "rName": "VƯỜN BƯỞI TÂN TRIỀU TƯ TRUNG",
+    "title": "Bồ Câu RôTi",
+    "cleanName": "bo_cau_roti.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1HV1j64_lt4xhV9uy41sZpg3lJwIhPkcM=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_17\\bo_cau_roti.jpg",
+    "localUrl": "/images/restaurants/REST_17/bo_cau_roti.jpg"
+  },
+  {
+    "rId": "REST_17",
+    "rName": "VƯỜN BƯỞI TÂN TRIỀU TƯ TRUNG",
+    "title": "Dồi Sụn",
+    "cleanName": "doi_sun.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1of43xCZiwzms2c2xi9cQZwLrQ2HkdU67=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_17\\doi_sun.jpg",
+    "localUrl": "/images/restaurants/REST_17/doi_sun.jpg"
+  },
+  {
+    "rId": "REST_17",
+    "rName": "VƯỜN BƯỞI TÂN TRIỀU TƯ TRUNG",
+    "title": "Trứng Non Xào Mướp",
+    "cleanName": "trung_non_xao_muop.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1tYt5ivffv45_WG6pJYWhe22q1Ic_rtXo=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_17\\trung_non_xao_muop.jpg",
+    "localUrl": "/images/restaurants/REST_17/trung_non_xao_muop.jpg"
+  },
+  {
+    "rId": "REST_17",
+    "rName": "VƯỜN BƯỞI TÂN TRIỀU TƯ TRUNG",
+    "title": "Xôi Bồ Câu",
+    "cleanName": "xoi_bo_cau.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1fYeeWh4llma8Z-38xST7KZVkN-wtDSsQ=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_17\\xoi_bo_cau.jpg",
+    "localUrl": "/images/restaurants/REST_17/xoi_bo_cau.jpg"
+  },
+  {
+    "rId": "REST_17",
+    "rName": "VƯỜN BƯỞI TÂN TRIỀU TƯ TRUNG",
+    "title": "Đầu Cổ Vịt Phá Lấu",
+    "cleanName": "dau_co_vit_pha_lau.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1UTsftAbARLhMRYhYJjoSjkJVU3Bxt1UJ=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_17\\dau_co_vit_pha_lau.jpg",
+    "localUrl": "/images/restaurants/REST_17/dau_co_vit_pha_lau.jpg"
+  },
+  {
+    "rId": "REST_18",
+    "rName": "Làng Bưởi Năm Huệ Tân Triều",
+    "title": "Gà Hấp Lá Bưởi",
+    "cleanName": "ga_hap_la_buoi.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1ej4NXpf2w_B4dDrZ0PI69f6B9EKnt2lv=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_18\\ga_hap_la_buoi.jpg",
+    "localUrl": "/images/restaurants/REST_18/ga_hap_la_buoi.jpg"
+  },
+  {
+    "rId": "REST_18",
+    "rName": "Làng Bưởi Năm Huệ Tân Triều",
+    "title": "Gà Hấp Trái Bưởi + Cháo",
+    "cleanName": "ga_hap_trai_buoi_chao.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1BJ2zGqNV2yhJoAYU7rKNtuofW8Cm9egq=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_18\\ga_hap_trai_buoi_chao.jpg",
+    "localUrl": "/images/restaurants/REST_18/ga_hap_trai_buoi_chao.jpg"
+  },
+  {
+    "rId": "REST_18",
+    "rName": "Làng Bưởi Năm Huệ Tân Triều",
+    "title": "Gà Nướng Muối Ớt",
+    "cleanName": "ga_nuong_muoi_ot.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1aYHkUEuF3zlPYoe9dZZ68Jp8yFH_IB6d=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_18\\ga_nuong_muoi_ot.jpg",
+    "localUrl": "/images/restaurants/REST_18/ga_nuong_muoi_ot.jpg"
+  },
+  {
+    "rId": "REST_18",
+    "rName": "Làng Bưởi Năm Huệ Tân Triều",
+    "title": "Gà Nấu Tiềm Ớt Hiểm",
+    "cleanName": "ga_nau_tiem_ot_hiem.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1mVGJVFpCohcPqkzAwtDWK8vjxbqtX5rg=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_18\\ga_nau_tiem_ot_hiem.jpg",
+    "localUrl": "/images/restaurants/REST_18/ga_nau_tiem_ot_hiem.jpg"
+  },
+  {
+    "rId": "REST_18",
+    "rName": "Làng Bưởi Năm Huệ Tân Triều",
+    "title": "Gà Ta Trộn Gỏi + Rượu Bưởi",
+    "cleanName": "ga_ta_tron_goi_ruou_buoi.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1W1CzlGYPbnwqItp2y-odVMNFfyh-Vo4v=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_18\\ga_ta_tron_goi_ruou_buoi.jpg",
+    "localUrl": "/images/restaurants/REST_18/ga_ta_tron_goi_ruou_buoi.jpg"
+  },
+  {
+    "rId": "REST_18",
+    "rName": "Làng Bưởi Năm Huệ Tân Triều",
+    "title": "Gỏi Bưởi",
+    "cleanName": "goi_buoi.jpg",
+    "url": "https://lh3.googleusercontent.com/d/10MTh17jd-dXS4JtW2CILjym3yo4LBnQg=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_18\\goi_buoi.jpg",
+    "localUrl": "/images/restaurants/REST_18/goi_buoi.jpg"
+  },
+  {
+    "rId": "REST_19",
+    "rName": "Quán Ăn CÔ TƯƠI",
+    "title": "bún bò huế thường",
+    "cleanName": "bun_bo_hue_thuong.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1THOSkT1q_O-KnlMU-ouGl9wAc3r9ArjM=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_19\\bun_bo_hue_thuong.jpg",
+    "localUrl": "/images/restaurants/REST_19/bun_bo_hue_thuong.jpg"
+  },
+  {
+    "rId": "REST_19",
+    "rName": "Quán Ăn CÔ TƯƠI",
+    "title": "cơm sườn",
+    "cleanName": "com_suon.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1v5fD9xNFED8d3yflsYVxOBjQEbNFnGyf=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_19\\com_suon.jpg",
+    "localUrl": "/images/restaurants/REST_19/com_suon.jpg"
+  },
+  {
+    "rId": "REST_19",
+    "rName": "Quán Ăn CÔ TƯƠI",
+    "title": "cơm sườn trứng",
+    "cleanName": "com_suon_trung.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1pWuR7acW4CmQgSWzqA6hHrUpG4Wy9Ujd=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_19\\com_suon_trung.jpg",
+    "localUrl": "/images/restaurants/REST_19/com_suon_trung.jpg"
+  },
+  {
+    "rId": "REST_19",
+    "rName": "Quán Ăn CÔ TƯƠI",
+    "title": "phở tái nạm",
+    "cleanName": "pho_tai_nam.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1gPvS8oaQv8z91k6b0iBB1HOJrnbzcQtF=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_19\\pho_tai_nam.jpg",
+    "localUrl": "/images/restaurants/REST_19/pho_tai_nam.jpg"
+  },
+  {
+    "rId": "REST_19",
+    "rName": "Quán Ăn CÔ TƯƠI",
+    "title": "phở đặc biệt",
+    "cleanName": "pho_dac_biet.jpg",
+    "url": "https://lh3.googleusercontent.com/d/11FVY2V8Vw-Vb9a1aoD3i0ZGb5MlC4j54=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_19\\pho_dac_biet.jpg",
+    "localUrl": "/images/restaurants/REST_19/pho_dac_biet.jpg"
+  },
+  {
+    "rId": "REST_20",
+    "rName": "Bánh cuốn Thiên Hương 6",
+    "title": "bánh ướt",
+    "cleanName": "banh_uot.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1ngaNqxUZcmUswzwQW4OUB9BXNxykw0jy=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_20\\banh_uot.jpg",
+    "localUrl": "/images/restaurants/REST_20/banh_uot.jpg"
+  },
+  {
+    "rId": "REST_20",
+    "rName": "Bánh cuốn Thiên Hương 6",
+    "title": "bánh ướt trứng",
+    "cleanName": "banh_uot_trung.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1MUvrnEbYGfBiubw5XW80N-sEg-EWEXVJ=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_20\\banh_uot_trung.jpg",
+    "localUrl": "/images/restaurants/REST_20/banh_uot_trung.jpg"
+  },
+  {
+    "rId": "REST_20",
+    "rName": "Bánh cuốn Thiên Hương 6",
+    "title": "cuốn nhân thịt",
+    "cleanName": "cuon_nhan_thit.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1ryEtIS5IDGcjDmN6eFC1lpj1YpBZRRlk=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_20\\cuon_nhan_thit.jpg",
+    "localUrl": "/images/restaurants/REST_20/cuon_nhan_thit.jpg"
+  },
+  {
+    "rId": "REST_20",
+    "rName": "Bánh cuốn Thiên Hương 6",
+    "title": "cuốn tôm thịt",
+    "cleanName": "cuon_tom_thit.jpg",
+    "url": "https://lh3.googleusercontent.com/d/16Kc_7PLHil3u4AvNQzeEzO7xjpK2_hQi=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_20\\cuon_tom_thit.jpg",
+    "localUrl": "/images/restaurants/REST_20/cuon_tom_thit.jpg"
+  },
+  {
+    "rId": "REST_21",
+    "rName": "Bánh mì chảo Khang",
+    "title": "full topping",
+    "cleanName": "full_topping.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1fMtMoboayabU9MH_2U684V558hhYCdeO=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_21\\full_topping.jpg",
+    "localUrl": "/images/restaurants/REST_21/full_topping.jpg"
+  },
+  {
+    "rId": "REST_21",
+    "rName": "Bánh mì chảo Khang",
+    "title": "không bò",
+    "cleanName": "khong_bo.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1t2S8RT5VdB3EVGKZMx6pfgNZEdrcQ3pL=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_21\\khong_bo.jpg",
+    "localUrl": "/images/restaurants/REST_21/khong_bo.jpg"
+  },
+  {
+    "rId": "REST_21",
+    "rName": "Bánh mì chảo Khang",
+    "title": "sốt tiêu đen",
+    "cleanName": "sot_tieu_den.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1wN2EThFIVMEnmMcxSuY2yQydsSzCqMfp=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_21\\sot_tieu_den.jpg",
+    "localUrl": "/images/restaurants/REST_21/sot_tieu_den.jpg"
+  },
+  {
+    "rId": "REST_21",
+    "rName": "Bánh mì chảo Khang",
+    "title": "xíu mại",
+    "cleanName": "xiu_mai.jpg",
+    "url": "https://lh3.googleusercontent.com/d/1s-BDjsfXUPS-tjQfaWXpJHZcS0U3nmf3=w800",
+    "destPath": "C:\\Users\\LECOO\\Downloads\\Hợp vị AI\\public\\images\\restaurants\\REST_21\\xiu_mai.jpg",
+    "localUrl": "/images/restaurants/REST_21/xiu_mai.jpg"
+  }
+]

@@ -3,9 +3,9 @@
     "projectName": "HỢP VỊ AI",
     "slogan": "Hiểu đúng vị – Gợi đúng món",
     "targetRegion": "Tỉnh Đồng Nai (Trọng tâm: Phường Trấn Biên, Tam Hiệp, Tân Triều, Bửu Long - TP. Biên Hòa)",
-    "lastUpdated": "2026-11-10T08:42:32.172Z",
-    "totalRestaurants": 19,
-    "totalMenuItems": 133,
+    "lastUpdated": "2026-11-11T08:21:41.857Z",
+    "totalRestaurants": 21,
+    "totalMenuItems": 146,
     "totalSpecialties": 4
   },
   "restaurants": [
@@ -21,7 +21,15 @@
       "verificationStatus": "verified",
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
-      "isSpecialtySpot": true
+      "isSpecialtySpot": true,
+      "avatarUrl": "/images/restaurants/REST_01/cha_lui.jpg",
+      "photos": [
+        {
+          "title": "chả lụi.jpg",
+          "cleanName": "cha_lui.jpg",
+          "url": "/images/restaurants/REST_01/cha_lui.jpg"
+        }
+      ]
     },
     {
       "id": "REST_02",
@@ -35,7 +43,95 @@
       "verificationStatus": "verified",
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
-      "isSpecialtySpot": false
+      "isSpecialtySpot": false,
+      "avatarUrl": "/images/restaurants/REST_02/combo_1.jpg",
+      "photos": [
+        {
+          "title": "Combo 1",
+          "cleanName": "combo_1.jpg",
+          "url": "/images/restaurants/REST_02/combo_1.jpg"
+        },
+        {
+          "title": "Combo 2",
+          "cleanName": "combo_2.jpg",
+          "url": "/images/restaurants/REST_02/combo_2.jpg"
+        },
+        {
+          "title": "Combo 3",
+          "cleanName": "combo_3.jpg",
+          "url": "/images/restaurants/REST_02/combo_3.jpg"
+        },
+        {
+          "title": "Combo 4",
+          "cleanName": "combo_4.jpg",
+          "url": "/images/restaurants/REST_02/combo_4.jpg"
+        },
+        {
+          "title": "Combo Heo/Gà + Trà Tắc/Mơ Ngâm",
+          "cleanName": "combo_heo_ga_tra_tac_mo_ngam.jpg",
+          "url": "/images/restaurants/REST_02/combo_heo_ga_tra_tac_mo_ngam.jpg"
+        },
+        {
+          "title": "Cơm Cari Nhật (Heo/Gà)",
+          "cleanName": "com_cari_nhat_heo_ga.jpg",
+          "url": "/images/restaurants/REST_02/com_cari_nhat_heo_ga.jpg"
+        },
+        {
+          "title": "Cơm Cá Hồi Sống",
+          "cleanName": "com_ca_hoi_song.jpg",
+          "url": "/images/restaurants/REST_02/com_ca_hoi_song.jpg"
+        },
+        {
+          "title": "Cơm gà chiên giòn",
+          "cleanName": "com_ga_chien_gion.jpg",
+          "url": "/images/restaurants/REST_02/com_ga_chien_gion.jpg"
+        },
+        {
+          "title": "Cơm heo Chiên Xù",
+          "cleanName": "com_heo_chien_xu.jpg",
+          "url": "/images/restaurants/REST_02/com_heo_chien_xu.jpg"
+        },
+        {
+          "title": "Cơm Lươn",
+          "cleanName": "com_luon.jpg",
+          "url": "/images/restaurants/REST_02/com_luon.jpg"
+        },
+        {
+          "title": "Cơm Lươn + Trà Tắc/Mơ Ngâm",
+          "cleanName": "com_luon_tra_tac_mo_ngam.jpg",
+          "url": "/images/restaurants/REST_02/com_luon_tra_tac_mo_ngam.jpg"
+        },
+        {
+          "title": "Kim Ch Cơm Trắng",
+          "cleanName": "kim_ch_com_trang.jpg",
+          "url": "/images/restaurants/REST_02/kim_ch_com_trang.jpg"
+        },
+        {
+          "title": "Miến Xào Sốt Bò XO",
+          "cleanName": "mien_xao_sot_bo_xo.jpg",
+          "url": "/images/restaurants/REST_02/mien_xao_sot_bo_xo.jpg"
+        },
+        {
+          "title": "rong biển cơm trắng",
+          "cleanName": "rong_bien_com_trang.jpg",
+          "url": "/images/restaurants/REST_02/rong_bien_com_trang.jpg"
+        },
+        {
+          "title": "Soup Bào Ngư",
+          "cleanName": "soup_bao_ngu.jpg",
+          "url": "/images/restaurants/REST_02/soup_bao_ngu.jpg"
+        },
+        {
+          "title": "Soup Sò Điệp",
+          "cleanName": "soup_so_diep.jpg",
+          "url": "/images/restaurants/REST_02/soup_so_diep.jpg"
+        },
+        {
+          "title": "Udon Bò Trứng",
+          "cleanName": "udon_bo_trung.jpg",
+          "url": "/images/restaurants/REST_02/udon_bo_trung.jpg"
+        }
+      ]
     },
     {
       "id": "REST_03",
@@ -49,7 +145,35 @@
       "verificationStatus": "verified",
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
-      "isSpecialtySpot": false
+      "isSpecialtySpot": false,
+      "avatarUrl": "/images/restaurants/REST_03/bun_gao.jpg",
+      "photos": [
+        {
+          "title": "Bún gạo",
+          "cleanName": "bun_gao.jpg",
+          "url": "/images/restaurants/REST_03/bun_gao.jpg"
+        },
+        {
+          "title": "Hoành Thánh",
+          "cleanName": "hoanh_thanh.jpg",
+          "url": "/images/restaurants/REST_03/hoanh_thanh.jpg"
+        },
+        {
+          "title": "Hủ tiếu khô",
+          "cleanName": "hu_tieu_kho.jpg",
+          "url": "/images/restaurants/REST_03/hu_tieu_kho.jpg"
+        },
+        {
+          "title": "Hủ tiếu mì",
+          "cleanName": "hu_tieu_mi.jpg",
+          "url": "/images/restaurants/REST_03/hu_tieu_mi.jpg"
+        },
+        {
+          "title": "Mì Lá Dứa",
+          "cleanName": "mi_la_dua.jpg",
+          "url": "/images/restaurants/REST_03/mi_la_dua.jpg"
+        }
+      ]
     },
     {
       "id": "REST_04",
@@ -63,7 +187,50 @@
       "verificationStatus": "verified",
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
-      "isSpecialtySpot": false
+      "isSpecialtySpot": false,
+      "avatarUrl": "/images/restaurants/REST_04/comb_size_m.jpg",
+      "photos": [
+        {
+          "title": "Comb size M",
+          "cleanName": "comb_size_m.jpg",
+          "url": "/images/restaurants/REST_04/comb_size_m.jpg"
+        },
+        {
+          "title": "Combo mini",
+          "cleanName": "combo_mini.jpg",
+          "url": "/images/restaurants/REST_04/combo_mini.jpg"
+        },
+        {
+          "title": "Combo size L",
+          "cleanName": "combo_size_l.jpg",
+          "url": "/images/restaurants/REST_04/combo_size_l.jpg"
+        },
+        {
+          "title": "Combo size S",
+          "cleanName": "combo_size_s.jpg",
+          "url": "/images/restaurants/REST_04/combo_size_s.jpg"
+        },
+        {
+          "title": "Mì Cay Bò/Tôm",
+          "cleanName": "mi_cay_bo_tom.jpg",
+          "url": "/images/restaurants/REST_04/mi_cay_bo_tom.jpg"
+        },
+        {
+          "title": "Mì Spaghetti size M",
+          "cleanName": "mi_spaghetti_size_m.jpg",
+          "url": "/images/restaurants/REST_04/mi_spaghetti_size_m.jpg"
+        },
+        {
+          "title": "Mì spaghetti size S",
+          "cleanName": "mi_spaghetti_size_s.jpg",
+          "url": "/images/restaurants/REST_04/mi_spaghetti_size_s.jpg"
+        },
+        {
+          "title": "Mì Thập Cẩm",
+          "cleanName": "mi_thap_cam.jpg",
+          "url": "/images/restaurants/REST_04/mi_thap_cam.jpg"
+        }
+      ]
     },
     {
       "id": "REST_05",
@@ -77,7 +244,40 @@
       "verificationStatus": "verified",
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
-      "isSpecialtySpot": false
+      "isSpecialtySpot": false,
+      "avatarUrl": "/images/restaurants/REST_05/bun_dau_dac_biet_1_nguoi.jpg",
+      "photos": [
+        {
+          "title": "Bún Đậu Đặc Biệt 1 người",
+          "cleanName": "bun_dau_dac_biet_1_nguoi.jpg",
+          "url": "/images/restaurants/REST_05/bun_dau_dac_biet_1_nguoi.jpg"
+        },
+        {
+          "title": "Bún đậu chả cốm",
+          "cleanName": "bun_dau_cha_com.jpg",
+          "url": "/images/restaurants/REST_05/bun_dau_cha_com.jpg"
+        },
+        {
+          "title": "Bún đậu nem chua rán",
+          "cleanName": "bun_dau_nem_chua_ran.jpg",
+          "url": "/images/restaurants/REST_05/bun_dau_nem_chua_ran.jpg"
+        },
+        {
+          "title": "Bún đậu thịt luộc",
+          "cleanName": "bun_dau_thit_luoc.jpg",
+          "url": "/images/restaurants/REST_05/bun_dau_thit_luoc.jpg"
+        },
+        {
+          "title": "Tá lả 2 người trở lên",
+          "cleanName": "ta_la_2_nguoi_tro_len.jpg",
+          "url": "/images/restaurants/REST_05/ta_la_2_nguoi_tro_len.jpg"
+        },
+        {
+          "title": "Đặc Biệt 2 người",
+          "cleanName": "dac_biet_2_nguoi.jpg",
+          "url": "/images/restaurants/REST_05/dac_biet_2_nguoi.jpg"
+        }
+      ]
     },
     {
       "id": "REST_06",
@@ -91,7 +291,25 @@
       "verificationStatus": "verified",
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
-      "isSpecialtySpot": false
+      "isSpecialtySpot": false,
+      "avatarUrl": "/images/restaurants/REST_06/thap_cam.jpg",
+      "photos": [
+        {
+          "title": "thập cẩm",
+          "cleanName": "thap_cam.jpg",
+          "url": "/images/restaurants/REST_06/thap_cam.jpg"
+        },
+        {
+          "title": "đặc biệt",
+          "cleanName": "dac_biet.jpg",
+          "url": "/images/restaurants/REST_06/dac_biet.jpg"
+        },
+        {
+          "title": "ốc hến thường",
+          "cleanName": "oc_hen_thuong.jpg",
+          "url": "/images/restaurants/REST_06/oc_hen_thuong.jpg"
+        }
+      ]
     },
     {
       "id": "REST_07",
@@ -105,7 +323,50 @@
       "verificationStatus": "verified",
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
-      "isSpecialtySpot": false
+      "isSpecialtySpot": false,
+      "avatarUrl": "/images/restaurants/REST_07/bun_thai_bo_trung.jpg",
+      "photos": [
+        {
+          "title": "Bún Thái Bò Trứng",
+          "cleanName": "bun_thai_bo_trung.jpg",
+          "url": "/images/restaurants/REST_07/bun_thai_bo_trung.jpg"
+        },
+        {
+          "title": "Bún Thái Hải Sản",
+          "cleanName": "bun_thai_hai_san.jpg",
+          "url": "/images/restaurants/REST_07/bun_thai_hai_san.jpg"
+        },
+        {
+          "title": "Bún Thái Viên",
+          "cleanName": "bun_thai_vien.jpg",
+          "url": "/images/restaurants/REST_07/bun_thai_vien.jpg"
+        },
+        {
+          "title": "Bún Thái Đặc Biệt",
+          "cleanName": "bun_thai_dac_biet.jpg",
+          "url": "/images/restaurants/REST_07/bun_thai_dac_biet.jpg"
+        },
+        {
+          "title": "Mì trộn bò trứng",
+          "cleanName": "mi_tron_bo_trung.jpg",
+          "url": "/images/restaurants/REST_07/mi_tron_bo_trung.jpg"
+        },
+        {
+          "title": "Mì trộn cá viên",
+          "cleanName": "mi_tron_ca_vien.jpg",
+          "url": "/images/restaurants/REST_07/mi_tron_ca_vien.jpg"
+        },
+        {
+          "title": "Mì trộn Hải Sản",
+          "cleanName": "mi_tron_hai_san.jpg",
+          "url": "/images/restaurants/REST_07/mi_tron_hai_san.jpg"
+        },
+        {
+          "title": "Mì trộn đặc biệt",
+          "cleanName": "mi_tron_dac_biet.jpg",
+          "url": "/images/restaurants/REST_07/mi_tron_dac_biet.jpg"
+        }
+      ]
     },
     {
       "id": "REST_08",
@@ -119,7 +380,45 @@
       "verificationStatus": "verified",
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
-      "isSpecialtySpot": false
+      "isSpecialtySpot": false,
+      "avatarUrl": "/images/restaurants/REST_08/bo_la_lot_banh_hoi.jpg",
+      "photos": [
+        {
+          "title": "Bò Lá Lốt Bánh hỏi",
+          "cleanName": "bo_la_lot_banh_hoi.jpg",
+          "url": "/images/restaurants/REST_08/bo_la_lot_banh_hoi.jpg"
+        },
+        {
+          "title": "Bò mở chài bánh hỏi",
+          "cleanName": "bo_mo_chai_banh_hoi.jpg",
+          "url": "/images/restaurants/REST_08/bo_mo_chai_banh_hoi.jpg"
+        },
+        {
+          "title": "Bún Thịt Nướng",
+          "cleanName": "bun_thit_nuong.jpg",
+          "url": "/images/restaurants/REST_08/bun_thit_nuong.jpg"
+        },
+        {
+          "title": "Nem nướng bánh hỏi",
+          "cleanName": "nem_nuong_banh_hoi.jpg",
+          "url": "/images/restaurants/REST_08/nem_nuong_banh_hoi.jpg"
+        },
+        {
+          "title": "Thập cẩm 2người",
+          "cleanName": "thap_cam_2nguoi.jpg",
+          "url": "/images/restaurants/REST_08/thap_cam_2nguoi.jpg"
+        },
+        {
+          "title": "Thập Cẩm 3 người",
+          "cleanName": "thap_cam_3_nguoi.jpg",
+          "url": "/images/restaurants/REST_08/thap_cam_3_nguoi.jpg"
+        },
+        {
+          "title": "Thịt Nướng Bánh Hỏi",
+          "cleanName": "thit_nuong_banh_hoi.jpg",
+          "url": "/images/restaurants/REST_08/thit_nuong_banh_hoi.jpg"
+        }
+      ]
     },
     {
       "id": "REST_09",
@@ -133,7 +432,30 @@
       "verificationStatus": "verified",
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
-      "isSpecialtySpot": false
+      "isSpecialtySpot": false,
+      "avatarUrl": "/images/restaurants/REST_09/mang_bap_hoa.jpg",
+      "photos": [
+        {
+          "title": "măng bắp hoa",
+          "cleanName": "mang_bap_hoa.jpg",
+          "url": "/images/restaurants/REST_09/mang_bap_hoa.jpg"
+        },
+        {
+          "title": "thường",
+          "cleanName": "thuong.jpg",
+          "url": "/images/restaurants/REST_09/thuong.jpg"
+        },
+        {
+          "title": "tái/ giò heo",
+          "cleanName": "tai_gio_heo.jpg",
+          "url": "/images/restaurants/REST_09/tai_gio_heo.jpg"
+        },
+        {
+          "title": "đặc biệt",
+          "cleanName": "dac_biet.jpg",
+          "url": "/images/restaurants/REST_09/dac_biet.jpg"
+        }
+      ]
     },
     {
       "id": "REST_10",
@@ -147,7 +469,55 @@
       "verificationStatus": "verified",
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
-      "isSpecialtySpot": false
+      "isSpecialtySpot": false,
+      "avatarUrl": "/images/restaurants/REST_10/com_chien_duong_chau.jpg",
+      "photos": [
+        {
+          "title": "Cơm chiên dương châu",
+          "cleanName": "com_chien_duong_chau.jpg",
+          "url": "/images/restaurants/REST_10/com_chien_duong_chau.jpg"
+        },
+        {
+          "title": "Cơm chiên hải sản",
+          "cleanName": "com_chien_hai_san.jpg",
+          "url": "/images/restaurants/REST_10/com_chien_hai_san.jpg"
+        },
+        {
+          "title": "Cơm chiên lúc lắc bò",
+          "cleanName": "com_chien_luc_lac_bo.jpg",
+          "url": "/images/restaurants/REST_10/com_chien_luc_lac_bo.jpg"
+        },
+        {
+          "title": "Cơm chiên tỏi",
+          "cleanName": "com_chien_toi.jpg",
+          "url": "/images/restaurants/REST_10/com_chien_toi.jpg"
+        },
+        {
+          "title": "Hủ tiếu xào hải sản",
+          "cleanName": "hu_tieu_xao_hai_san.jpg",
+          "url": "/images/restaurants/REST_10/hu_tieu_xao_hai_san.jpg"
+        },
+        {
+          "title": "Mì Xào Bò",
+          "cleanName": "mi_xao_bo.jpg",
+          "url": "/images/restaurants/REST_10/mi_xao_bo.jpg"
+        },
+        {
+          "title": "Mì xào Hải Sản",
+          "cleanName": "mi_xao_hai_san.jpg",
+          "url": "/images/restaurants/REST_10/mi_xao_hai_san.jpg"
+        },
+        {
+          "title": "Mì Xào Thập Cẩm",
+          "cleanName": "mi_xao_thap_cam.jpg",
+          "url": "/images/restaurants/REST_10/mi_xao_thap_cam.jpg"
+        },
+        {
+          "title": "Nui Xào Bò",
+          "cleanName": "nui_xao_bo.jpg",
+          "url": "/images/restaurants/REST_10/nui_xao_bo.jpg"
+        }
+      ]
     },
     {
       "id": "REST_11",
@@ -161,7 +531,75 @@
       "verificationStatus": "verified",
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
-      "isSpecialtySpot": true
+      "isSpecialtySpot": true,
+      "avatarUrl": "/images/restaurants/REST_11/chao_tom.jpg",
+      "photos": [
+        {
+          "title": "Chạo tôm",
+          "cleanName": "chao_tom.jpg",
+          "url": "/images/restaurants/REST_11/chao_tom.jpg"
+        },
+        {
+          "title": "Cá bông lau kho tộ",
+          "cleanName": "ca_bong_lau_kho_to.jpg",
+          "url": "/images/restaurants/REST_11/ca_bong_lau_kho_to.jpg"
+        },
+        {
+          "title": "Cá Lóc Hấp",
+          "cleanName": "ca_loc_hap.jpg",
+          "url": "/images/restaurants/REST_11/ca_loc_hap.jpg"
+        },
+        {
+          "title": "Cá Tai tượng chiên xù",
+          "cleanName": "ca_tai_tuong_chien_xu.jpg",
+          "url": "/images/restaurants/REST_11/ca_tai_tuong_chien_xu.jpg"
+        },
+        {
+          "title": "gỏi bò rau mầm",
+          "cleanName": "goi_bo_rau_mam.jpg",
+          "url": "/images/restaurants/REST_11/goi_bo_rau_mam.jpg"
+        },
+        {
+          "title": "Hàu nướng",
+          "cleanName": "hau_nuong.jpg",
+          "url": "/images/restaurants/REST_11/hau_nuong.jpg"
+        },
+        {
+          "title": "Lẩu Cua đồng hải sản",
+          "cleanName": "lau_cua_dong_hai_san.jpg",
+          "url": "/images/restaurants/REST_11/lau_cua_dong_hai_san.jpg"
+        },
+        {
+          "title": "Lẩu Tôm",
+          "cleanName": "lau_tom.jpg",
+          "url": "/images/restaurants/REST_11/lau_tom.jpg"
+        },
+        {
+          "title": "Mực nướng sa tế",
+          "cleanName": "muc_nuong_sa_te.jpg",
+          "url": "/images/restaurants/REST_11/muc_nuong_sa_te.jpg"
+        },
+        {
+          "title": "nghêu hấp",
+          "cleanName": "ngheu_hap.jpg",
+          "url": "/images/restaurants/REST_11/ngheu_hap.jpg"
+        },
+        {
+          "title": "Rau luộc kho quẹt",
+          "cleanName": "rau_luoc_kho_quet.jpg",
+          "url": "/images/restaurants/REST_11/rau_luoc_kho_quet.jpg"
+        },
+        {
+          "title": "Sò huyết cháy tỏi",
+          "cleanName": "so_huyet_chay_toi.jpg",
+          "url": "/images/restaurants/REST_11/so_huyet_chay_toi.jpg"
+        },
+        {
+          "title": "Ốc len xào dừa",
+          "cleanName": "oc_len_xao_dua.jpg",
+          "url": "/images/restaurants/REST_11/oc_len_xao_dua.jpg"
+        }
+      ]
     },
     {
       "id": "REST_12",
@@ -175,7 +613,25 @@
       "verificationStatus": "verified",
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
-      "isSpecialtySpot": false
+      "isSpecialtySpot": false,
+      "avatarUrl": "/images/restaurants/REST_12/lau_1_2ng.jpg",
+      "photos": [
+        {
+          "title": "Lẩu 1-2ng",
+          "cleanName": "lau_1_2ng.jpg",
+          "url": "/images/restaurants/REST_12/lau_1_2ng.jpg"
+        },
+        {
+          "title": "Lẩu 3 người trở lên",
+          "cleanName": "lau_3_nguoi_tro_len.jpg",
+          "url": "/images/restaurants/REST_12/lau_3_nguoi_tro_len.jpg"
+        },
+        {
+          "title": "Đồ ăn vặt chay",
+          "cleanName": "do_an_vat_chay.jpg",
+          "url": "/images/restaurants/REST_12/do_an_vat_chay.jpg"
+        }
+      ]
     },
     {
       "id": "REST_13",
@@ -189,7 +645,20 @@
       "verificationStatus": "verified",
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
-      "isSpecialtySpot": false
+      "isSpecialtySpot": false,
+      "avatarUrl": "/images/restaurants/REST_13/bun_cha.jpg",
+      "photos": [
+        {
+          "title": "Bún chả",
+          "cleanName": "bun_cha.jpg",
+          "url": "/images/restaurants/REST_13/bun_cha.jpg"
+        },
+        {
+          "title": "Nem Cua Bể",
+          "cleanName": "nem_cua_be.jpg",
+          "url": "/images/restaurants/REST_13/nem_cua_be.jpg"
+        }
+      ]
     },
     {
       "id": "REST_14",
@@ -203,7 +672,20 @@
       "verificationStatus": "verified",
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
-      "isSpecialtySpot": false
+      "isSpecialtySpot": false,
+      "avatarUrl": "/images/restaurants/REST_14/com_ga_xe.jpg",
+      "photos": [
+        {
+          "title": "Cơm gà xé",
+          "cleanName": "com_ga_xe.jpg",
+          "url": "/images/restaurants/REST_14/com_ga_xe.jpg"
+        },
+        {
+          "title": "Cơm đùi gà chiên mắm",
+          "cleanName": "com_dui_ga_chien_mam.jpg",
+          "url": "/images/restaurants/REST_14/com_dui_ga_chien_mam.jpg"
+        }
+      ]
     },
     {
       "id": "REST_15",
@@ -217,7 +699,20 @@
       "verificationStatus": "verified",
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
-      "isSpecialtySpot": true
+      "isSpecialtySpot": true,
+      "avatarUrl": "/images/restaurants/REST_15/chao_hen.jpg",
+      "photos": [
+        {
+          "title": "Cháo hến",
+          "cleanName": "chao_hen.jpg",
+          "url": "/images/restaurants/REST_15/chao_hen.jpg"
+        },
+        {
+          "title": "Cháo thêm hến",
+          "cleanName": "chao_them_hen.jpg",
+          "url": "/images/restaurants/REST_15/chao_them_hen.jpg"
+        }
+      ]
     },
     {
       "id": "REST_16",
@@ -231,7 +726,50 @@
       "verificationStatus": "verified",
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
-      "isSpecialtySpot": true
+      "isSpecialtySpot": true,
+      "avatarUrl": "/images/restaurants/REST_16/bo_bop_thau.jpg",
+      "photos": [
+        {
+          "title": "Bò Bóp Thấu",
+          "cleanName": "bo_bop_thau.jpg",
+          "url": "/images/restaurants/REST_16/bo_bop_thau.jpg"
+        },
+        {
+          "title": "Bò Nhúng Giấm",
+          "cleanName": "bo_nhung_giam.jpg",
+          "url": "/images/restaurants/REST_16/bo_nhung_giam.jpg"
+        },
+        {
+          "title": "Cháo cá",
+          "cleanName": "chao_ca.jpg",
+          "url": "/images/restaurants/REST_16/chao_ca.jpg"
+        },
+        {
+          "title": "Cháo lươn",
+          "cleanName": "chao_luon.jpg",
+          "url": "/images/restaurants/REST_16/chao_luon.jpg"
+        },
+        {
+          "title": "Cá Nấu Mẻ",
+          "cleanName": "ca_nau_me.jpg",
+          "url": "/images/restaurants/REST_16/ca_nau_me.jpg"
+        },
+        {
+          "title": "Gỏi cá",
+          "cleanName": "goi_ca.jpg",
+          "url": "/images/restaurants/REST_16/goi_ca.jpg"
+        },
+        {
+          "title": "lươn xào lăn",
+          "cleanName": "luon_xao_lan.jpg",
+          "url": "/images/restaurants/REST_16/luon_xao_lan.jpg"
+        },
+        {
+          "title": "mực né",
+          "cleanName": "muc_ne.jpg",
+          "url": "/images/restaurants/REST_16/muc_ne.jpg"
+        }
+      ]
     },
     {
       "id": "REST_17",
@@ -245,7 +783,35 @@
       "verificationStatus": "verified",
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
-      "isSpecialtySpot": true
+      "isSpecialtySpot": true,
+      "avatarUrl": "/images/restaurants/REST_17/bo_cau_roti.jpg",
+      "photos": [
+        {
+          "title": "Bồ Câu RôTi",
+          "cleanName": "bo_cau_roti.jpg",
+          "url": "/images/restaurants/REST_17/bo_cau_roti.jpg"
+        },
+        {
+          "title": "Dồi Sụn",
+          "cleanName": "doi_sun.jpg",
+          "url": "/images/restaurants/REST_17/doi_sun.jpg"
+        },
+        {
+          "title": "Trứng Non Xào Mướp",
+          "cleanName": "trung_non_xao_muop.jpg",
+          "url": "/images/restaurants/REST_17/trung_non_xao_muop.jpg"
+        },
+        {
+          "title": "Xôi Bồ Câu",
+          "cleanName": "xoi_bo_cau.jpg",
+          "url": "/images/restaurants/REST_17/xoi_bo_cau.jpg"
+        },
+        {
+          "title": "Đầu Cổ Vịt Phá Lấu",
+          "cleanName": "dau_co_vit_pha_lau.jpg",
+          "url": "/images/restaurants/REST_17/dau_co_vit_pha_lau.jpg"
+        }
+      ]
     },
     {
       "id": "REST_18",
@@ -259,19 +825,156 @@
       "verificationStatus": "verified",
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
-      "isSpecialtySpot": true
+      "isSpecialtySpot": true,
+      "avatarUrl": "/images/restaurants/REST_18/ga_hap_la_buoi.jpg",
+      "photos": [
+        {
+          "title": "Gà Hấp Lá Bưởi",
+          "cleanName": "ga_hap_la_buoi.jpg",
+          "url": "/images/restaurants/REST_18/ga_hap_la_buoi.jpg"
+        },
+        {
+          "title": "Gà Hấp Trái Bưởi + Cháo",
+          "cleanName": "ga_hap_trai_buoi_chao.jpg",
+          "url": "/images/restaurants/REST_18/ga_hap_trai_buoi_chao.jpg"
+        },
+        {
+          "title": "Gà Nướng Muối Ớt",
+          "cleanName": "ga_nuong_muoi_ot.jpg",
+          "url": "/images/restaurants/REST_18/ga_nuong_muoi_ot.jpg"
+        },
+        {
+          "title": "Gà Nấu Tiềm Ớt Hiểm",
+          "cleanName": "ga_nau_tiem_ot_hiem.jpg",
+          "url": "/images/restaurants/REST_18/ga_nau_tiem_ot_hiem.jpg"
+        },
+        {
+          "title": "Gà Ta Trộn Gỏi + Rượu Bưởi",
+          "cleanName": "ga_ta_tron_goi_ruou_buoi.jpg",
+          "url": "/images/restaurants/REST_18/ga_ta_tron_goi_ruou_buoi.jpg"
+        },
+        {
+          "title": "Gỏi Bưởi",
+          "cleanName": "goi_buoi.jpg",
+          "url": "/images/restaurants/REST_18/goi_buoi.jpg"
+        }
+      ]
     },
     {
       "id": "REST_19",
-      "name": "Quán Bún Riêu & Cơm Tấm Sinh Viên Trấn Biên",
-      "address": "82 Nguyễn Ái Quốc, Phường Trấn Biên, Đồng Nai",
+      "name": "Quán Ăn CÔ TƯƠI",
+      "address": "85 - 87 Cách Mạng Tháng 8, Phường Trấn Biên, Đồng Nai",
       "area": "Trấn Biên",
-      "openingHours": "06:30 - 20:30",
+      "lat": 10.9515,
+      "lng": 106.8188,
+      "openingHours": "05:30 - 21:00",
       "status": "approved",
       "verificationStatus": "verified",
-      "verificationSource": "Admin duyệt từ AI Scan Menu (SUB_DEMO_01)",
-      "verifiedAt": "2026-11-10",
-      "isSpecialtySpot": false
+      "verificationSource": "Khảo sát thực tế Google Sheet 2026",
+      "verifiedAt": "2026-11-11",
+      "isSpecialtySpot": false,
+      "avatarUrl": "/images/restaurants/REST_19/bun_bo_hue_thuong.jpg",
+      "photos": [
+        {
+          "title": "bún bò huế thường",
+          "cleanName": "bun_bo_hue_thuong.jpg",
+          "url": "/images/restaurants/REST_19/bun_bo_hue_thuong.jpg"
+        },
+        {
+          "title": "cơm sườn",
+          "cleanName": "com_suon.jpg",
+          "url": "/images/restaurants/REST_19/com_suon.jpg"
+        },
+        {
+          "title": "cơm sườn trứng",
+          "cleanName": "com_suon_trung.jpg",
+          "url": "/images/restaurants/REST_19/com_suon_trung.jpg"
+        },
+        {
+          "title": "phở tái nạm",
+          "cleanName": "pho_tai_nam.jpg",
+          "url": "/images/restaurants/REST_19/pho_tai_nam.jpg"
+        },
+        {
+          "title": "phở đặc biệt",
+          "cleanName": "pho_dac_biet.jpg",
+          "url": "/images/restaurants/REST_19/pho_dac_biet.jpg"
+        }
+      ]
+    },
+    {
+      "id": "REST_20",
+      "name": "Bánh cuốn Thiên Hương 6",
+      "address": "36/3 Đ. Võ Thị Sáu, Phường Trấn Biên, Đồng Nai",
+      "area": "Trấn Biên",
+      "lat": 10.9505,
+      "lng": 106.8322,
+      "openingHours": "06:00 - 14:00",
+      "status": "approved",
+      "verificationStatus": "verified",
+      "verificationSource": "Khảo sát thực tế Google Sheet 2026",
+      "verifiedAt": "2026-11-11",
+      "isSpecialtySpot": false,
+      "avatarUrl": "/images/restaurants/REST_20/banh_uot.jpg",
+      "photos": [
+        {
+          "title": "bánh ướt",
+          "cleanName": "banh_uot.jpg",
+          "url": "/images/restaurants/REST_20/banh_uot.jpg"
+        },
+        {
+          "title": "bánh ướt trứng",
+          "cleanName": "banh_uot_trung.jpg",
+          "url": "/images/restaurants/REST_20/banh_uot_trung.jpg"
+        },
+        {
+          "title": "cuốn nhân thịt",
+          "cleanName": "cuon_nhan_thit.jpg",
+          "url": "/images/restaurants/REST_20/cuon_nhan_thit.jpg"
+        },
+        {
+          "title": "cuốn tôm thịt",
+          "cleanName": "cuon_tom_thit.jpg",
+          "url": "/images/restaurants/REST_20/cuon_tom_thit.jpg"
+        }
+      ]
+    },
+    {
+      "id": "REST_21",
+      "name": "Bánh mì chảo Khang",
+      "address": "88 Huỳnh Văn Lũy, Phường Trấn Biên, Đồng Nai",
+      "area": "Trấn Biên",
+      "lat": 10.954,
+      "lng": 106.8275,
+      "openingHours": "06:00 - 11:00",
+      "status": "approved",
+      "verificationStatus": "verified",
+      "verificationSource": "Khảo sát thực tế Google Sheet 2026",
+      "verifiedAt": "2026-11-11",
+      "isSpecialtySpot": false,
+      "avatarUrl": "/images/restaurants/REST_21/full_topping.jpg",
+      "photos": [
+        {
+          "title": "full topping",
+          "cleanName": "full_topping.jpg",
+          "url": "/images/restaurants/REST_21/full_topping.jpg"
+        },
+        {
+          "title": "không bò",
+          "cleanName": "khong_bo.jpg",
+          "url": "/images/restaurants/REST_21/khong_bo.jpg"
+        },
+        {
+          "title": "sốt tiêu đen",
+          "cleanName": "sot_tieu_den.jpg",
+          "url": "/images/restaurants/REST_21/sot_tieu_den.jpg"
+        },
+        {
+          "title": "xíu mại",
+          "cleanName": "xiu_mai.jpg",
+          "url": "/images/restaurants/REST_21/xiu_mai.jpg"
+        }
+      ]
     }
   ],
   "menuItems": [
@@ -304,7 +1007,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 3)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_01/cha_lui.jpg",
+      "imageTitle": "chả lụi.jpg"
     },
     {
       "id": "DISH_002",
@@ -334,7 +1039,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 4)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_02/com_heo_chien_xu.jpg",
+      "imageTitle": "Cơm heo Chiên Xù"
     },
     {
       "id": "DISH_003",
@@ -364,7 +1071,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 5)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_02/com_ga_chien_gion.jpg",
+      "imageTitle": "Cơm gà chiên giòn"
     },
     {
       "id": "DISH_004",
@@ -395,7 +1104,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 6)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_02/com_cari_nhat_heo_ga.jpg",
+      "imageTitle": "Cơm Cari Nhật (Heo/Gà)"
     },
     {
       "id": "DISH_005",
@@ -425,7 +1136,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 7)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_02/com_cari_nhat_heo_ga.jpg",
+      "imageTitle": "Cơm Cari Nhật (Heo/Gà)"
     },
     {
       "id": "DISH_006",
@@ -455,7 +1168,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 8)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_02/com_luon.jpg",
+      "imageTitle": "Cơm Lươn"
     },
     {
       "id": "DISH_007",
@@ -485,7 +1200,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 9)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_02/com_ca_hoi_song.jpg",
+      "imageTitle": "Cơm Cá Hồi Sống"
     },
     {
       "id": "DISH_008",
@@ -515,7 +1232,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 10)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_02/udon_bo_trung.jpg",
+      "imageTitle": "Udon Bò Trứng"
     },
     {
       "id": "DISH_009",
@@ -544,7 +1263,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 11)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_02/soup_so_diep.jpg",
+      "imageTitle": "Soup Sò Điệp"
     },
     {
       "id": "DISH_010",
@@ -573,7 +1294,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 12)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_02/soup_bao_ngu.jpg",
+      "imageTitle": "Soup Bào Ngư"
     },
     {
       "id": "DISH_011",
@@ -602,7 +1325,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 13)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_02/kim_ch_com_trang.jpg",
+      "imageTitle": "Kim Ch Cơm Trắng"
     },
     {
       "id": "DISH_012",
@@ -631,7 +1356,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 14)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_02/rong_bien_com_trang.jpg",
+      "imageTitle": "rong biển cơm trắng"
     },
     {
       "id": "DISH_013",
@@ -660,7 +1387,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 15)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_02/mien_xao_sot_bo_xo.jpg",
+      "imageTitle": "Miến Xào Sốt Bò XO"
     },
     {
       "id": "DISH_014",
@@ -691,7 +1420,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 16)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_02/combo_1.jpg",
+      "imageTitle": "Combo 1"
     },
     {
       "id": "DISH_015",
@@ -721,7 +1452,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 17)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_02/combo_1.jpg",
+      "imageTitle": "Combo 1"
     },
     {
       "id": "DISH_016",
@@ -750,7 +1483,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 18)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_02/combo_1.jpg",
+      "imageTitle": "Combo 1"
     },
     {
       "id": "DISH_017",
@@ -781,7 +1516,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 19)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_02/combo_2.jpg",
+      "imageTitle": "Combo 2"
     },
     {
       "id": "DISH_018",
@@ -813,7 +1550,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 20)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_02/combo_3.jpg",
+      "imageTitle": "Combo 3"
     },
     {
       "id": "DISH_019",
@@ -843,7 +1582,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 21)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_02/combo_4.jpg",
+      "imageTitle": "Combo 4"
     },
     {
       "id": "DISH_020",
@@ -872,7 +1613,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 22)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_03/mi_la_dua.jpg",
+      "imageTitle": "Mì Lá Dứa"
     },
     {
       "id": "DISH_021",
@@ -901,7 +1644,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 23)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_03/hoanh_thanh.jpg",
+      "imageTitle": "Hoành Thánh"
     },
     {
       "id": "DISH_022",
@@ -931,7 +1676,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 24)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_03/hu_tieu_mi.jpg",
+      "imageTitle": "Hủ tiếu mì"
     },
     {
       "id": "DISH_023",
@@ -960,7 +1707,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 25)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_03/hu_tieu_kho.jpg",
+      "imageTitle": "Hủ tiếu khô"
     },
     {
       "id": "DISH_024",
@@ -989,7 +1738,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 26)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_03/bun_gao.jpg",
+      "imageTitle": "Bún gạo"
     },
     {
       "id": "DISH_025",
@@ -1020,7 +1771,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 27)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_04/mi_cay_bo_tom.jpg",
+      "imageTitle": "Mì Cay Bò/Tôm"
     },
     {
       "id": "DISH_026",
@@ -1049,7 +1802,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 28)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_04/mi_thap_cam.jpg",
+      "imageTitle": "Mì Thập Cẩm"
     },
     {
       "id": "DISH_027",
@@ -1080,7 +1835,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 29)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_04/mi_spaghetti_size_s.jpg",
+      "imageTitle": "Mì spaghetti size S"
     },
     {
       "id": "DISH_028",
@@ -1111,7 +1868,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 30)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_04/mi_spaghetti_size_m.jpg",
+      "imageTitle": "Mì Spaghetti size M"
     },
     {
       "id": "DISH_029",
@@ -1141,7 +1900,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 31)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_04/combo_mini.jpg",
+      "imageTitle": "Combo mini"
     },
     {
       "id": "DISH_030",
@@ -1171,7 +1932,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 32)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_04/combo_size_s.jpg",
+      "imageTitle": "Combo size S"
     },
     {
       "id": "DISH_031",
@@ -1201,7 +1964,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 33)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_04/combo_size_l.jpg",
+      "imageTitle": "Combo size L"
     },
     {
       "id": "DISH_032",
@@ -1231,7 +1996,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 34)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_04/combo_size_l.jpg",
+      "imageTitle": "Combo size L"
     },
     {
       "id": "DISH_033",
@@ -1260,7 +2027,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 35)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_05/bun_dau_dac_biet_1_nguoi.jpg",
+      "imageTitle": "Bún Đậu Đặc Biệt 1 người"
     },
     {
       "id": "DISH_034",
@@ -1289,7 +2058,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 36)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_05/dac_biet_2_nguoi.jpg",
+      "imageTitle": "Đặc Biệt 2 người"
     },
     {
       "id": "DISH_035",
@@ -1318,7 +2089,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 37)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_05/bun_dau_dac_biet_1_nguoi.jpg",
+      "imageTitle": "Bún Đậu Đặc Biệt 1 người"
     },
     {
       "id": "DISH_036",
@@ -1347,7 +2120,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 38)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_05/bun_dau_thit_luoc.jpg",
+      "imageTitle": "Bún đậu thịt luộc"
     },
     {
       "id": "DISH_037",
@@ -1377,7 +2152,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 39)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_05/bun_dau_nem_chua_ran.jpg",
+      "imageTitle": "Bún đậu nem chua rán"
     },
     {
       "id": "DISH_038",
@@ -1407,7 +2184,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 40)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_05/bun_dau_cha_com.jpg",
+      "imageTitle": "Bún đậu chả cốm"
     },
     {
       "id": "DISH_039",
@@ -1438,7 +2217,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 41)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_06/oc_hen_thuong.jpg",
+      "imageTitle": "ốc hến thường"
     },
     {
       "id": "DISH_040",
@@ -1468,7 +2249,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 42)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_06/thap_cam.jpg",
+      "imageTitle": "thập cẩm"
     },
     {
       "id": "DISH_041",
@@ -1498,7 +2281,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 43)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_06/dac_biet.jpg",
+      "imageTitle": "đặc biệt"
     },
     {
       "id": "DISH_042",
@@ -1527,7 +2312,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 44)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_07/bun_thai_vien.jpg",
+      "imageTitle": "Bún Thái Viên"
     },
     {
       "id": "DISH_043",
@@ -1557,7 +2344,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 45)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_07/bun_thai_bo_trung.jpg",
+      "imageTitle": "Bún Thái Bò Trứng"
     },
     {
       "id": "DISH_044",
@@ -1587,7 +2376,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 46)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_07/bun_thai_hai_san.jpg",
+      "imageTitle": "Bún Thái Hải Sản"
     },
     {
       "id": "DISH_045",
@@ -1616,7 +2407,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 47)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_07/bun_thai_dac_biet.jpg",
+      "imageTitle": "Bún Thái Đặc Biệt"
     },
     {
       "id": "DISH_046",
@@ -1645,7 +2438,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 48)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_07/mi_tron_ca_vien.jpg",
+      "imageTitle": "Mì trộn cá viên"
     },
     {
       "id": "DISH_047",
@@ -1675,7 +2470,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 49)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_07/mi_tron_bo_trung.jpg",
+      "imageTitle": "Mì trộn bò trứng"
     },
     {
       "id": "DISH_048",
@@ -1705,7 +2502,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 50)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_07/mi_tron_hai_san.jpg",
+      "imageTitle": "Mì trộn Hải Sản"
     },
     {
       "id": "DISH_049",
@@ -1734,7 +2533,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 51)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_07/mi_tron_dac_biet.jpg",
+      "imageTitle": "Mì trộn đặc biệt"
     },
     {
       "id": "DISH_050",
@@ -1764,7 +2565,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 52)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_08/bun_thit_nuong.jpg",
+      "imageTitle": "Bún Thịt Nướng"
     },
     {
       "id": "DISH_051",
@@ -1794,7 +2597,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 53)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_08/bo_la_lot_banh_hoi.jpg",
+      "imageTitle": "Bò Lá Lốt Bánh hỏi"
     },
     {
       "id": "DISH_052",
@@ -1824,7 +2629,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 54)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_08/bo_mo_chai_banh_hoi.jpg",
+      "imageTitle": "Bò mở chài bánh hỏi"
     },
     {
       "id": "DISH_053",
@@ -1854,7 +2661,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 55)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_08/nem_nuong_banh_hoi.jpg",
+      "imageTitle": "Nem nướng bánh hỏi"
     },
     {
       "id": "DISH_054",
@@ -1884,7 +2693,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 56)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_08/thit_nuong_banh_hoi.jpg",
+      "imageTitle": "Thịt Nướng Bánh Hỏi"
     },
     {
       "id": "DISH_055",
@@ -1911,7 +2722,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 57)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_08/thap_cam_2nguoi.jpg",
+      "imageTitle": "Thập cẩm 2người"
     },
     {
       "id": "DISH_056",
@@ -1938,7 +2751,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 58)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_08/thap_cam_3_nguoi.jpg",
+      "imageTitle": "Thập Cẩm 3 người"
     },
     {
       "id": "DISH_057",
@@ -1968,7 +2783,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 59)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_09/mang_bap_hoa.jpg",
+      "imageTitle": "măng bắp hoa"
     },
     {
       "id": "DISH_058",
@@ -1998,7 +2815,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 60)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_09/thuong.jpg",
+      "imageTitle": "thường"
     },
     {
       "id": "DISH_059",
@@ -2029,7 +2848,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 61)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_09/tai_gio_heo.jpg",
+      "imageTitle": "tái/ giò heo"
     },
     {
       "id": "DISH_060",
@@ -2059,7 +2880,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 62)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_09/dac_biet.jpg",
+      "imageTitle": "đặc biệt"
     },
     {
       "id": "DISH_061",
@@ -2089,7 +2912,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 63)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_09/mang_bap_hoa.jpg",
+      "imageTitle": "măng bắp hoa"
     },
     {
       "id": "DISH_062",
@@ -2119,7 +2944,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 64)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_09/dac_biet.jpg",
+      "imageTitle": "đặc biệt"
     },
     {
       "id": "DISH_063",
@@ -2148,7 +2975,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 65)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_10/com_chien_toi.jpg",
+      "imageTitle": "Cơm chiên tỏi"
     },
     {
       "id": "DISH_064",
@@ -2177,7 +3006,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 66)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_10/com_chien_duong_chau.jpg",
+      "imageTitle": "Cơm chiên dương châu"
     },
     {
       "id": "DISH_065",
@@ -2207,7 +3038,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 67)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_10/com_chien_hai_san.jpg",
+      "imageTitle": "Cơm chiên hải sản"
     },
     {
       "id": "DISH_066",
@@ -2237,7 +3070,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 68)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_10/com_chien_luc_lac_bo.jpg",
+      "imageTitle": "Cơm chiên lúc lắc bò"
     },
     {
       "id": "DISH_067",
@@ -2266,7 +3101,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 69)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_10/mi_xao_thap_cam.jpg",
+      "imageTitle": "Mì Xào Thập Cẩm"
     },
     {
       "id": "DISH_068",
@@ -2296,7 +3133,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 70)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_10/mi_xao_hai_san.jpg",
+      "imageTitle": "Mì xào Hải Sản"
     },
     {
       "id": "DISH_069",
@@ -2326,7 +3165,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 71)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_10/mi_xao_bo.jpg",
+      "imageTitle": "Mì Xào Bò"
     },
     {
       "id": "DISH_070",
@@ -2356,7 +3197,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 72)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_10/hu_tieu_xao_hai_san.jpg",
+      "imageTitle": "Hủ tiếu xào hải sản"
     },
     {
       "id": "DISH_071",
@@ -2385,7 +3228,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 73)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_10/nui_xao_bo.jpg",
+      "imageTitle": "Nui Xào Bò"
     },
     {
       "id": "DISH_072",
@@ -2416,7 +3261,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 74)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_10/com_chien_hai_san.jpg",
+      "imageTitle": "Cơm chiên hải sản"
     },
     {
       "id": "DISH_073",
@@ -2446,7 +3293,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 75)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_11/chao_tom.jpg",
+      "imageTitle": "Chạo tôm"
     },
     {
       "id": "DISH_074",
@@ -2479,7 +3328,9 @@
       "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 76)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_11/lau_tom.jpg",
+      "imageTitle": "Lẩu Tôm"
     },
     {
       "id": "DISH_075",
@@ -2511,7 +3362,9 @@
       "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 77)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_11/lau_cua_dong_hai_san.jpg",
+      "imageTitle": "Lẩu Cua đồng hải sản"
     },
     {
       "id": "DISH_076",
@@ -2543,7 +3396,9 @@
       "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 78)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_11/lau_cua_dong_hai_san.jpg",
+      "imageTitle": "Lẩu Cua đồng hải sản"
     },
     {
       "id": "DISH_077",
@@ -2575,7 +3430,9 @@
       "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 79)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_11/ca_bong_lau_kho_to.jpg",
+      "imageTitle": "Cá bông lau kho tộ"
     },
     {
       "id": "DISH_078",
@@ -2604,7 +3461,9 @@
       "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 80)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_11/ca_loc_hap.jpg",
+      "imageTitle": "Cá Lóc Hấp"
     },
     {
       "id": "DISH_079",
@@ -2636,7 +3495,9 @@
       "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 81)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_11/goi_bo_rau_mam.jpg",
+      "imageTitle": "gỏi bò rau mầm"
     },
     {
       "id": "DISH_080",
@@ -2664,7 +3525,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 82)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_11/hau_nuong.jpg",
+      "imageTitle": "Hàu nướng"
     },
     {
       "id": "DISH_081",
@@ -2693,7 +3556,9 @@
       "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 83)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_11/ngheu_hap.jpg",
+      "imageTitle": "nghêu hấp"
     },
     {
       "id": "DISH_082",
@@ -2722,7 +3587,9 @@
       "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 84)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_11/so_huyet_chay_toi.jpg",
+      "imageTitle": "Sò huyết cháy tỏi"
     },
     {
       "id": "DISH_083",
@@ -2751,7 +3618,9 @@
       "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 85)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_11/oc_len_xao_dua.jpg",
+      "imageTitle": "Ốc len xào dừa"
     },
     {
       "id": "DISH_084",
@@ -2780,7 +3649,9 @@
       "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 86)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_11/ca_bong_lau_kho_to.jpg",
+      "imageTitle": "Cá bông lau kho tộ"
     },
     {
       "id": "DISH_085",
@@ -2808,7 +3679,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 87)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_11/ca_tai_tuong_chien_xu.jpg",
+      "imageTitle": "Cá Tai tượng chiên xù"
     },
     {
       "id": "DISH_086",
@@ -2836,7 +3709,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 88)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_11/ca_tai_tuong_chien_xu.jpg",
+      "imageTitle": "Cá Tai tượng chiên xù"
     },
     {
       "id": "DISH_087",
@@ -2866,7 +3741,9 @@
       "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 89)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_11/ca_bong_lau_kho_to.jpg",
+      "imageTitle": "Cá bông lau kho tộ"
     },
     {
       "id": "DISH_088",
@@ -2894,7 +3771,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 90)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_11/ca_loc_hap.jpg",
+      "imageTitle": "Cá Lóc Hấp"
     },
     {
       "id": "DISH_089",
@@ -2921,7 +3800,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 91)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_11/rau_luoc_kho_quet.jpg",
+      "imageTitle": "Rau luộc kho quẹt"
     },
     {
       "id": "DISH_090",
@@ -2948,7 +3829,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 92)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_11/goi_bo_rau_mam.jpg",
+      "imageTitle": "gỏi bò rau mầm"
     },
     {
       "id": "DISH_091",
@@ -2978,7 +3861,9 @@
       "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 93)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_11/muc_nuong_sa_te.jpg",
+      "imageTitle": "Mực nướng sa tế"
     },
     {
       "id": "DISH_092",
@@ -3007,7 +3892,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 94)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_12/lau_3_nguoi_tro_len.jpg",
+      "imageTitle": "Lẩu 3 người trở lên"
     },
     {
       "id": "DISH_093",
@@ -3036,7 +3923,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 95)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_12/lau_3_nguoi_tro_len.jpg",
+      "imageTitle": "Lẩu 3 người trở lên"
     },
     {
       "id": "DISH_094",
@@ -3067,7 +3956,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 96)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_12/do_an_vat_chay.jpg",
+      "imageTitle": "Đồ ăn vặt chay"
     },
     {
       "id": "DISH_095",
@@ -3097,7 +3988,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 97)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_13/bun_cha.jpg",
+      "imageTitle": "Bún chả"
     },
     {
       "id": "DISH_096",
@@ -3127,7 +4020,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 98)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_13/nem_cua_be.jpg",
+      "imageTitle": "Nem Cua Bể"
     },
     {
       "id": "DISH_097",
@@ -3158,7 +4053,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 99)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_14/com_ga_xe.jpg",
+      "imageTitle": "Cơm gà xé"
     },
     {
       "id": "DISH_098",
@@ -3189,7 +4086,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 100)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_14/com_dui_ga_chien_mam.jpg",
+      "imageTitle": "Cơm đùi gà chiên mắm"
     },
     {
       "id": "DISH_099",
@@ -3220,7 +4119,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 101)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_15/chao_hen.jpg",
+      "imageTitle": "Cháo hến"
     },
     {
       "id": "DISH_100",
@@ -3250,7 +4151,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 102)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_15/chao_them_hen.jpg",
+      "imageTitle": "Cháo thêm hến"
     },
     {
       "id": "DISH_101",
@@ -3281,7 +4184,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 103)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_16/goi_ca.jpg",
+      "imageTitle": "Gỏi cá"
     },
     {
       "id": "DISH_102",
@@ -3311,7 +4216,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 104)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_16/chao_ca.jpg",
+      "imageTitle": "Cháo cá"
     },
     {
       "id": "DISH_103",
@@ -3340,7 +4247,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 105)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_16/ca_nau_me.jpg",
+      "imageTitle": "Cá Nấu Mẻ"
     },
     {
       "id": "DISH_104",
@@ -3368,7 +4277,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 106)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_16/luon_xao_lan.jpg",
+      "imageTitle": "lươn xào lăn"
     },
     {
       "id": "DISH_105",
@@ -3398,7 +4309,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 107)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_16/chao_luon.jpg",
+      "imageTitle": "Cháo lươn"
     },
     {
       "id": "DISH_106",
@@ -3426,7 +4339,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 108)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_16/muc_ne.jpg",
+      "imageTitle": "mực né"
     },
     {
       "id": "DISH_107",
@@ -3454,7 +4369,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 109)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_16/bo_nhung_giam.jpg",
+      "imageTitle": "Bò Nhúng Giấm"
     },
     {
       "id": "DISH_108",
@@ -3482,7 +4399,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 110)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_16/bo_bop_thau.jpg",
+      "imageTitle": "Bò Bóp Thấu"
     },
     {
       "id": "DISH_109",
@@ -3512,7 +4431,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 111)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_17/xoi_bo_cau.jpg",
+      "imageTitle": "Xôi Bồ Câu"
     },
     {
       "id": "DISH_110",
@@ -3539,7 +4460,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 112)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_17/doi_sun.jpg",
+      "imageTitle": "Dồi Sụn"
     },
     {
       "id": "DISH_111",
@@ -3568,7 +4491,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 113)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_17/bo_cau_roti.jpg",
+      "imageTitle": "Bồ Câu RôTi"
     },
     {
       "id": "DISH_112",
@@ -3598,7 +4523,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 114)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_17/trung_non_xao_muop.jpg",
+      "imageTitle": "Trứng Non Xào Mướp"
     },
     {
       "id": "DISH_113",
@@ -3626,7 +4553,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 115)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_17/bo_cau_roti.jpg",
+      "imageTitle": "Bồ Câu RôTi"
     },
     {
       "id": "DISH_114",
@@ -3655,7 +4584,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 116)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_17/bo_cau_roti.jpg",
+      "imageTitle": "Bồ Câu RôTi"
     },
     {
       "id": "DISH_115",
@@ -3683,7 +4614,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 117)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_17/bo_cau_roti.jpg",
+      "imageTitle": "Bồ Câu RôTi"
     },
     {
       "id": "DISH_116",
@@ -3715,7 +4648,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 118)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_17/bo_cau_roti.jpg",
+      "imageTitle": "Bồ Câu RôTi"
     },
     {
       "id": "DISH_117",
@@ -3742,7 +4677,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 119)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_17/trung_non_xao_muop.jpg",
+      "imageTitle": "Trứng Non Xào Mướp"
     },
     {
       "id": "DISH_118",
@@ -3770,7 +4707,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 120)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_17/dau_co_vit_pha_lau.jpg",
+      "imageTitle": "Đầu Cổ Vịt Phá Lấu"
     },
     {
       "id": "DISH_119",
@@ -3797,7 +4736,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 121)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_17/trung_non_xao_muop.jpg",
+      "imageTitle": "Trứng Non Xào Mướp"
     },
     {
       "id": "DISH_120",
@@ -3827,7 +4768,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 122)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_18/goi_buoi.jpg",
+      "imageTitle": "Gỏi Bưởi"
     },
     {
       "id": "DISH_121",
@@ -3857,7 +4800,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 123)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_18/goi_buoi.jpg",
+      "imageTitle": "Gỏi Bưởi"
     },
     {
       "id": "DISH_122",
@@ -3887,7 +4832,9 @@
       "priceNote": "Giá niêm yết theo thực đơn khảo sát",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 124)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_18/goi_buoi.jpg",
+      "imageTitle": "Gỏi Bưởi"
     },
     {
       "id": "DISH_123",
@@ -3916,7 +4863,9 @@
       "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 125)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_18/ga_nuong_muoi_ot.jpg",
+      "imageTitle": "Gà Nướng Muối Ớt"
     },
     {
       "id": "DISH_124",
@@ -3946,7 +4895,9 @@
       "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 126)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_18/ga_hap_la_buoi.jpg",
+      "imageTitle": "Gà Hấp Lá Bưởi"
     },
     {
       "id": "DISH_125",
@@ -3975,7 +4926,9 @@
       "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 127)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_18/ga_nau_tiem_ot_hiem.jpg",
+      "imageTitle": "Gà Nấu Tiềm Ớt Hiểm"
     },
     {
       "id": "DISH_126",
@@ -4008,7 +4961,9 @@
       "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 128)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_18/ga_ta_tron_goi_ruou_buoi.jpg",
+      "imageTitle": "Gà Ta Trộn Gỏi + Rượu Bưởi"
     },
     {
       "id": "DISH_127",
@@ -4039,7 +4994,9 @@
       "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 129)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_18/ga_ta_tron_goi_ruou_buoi.jpg",
+      "imageTitle": "Gà Ta Trộn Gỏi + Rượu Bưởi"
     },
     {
       "id": "DISH_128",
@@ -4070,7 +5027,9 @@
       "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 130)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_18/ga_hap_trai_buoi_chao.jpg",
+      "imageTitle": "Gà Hấp Trái Bưởi + Cháo"
     },
     {
       "id": "DISH_129",
@@ -4101,7 +5060,9 @@
       "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 131)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_18/ga_hap_trai_buoi_chao.jpg",
+      "imageTitle": "Gà Hấp Trái Bưởi + Cháo"
     },
     {
       "id": "DISH_130",
@@ -4132,7 +5093,9 @@
       "priceNote": "Giá thay đổi theo cỡ (Nhỏ/Vừa/Lớn) hoặc trọng lượng thực tế tại quán",
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 132)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_18/goi_buoi.jpg",
+      "imageTitle": "Gỏi Bưởi"
     },
     {
       "id": "DISH_131",
@@ -4161,7 +5124,9 @@
       "priceNote": "Đã được Admin đối chiếu ảnh thực đơn gốc và phê duyệt",
       "status": "approved",
       "verificationSource": "AI Scan Menu + Admin xác minh (SUB_DEMO_01)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_19/pho_dac_biet.jpg",
+      "imageTitle": "phở đặc biệt"
     },
     {
       "id": "DISH_132",
@@ -4191,7 +5156,9 @@
       "priceNote": "Đã được Admin đối chiếu ảnh thực đơn gốc và phê duyệt",
       "status": "approved",
       "verificationSource": "AI Scan Menu + Admin xác minh (SUB_DEMO_01)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_19/com_suon.jpg",
+      "imageTitle": "cơm sườn"
     },
     {
       "id": "DISH_133",
@@ -4220,7 +5187,416 @@
       "priceNote": "Đã được Admin đối chiếu ảnh thực đơn gốc và phê duyệt",
       "status": "approved",
       "verificationSource": "AI Scan Menu + Admin xác minh (SUB_DEMO_01)",
-      "verifiedAt": "2026-11-10"
+      "verifiedAt": "2026-11-10",
+      "imageUrl": "/images/restaurants/REST_19/bun_bo_hue_thuong.jpg",
+      "imageTitle": "bún bò huế thường"
+    },
+    {
+      "id": "DISH_134",
+      "restaurantId": "REST_19",
+      "restaurantName": "Quán Ăn CÔ TƯƠI",
+      "area": "Trấn Biên",
+      "name": "Bún Bò Huế Thường",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "bun",
+        "bo",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 45000,
+      "priceMax": 45000,
+      "priceVariants": [
+        45000
+      ],
+      "rawPriceText": "45.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát thực tế",
+      "status": "approved",
+      "verificationSource": "Google Sheet 2026",
+      "verifiedAt": "2026-11-11",
+      "imageUrl": "/images/restaurants/REST_19/bun_bo_hue_thuong.jpg",
+      "imageTitle": "bún bò huế thường"
+    },
+    {
+      "id": "DISH_135",
+      "restaurantId": "REST_19",
+      "restaurantName": "Quán Ăn CÔ TƯƠI",
+      "area": "Trấn Biên",
+      "name": "Phở Tái Nạm",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "bo",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 45000,
+      "priceMax": 45000,
+      "priceVariants": [
+        45000
+      ],
+      "rawPriceText": "45.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát thực tế",
+      "status": "approved",
+      "verificationSource": "Google Sheet 2026",
+      "verifiedAt": "2026-11-11",
+      "imageUrl": "/images/restaurants/REST_19/pho_tai_nam.jpg",
+      "imageTitle": "phở tái nạm"
+    },
+    {
+      "id": "DISH_136",
+      "restaurantId": "REST_19",
+      "restaurantName": "Quán Ăn CÔ TƯƠI",
+      "area": "Trấn Biên",
+      "name": "Phở Đặc Biệt",
+      "category": "mon_nuoc",
+      "tags": [
+        "mon_nuoc",
+        "bo",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 55000,
+      "priceMax": 55000,
+      "priceVariants": [
+        55000
+      ],
+      "rawPriceText": "55.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát thực tế",
+      "status": "approved",
+      "verificationSource": "Google Sheet 2026",
+      "verifiedAt": "2026-11-11",
+      "imageUrl": "/images/restaurants/REST_19/pho_dac_biet.jpg",
+      "imageTitle": "phở đặc biệt"
+    },
+    {
+      "id": "DISH_137",
+      "restaurantId": "REST_19",
+      "restaurantName": "Quán Ăn CÔ TƯƠI",
+      "area": "Trấn Biên",
+      "name": "Cơm Sườn",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "heo",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 35000,
+      "priceMax": 35000,
+      "priceVariants": [
+        35000
+      ],
+      "rawPriceText": "35.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát thực tế",
+      "status": "approved",
+      "verificationSource": "Google Sheet 2026",
+      "verifiedAt": "2026-11-11",
+      "imageUrl": "/images/restaurants/REST_19/com_suon.jpg",
+      "imageTitle": "cơm sườn"
+    },
+    {
+      "id": "DISH_138",
+      "restaurantId": "REST_19",
+      "restaurantName": "Quán Ăn CÔ TƯƠI",
+      "area": "Trấn Biên",
+      "name": "Cơm Sườn Trứng",
+      "category": "com",
+      "tags": [
+        "com",
+        "mon_kho",
+        "heo",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 40000,
+      "priceMax": 40000,
+      "priceVariants": [
+        40000
+      ],
+      "rawPriceText": "40.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát thực tế",
+      "status": "approved",
+      "verificationSource": "Google Sheet 2026",
+      "verifiedAt": "2026-11-11",
+      "imageUrl": "/images/restaurants/REST_19/com_suon_trung.jpg",
+      "imageTitle": "cơm sườn trứng"
+    },
+    {
+      "id": "DISH_139",
+      "restaurantId": "REST_20",
+      "restaurantName": "Bánh cuốn Thiên Hương 6",
+      "area": "Trấn Biên",
+      "name": "Bánh Cuốn Nhân Thịt",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "heo",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 40000,
+      "priceMax": 40000,
+      "priceVariants": [
+        40000
+      ],
+      "rawPriceText": "40.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát thực tế",
+      "status": "approved",
+      "verificationSource": "Google Sheet 2026",
+      "verifiedAt": "2026-11-11",
+      "imageUrl": "/images/restaurants/REST_20/cuon_nhan_thit.jpg",
+      "imageTitle": "cuốn nhân thịt"
+    },
+    {
+      "id": "DISH_140",
+      "restaurantId": "REST_20",
+      "restaurantName": "Bánh cuốn Thiên Hương 6",
+      "area": "Trấn Biên",
+      "name": "Bánh Cuốn Nhân Tôm Thịt",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "hai_san",
+        "heo",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 50000,
+      "priceMax": 50000,
+      "priceVariants": [
+        50000
+      ],
+      "rawPriceText": "50.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát thực tế",
+      "status": "approved",
+      "verificationSource": "Google Sheet 2026",
+      "verifiedAt": "2026-11-11",
+      "imageUrl": "/images/restaurants/REST_20/cuon_nhan_thit.jpg",
+      "imageTitle": "cuốn nhân thịt"
+    },
+    {
+      "id": "DISH_141",
+      "restaurantId": "REST_20",
+      "restaurantName": "Bánh cuốn Thiên Hương 6",
+      "area": "Trấn Biên",
+      "name": "Bánh Ướt",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 40000,
+      "priceMax": 40000,
+      "priceVariants": [
+        40000
+      ],
+      "rawPriceText": "40.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát thực tế",
+      "status": "approved",
+      "verificationSource": "Google Sheet 2026",
+      "verifiedAt": "2026-11-11",
+      "imageUrl": "/images/restaurants/REST_20/banh_uot.jpg",
+      "imageTitle": "bánh ướt"
+    },
+    {
+      "id": "DISH_142",
+      "restaurantId": "REST_20",
+      "restaurantName": "Bánh cuốn Thiên Hương 6",
+      "area": "Trấn Biên",
+      "name": "Bánh Ướt Trứng",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 45000,
+      "priceMax": 45000,
+      "priceVariants": [
+        45000
+      ],
+      "rawPriceText": "45.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát thực tế",
+      "status": "approved",
+      "verificationSource": "Google Sheet 2026",
+      "verifiedAt": "2026-11-11",
+      "imageUrl": "/images/restaurants/REST_20/banh_uot_trung.jpg",
+      "imageTitle": "bánh ướt trứng"
+    },
+    {
+      "id": "DISH_143",
+      "restaurantId": "REST_21",
+      "restaurantName": "Bánh mì chảo Khang",
+      "area": "Trấn Biên",
+      "name": "Chảo Không Bò",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "an_vat",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 35000,
+      "priceMax": 35000,
+      "priceVariants": [
+        35000
+      ],
+      "rawPriceText": "35.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát thực tế",
+      "status": "approved",
+      "verificationSource": "Google Sheet 2026",
+      "verifiedAt": "2026-11-11",
+      "imageUrl": "/images/restaurants/REST_21/khong_bo.jpg",
+      "imageTitle": "không bò"
+    },
+    {
+      "id": "DISH_144",
+      "restaurantId": "REST_21",
+      "restaurantName": "Bánh mì chảo Khang",
+      "area": "Trấn Biên",
+      "name": "Chảo Sốt Tiêu Đen",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "bo",
+        "vi_cay",
+        "man"
+      ],
+      "price": 50000,
+      "priceMax": 50000,
+      "priceVariants": [
+        50000
+      ],
+      "rawPriceText": "50.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát thực tế",
+      "status": "approved",
+      "verificationSource": "Google Sheet 2026",
+      "verifiedAt": "2026-11-11",
+      "imageUrl": "/images/restaurants/REST_21/sot_tieu_den.jpg",
+      "imageTitle": "sốt tiêu đen"
+    },
+    {
+      "id": "DISH_145",
+      "restaurantId": "REST_21",
+      "restaurantName": "Bánh mì chảo Khang",
+      "area": "Trấn Biên",
+      "name": "Chảo Full Topping",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "bo",
+        "heo",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 45000,
+      "priceMax": 45000,
+      "priceVariants": [
+        45000
+      ],
+      "rawPriceText": "45.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát thực tế",
+      "status": "approved",
+      "verificationSource": "Google Sheet 2026",
+      "verifiedAt": "2026-11-11",
+      "imageUrl": "/images/restaurants/REST_21/full_topping.jpg",
+      "imageTitle": "full topping"
+    },
+    {
+      "id": "DISH_146",
+      "restaurantId": "REST_21",
+      "restaurantName": "Bánh mì chảo Khang",
+      "area": "Trấn Biên",
+      "name": "Xíu Mại",
+      "category": "mon_kho",
+      "tags": [
+        "mon_kho",
+        "heo",
+        "an_vat",
+        "vi_thanh",
+        "man"
+      ],
+      "price": 23000,
+      "priceMax": 23000,
+      "priceVariants": [
+        23000
+      ],
+      "rawPriceText": "23.000 VNĐ",
+      "unit": "phần",
+      "portionMin": 1,
+      "portionMax": 1,
+      "isSharedCombo": false,
+      "priceStatus": "verified_exact",
+      "priceNote": "Giá niêm yết theo thực đơn khảo sát thực tế",
+      "status": "approved",
+      "verificationSource": "Google Sheet 2026",
+      "verifiedAt": "2026-11-11",
+      "imageUrl": "/images/restaurants/REST_21/xiu_mai.jpg",
+      "imageTitle": "xíu mại"
     }
   ],
   "specialties": [
@@ -4239,6 +5615,19 @@
       ],
       "flavorProfile": "Chua dịu, ngọt thanh tự nhiên, giòn mát, không ngấy",
       "referencePriceRange": "170.000đ – 320.000đ / đĩa (dùng cho 2–4 người)",
+      "imageUrl": "/images/restaurants/REST_18/goi_buoi.jpg",
+      "photos": [
+        {
+          "url": "/images/restaurants/REST_18/goi_buoi.jpg",
+          "title": "Gỏi Bưởi Tân Triều Chính Gốc",
+          "sub": "Tép bưởi đường lá cam trộn tôm sông"
+        },
+        {
+          "url": "/images/restaurants/REST_18/ga_ta_tron_goi_ruou_buoi.jpg",
+          "title": "Gà Ta Trộn Gỏi Bưởi",
+          "sub": "Đặc sản phục vụ tại Làng Bưởi Năm Huệ"
+        }
+      ],
       "sources": [
         "Cổng thông tin điện tử tỉnh Đồng Nai – Chuyên mục Văn hóa & Du lịch sinh thái Tân Triều",
         "Khảo sát thực đơn thực tế tại Làng bưởi Năm Huệ Tân Triều (133/17 Hương Lộ 9)"
@@ -4263,9 +5652,22 @@
       ],
       "flavorProfile": "Thơm nồng tinh dầu bưởi, thịt gà mềm ngọt đậm đà",
       "referencePriceRange": "250.000đ – 330.000đ / con hoặc phần",
+      "imageUrl": "/images/restaurants/REST_18/ga_hap_trai_buoi_chao.jpg",
+      "photos": [
+        {
+          "url": "/images/restaurants/REST_18/ga_hap_trai_buoi_chao.jpg",
+          "title": "Gà Hấp Trái Bưởi Tân Triều",
+          "sub": "Thịt gà thấm tinh dầu vỏ bưởi thơm ngọt tự nhiên"
+        },
+        {
+          "url": "/images/restaurants/REST_18/ga_hap_la_buoi.jpg",
+          "title": "Gà Hấp Lá Bưởi Non",
+          "sub": "Hương vị đồng quê cù lao Tân Triều"
+        }
+      ],
       "sources": [
         "Cẩm nang Du lịch Đồng Nai – Ẩm thực cù lao Tân Triều",
-        "Khảo sát thực đơn thực tế tại Vườn Bưởi Tân Triều Tư Trung (26/4 KP Tân Triều) & Làng bưởi Năm Huệ"
+        "Khảo sát thực đơn thực tế tại Vườn Bưởi Tân Triều Tư Trung & Làng bưởi Năm Huệ"
       ],
       "linkedRestaurantIds": [
         "REST_17",
@@ -4287,8 +5689,21 @@
       ],
       "flavorProfile": "Chua cay thanh mát, đậm vị ngọt tự nhiên từ tôm",
       "referencePriceRange": "Chạo tôm 27.000đ/cây; Lẩu tôm 300.000đ – 500.000đ/nồi (3–5 người)",
+      "imageUrl": "/images/restaurants/REST_11/lau_tom.jpg",
+      "photos": [
+        {
+          "url": "/images/restaurants/REST_11/lau_tom.jpg",
+          "title": "Lẩu Tôm Sông Biên Hòa (5 Ri)",
+          "sub": "Tôm sông ngọt lịm nấu cùng nước dùng chua thanh"
+        },
+        {
+          "url": "/images/restaurants/REST_11/chao_tom.jpg",
+          "title": "Chạo Tôm Nướng Mía Bánh Hỏi",
+          "sub": "Chạo tôm quết nướng vàng thơm lừng"
+        }
+      ],
       "sources": [
-        "Khảo sát thực đơn thực tế tại quán Lẩu Tôm 5 Ri (487/20/3B Cách Mạng Tháng 8, Trấn Biên, Đồng Nai)"
+        "Khảo sát thực đơn thực tế tại quán Lẩu Tôm 5 Ri (487/20/3B Cách Mạng Tháng 8, Trấn Biên)"
       ],
       "linkedRestaurantIds": [
         "REST_11"
@@ -4300,7 +5715,7 @@
       "name": "Chả Lụi Bửu Long & Gỏi Cá Tân Mai",
       "classification": "Món ăn địa phương phổ biến tại Biên Hòa – Đồng Nai",
       "originArea": "Phường Bửu Long & Phường Tam Hiệp, TP. Biên Hòa, Đồng Nai",
-      "summary": "Những món ăn gắn liền với đời sống học sinh, sinh viên và gia đình tại Biên Hòa: từ chả lụi nướng than hồng giá bình dân 20.000đ ở Bửu Long đến món gỏi cá truyền thống khu vực Tân Mai – Tam Hiệp.",
+      "summary": "Những món ăn gắn liền với đời sống học sinh, sinh viên và gia đình tại Biên Hòa: từ chả lụi nướng than hồng giá bình dân 30.000đ ở Bửu Long đến món gỏi cá truyền thống khu vực Tân Mai – Tam Hiệp.",
       "culturalStory": "Ẩm thực Biên Hòa là nơi giao thoa của nhiều vùng miền. Các hàng chả lụi ven đường Huỳnh Văn Nghệ (khu danh thắng Bửu Long) hay các quán gỏi cá lâu năm tại Tân Mai – Tam Hiệp phản ánh sinh động nhịp sống ẩm thực từ bình dân cho sinh viên đến sum họp gia đình.",
       "ingredients": [
         "Bánh tráng cuốn tôm thịt nướng than (Chả lụi)",
@@ -4308,15 +5723,28 @@
         "Rau sống, xoài xanh, nước chấm đậu phộng cay ngọt"
       ],
       "flavorProfile": "Giòn rụm, béo bùi của nước chấm đậu phộng và thơm nồng gia vị",
-      "referencePriceRange": "20.000đ/phần (Chả lụi) – 200.000đ/phần (Gỏi cá)",
+      "referencePriceRange": "30.000đ/phần (Chả lụi) – 200.000đ/phần (Gỏi cá)",
+      "imageUrl": "/images/restaurants/REST_01/cha_lui.jpg",
+      "photos": [
+        {
+          "url": "/images/restaurants/REST_01/cha_lui.jpg",
+          "title": "Chả Lụi Nướng Than Cô Yến Bửu Long",
+          "sub": "Món ăn vặt trứ danh sinh viên Biên Hòa"
+        },
+        {
+          "url": "/images/restaurants/REST_16/goi_ca.jpg",
+          "title": "Gỏi Cá Tân Mai Kim Yến",
+          "sub": "Đặc sản cá nước ngọt gia truyền lâu năm"
+        }
+      ],
       "sources": [
-        "Khảo sát thực đơn thực tế tại Chả Lụi Cô Yến (9/8 Huỳnh Văn Nghệ, Bửu Long) và Gỏi cá Kim Yến (180 Huỳnh Văn Hớn, Tam Hiệp)"
+        "Khảo sát thực đơn thực tế tại Chả Lụi Cô Yến và Gỏi cá Kim Yến"
       ],
       "linkedRestaurantIds": [
         "REST_01",
         "REST_16"
       ],
-      "suggestedQuery": "Nhóm 3 sinh viên có 80.000 đồng muốn ăn vặt Chả lụi ở Bửu Long"
+      "suggestedQuery": "Nhóm 3 sinh viên có 90.000 đồng muốn ăn vặt Chả lụi ở Bửu Long"
     }
   ],
   "partnerSubmissions": [
