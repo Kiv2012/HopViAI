@@ -229,3 +229,4 @@ db.metadata.lastUpdated = new Date().toISOString();
 
 fs.writeFileSync(dbPath, JSON.stringify(db, null, 2), 'utf8');
 console.log(`Database successfully updated: ${db.restaurants.length} restaurants, ${db.menuItems.length} dishes.`);
+

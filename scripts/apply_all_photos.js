@@ -47,3 +47,4 @@ for (const sp of db.specialties) {
 
 fs.writeFileSync(dbPath, JSON.stringify(db, null, 2), 'utf8');
 console.log('Successfully updated database.json with Drive photos!');
+
