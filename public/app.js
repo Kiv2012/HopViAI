@@ -171,10 +171,29 @@ async function refreshAllData() {
 
 function autoResizeTextarea(el) {
   if (!el) return;
-  el.style.height = 'auto';
-  const minH = el.id === 'home-quick-input' ? 46 : 76;
-  el.style.height = `${Math.max(minH, el.scrollHeight)}px`;
+  // Đặt height tạm về 1px để trình duyệt tính đúng scrollHeight thực tế của nội dung văn bản
+  el.style.height = '1px';
+  const computed = window.getComputedStyle(el);
+  const borderTop = parseFloat(computed.borderTopWidth) || 0;
+  const borderBottom = parseFloat(computed.borderBottomWidth) || 0;
+  const minH = el.id === 'home-quick-input' ? 46 : 58;
+  const targetH = Math.max(minH, el.scrollHeight + borderTop + borderBottom);
+  el.style.height = `${targetH}px`;
+  el.style.overflowY = 'hidden';
 }
+
+// Bắt sự kiện gõ phím / xóa / dán nội dung thời gian thực cho mọi ô nhập đa dòng
+document.addEventListener('input', (e) => {
+  if (e.target && e.target.classList && e.target.classList.contains('auto-expand-textarea')) {
+    autoResizeTextarea(e.target);
+  }
+});
+
+document.addEventListener('keyup', (e) => {
+  if (e.target && e.target.classList && e.target.classList.contains('auto-expand-textarea')) {
+    autoResizeTextarea(e.target);
+  }
+});
 
 window.addEventListener('resize', () => {
   document.querySelectorAll('.auto-expand-textarea').forEach(el => autoResizeTextarea(el));
@@ -191,9 +210,9 @@ function switchView(viewName) {
     btn.classList.toggle('active', btn.dataset.view === viewName);
   });
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  requestAnimationFrame(() => {
+  setTimeout(() => {
     document.querySelectorAll('.auto-expand-textarea').forEach(el => autoResizeTextarea(el));
-  });
+  }, 40);
   if ((viewName === 'map' || viewName === 'home') && leafletMap) {
     setTimeout(() => leafletMap.invalidateSize(), 180);
   }
