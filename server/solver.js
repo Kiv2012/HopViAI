@@ -289,9 +289,10 @@ function buildPlansForRestaurant(restaurant, dishes, requirements, enforceBudget
  * 1. Phương án thỏa mãn sở thích tất cả thành viên (allPreferencesSatisfied)
  * 2. Điểm phù hợp thấp nhất trong nhóm cao hơn (minMemberScore DESC)
  * 3. Tổng điểm phù hợp của nhóm cao hơn (totalGroupScore DESC)
- * 4. Tổng chi phí thấp hơn (totalCost ASC)
+ * 4. Tối ưu sát ngân sách: Ưu tiên phương án sát với mức ngân sách yêu cầu nhất (diff to maxBudget ASC)
+ * 5. Tổng chi phí thấp hơn (totalCost ASC)
  */
-function sortPlansByMaximin(plans) {
+function sortPlansByMaximin(plans, maxBudget = 0) {
   return plans.sort((a, b) => {
     if (a.allPreferencesSatisfied !== b.allPreferencesSatisfied) {
       return a.allPreferencesSatisfied ? -1 : 1;
@@ -301,6 +302,11 @@ function sortPlansByMaximin(plans) {
     }
     if (b.totalGroupScore !== a.totalGroupScore) {
       return b.totalGroupScore - a.totalGroupScore;
+    }
+    if (maxBudget > 0) {
+      const diffA = Math.abs(maxBudget - a.totalCost);
+      const diffB = Math.abs(maxBudget - b.totalCost);
+      if (diffA !== diffB) return diffA - diffB;
     }
     return a.totalCost - b.totalCost;
   });
@@ -347,14 +353,14 @@ function solveMealRecommendations(database, requirements) {
 
     const plansForRest = buildPlansForRestaurant(rest, restDishes, requirements, true);
     // Chọn tối đa 2 phương án tốt nhất ở mỗi quán để Top 3 đa dạng hoặc so sánh trực tiếp
-    sortPlansByMaximin(plansForRest);
+    sortPlansByMaximin(plansForRest, maxBudget);
     const qualified = plansForRest.filter(p => p.allPreferencesSatisfied);
     if (qualified.length > 0) {
       allValidPlans.push(...qualified.slice(0, 2));
     }
   }
 
-  sortPlansByMaximin(allValidPlans);
+  sortPlansByMaximin(allValidPlans, maxBudget);
 
   // Loại bỏ phương án trùng lặp hoàn toàn tại cùng 1 quán
   const topPlans = [];
