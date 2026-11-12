@@ -1730,12 +1730,7 @@ function renderSolverResults(result, requirements) {
 
             <h3 style="font-size:1.15rem; margin-bottom:0.2rem;">${escapeHtml(plan.restaurant.name)}</h3>
             <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.2rem;"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg> ${escapeHtml(plan.restaurant.address)}</p>
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem;">
-              <span style="font-size:0.8rem; color:var(--text-muted);"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg> ${escapeHtml(plan.restaurant.openingHours)}</span>
-              <button class="btn btn-secondary btn-sm" style="padding:0.25rem 0.6rem; font-size:0.76rem;" onclick="routeToRestaurantById('${escapeAttr(plan.restaurant.id)}')">
-                <svg class="ic" aria-hidden="true"><use href="#i-navigation"/></svg> Dẫn đường trên Map
-              </button>
-            </div>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.8rem;"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg> ${escapeHtml(plan.restaurant.openingHours)}</p>
 
             <!-- Chỉ số công bằng nhóm Maximin -->
             <div style="background:var(--surface-alt); padding:0.65rem 0.8rem; border-radius:10px; margin-bottom:0.85rem; font-size:0.82rem;">
@@ -1799,6 +1794,14 @@ function renderSolverResults(result, requirements) {
                   <strong>+${plan.remainingBudget.toLocaleString('vi-VN')} đồng</strong>
                 </div>
               ` : ''}
+            </div>
+
+            <!-- Nút dẫn đường trên Map nổi bật dưới bảng thông tin -->
+            <div style="margin-bottom:0.85rem;">
+              <button class="btn btn-primary plan-route-btn" style="width:100%; display:flex; align-items:center; justify-content:center; gap:0.55rem; font-size:0.95rem; font-weight:700; padding:0.75rem 1rem; border-radius:12px; box-shadow:0 4px 14px rgba(21, 128, 61, 0.28); cursor:pointer;" onclick="routeToRestaurantById('${escapeAttr(plan.restaurant.id)}')">
+                <svg class="ic" style="width:18px; height:18px;" aria-hidden="true"><use href="#i-navigation"/></svg>
+                <span>Dẫn đường đến quán trên Bản đồ (Xem lộ trình) →</span>
+              </button>
             </div>
 
             <!-- Nguồn xác minh -->

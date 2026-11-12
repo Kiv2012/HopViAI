@@ -925,6 +925,27 @@ body {
   border-radius: 999px;
 }
 
+.plan-route-btn {
+  background: linear-gradient(135deg, #15803d 0%, #166534 100%);
+  color: #ffffff;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.plan-route-btn:hover {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(21, 128, 61, 0.38) !important;
+}
+
+.plan-route-btn:active {
+  transform: translateY(0);
+}
+
 /* Modal */
 .modal-backdrop {
   position: fixed;
