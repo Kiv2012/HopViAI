@@ -287,9 +287,14 @@ function runHeroSuggestedPrompt() {
 }
 
 function scrollToRestaurants() {
-  const el = document.getElementById('restaurants-section-anchor');
-  if (el) {
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const isMobile = window.innerWidth <= 768;
+  if (isMobile) {
+    switchView('map');
+  } else {
+    const el = document.getElementById('restaurants-section-anchor');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 }
 

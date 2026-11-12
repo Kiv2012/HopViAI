@@ -12,7 +12,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
   <title>HỢP VỊ AI – Hiểu đúng vị – Gợi đúng món | Ẩm thực Đồng Nai</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-  <link rel="stylesheet" href="/styles.css?v=20261112-v22" />
+  <link rel="stylesheet" href="/styles.css?v=20261112-v23" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 </head>
 <body data-role="customer">
@@ -214,33 +214,37 @@
         </div>
       </section>
 
-      <!-- Danh sách Quán ăn xác minh đặt ngay bên dưới để khách lướt chọn ngay -->
-      <div class="section-header" id="restaurants-section-anchor" style="margin-top:0.5rem;">
-        <div>
-          <h2>🏪 Quán ngon đã xác minh giá tại Biên Hòa</h2>
-          <p style="font-size:0.84rem; color:var(--text-muted);">Bấm vào từng quán để xem thực đơn hoặc bấm chỉ đường.</p>
+      <!-- Danh sách Quán ăn xác minh (Ẩn trên điện thoại để giao diện tinh gọn, chuyển qua thanh menu đáy) -->
+      <div id="home-restaurants-wrapper" class="hide-on-mobile">
+        <div class="section-header" id="restaurants-section-anchor" style="margin-top:0.5rem;">
+          <div>
+            <h2>🏪 Quán ngon đã xác minh giá tại Biên Hòa</h2>
+            <p style="font-size:0.84rem; color:var(--text-muted);">Bấm vào từng quán để xem thực đơn hoặc bấm chỉ đường.</p>
+          </div>
+          <div>
+            <select id="home-area-filter" class="form-control" style="width:auto; display:inline-block;" onchange="renderHomeRestaurants()">
+              <option value="all">📍 Tất cả khu vực (18 quán)</option>
+              <option value="Trấn Biên">Phường Trấn Biên (7 quán)</option>
+              <option value="Tam Hiệp">Phường Tam Hiệp (5 quán)</option>
+              <option value="Tân Triều">Phường Tân Triều (3 quán)</option>
+              <option value="Bửu Long">Phường Bửu Long</option>
+              <option value="Thanh Bình">Phường Thanh Bình</option>
+              <option value="Thống Nhất">Phường Thống Nhất</option>
+            </select>
+          </div>
         </div>
-        <div>
-          <select id="home-area-filter" class="form-control" style="width:auto; display:inline-block;" onchange="renderHomeRestaurants()">
-            <option value="all">📍 Tất cả khu vực (18 quán)</option>
-            <option value="Trấn Biên">Phường Trấn Biên (7 quán)</option>
-            <option value="Tam Hiệp">Phường Tam Hiệp (5 quán)</option>
-            <option value="Tân Triều">Phường Tân Triều (3 quán)</option>
-            <option value="Bửu Long">Phường Bửu Long</option>
-            <option value="Thanh Bình">Phường Thanh Bình</option>
-            <option value="Thống Nhất">Phường Thống Nhất</option>
-          </select>
-        </div>
+        <div id="home-restaurants-grid" class="grid-3"></div>
+        <div id="home-restaurants-more-wrap" style="text-align:center; margin-bottom:1.5rem;"></div>
       </div>
-      <div id="home-restaurants-grid" class="grid-3"></div>
-      <div id="home-restaurants-more-wrap" style="text-align:center; margin-bottom:1.5rem;"></div>
 
-      <!-- Đặc sản nổi bật rút gọn ở cuối trang chủ -->
-      <div class="section-header">
-        <h2>🍊 Đặc sản Đồng Nai nổi bật</h2>
-        <button class="btn btn-secondary btn-sm" onclick="switchView('explore')">Xem tất cả đặc sản →</button>
+      <!-- Đặc sản nổi bật (Ẩn trên điện thoại để giao diện tinh gọn, xem tại tab Đặc sản) -->
+      <div id="home-specialties-wrapper" class="hide-on-mobile">
+        <div class="section-header">
+          <h2>🍊 Đặc sản Đồng Nai nổi bật</h2>
+          <button class="btn btn-secondary btn-sm" onclick="switchView('explore')">Xem tất cả đặc sản →</button>
+        </div>
+        <div id="home-specialties-grid" class="grid-2" style="margin-bottom:1.5rem;"></div>
       </div>
-      <div id="home-specialties-grid" class="grid-2" style="margin-bottom:1.5rem;"></div>
     </section>
 
     <!-- 1.2. KHÁCH HÀNG - TÌM MÓN BẰNG AI (RA KẾT QUẢ NGAY BÊN DƯỚI) -->
@@ -998,6 +1002,6 @@
     </div>
   </div>
 
-  <script src="/app.js?v=20261112-v22"></script>
+  <script src="/app.js?v=20261112-v23"></script>
 </body>
 </html>
