@@ -154,8 +154,9 @@
           </div>
         </div>
 
-        <button id="user-account-btn" class="topbar-icon-btn avatar-btn" onclick="openAuthModal()" title="Đăng nhập / Đổi vai trò (Khách hàng - Chủ quán - Admin)">
+        <button id="user-account-btn" class="topbar-icon-btn avatar-btn" onclick="openAuthModal()" title="Đăng nhập / Tài khoản & Phân quyền">
           <span class="user-avatar-circle" id="user-account-avatar"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg></span>
+          <span id="user-account-label" class="hide-on-mobile" style="font-size:0.8rem; font-weight:700; margin-left:0.35rem; white-space:nowrap;">Đăng nhập</span>
         </button>
       </div>
     </div>
@@ -835,35 +836,50 @@
     </section>
   </main>
 
-  <!-- ==================== MODAL ĐĂNG NHẬP / ĐĂNG KÝ & CHUYỂN NHANH 3 GIAO DIỆN ==================== -->
+  <!-- ==================== MODAL ĐĂNG NHẬP / ĐĂNG KÝ & 3 TÀI KHOẢN PHÂN QUYỀN ==================== -->
   <div id="auth-modal" class="modal-backdrop">
-    <div class="modal-box" style="max-width:520px; max-height:92vh; overflow-y:auto;">
+    <div class="modal-box" style="max-width:540px; max-height:92vh; overflow-y:auto;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
-        <h3><svg class="ic" aria-hidden="true"><use href="#i-key"/></svg> Chuyển Vai trò & Tài khoản</h3>
+        <h3><svg class="ic" aria-hidden="true"><use href="#i-key"/></svg> Đăng nhập & Phân quyền</h3>
         <button class="btn btn-secondary btn-sm" onclick="closeAuthModal()"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
       </div>
 
-      <!-- BỘ CHUYỂN NHANH 3 GIAO DIỆN RIÊNG BIỆT (1 CHẠM) -->
+      <!-- BẢNG 3 TÀI KHOẢN MẪU THEO 3 PHÂN QUYỀN (RBAC) -->
       <div style="background:var(--surface-alt); border:1px solid var(--border); border-radius:12px; padding:0.75rem; margin-bottom:0.9rem;">
-        <div style="font-size:0.78rem; font-weight:800; color:var(--text-muted); text-transform:uppercase; margin-bottom:0.5rem;">
-          <svg class="ic" aria-hidden="true"><use href="#i-zap"/></svg> Chọn nhanh 1 trong 3 Giao diện theo Vai trò:
+        <div style="font-size:0.78rem; font-weight:800; color:var(--text-muted); text-transform:uppercase; margin-bottom:0.55rem; display:flex; justify-content:space-between; align-items:center;">
+          <span><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg> 3 Tài khoản mẫu theo 3 Phân quyền:</span>
+          <span style="font-size:0.68rem; font-weight:600; color:var(--primary);">Bắt buộc đăng nhập mật khẩu</span>
         </div>
         <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.45rem;">
-          <button type="button" id="quick-role-btn-customer" class="role-switch-card" onclick="quickDemoLogin('customer')">
-            <span style="font-size:1.35rem;"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg></span>
-            <strong style="font-size:0.8rem; color:#15803d;">Khách hàng</strong>
-            <span style="font-size:0.68rem; color:var(--text-muted);">Tìm món & Bản đồ</span>
-          </button>
-          <button type="button" id="quick-role-btn-partner" class="role-switch-card" onclick="quickDemoLogin('partner')">
-            <span style="font-size:1.35rem;"><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg></span>
-            <strong style="font-size:0.8rem; color:#1d4ed8;">Chủ quán</strong>
-            <span style="font-size:0.68rem; color:var(--text-muted);">AI Quét Menu</span>
-          </button>
-          <button type="button" id="quick-role-btn-admin" class="role-switch-card" onclick="quickDemoLogin('admin')">
-            <span style="font-size:1.35rem;"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg></span>
-            <strong style="font-size:0.8rem; color:#7e22ce;">Admin</strong>
-            <span style="font-size:0.68rem; color:var(--text-muted);">Quản trị toàn web</span>
-          </button>
+          <div class="sample-acc-card" id="sample-card-customer" onclick="fillLoginForm('customer')" title="Bấm để điền thông tin tài khoản Khách hàng">
+            <div style="display:flex; align-items:center; gap:0.25rem;">
+              <span style="color:#15803d; font-size:1.15rem;"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg></span>
+              <strong style="font-size:0.8rem; color:#15803d;">Khách hàng</strong>
+            </div>
+            <div style="font-size:0.68rem; color:var(--text); font-weight:600; margin-top:2px;">khachhang@...</div>
+            <div style="font-size:0.66rem; color:var(--text-muted);">Pass: <code>123456</code></div>
+            <button type="button" class="btn-sample-fill" style="margin-top:5px;">Điền vào form</button>
+          </div>
+
+          <div class="sample-acc-card" id="sample-card-partner" onclick="fillLoginForm('partner')" title="Bấm để điền thông tin tài khoản Chủ quán">
+            <div style="display:flex; align-items:center; gap:0.25rem;">
+              <span style="color:#1d4ed8; font-size:1.15rem;"><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg></span>
+              <strong style="font-size:0.8rem; color:#1d4ed8;">Chủ quán</strong>
+            </div>
+            <div style="font-size:0.68rem; color:var(--text); font-weight:600; margin-top:2px;">chuquan@...</div>
+            <div style="font-size:0.66rem; color:var(--text-muted);">Pass: <code>123456</code></div>
+            <button type="button" class="btn-sample-fill" style="margin-top:5px;">Điền vào form</button>
+          </div>
+
+          <div class="sample-acc-card" id="sample-card-admin" onclick="fillLoginForm('admin')" title="Bấm để điền thông tin tài khoản Quản trị viên">
+            <div style="display:flex; align-items:center; gap:0.25rem;">
+              <span style="color:#7e22ce; font-size:1.15rem;"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg></span>
+              <strong style="font-size:0.8rem; color:#7e22ce;">Admin</strong>
+            </div>
+            <div style="font-size:0.68rem; color:var(--text); font-weight:600; margin-top:2px;">admin@...</div>
+            <div style="font-size:0.66rem; color:var(--text-muted);">Pass: <code>admin123</code></div>
+            <button type="button" class="btn-sample-fill" style="margin-top:5px;">Điền vào form</button>
+          </div>
         </div>
       </div>
 

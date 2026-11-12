@@ -71,7 +71,7 @@ function applyUserRolePermissions() {
   document.body.dataset.role = activeRole;
   setTimeout(() => renderNotificationCenter(), 0);
 
-  const iconEl = document.getElementById('user-account-icon');
+  const iconEl = document.getElementById('user-account-avatar') || document.getElementById('user-account-icon');
   const labelEl = document.getElementById('user-account-label');
   const btnEl = document.getElementById('user-account-btn');
   const logoBox = document.getElementById('brand-logo-box');
@@ -90,10 +90,10 @@ function applyUserRolePermissions() {
     topPillsBar.style.display = activeRole === 'customer' ? 'flex' : 'none';
   }
 
-  // Đánh dấu nút chuyển nhanh trong Modal
+  // Đánh dấu thẻ tài khoản mẫu trong Modal
   ['customer', 'partner', 'admin'].forEach(r => {
-    const card = document.getElementById(`quick-role-btn-${r}`);
-    if (card) card.classList.toggle('active-role-card', r === activeRole);
+    const card = document.getElementById(`sample-card-${r}`) || document.getElementById(`quick-role-btn-${r}`);
+    if (card) card.classList.toggle('active-sample-card', user ? r === activeRole : false);
   });
 
   if (activeRole === 'partner') {
@@ -106,6 +106,7 @@ function applyUserRolePermissions() {
       btnEl.style.background = '#eff6ff';
       btnEl.style.color = '#1d4ed8';
       btnEl.style.borderColor = '#bfdbfe';
+      btnEl.title = `Chủ quán: ${user?.name || ''} - Nhấn để quản lý tài khoản hoặc đăng xuất`;
     }
     if (user?.restaurantName && document.getElementById('partner-name')) {
       document.getElementById('partner-name').value = user.restaurantName;
@@ -126,6 +127,7 @@ function applyUserRolePermissions() {
       btnEl.style.background = '#f3e8ff';
       btnEl.style.color = '#7e22ce';
       btnEl.style.borderColor = '#e9d5ff';
+      btnEl.title = 'Admin Toàn quyền - Nhấn để quản lý tài khoản hoặc đăng xuất';
     }
   } else {
     if (logoBox) logoBox.innerHTML = '<img src="/icons/logo.png" alt="Hợp Vị AI" class="brand-logo-img" />';
@@ -133,12 +135,13 @@ function applyUserRolePermissions() {
     if (sloganText) sloganText.textContent = 'Ẩm thực Đồng Nai';
     if (iconEl) iconEl.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>';
     if (labelEl) {
-      labelEl.textContent = user ? `Khách: ${user.name.split(' ').slice(-2).join(' ')}` : 'Khách hàng • Đổi vai trò';
+      labelEl.textContent = user ? `Khách: ${user.name.split(' ').slice(-2).join(' ')}` : 'Đăng nhập';
     }
     if (btnEl) {
-      btnEl.style.background = '#f0fdf4';
-      btnEl.style.color = '#15803d';
-      btnEl.style.borderColor = '#bbf7d0';
+      btnEl.style.background = user ? '#f0fdf4' : 'var(--surface)';
+      btnEl.style.color = user ? '#15803d' : 'var(--text)';
+      btnEl.style.borderColor = user ? '#bbf7d0' : 'var(--border)';
+      btnEl.title = user ? `Khách hàng: ${user.name} - Nhấn để đổi tài khoản hoặc đăng xuất` : 'Đăng nhập / Phân quyền tài khoản';
     }
   }
 
@@ -217,6 +220,29 @@ window.addEventListener('resize', () => {
 });
 
 function switchView(viewName) {
+  const activeUser = appState.currentUser;
+  const activeRole = activeUser?.role || 'customer';
+
+  // Chặn truy cập khu vực Chủ quán nếu chưa đăng nhập vai trò Chủ quán
+  if (viewName.startsWith('partner')) {
+    if (!activeUser || activeRole !== 'partner') {
+      showToast('⚠️ Bạn cần đăng nhập tài khoản Chủ quán để truy cập khu vực này!', 'warning');
+      openAuthModal('Vui lòng đăng nhập tài khoản Chủ quán (chuquan@hopviai.vn) để truy cập!');
+      fillLoginForm('partner');
+      return;
+    }
+  }
+
+  // Chặn truy cập khu vực Admin nếu chưa đăng nhập vai trò Admin
+  if (viewName.startsWith('admin')) {
+    if (!activeUser || activeRole !== 'admin') {
+      showToast('⚠️ Bạn cần đăng nhập tài khoản Quản trị viên để truy cập khu vực Quản trị!', 'warning');
+      openAuthModal('Vui lòng đăng nhập tài khoản Quản trị viên (admin@hopviai.vn) để truy cập!');
+      fillLoginForm('admin');
+      return;
+    }
+  }
+
   document.querySelectorAll('.view-section').forEach(sec => {
     sec.classList.toggle('active', sec.id === `view-${viewName}`);
   });
@@ -3116,16 +3142,34 @@ async function submitRegister() {
   handleAuthSuccess(res.data.user, res.data.token);
 }
 
-async function quickDemoLogin(demoRole) {
-  const res = await fetch('/api/v1/auth/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ demoRole })
-  }).then(r => r.json());
+function fillLoginForm(role) {
+  switchAuthTab('login');
+  const emailInput = document.getElementById('login-email');
+  const passInput = document.getElementById('login-password');
+  const errEl = document.getElementById('auth-error-msg');
+  if (errEl) errEl.textContent = '';
 
-  if (res.success) {
-    handleAuthSuccess(res.data.user, res.data.token);
+  ['customer', 'partner', 'admin'].forEach(r => {
+    const card = document.getElementById(`sample-card-${r}`);
+    if (card) card.classList.toggle('active-sample-card', r === role);
+  });
+
+  if (role === 'admin') {
+    if (emailInput) emailInput.value = 'admin@hopviai.vn';
+    if (passInput) passInput.value = 'admin123';
+  } else if (role === 'partner') {
+    if (emailInput) emailInput.value = 'chuquan@hopviai.vn';
+    if (passInput) passInput.value = '123456';
+  } else {
+    if (emailInput) emailInput.value = 'khachhang@hopviai.vn';
+    if (passInput) passInput.value = '123456';
   }
+  showToast(`Đã điền tài khoản mẫu [${role === 'admin' ? 'ADMIN' : role === 'partner' ? 'CHỦ QUÁN' : 'KHÁCH HÀNG'}]. Nhấn "Đăng nhập" để truy cập!`);
+  passInput?.focus();
+}
+
+async function quickDemoLogin(demoRole) {
+  fillLoginForm(demoRole);
 }
 
 async function handleAuthSuccess(user, token) {
@@ -3139,6 +3183,9 @@ async function handleAuthSuccess(user, token) {
   await refreshAllData();
   closeAuthModal();
 
+  const roleName = user.role === 'admin' ? 'Quản trị viên (Admin)' : user.role === 'partner' ? 'Chủ quán / Đối tác' : 'Khách hàng';
+  showToast(`✅ Đăng nhập thành công với vai trò: ${roleName}`);
+
   if (user.role === 'admin') {
     switchView('admin');
   } else if (user.role === 'partner') {
@@ -3149,6 +3196,7 @@ async function handleAuthSuccess(user, token) {
 }
 
 function logoutUser() {
+  const prevUser = appState.currentUser;
   appState.currentUser = null;
   try {
     localStorage.removeItem('hop_vi_ai_user');
@@ -3156,6 +3204,7 @@ function logoutUser() {
   } catch (_) {}
   applyUserRolePermissions();
   renderAuthCurrentBanner();
+  showToast(`Đã đăng xuất tài khoản ${prevUser?.name || ''}. Quay về giao diện Khách vãng lai.`);
   switchView('home');
 }
 

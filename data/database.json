@@ -5873,5 +5873,37 @@
       "detail": "Khởi tạo cơ sở dữ liệu đã xác minh từ Hợp vị AI.xlsx gồm 18 quán ăn và 130 món ăn tại Đồng Nai.",
       "timestamp": "2026-11-10T11:33:00+07:00"
     }
+  ],
+  "users": [
+    {
+      "id": "USR_ADMIN_01",
+      "name": "Ban Quản Trị Hệ Thống",
+      "email": "admin@hopviai.vn",
+      "passwordHash": "899cb07686a95dfc6de776757344882864537b3758003e05f2da7e6d4480c302",
+      "role": "admin",
+      "status": "active",
+      "createdAt": "2026-11-01T08:00:00.000Z"
+    },
+    {
+      "id": "USR_PARTNER_01",
+      "name": "Lê Quốc Huy (Chủ quán)",
+      "email": "chuquan@hopviai.vn",
+      "passwordHash": "d6ad98d80b902ab17c98435a760b518b8bcdbfeb47b3f616bddcde00480c0e94",
+      "role": "partner",
+      "restaurantName": "Bún Thái & Mì Trộn Thành Minh",
+      "restaurantAddress": "129 Hưng Đạo Vương, Phường Trấn Biên, Biên Hòa, Đồng Nai",
+      "restaurantArea": "Trấn Biên",
+      "status": "active",
+      "createdAt": "2026-11-02T09:00:00.000Z"
+    },
+    {
+      "id": "USR_CUSTOMER_01",
+      "name": "Nguyễn Minh Anh",
+      "email": "khachhang@hopviai.vn",
+      "passwordHash": "d6ad98d80b902ab17c98435a760b518b8bcdbfeb47b3f616bddcde00480c0e94",
+      "role": "customer",
+      "status": "active",
+      "createdAt": "2026-11-03T10:00:00.000Z"
+    }
   ]
 }

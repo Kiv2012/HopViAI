@@ -1952,6 +1952,53 @@ body {
 }
 
 /* Thẻ chọn nhanh 3 giao diện trong Modal */
+/* Thẻ tài khoản mẫu 3 phân quyền trong Modal */
+.sample-acc-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  padding: 0.65rem 0.35rem;
+  border-radius: 11px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  text-align: center;
+}
+
+.sample-acc-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.sample-acc-card.active-sample-card {
+  border-color: var(--primary);
+  background: #fff7ed;
+  box-shadow: 0 3px 10px rgba(194, 65, 12, 0.14);
+}
+
+.btn-sample-fill {
+  display: inline-block;
+  font-size: 0.66rem;
+  font-weight: 700;
+  padding: 0.22rem 0.45rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface-alt);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sample-acc-card:hover .btn-sample-fill {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
 .role-switch-card {
   display: flex;
   flex-direction: column;
