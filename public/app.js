@@ -127,7 +127,7 @@ function applyUserRolePermissions() {
       btnEl.style.borderColor = '#e9d5ff';
     }
   } else {
-    if (logoBox) logoBox.textContent = 'HV';
+    if (logoBox) logoBox.innerHTML = '<img src="/icons/logo.png" alt="Hợp Vị AI" class="brand-logo-img" />';
     if (titleText) titleText.textContent = 'HỢP VỊ AI';
     if (sloganText) sloganText.textContent = 'Ẩm thực Biên Hòa – Đồng Nai';
     if (iconEl) iconEl.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>';
