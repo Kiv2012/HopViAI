@@ -1754,46 +1754,135 @@ async function runSampleMenuScan(sampleKey) {
   }
 }
 
+function triggerMenuFileInput() {
+  const input = document.getElementById('menu-file-input');
+  if (input) {
+    input.value = ''; // Cho phép chọn lại cùng 1 file
+    input.click();
+  }
+}
+
+function compressAndResizeImage(file, maxDimension = 1600, quality = 0.85) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('Không thể đọc tệp ảnh từ thiết bị.'));
+    reader.onload = () => {
+      const img = new Image();
+      img.onerror = () => reject(new Error('Định dạng ảnh không được trình duyệt hỗ trợ. Vui lòng thử ảnh JPEG, PNG hoặc WebP.'));
+      img.onload = () => {
+        try {
+          let width = img.width;
+          let height = img.height;
+
+          if (width > maxDimension || height > maxDimension) {
+            if (width > height) {
+              height = Math.round((height * maxDimension) / width);
+              width = maxDimension;
+            } else {
+              width = Math.round((width * maxDimension) / height);
+              height = maxDimension;
+            }
+          }
+
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            return resolve({ dataUrl: reader.result, mimeType: file.type || 'image/jpeg' });
+          }
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, width, height);
+          ctx.drawImage(img, 0, 0, width, height);
+
+          const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
+          resolve({
+            dataUrl: compressedDataUrl,
+            mimeType: 'image/jpeg',
+            width,
+            height
+          });
+        } catch (canvasErr) {
+          resolve({ dataUrl: reader.result, mimeType: file.type || 'image/jpeg' });
+        }
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
 async function handleMenuImageUpload(event) {
   const file = event.target.files?.[0];
   if (!file) return;
 
-  if (file.size > 5 * 1024 * 1024) {
-    alert('Ảnh vượt quá giới hạn 5MB. Vui lòng chọn ảnh nhỏ hơn.');
-    return;
+  const previewBox = document.getElementById('menu-source-preview');
+  const metaBox = document.getElementById('scan-ai-meta');
+
+  if (metaBox) {
+    metaBox.innerHTML = '⏳ <em>Đang nén & tối ưu hóa ảnh thực đơn...</em>';
   }
 
-  const reader = new FileReader();
-  reader.onload = async () => {
-    const dataUrl = reader.result;
-    const previewBox = document.getElementById('menu-source-preview');
-    previewBox.innerHTML = `<img src="${dataUrl}" alt="Ảnh thực đơn tải lên" style="max-width:100%; max-height:380px; border-radius:10px; display:block; margin:0 auto;" />`;
+  try {
+    const { dataUrl, mimeType } = await compressAndResizeImage(file, 1600, 0.85);
 
-    document.getElementById('scan-ai-meta').textContent = '⏳ Gemini 2.5 Flash Vision đang đọc ảnh thực đơn...';
+    if (previewBox) {
+      previewBox.innerHTML = `
+        <div style="text-align:center;">
+          <img src="${dataUrl}" alt="Ảnh thực đơn tải lên" style="max-width:100%; max-height:380px; border-radius:10px; display:block; margin:0 auto; object-fit:contain; box-shadow:0 3px 12px rgba(0,0,0,0.12);" />
+          <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.4rem;">📷 Ảnh thực tế từ thiết bị của quán (${(file.size / 1024).toFixed(0)} KB gốc ➔ nén nhẹ tối ưu OCR)</div>
+        </div>
+      `;
+    }
 
-    const res = await fetch('/api/v1/partner/scan-menu', {
+    if (metaBox) {
+      metaBox.innerHTML = '⏳ <strong>AI Vision đang nhận diện và bóc tách thực đơn...</strong>';
+    }
+
+    const response = await fetch('/api/v1/partner/scan-menu', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         imageBase64: dataUrl,
-        mimeType: file.type
+        mimeType: mimeType
       })
-    }).then(r => r.json());
+    });
 
-    if (res.success) {
+    if (!response.ok) {
+      const errText = await response.text();
+      let errJson = {};
+      try { errJson = JSON.parse(errText); } catch (e) {}
+      throw new Error(errJson.error?.message || `Lỗi máy chủ (${response.status})`);
+    }
+
+    const res = await response.json();
+
+    if (res.success && res.data) {
       appState.scanDraftItems = res.data.items || [];
       if (res.data.detectedRestaurantName) {
-        document.getElementById('partner-name').value = res.data.detectedRestaurantName;
+        const partnerNameInput = document.getElementById('partner-name');
+        if (partnerNameInput) partnerNameInput.value = res.data.detectedRestaurantName;
       }
-      document.getElementById('scan-ai-meta').textContent =
-        `✅ Đã trích xuất ${appState.scanDraftItems.length} món • ${res.data.aiMeta?.provider} (${res.data.aiMeta?.latencyMs}ms)`;
+      if (metaBox) {
+        const providerName = res.data.aiMeta?.provider || 'Gemini Vision';
+        const latency = res.data.aiMeta?.latencyMs || 0;
+        metaBox.innerHTML = `✅ <strong>Đã trích xuất ${appState.scanDraftItems.length} món</strong> • ${escapeHtml(providerName)} (${latency}ms)`;
+      }
       renderScanDraftTable();
       await refreshAllData();
+      showNotificationToast(`Đã nhận diện thành công ${appState.scanDraftItems.length} món ăn từ ảnh thực đơn!`);
     } else {
-      alert(res.error?.message || 'Lỗi quét ảnh thực đơn');
+      throw new Error(res.error?.message || 'Không thể trích xuất món ăn từ hình ảnh.');
     }
-  };
-  reader.readAsDataURL(file);
+  } catch (err) {
+    console.error('Lỗi quét ảnh thực đơn:', err);
+    if (metaBox) {
+      metaBox.innerHTML = `<span style="color:var(--danger); font-weight:700;">⚠️ ${escapeHtml(err.message)}</span>`;
+    }
+    alert('Không thể quét ảnh thực đơn: ' + (err.message || 'Lỗi không xác định'));
+  } finally {
+    if (event.target) event.target.value = '';
+  }
 }
 
 function renderSampleMenuImagePreview(title, items) {

@@ -69,6 +69,26 @@ function getActiveApiKey() {
   return runtimeApiKey || process.env.GEMINI_API_KEY || '';
 }
 
+function safeParseJson(rawText) {
+  if (!rawText || typeof rawText !== 'string') return null;
+  let cleaned = rawText.trim();
+  cleaned = cleaned.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
+  try {
+    return JSON.parse(cleaned);
+  } catch (e) {
+    const start = cleaned.indexOf('{');
+    const end = cleaned.lastIndexOf('}');
+    if (start !== -1 && end !== -1 && end > start) {
+      try {
+        return JSON.parse(cleaned.slice(start, end + 1));
+      } catch (err2) {
+        return null;
+      }
+    }
+    return null;
+  }
+}
+
 /**
  * Gọi Gemini REST API với Narrow Retry (chỉ retry khi 429 hoặc 503)
  */
@@ -399,7 +419,7 @@ Tuyệt đối chỉ trả về JSON hợp lệ, không tự bịa tên quán ho
       'analyze_requirement'
     );
 
-    const parsed = JSON.parse(text);
+    const parsed = safeParseJson(text) || fallbackResult;
     const partySize = Math.max(1, Math.min(6, Number(parsed.partySize) || fallbackResult.partySize));
     const maxBudget = Number(parsed.maxBudget) >= 0 ? Number(parsed.maxBudget) : fallbackResult.maxBudget;
     const area = parsed.area || fallbackResult.area;
@@ -500,6 +520,7 @@ Trả về JSON theo cấu trúc:
 }`;
 
       const cleanBase64 = imageBase64.replace(/^data:image\/[a-zA-Z0-9+.-]+;base64,/, '');
+      const cleanMime = (mimeType === 'image/jpg' || !mimeType) ? 'image/jpeg' : mimeType;
       const { text, model } = await callGeminiApi(
         [
           {
@@ -508,7 +529,7 @@ Trả về JSON theo cấu trúc:
               { text: visionPrompt },
               {
                 inlineData: {
-                  mimeType: mimeType || 'image/png',
+                  mimeType: cleanMime,
                   data: cleanBase64
                 }
               }
@@ -519,7 +540,10 @@ Trả về JSON theo cấu trúc:
         'ai_scan_menu_vision'
       );
 
-      const parsed = JSON.parse(text);
+      const parsed = safeParseJson(text);
+      if (!parsed || !Array.isArray(parsed.items) || parsed.items.length === 0) {
+        throw new Error('NO_ITEMS_DETECTED_IN_IMAGE');
+      }
       const items = (parsed.items || []).map((item, idx) => ({
         tempId: `SCAN_${Date.now()}_${idx + 1}`,
         name: item.name || `Món chưa rõ tên #${idx + 1}`,

@@ -297,22 +297,24 @@ async function handleApiRequest(req, res, parsedUrl) {
     // 6. POST /api/v1/partner/scan-menu (AI Scan Menu từ ảnh)
     if (method === 'POST' && pathname === '/api/v1/partner/scan-menu') {
       const body = await parseJsonBody(req);
-      const { imageBase64, mimeType, sampleKey } = body;
+      const { imageBase64, sampleKey } = body;
+      let mimeType = (body.mimeType || 'image/jpeg').toLowerCase();
+      if (mimeType === 'image/jpg') mimeType = 'image/jpeg';
 
       if (imageBase64) {
-        const allowedMime = ['image/jpeg', 'image/png', 'image/webp'];
-        if (mimeType && !allowedMime.includes(mimeType)) {
+        const allowedMime = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/bmp', 'image/heic', 'image/heif'];
+        if (mimeType && !allowedMime.includes(mimeType) && !mimeType.startsWith('image/')) {
           return sendJson(res, 400, {
             success: false,
-            error: { code: 'invalid_file_type', message: 'Chỉ chấp nhận ảnh thực đơn định dạng JPEG, PNG hoặc WEBP.' }
+            error: { code: 'invalid_file_type', message: 'Chỉ chấp nhận ảnh thực đơn định dạng ảnh hợp lệ (JPEG, PNG, WEBP).' }
           });
         }
-        // Kiểm tra dung lượng <= 5MB theo chuẩn security-review
+        // Kiểm tra dung lượng an toàn (10MB)
         const approxBytes = (imageBase64.length * 3) / 4;
-        if (approxBytes > 5 * 1024 * 1024) {
+        if (approxBytes > 10 * 1024 * 1024) {
           return sendJson(res, 400, {
             success: false,
-            error: { code: 'file_too_large', message: 'Kích thước ảnh vượt quá giới hạn 5MB.' }
+            error: { code: 'file_too_large', message: 'Kích thước ảnh vượt quá giới hạn 10MB. Vui lòng chọn ảnh nhỏ hơn.' }
           });
         }
       }
