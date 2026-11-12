@@ -26,6 +26,8 @@ if (fs.existsSync(envPath)) {
   }
 }
 
+const { buildChatKnowledge, buildSolverContext, generateSmartFallbackReply, getVietnamNow } = require('./chatContext');
+
 const DEFAULT_MODEL = process.env.GEMINI_MODEL || 'gemini-3.5-flash';
 
 // Immutable Cost Tracker theo mẫu `cost-aware-llm-pipeline`
@@ -115,7 +117,7 @@ async function callOpenAiApi(messages, generationConfig = {}, taskName = 'nlp_pa
       body: JSON.stringify({
         model,
         messages,
-        temperature: generationConfig.temperature || 0.2,
+        temperature: generationConfig.temperature ?? 0.2,
         max_tokens: generationConfig.maxOutputTokens || 1500
       })
     });
@@ -163,7 +165,7 @@ function safeParseJson(rawText) {
 /**
  * Gọi Gemini REST API với Cascading Model Fallback (tự động chuyển model khi 429/404)
  */
-async function callGeminiApi(contents, generationConfig = {}, taskName = 'nlp_parse') {
+async function callGeminiApi(contents, generationConfig = {}, taskName = 'nlp_parse', systemInstruction = '') {
   const apiKey = getActiveApiKey();
   if (!apiKey) {
     throw new Error('NO_API_KEY');
@@ -192,6 +194,7 @@ async function callGeminiApi(contents, generationConfig = {}, taskName = 'nlp_pa
         headers: { 'Content-Type': 'application/json' },
         signal: controller.signal,
         body: JSON.stringify({
+          ...(systemInstruction ? { systemInstruction: { parts: [{ text: systemInstruction }] } } : {}),
           contents,
           generationConfig: {
             temperature: 0.2,
@@ -740,127 +743,75 @@ Trả về JSON theo cấu trúc:
   };
 }
 
-function buildChatKnowledge(db) {
-  if (!db) return '';
-  const rests = (db.restaurants || []).filter(r => r.status === 'approved').map(r => {
-    const dishes = (db.menuItems || []).filter(m => m.restaurantId === r.id && m.status === 'approved');
-    const dishSample = dishes.slice(0, 6).map(d => `${d.name} (${(d.price || 0).toLocaleString('vi-VN')}đ)`).join(', ');
-    return `• ${r.name} (Phường ${r.area}, Đ/c: ${r.address} | Giờ: ${r.openingHours}): ${dishSample || 'Đặc sản đa dạng'}`;
-  }).join('\n');
-
-  const specs = (db.specialties || []).map(s => `• Đặc sản ${s.name}: ${s.description} (Quán tiêu biểu: ${s.typicalRestaurant || 'Biên Hòa'})`).join('\n');
-
-  return `\n\n--- DỮ LIỆU ĐÃ XÁC MINH TẠI BIÊN HÒA, ĐỒNG NAI ---\nDANH SÁCH 21 QUÁN ĂN VÀ MÓN ĂN THỰC TẾ:\n${rests}\n\nĐẶC SẢN NỔI BẬT ĐỒNG NAI:\n${specs}\n--- HẾT DỮ LIỆU ---`;
-}
-
-function generateFallbackChatReply(message, db) {
-  const q = (message || '').toLowerCase();
-  
-  if (q.includes('bưởi') || q.includes('tân triều')) {
-    return '🍊 **Đặc sản Bưởi Tân Triều** là niềm tự hào của Đồng Nai! Bạn có thể ghé **Khu Du Lịch Làng Bưởi Năm Huệ** (xã Tân Bình, Vĩnh Cửu) để thưởng thức: Gỏi bưởi tôm thịt (~170k/đĩa), Gà hấp trái bưởi (~250k/con), Nem bưởi và rượu bưởi trứ danh nhé!';
-  }
-  if (q.includes('gỏi cá') || q.includes('tân mai')) {
-    return '🐟 **Gỏi cá Biên Hòa** nức tiếng dọc làng bè Tân Mai (sông Đồng Nai)! Bạn nên ghé **Quán Gỏi Cá Tân Mai** (Đường Huỳnh Văn Hớn, P. Tân Mai). Món ăn kèm hơn 20 loại rau rừng, nước sốt chấm sền sệt béo bùi chuẩn vị xứ Trấn Biên!';
-  }
-  if (q.includes('lẩu tôm') || q.includes('năm ri') || q.includes('5 ri')) {
-    return '🦐 **Lẩu Tôm Năm Ri Biên Hòa** (20/1 CMT8, P. Hòa Bình) là điểm đến không thể bỏ qua! Nước lẩu chua ngọt đậm đà, tôm càng xanh tươi rói, giá từ 250k - 400k/nồi cho nhóm 3-4 người ăn no nê!';
-  }
-  if (q.includes('chả lụi')) {
-    return '🌯 **Chả Lụi Biên Hòa** ngon nhất ở **Chả Lụi Cô Yến** (9/8 Huỳnh Văn Nghệ, P. Bửu Long) hoặc khu Trấn Biên. Miếng chả lụi giòn rụm, cuốn rau sống, xoài chua chấm tương đậu phộng cay ngọt chỉ ~25k - 35k/phần!';
-  }
-  if (q.includes('chay')) {
-    return '🥗 Về ẩm thực chay, bạn có thể ghé **Cơm Chay Vị Lai** (Trấn Biên) hoặc **Quán Chay Bửu Long**. Món ăn thanh tịnh, giá chỉ từ 25k - 45k/món.';
-  }
-
-  return `Chào bạn! Mình là Hợp Vị AI – Trợ lý ẩm thực Biên Hòa, Đồng Nai:
-• 📍 **21 quán ăn thực tế** tại các phường: Trấn Biên, Tam Hiệp, Bửu Long, Thanh Bình, Thống Nhất...
-• 🍜 **Món ngon nổi tiếng**: Lẩu tôm Năm Ri, Gỏi cá Biên Hòa, Bưởi Tân Triều, Chả lụi Cô Yến, Bún bò Trấn Biên...
-• 👥 **Tư vấn combo theo nhóm**: Bạn có thể cho mình biết **số người, ngân sách và khu vực** mong muốn, mình sẽ gợi ý quán vừa vặn túi tiền nhất!`;
-}
-
 /**
- * NĂNG LỰC AI 3: HỘI THOẠI TRỰC TIẾP VỚI HỢP VỊ AI (GEMINI CONVERSATIONAL CHAT)
+ * NĂNG LỰC AI 3: HỘI THOẠI TRỰC TIẾP VỚI HỢP VỊ AI
+ * - AI nhận toàn bộ thực đơn đã xác minh + trạng thái mở cửa theo giờ Việt Nam (chatContext.js)
+ * - Nếu người dùng nêu ngân sách: chạy trước bộ giải tối ưu, AI chỉ trình bày con số đã tính đúng
+ * - Không gọi được AI: trả lời dự phòng bằng dữ liệu thật (không dùng câu soạn sẵn)
  */
+const CHAT_GREETING = 'Chào bạn! Mình là Hợp Vị AI – trợ lý ẩm thực Đồng Nai. Bạn muốn ăn gì, đi mấy người và ngân sách khoảng bao nhiêu?';
+
+function buildChatSystemInstruction(db, solverCtx) {
+  const now = getVietnamNow();
+  return `Bạn là "Hợp Vị AI" – trợ lý ẩm thực địa phương tại Biên Hòa, Đồng Nai: thân thiện, sành ăn, nói ngắn gọn và chính xác.
+Xưng "mình", gọi người dùng là "bạn". Trả lời bằng tiếng Việt (trừ khi người dùng viết ngôn ngữ khác).
+
+${buildChatKnowledge(db, now)}
+${solverCtx ? `\n${solverCtx.text}\n` : ''}
+QUY TẮC BẮT BUỘC:
+1. Chỉ gợi ý quán, món và giá có trong DỮ LIỆU ĐÃ XÁC MINH. Không bịa món, giá, địa chỉ. Câu hỏi ngoài dữ liệu thì nói rõ là chưa có thông tin.
+2. Luôn viết ĐÚNG NGUYÊN VĂN tên quán như trong dữ liệu (dòng bắt đầu bằng ###) để ứng dụng gắn nút chỉ đường.
+3. Ngân sách:
+   - Nếu có KẾT QUẢ BỘ GIẢI: dùng đúng các phương án và tổng tiền trong đó, không tự cộng lại, không đổi món.
+   - Không bao giờ đề xuất combo vượt ngân sách. Nếu không có phương án hợp lệ, nói rõ và gợi ý mức ngân sách tối thiểu.
+   - Món có giá theo khoảng (ví dụ lẩu theo cỡ): nói rõ giá có thể thay đổi.
+4. Giờ mở cửa: ưu tiên quán ĐANG MỞ. Nếu gợi ý quán đang đóng, ghi rõ giờ mở lại.
+5. Khẩu vị: món gắn nhãn [cay] cho người thích cay, [chay] cho người ăn chay (bắt buộc), [đặc sản Đồng Nai] khi hỏi đặc sản.
+6. Thiếu thông tin quan trọng (số người, ngân sách) thì vẫn gợi ý trước 2-3 lựa chọn phù hợp, rồi hỏi lại tối đa 1 câu ngắn ở cuối.
+7. Trình bày gọn cho điện thoại (tối đa khoảng 180 chữ trừ khi người dùng hỏi chi tiết):
+   - Mỗi quán là một tiêu đề "### <số>. <Tên quán> (P. <phường>)"
+   - Món dạng "- Tên món: giá", dòng tổng in đậm "- **Tổng: ...đ / ...đ**" khi có ngân sách
+   - Tối đa 3 quán, không lặp lại nội dung, không dùng bảng.
+8. Nhớ ngữ cảnh các tin nhắn trước (số người, ngân sách, khu vực, món đã chọn) để trả lời tiếp cho mạch lạc.
+Giờ hiện tại: ${now.label}.`;
+}
+
+function normalizeChatHistory(history) {
+  return (Array.isArray(history) ? history : [])
+    .slice(-8)
+    .map(h => ({
+      role: (h?.role === 'model' || h?.role === 'assistant') ? 'model' : 'user',
+      text: String(h?.text || h?.message || h?.content || '').trim().slice(0, 4000)
+    }))
+    .filter(h => h.text);
+}
+
 async function chatWithGemini({ message, history = [], db = null }) {
   const apiKey = getActiveApiKey();
   const startTime = Date.now();
-  const knowledge = buildChatKnowledge(db);
+  const turns = normalizeChatHistory(history);
 
-  const systemInstruction = `Bạn là "HỢP VỊ AI" - Trợ lý ẩm thực ảo thông minh, thân thiện, am hiểu sâu sắc văn hóa và ẩm thực tại TP. Biên Hòa, tỉnh Đồng Nai.
-Nhiệm vụ: Trò chuyện trực tiếp với người dùng như một người bạn địa phương sành ăn, tư vấn chọn món, gợi ý quán ngon, chia sẻ kinh nghiệm ăn uống, tính toán combo bữa ăn vừa vặn và tối ưu hóa ngân sách cho nhóm hoặc cá nhân.
+  // Chạy trước bộ giải nếu đã biết ngân sách (lấy cả từ các tin nhắn trước)
+  const solverCtx = buildSolverContext(message, turns, db, fallbackAnalyzePrompt);
+  const systemInstruction = buildChatSystemInstruction(db, solverCtx);
+  const genConfig = { temperature: 0.4, maxOutputTokens: 1500 };
 
-${knowledge}
-
-HƯỚNG DẪN TRẢ LỜI & NGUYÊN TẮC TỐI ƯU NGÂN SÁCH (RẤT QUAN TRỌNG):
-1. Giọng văn: Tự nhiên, nhiệt tình, lịch sự, xưng "Hợp Vị AI" hoặc "mình" và gọi người dùng là "bạn".
-2. Ưu tiên tuyệt đối các quán ăn, địa chỉ, món ăn và giá tiền có trong dữ liệu xác minh ở trên.
-3. NGUYÊN TẮC ĐỀ XUẤT SÁT GIÁ TIỀN (KHÔNG ĐỂ THỪA DƯ QUÁ NHIỀU TIỀN):
-   - Khi người dùng đưa ra ngân sách (ví dụ: 150k, 200k, 300k, 500k...), nhiệm vụ hàng đầu của bạn là tính toán tổ hợp món sao cho TỔNG TIỀN GẦN NHẤT HOẶC BẰNG ĐÚNG MỨC ĐÓ (đạt từ 90% - 100% ngân sách).
-   - Ví dụ: Khách yêu cầu tìm với giá 200k -> Đề xuất combo có tổng tiền từ 185.000đ - 200.000đ. Tuyệt đối KHÔNG đề xuất combo chỉ 120k-140k làm dư thừa quá nhiều tiền!
-   - Ví dụ: Khách yêu cầu tìm với giá 150k -> Đề xuất combo có tổng tiền từ 140.000đ - 150.000đ (sát nút 150k).
-   - Cách phối hợp thông minh để sát ngân sách: Kết hợp món chính + gọi thêm phần đặc biệt/tô lớn hoặc món ăn kèm (chả lụi, gỏi, bò lá lốt, nem nướng, trứng, tóp mỡ...) + đồ uống/tráng miệng đặc trưng của quán.
-   - Luôn trình bày chi tiết công thức cộng tiền:
-     • Món 1: ...đ
-     • Món 2: ...đ
-     • Món 3 (hoặc đồ uống/món ăn kèm): ...đ
-     👉 **Tổng cộng: ...đ / [Ngân sách]đ** (còn dư vài nghìn hoặc vừa khít ngân sách, ăn no nê tròn vị).
-4. Trình bày thoáng, dễ đọc trên điện thoại: dùng gạch đầu dòng, icon/emoji sinh động, in đậm tên quán và giá tiền.
-5. Luôn sẵn sàng giải đáp thêm các câu hỏi tiếp theo của người dùng.`;
-
-  const contents = [
-    {
-      role: 'user',
-      parts: [{ text: `${systemInstruction}\n\nChào bạn Hợp Vị AI, hãy sẵn sàng hỗ trợ tôi nhé!` }]
-    },
-    {
-      role: 'model',
-      parts: [{ text: 'Chào bạn! Mình là Hợp Vị AI – Trợ lý ẩm thực Biên Hòa, Đồng Nai đây. Hôm nay bạn và nhóm muốn đi ăn gì, ở khu vực nào hay có ngân sách bao nhiêu? Cứ nhắn cho mình nhé, mình sẽ gợi ý quán ngon và món chuẩn vị nhất cho bạn!' }]
-    }
-  ];
-
-  if (Array.isArray(history)) {
-    for (const h of history.slice(-8)) {
-      const msgText = String(h.text || h.message || h.content || '').trim();
-      if ((h.role === 'user' || h.role === 'model') && msgText) {
-        contents.push({
-          role: h.role,
-          parts: [{ text: msgText }]
-        });
-      }
-    }
-  }
-
-  contents.push({
-    role: 'user',
-    parts: [{ text: message }]
-  });
-
-  // 1. Thử gọi OpenAI GPT-4o-mini trước nếu có cấu hình key
+  // 1. OpenAI (nếu có key)
   if (getActiveOpenAiApiKey()) {
     try {
       const openAiMessages = [
         { role: 'system', content: systemInstruction },
-        { role: 'assistant', content: 'Chào bạn! Mình là Hợp Vị AI – Trợ lý ẩm thực Biên Hòa, Đồng Nai đây. Hôm nay bạn và nhóm muốn đi ăn gì, ở khu vực nào hay có ngân sách bao nhiêu? Cứ nhắn cho mình nhé, mình sẽ gợi ý quán ngon và món chuẩn vị nhất cho bạn!' }
+        { role: 'assistant', content: CHAT_GREETING },
+        ...turns.map(h => ({ role: h.role === 'model' ? 'assistant' : 'user', content: h.text })),
+        { role: 'user', content: message }
       ];
-      if (Array.isArray(history)) {
-        for (const h of history.slice(-8)) {
-          const msgText = String(h.text || h.message || h.content || '').trim();
-          if (msgText) {
-            openAiMessages.push({
-              role: (h.role === 'model' || h.role === 'assistant') ? 'assistant' : 'user',
-              content: msgText
-            });
-          }
-        }
-      }
-      openAiMessages.push({ role: 'user', content: message });
-
-      const openAiRes = await callOpenAiApi(openAiMessages, { temperature: 0.7, maxOutputTokens: 2500 }, 'chat_conversational');
+      const openAiRes = await callOpenAiApi(openAiMessages, genConfig, 'chat_conversational');
       if (openAiRes && openAiRes.text) {
         return {
           reply: openAiRes.text,
           model: openAiRes.model,
           usedLiveGemini: true,
+          usedSolver: Boolean(solverCtx),
           latencyMs: Date.now() - startTime
         };
       }
@@ -869,34 +820,43 @@ HƯỚNG DẪN TRẢ LỜI & NGUYÊN TẮC TỐI ƯU NGÂN SÁCH (RẤT QUAN TR�
     }
   }
 
-  // 2. Cascade sang Google Gemini
+  // 2. Google Gemini (systemInstruction riêng để model tuân thủ quy tắc tốt hơn)
   if (apiKey) {
     try {
+      const contents = [
+        { role: 'model', parts: [{ text: CHAT_GREETING }] },
+        ...turns.map(h => ({ role: h.role, parts: [{ text: h.text }] })),
+        { role: 'user', parts: [{ text: message }] }
+      ];
+      // Gemini yêu cầu lượt đầu là "user"
+      if (contents[0].role === 'model') contents.unshift({ role: 'user', parts: [{ text: 'Chào Hợp Vị AI!' }] });
       const { text, model } = await callGeminiApi(
         contents,
-        {
-          temperature: 0.7,
-          maxOutputTokens: 2500,
-          thinkingConfig: { thinkingBudget: 0 }
-        },
-        'chat_conversational'
+        { ...genConfig, thinkingConfig: { thinkingBudget: 0 } },
+        'chat_conversational',
+        systemInstruction
       );
-      return {
-        reply: text,
-        model,
-        usedLiveGemini: true,
-        latencyMs: Date.now() - startTime
-      };
+      if (text) {
+        return {
+          reply: text,
+          model,
+          usedLiveGemini: true,
+          usedSolver: Boolean(solverCtx),
+          latencyMs: Date.now() - startTime
+        };
+      }
     } catch (err) {
       console.error('Gemini chat error:', err.message);
     }
   }
 
-  const fallbackReply = generateFallbackChatReply(message, db);
+  // 3. Dự phòng bằng dữ liệu thật
+  addCostRecord({ model: 'data-driven-chat-fallback', task: 'chat_conversational', mode: 'fallback', latencyMs: Date.now() - startTime });
   return {
-    reply: fallbackReply,
-    model: 'semantic-chat-fallback',
+    reply: generateSmartFallbackReply(message, db, solverCtx),
+    model: 'data-driven-chat-fallback',
     usedLiveGemini: false,
+    usedSolver: Boolean(solverCtx),
     latencyMs: Date.now() - startTime
   };
 }
