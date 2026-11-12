@@ -24,11 +24,26 @@
   padding: 0;
 }
 
+/* Ẩn thanh cuộn xấu xí trên di động và trình duyệt nhưng vẫn cuộn trang mượt mà */
+html, body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE & Edge */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
 body {
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   background-color: var(--bg);
   color: var(--text);
   line-height: 1.55;
+  overflow-x: hidden;
 }
 
 /* Header & Navigation */
@@ -487,31 +502,37 @@ body {
 
 .hero-filters-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.45rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.4rem;
   margin-bottom: 0.95rem;
+  width: 100%;
 }
 
 .hero-filter-pill {
   position: relative;
   background: #ffffff;
   border-radius: 12px;
-  padding: 0.55rem 0.4rem;
+  padding: 0.52rem 0.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
   cursor: pointer;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .filter-pill-label {
-  font-size: 0.74rem;
+  font-size: 0.73rem;
   font-weight: 700;
   color: #292524;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   pointer-events: none;
+  text-align: center;
+  width: 100%;
+  display: block;
 }
 
 .filter-hidden-select {

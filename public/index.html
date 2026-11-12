@@ -76,25 +76,6 @@
         </button>
       </div>
     </div>
-
-    <!-- Thanh Sub-Nav dạng Pills cuộn ngang mượt mà ngay dưới Topbar (cho Khách hàng trên Mobile) -->
-    <nav id="mobile-top-pills-bar" class="mobile-top-pills">
-      <button class="top-pill-btn active" data-view="home" onclick="switchView('home')">
-        <span class="pill-icon">🍱</span> Trang chủ
-      </button>
-      <button class="top-pill-btn" data-view="recommend" onclick="switchView('recommend')">
-        <span class="pill-icon">🤖</span> Tìm món AI
-      </button>
-      <button class="top-pill-btn" data-view="map" onclick="switchView('map')">
-        <span class="pill-icon">🗺️</span> Bản đồ
-      </button>
-      <button class="top-pill-btn" data-view="explore" onclick="switchView('explore')">
-        <span class="pill-icon">🍊</span> Đặc sản
-      </button>
-      <button class="top-pill-btn" data-view="feedback" onclick="switchView('feedback')">
-        <span class="pill-icon">💬</span> Đánh giá
-      </button>
-    </nav>
   </header>
 
   <main class="container">
@@ -130,10 +111,10 @@
           </div>
         </div>
 
-        <!-- 3 Nút lọc thả xuống (Dropdowns) -->
+        <!-- 3 Nút lọc thả xuống (Dropdowns) gọn gàng, hiển thị trọn vẹn 100% -->
         <div class="hero-filters-row">
           <div class="hero-filter-pill">
-            <span class="filter-pill-label" id="label-filter-people">👥 Số lượng người ▾</span>
+            <span class="filter-pill-label" id="label-filter-people">👥 3 người ▾</span>
             <select id="hero-filter-people" class="filter-hidden-select" onchange="onHeroFilterChange('people')">
               <option value="3" selected>👥 3 người</option>
               <option value="1">👤 1 người</option>
@@ -144,7 +125,7 @@
           </div>
 
           <div class="hero-filter-pill">
-            <span class="filter-pill-label" id="label-filter-budget">🪙 Ngân sách tổng ▾</span>
+            <span class="filter-pill-label" id="label-filter-budget">🪙 150k ▾</span>
             <select id="hero-filter-budget" class="filter-hidden-select" onchange="onHeroFilterChange('budget')">
               <option value="150000" selected>🪙 150.000đ</option>
               <option value="50000">💰 50.000đ</option>
@@ -156,9 +137,9 @@
           </div>
 
           <div class="hero-filter-pill">
-            <span class="filter-pill-label" id="label-filter-area">📍 Khu vực ưu tiên ▾</span>
+            <span class="filter-pill-label" id="label-filter-area">📍 Khu vực ▾</span>
             <select id="hero-filter-area" class="filter-hidden-select" onchange="onHeroFilterChange('area')">
-              <option value="all" selected>📍 Tất cả khu vực</option>
+              <option value="all" selected>📍 Tất cả KV</option>
               <option value="Trấn Biên">📍 P. Trấn Biên</option>
               <option value="Tam Hiệp">📍 P. Tam Hiệp</option>
               <option value="Tân Triều">📍 P. Tân Triều</option>

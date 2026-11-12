@@ -236,7 +236,10 @@ function onHeroFilterChange(type) {
 
   if (lblPeople) lblPeople.textContent = `👥 ${people} người ▾`;
   if (lblBudget) lblBudget.textContent = `🪙 ${budget >= 1000 ? (budget / 1000) + 'k' : budget + 'đ'} ▾`;
-  if (lblArea) lblArea.textContent = `📍 ${area === 'all' ? 'Tất cả KV' : area} ▾`;
+  if (lblArea) {
+    const cleanArea = area === 'all' ? 'Khu vực' : (area.length > 9 ? area.replace(/^Phường\s+/, '') : area);
+    lblArea.textContent = `📍 ${cleanArea} ▾`;
+  }
 
   const quickInput = document.getElementById('home-quick-input');
   if (quickInput) {
