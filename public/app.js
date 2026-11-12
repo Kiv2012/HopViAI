@@ -2512,3 +2512,129 @@ function escapeAttr(str) {
   return escapeHtml(str).replace(/`/g, '&#96;');
 }
 
+// ==================== LIVE CHAT VỚI GEMINI ====================
+let liveChatHistory = [];
+let isChatSending = false;
+
+function toggleLiveChat() {
+  const panel = document.getElementById('live-chat-panel');
+  if (!panel) return;
+  const isOpen = panel.classList.toggle('open');
+  if (isOpen) {
+    const box = document.getElementById('chat-messages-box');
+    if (box && box.children.length === 0) {
+      appendChatMessage('model', `Xin chào bạn! Mình là **Hợp Vị AI** – trợ lý ẩm thực Đồng Nai được tích hợp trí tuệ nhân tạo Google Gemini 2.5/3.8 Flash. 🍲\n\nMình nắm rõ thực đơn, giá tiền chính xác của 21 quán ăn nổi tiếng và đặc sản Biên Hòa (Bưởi Tân Triều, Gỏi cá Biên Hòa, Lẩu tôm Năm Ri, Chả lụi...). Bạn đang muốn tìm món gì hay đi ăn nhóm mấy người nè?`);
+    }
+    const input = document.getElementById('live-chat-input');
+    if (input) {
+      setTimeout(() => input.focus(), 150);
+    }
+  }
+}
+
+function clearLiveChatHistory() {
+  liveChatHistory = [];
+  const box = document.getElementById('chat-messages-box');
+  if (box) box.innerHTML = '';
+  appendChatMessage('model', `Đã xóa lịch sử trò chuyện. Bạn muốn hỏi gì tiếp theo về ẩm thực Biên Hòa - Đồng Nai nè? ✨`);
+}
+
+function sendQuickChatSuggestion(text) {
+  const panel = document.getElementById('live-chat-panel');
+  if (panel && !panel.classList.contains('open')) {
+    toggleLiveChat();
+  }
+  sendLiveChatMessage(text);
+}
+
+function formatChatMarkdown(text) {
+  if (!text) return '';
+  let safe = escapeHtml(text);
+  // Bold **text**
+  safe = safe.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  // Bullet points
+  safe = safe.replace(/^[•\-\*]\s+(.*)$/gm, '<li>$1</li>');
+  // Line breaks to <p>
+  const paragraphs = safe.split(/\n\s*\n/).map(p => `<p>${p.replace(/\n/g, '<br/>')}</p>`).join('');
+  return paragraphs || safe;
+}
+
+function appendChatMessage(role, text) {
+  const box = document.getElementById('chat-messages-box');
+  if (!box) return;
+  const msgDiv = document.createElement('div');
+  msgDiv.className = `chat-msg ${role}`;
+  
+  const bubbleDiv = document.createElement('div');
+  bubbleDiv.className = 'chat-bubble';
+  if (role === 'user') {
+    bubbleDiv.textContent = text;
+  } else {
+    bubbleDiv.innerHTML = formatChatMarkdown(text);
+  }
+  msgDiv.appendChild(bubbleDiv);
+  box.appendChild(msgDiv);
+  box.scrollTop = box.scrollHeight;
+}
+
+async function sendLiveChatMessage(presetText) {
+  if (isChatSending) return;
+  const input = document.getElementById('live-chat-input');
+  const text = (presetText || (input ? input.value : '')).trim();
+  if (!text) return;
+
+  if (input) input.value = '';
+  appendChatMessage('user', text);
+
+  // Thêm typing indicator
+  const box = document.getElementById('chat-messages-box');
+  const typingDiv = document.createElement('div');
+  typingDiv.className = 'chat-msg model typing-indicator';
+  typingDiv.id = 'chat-typing-indicator';
+  typingDiv.innerHTML = '<div class="chat-bubble" style="color:var(--text-muted); font-style:italic;">Hợp Vị AI đang suy nghĩ... ⏳</div>';
+  if (box) {
+    box.appendChild(typingDiv);
+    box.scrollTop = box.scrollHeight;
+  }
+
+  isChatSending = true;
+  const sendBtn = document.getElementById('live-chat-send-btn');
+  if (sendBtn) sendBtn.disabled = true;
+
+  try {
+    const res = await fetch('/api/v1/ai/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: text,
+        history: liveChatHistory.slice(-10)
+      })
+    });
+    const result = await res.json();
+
+    const indicator = document.getElementById('chat-typing-indicator');
+    if (indicator) indicator.remove();
+
+    if (result.success && result.data && result.data.reply) {
+      appendChatMessage('model', result.data.reply);
+      liveChatHistory.push(
+        { role: 'user', content: text },
+        { role: 'model', content: result.data.reply }
+      );
+    } else {
+      const errMsg = (result.error && result.error.message) || 'Xin lỗi bạn, máy chủ AI đang bận một chút. Bạn thử gửi lại nhé!';
+      appendChatMessage('model', errMsg);
+    }
+  } catch (err) {
+    console.error('Chat error:', err);
+    const indicator = document.getElementById('chat-typing-indicator');
+    if (indicator) indicator.remove();
+    appendChatMessage('model', 'Đã xảy ra lỗi kết nối mạng. Vui lòng kiểm tra lại đường truyền và thử lại nhé!');
+  } finally {
+    isChatSending = false;
+    if (sendBtn) sendBtn.disabled = false;
+    if (input) input.focus();
+  }
+}
+
+

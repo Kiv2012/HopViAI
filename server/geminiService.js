@@ -7,7 +7,26 @@
  *    luôn hoạt động 100% ngay cả khi mất kết nối mạng hoặc hết hạn mức API trong lúc thuyết trình.
  */
 
-const DEFAULT_MODEL = 'gemini-2.5-flash';
+const fs = require('fs');
+const path = require('path');
+
+// Tự động nạp .env nếu có
+const envPath = path.join(__dirname, '..', '.env');
+if (fs.existsSync(envPath)) {
+  const envContent = fs.readFileSync(envPath, 'utf8');
+  for (const line of envContent.split(/\r?\n/)) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const eqIdx = trimmed.indexOf('=');
+    if (eqIdx > 0) {
+      const k = trimmed.slice(0, eqIdx).trim();
+      const v = trimmed.slice(eqIdx + 1).trim().replace(/^["']|["']$/g, '');
+      if (!process.env[k]) process.env[k] = v;
+    }
+  }
+}
+
+const DEFAULT_MODEL = process.env.GEMINI_MODEL || 'gemini-3.5-flash';
 
 // Immutable Cost Tracker theo mẫu `cost-aware-llm-pipeline`
 let costTrackerState = Object.freeze({
@@ -90,7 +109,7 @@ function safeParseJson(rawText) {
 }
 
 /**
- * Gọi Gemini REST API với Narrow Retry (chỉ retry khi 429 hoặc 503)
+ * Gọi Gemini REST API với Cascading Model Fallback (tự động chuyển model khi 429/404)
  */
 async function callGeminiApi(contents, generationConfig = {}, taskName = 'nlp_parse') {
   const apiKey = getActiveApiKey();
@@ -98,47 +117,66 @@ async function callGeminiApi(contents, generationConfig = {}, taskName = 'nlp_pa
     throw new Error('NO_API_KEY');
   }
 
-  const model = process.env.GEMINI_MODEL || DEFAULT_MODEL;
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
+  // Danh sách candidate models tối ưu theo Google AI Studio Free Tier
+  const candidateModels = [
+    process.env.GEMINI_MODEL,
+    'gemini-3.5-flash',
+    'gemini-3.6-flash',
+    'gemini-3.1-flash-lite',
+    'gemini-3-flash-preview',
+    'gemini-3.8-flash'
+  ].filter((m, idx, arr) => m && arr.indexOf(m) === idx);
 
-  const maxRetries = 2;
-  const startTime = Date.now();
+  for (const model of candidateModels) {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
+    const startTime = Date.now();
 
-  for (let attempt = 0; attempt <= maxRetries; attempt++) {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents,
-        generationConfig: {
-          temperature: 0.1,
-          ...generationConfig
-        }
-      })
-    });
+    try {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 12000);
 
-    if (response.ok) {
-      const data = await response.json();
-      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
-      const usage = data?.usageMetadata || {};
-      addCostRecord({
-        model,
-        task: taskName,
-        mode: 'gemini_api',
-        inputTokens: usage.promptTokenCount || 250,
-        outputTokens: usage.candidatesTokenCount || 150,
-        latencyMs: Date.now() - startTime
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
+        body: JSON.stringify({
+          contents,
+          generationConfig: {
+            temperature: 0.2,
+            ...generationConfig
+          }
+        })
       });
-      return { text, model, usage };
-    }
+      clearTimeout(timer);
 
-    if ((response.status === 429 || response.status >= 500) && attempt < maxRetries) {
-      await new Promise(r => setTimeout(r, 600 * Math.pow(2, attempt)));
+      if (response.ok) {
+        const data = await response.json();
+        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        const usage = data?.usageMetadata || {};
+        addCostRecord({
+          model,
+          task: taskName,
+          mode: 'gemini_api',
+          inputTokens: usage.promptTokenCount || 250,
+          outputTokens: usage.candidatesTokenCount || 150,
+          latencyMs: Date.now() - startTime
+        });
+        return { text, model, usage };
+      }
+
+      // Nếu 404 (model cũ) hoặc 429 (hết quota ngày của model), ngay lập tức chuyển sang candidate tiếp theo
+      if (response.status === 404 || response.status === 429) {
+        continue;
+      }
+
+      if (model === candidateModels[candidateModels.length - 1]) {
+        const errBody = await response.text();
+        throw new Error(`GEMINI_HTTP_${response.status}: ${errBody.slice(0, 200)}`);
+      }
+    } catch (err) {
+      if (model === candidateModels[candidateModels.length - 1]) throw err;
       continue;
     }
-
-    const errBody = await response.text();
-    throw new Error(`GEMINI_HTTP_${response.status}: ${errBody.slice(0, 200)}`);
   }
 }
 
@@ -621,9 +659,123 @@ Trả về JSON theo cấu trúc:
   };
 }
 
+function buildChatKnowledge(db) {
+  if (!db) return '';
+  const rests = (db.restaurants || []).filter(r => r.status === 'approved').map(r => {
+    const dishes = (db.menuItems || []).filter(m => m.restaurantId === r.id && m.status === 'approved');
+    const dishSample = dishes.slice(0, 6).map(d => `${d.name} (${(d.price || 0).toLocaleString('vi-VN')}đ)`).join(', ');
+    return `• ${r.name} (Phường ${r.area}, Đ/c: ${r.address} | Giờ: ${r.openingHours}): ${dishSample || 'Đặc sản đa dạng'}`;
+  }).join('\n');
+
+  const specs = (db.specialties || []).map(s => `• Đặc sản ${s.name}: ${s.description} (Quán tiêu biểu: ${s.typicalRestaurant || 'Biên Hòa'})`).join('\n');
+
+  return `\n\n--- DỮ LIỆU ĐÃ XÁC MINH TẠI BIÊN HÒA, ĐỒNG NAI ---\nDANH SÁCH 21 QUÁN ĂN VÀ MÓN ĂN THỰC TẾ:\n${rests}\n\nĐẶC SẢN NỔI BẬT ĐỒNG NAI:\n${specs}\n--- HẾT DỮ LIỆU ---`;
+}
+
+function generateFallbackChatReply(message, db) {
+  const q = (message || '').toLowerCase();
+  
+  if (q.includes('bưởi') || q.includes('tân triều')) {
+    return '🍊 **Đặc sản Bưởi Tân Triều** là niềm tự hào của Đồng Nai! Bạn có thể ghé **Khu Du Lịch Làng Bưởi Năm Huệ** (xã Tân Bình, Vĩnh Cửu) để thưởng thức: Gỏi bưởi tôm thịt (~170k/đĩa), Gà hấp trái bưởi (~250k/con), Nem bưởi và rượu bưởi trứ danh nhé!';
+  }
+  if (q.includes('gỏi cá') || q.includes('tân mai')) {
+    return '🐟 **Gỏi cá Biên Hòa** nức tiếng dọc làng bè Tân Mai (sông Đồng Nai)! Bạn nên ghé **Quán Gỏi Cá Tân Mai** (Đường Huỳnh Văn Hớn, P. Tân Mai). Món ăn kèm hơn 20 loại rau rừng, nước sốt chấm sền sệt béo bùi chuẩn vị xứ Trấn Biên!';
+  }
+  if (q.includes('lẩu tôm') || q.includes('năm ri') || q.includes('5 ri')) {
+    return '🦐 **Lẩu Tôm Năm Ri Biên Hòa** (20/1 CMT8, P. Hòa Bình) là điểm đến không thể bỏ qua! Nước lẩu chua ngọt đậm đà, tôm càng xanh tươi rói, giá từ 250k - 400k/nồi cho nhóm 3-4 người ăn no nê!';
+  }
+  if (q.includes('chả lụi')) {
+    return '🌯 **Chả Lụi Biên Hòa** ngon nhất ở **Chả Lụi Cô Yến** (9/8 Huỳnh Văn Nghệ, P. Bửu Long) hoặc khu Trấn Biên. Miếng chả lụi giòn rụm, cuốn rau sống, xoài chua chấm tương đậu phộng cay ngọt chỉ ~25k - 35k/phần!';
+  }
+  if (q.includes('chay')) {
+    return '🥗 Về ẩm thực chay, bạn có thể ghé **Cơm Chay Vị Lai** (Trấn Biên) hoặc **Quán Chay Bửu Long**. Món ăn thanh tịnh, giá chỉ từ 25k - 45k/món.';
+  }
+
+  return `Chào bạn! Mình là Hợp Vị AI – Trợ lý ẩm thực Biên Hòa, Đồng Nai:
+• 📍 **21 quán ăn thực tế** tại các phường: Trấn Biên, Tam Hiệp, Bửu Long, Thanh Bình, Thống Nhất...
+• 🍜 **Món ngon nổi tiếng**: Lẩu tôm Năm Ri, Gỏi cá Biên Hòa, Bưởi Tân Triều, Chả lụi Cô Yến, Bún bò Trấn Biên...
+• 👥 **Tư vấn combo theo nhóm**: Bạn có thể cho mình biết **số người, ngân sách và khu vực** mong muốn, mình sẽ gợi ý quán vừa vặn túi tiền nhất!`;
+}
+
+/**
+ * NĂNG LỰC AI 3: HỘI THOẠI TRỰC TIẾP VỚI HỢP VỊ AI (GEMINI CONVERSATIONAL CHAT)
+ */
+async function chatWithGemini({ message, history = [], db = null }) {
+  const apiKey = getActiveApiKey();
+  const startTime = Date.now();
+  const knowledge = buildChatKnowledge(db);
+
+  const systemInstruction = `Bạn là "HỢP VỊ AI" - Trợ lý ẩm thực ảo thông minh, thân thiện, am hiểu văn hóa và ẩm thực tại TP. Biên Hòa, tỉnh Đồng Nai.
+Nhiệm vụ: Trò chuyện trực tiếp với người dùng như một người bạn địa phương sành ăn, tư vấn chọn món, gợi ý quán ngon, chia sẻ kinh nghiệm ăn uống, tính toán combo bữa ăn vừa vặn túi tiền cho nhóm hoặc cá nhân.
+
+${knowledge}
+
+HƯỚNG DẪN TRẢ LỜI:
+1. Giọng văn: Tự nhiên, nhiệt tình, lịch sự, xưng "Hợp Vị AI" hoặc "mình" và gọi người dùng là "bạn".
+2. Ưu tiên tuyệt đối các quán ăn, địa chỉ, món ăn và giá tiền có trong dữ liệu xác minh ở trên.
+3. Khi người dùng hỏi combo ăn uống (VD: nhóm 3 người có 150k ở Trấn Biên), hãy gợi ý cụ thể quán phù hợp và liệt kê các món kèm giá sao cho tổng giá vừa vặn ngân sách.
+4. Trình bày thoáng, dễ đọc trên điện thoại: dùng gạch đầu dòng, icon/emoji sinh động, in đậm tên quán và giá tiền.
+5. Luôn sẵn sàng giải đáp thêm các câu hỏi tiếp theo của người dùng.`;
+
+  const contents = [
+    {
+      role: 'user',
+      parts: [{ text: `${systemInstruction}\n\nChào bạn Hợp Vị AI, hãy sẵn sàng hỗ trợ tôi nhé!` }]
+    },
+    {
+      role: 'model',
+      parts: [{ text: 'Chào bạn! Mình là Hợp Vị AI – Trợ lý ẩm thực Biên Hòa, Đồng Nai đây. Hôm nay bạn và nhóm muốn đi ăn gì, ở khu vực nào hay có ngân sách bao nhiêu? Cứ nhắn cho mình nhé, mình sẽ gợi ý quán ngon và món chuẩn vị nhất cho bạn!' }]
+    }
+  ];
+
+  if (Array.isArray(history)) {
+    for (const h of history.slice(-8)) {
+      const msgText = String(h.text || h.message || h.content || '').trim();
+      if ((h.role === 'user' || h.role === 'model') && msgText) {
+        contents.push({
+          role: h.role,
+          parts: [{ text: msgText }]
+        });
+      }
+    }
+  }
+
+  contents.push({
+    role: 'user',
+    parts: [{ text: message }]
+  });
+
+  if (apiKey) {
+    try {
+      const { text, model } = await callGeminiApi(
+        contents,
+        { temperature: 0.7, maxOutputTokens: 800 },
+        'chat_conversational'
+      );
+      return {
+        reply: text,
+        model,
+        usedLiveGemini: true,
+        latencyMs: Date.now() - startTime
+      };
+    } catch (err) {
+      console.error('Gemini chat error:', err.message);
+    }
+  }
+
+  const fallbackReply = generateFallbackChatReply(message, db);
+  return {
+    reply: fallbackReply,
+    model: 'semantic-chat-fallback',
+    usedLiveGemini: false,
+    latencyMs: Date.now() - startTime
+  };
+}
+
 module.exports = {
   analyzeUserRequirement,
   scanMenuFromImage,
+  chatWithGemini,
   getCostStats,
   setRuntimeApiKey,
   getActiveApiKey

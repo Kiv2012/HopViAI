@@ -12,7 +12,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
   <title>HỢP VỊ AI – Hiểu đúng vị – Gợi đúng món | Ẩm thực Đồng Nai</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-  <link rel="stylesheet" href="/styles.css?v=20261112-v16" />
+  <link rel="stylesheet" href="/styles.css?v=20261112-v17" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 </head>
 <body data-role="customer">
@@ -986,6 +986,40 @@
     </button>
   </nav>
 
-  <script src="/app.js?v=20261112-v16"></script>
+  <!-- NÚT CHAT TRỰC TIẾP HỢP VỊ AI (GEMINI) -->
+  <button id="floating-chat-btn" class="floating-chat-trigger" onclick="toggleLiveChat()" title="Chat trực tiếp với Hợp Vị AI" aria-label="Mở khung trò chuyện AI">
+    <span class="chat-dot-live"></span>
+    <span>💬 Trò chuyện AI</span>
+  </button>
+
+  <!-- KHUNG TRÒ CHUYỆN TRỰC TIẾP HỢP VỊ AI -->
+  <div id="live-chat-panel" class="live-chat-panel" role="dialog" aria-label="Khung trò chuyện Hợp Vị AI">
+    <div class="chat-panel-header">
+      <div class="chat-header-info">
+        <div class="chat-header-avatar">HV</div>
+        <div class="chat-header-text">
+          <h4>Hợp Vị AI • Trợ lý Ẩm thực</h4>
+          <span>Đồng Nai • Trực tuyến</span>
+        </div>
+      </div>
+      <div class="chat-header-actions">
+        <button class="chat-header-btn" onclick="clearLiveChatHistory()" title="Xóa lịch sử chat">🗑️</button>
+        <button class="chat-header-btn" onclick="toggleLiveChat()" title="Đóng khung chat">✖</button>
+      </div>
+    </div>
+    <div id="chat-messages-box" class="chat-messages-container"></div>
+    <div class="chat-quick-suggestions">
+      <button class="chat-chip-btn" onclick="sendQuickChatSuggestion('Nhóm 3 người có 150k ở Trấn Biên ăn gì?')">👥 Nhóm 3 người 150k</button>
+      <button class="chat-chip-btn" onclick="sendQuickChatSuggestion('Quán lẩu tôm Năm Ri ở đâu và có món gì ngon?')">🦐 Lẩu tôm Năm Ri</button>
+      <button class="chat-chip-btn" onclick="sendQuickChatSuggestion('Đặc sản Bưởi Tân Triều có những món gì?')">🍊 Bưởi Tân Triều</button>
+      <button class="chat-chip-btn" onclick="sendQuickChatSuggestion('Gỏi cá Biên Hòa ăn ở quán nào chuẩn vị nhất?')">🐟 Gỏi cá Tân Mai</button>
+    </div>
+    <div class="chat-input-bar">
+      <input type="text" id="live-chat-input" placeholder="Hỏi món ngon, quán ăn, giá tiền..." onkeydown="if(event.key==='Enter') sendLiveChatMessage()" />
+      <button class="chat-send-btn" id="live-chat-send-btn" onclick="sendLiveChatMessage()" title="Gửi tin nhắn">➤</button>
+    </div>
+  </div>
+
+  <script src="/app.js?v=20261112-v17"></script>
 </body>
 </html>

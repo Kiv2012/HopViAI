@@ -12,6 +12,7 @@ const { solveMealRecommendations } = require('./solver');
 const {
   analyzeUserRequirement,
   scanMenuFromImage,
+  chatWithGemini,
   getCostStats,
   setRuntimeApiKey,
   getActiveApiKey
@@ -292,6 +293,22 @@ async function handleApiRequest(req, res, parsedUrl) {
       const db = loadDatabase();
       const result = solveMealRecommendations(db, requirements);
       return sendJson(res, 200, { success: true, data: result });
+    }
+
+    // 5.1 POST /api/v1/ai/chat (Trò chuyện tin nhắn trực tiếp với Hợp Vị AI)
+    if (method === 'POST' && pathname === '/api/v1/ai/chat') {
+      const body = await parseJsonBody(req);
+      const message = (body.message || '').trim();
+      if (!message) {
+        return sendJson(res, 400, {
+          success: false,
+          error: { code: 'validation_error', message: 'Vui lòng nhập nội dung tin nhắn.' }
+        });
+      }
+      const history = Array.isArray(body.history) ? body.history : [];
+      const db = loadDatabase();
+      const replyData = await chatWithGemini({ message, history, db });
+      return sendJson(res, 200, { success: true, data: replyData });
     }
 
     // 6. POST /api/v1/partner/scan-menu (AI Scan Menu từ ảnh)
