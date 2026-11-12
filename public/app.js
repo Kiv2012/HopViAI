@@ -129,7 +129,7 @@ function applyUserRolePermissions() {
   } else {
     if (logoBox) logoBox.innerHTML = '<img src="/icons/logo.png" alt="Hợp Vị AI" class="brand-logo-img" />';
     if (titleText) titleText.textContent = 'HỢP VỊ AI';
-    if (sloganText) sloganText.textContent = 'Ẩm thực Biên Hòa – Đồng Nai';
+    if (sloganText) sloganText.textContent = 'Ẩm thực Đồng Nai';
     if (iconEl) iconEl.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>';
     if (labelEl) {
       labelEl.textContent = user ? `Khách: ${user.name.split(' ').slice(-2).join(' ')}` : 'Khách hàng • Đổi vai trò';
@@ -848,6 +848,30 @@ function buildGpsErrorMessage(err) {
   }
 }
 
+/* Kiểm tra trình duyệt có thể định vị không (cần HTTPS hoặc localhost); báo lý do nếu không */
+function ensureGeolocationAvailable() {
+  if (!window.isSecureContext) {
+    alert('Định vị GPS chỉ hoạt động khi trang chạy bằng HTTPS (hoặc localhost).\n\n' +
+      `Bạn đang mở trang qua địa chỉ không bảo mật (${location.origin}). Hãy dùng bản đã deploy (https://...) hoặc mở bằng http://localhost trên máy chạy server.`);
+    return false;
+  }
+  if (!('geolocation' in navigator)) {
+    alert('Trình duyệt này không hỗ trợ định vị GPS. Bạn có thể chọn điểm xuất phát có sẵn trong ô "Điểm đi".');
+    return false;
+  }
+  return true;
+}
+
+/* Lấy vị trí: ưu tiên GPS chính xác cao, hết giờ / không khả dụng thì thử lại bằng định vị mạng (Wi-Fi, IP) */
+async function getBestGpsPosition() {
+  try {
+    return await requestGpsPosition(true);
+  } catch (err) {
+    if (err?.code === 1) throw err;
+    return await requestGpsPosition(false);
+  }
+}
+
 /* Đưa toạ độ GPS vào ô "Điểm đi", vẽ chấm vị trí + vòng sai số và vẽ lại lộ trình nếu đã chọn quán */
 function applyGpsPosition(pos) {
   const { latitude: lat, longitude: lng, accuracy } = pos.coords;
@@ -899,27 +923,12 @@ function applyGpsPosition(pos) {
 async function useMyGpsLocation() {
   if (gpsRequestInFlight) return;
 
-  if (!window.isSecureContext) {
-    alert('Định vị GPS chỉ hoạt động khi trang chạy bằng HTTPS (hoặc localhost).\n\n' +
-      `Bạn đang mở trang qua địa chỉ không bảo mật (${location.origin}). Hãy dùng bản đã deploy (https://...) hoặc mở bằng http://localhost trên máy chạy server.`);
-    return;
-  }
-  if (!('geolocation' in navigator)) {
-    alert('Trình duyệt này không hỗ trợ định vị GPS. Bạn có thể chọn điểm xuất phát có sẵn trong ô "Điểm đi".');
-    return;
-  }
+  if (!ensureGeolocationAvailable()) return;
 
   gpsRequestInFlight = true;
   setGpsButtonState('loading');
   try {
-    let pos;
-    try {
-      // Ưu tiên GPS chính xác cao; nếu hết giờ / không khả dụng thì thử lại bằng định vị mạng (Wi-Fi, IP)
-      pos = await requestGpsPosition(true);
-    } catch (err) {
-      if (err?.code === 1) throw err;
-      pos = await requestGpsPosition(false);
-    }
+    const pos = await getBestGpsPosition();
     applyGpsPosition(pos);
     setGpsButtonState('ok');
   } catch (err) {
@@ -928,6 +937,55 @@ async function useMyGpsLocation() {
     alert(buildGpsErrorMessage(err));
   } finally {
     gpsRequestInFlight = false;
+  }
+}
+
+/* Nút góc dưới phải bản đồ: đưa bản đồ về vị trí hiện tại của người dùng
+   (khác nút tâm ngắm góc dưới trái là về quán đang chọn). Không đổi "Điểm đi" hay lộ trình đang vẽ. */
+let userLocationDot = null;
+let userLocationRing = null;
+let myLocationInFlight = false;
+
+function setMyLocationBtnLoading(loading) {
+  const btn = document.getElementById('btn-map-my-location');
+  if (!btn) return;
+  btn.disabled = loading;
+  btn.innerHTML = `<svg class="ic${loading ? ' ic-spin' : ''}" aria-hidden="true"><use href="#i-${loading ? 'loader' : 'locate-fixed'}"/></svg>`;
+}
+
+async function centerMapOnMyLocation() {
+  if (myLocationInFlight || !leafletMap || typeof L === 'undefined') return;
+  if (!ensureGeolocationAvailable()) return;
+
+  myLocationInFlight = true;
+  setMyLocationBtnLoading(true);
+  try {
+    const pos = await getBestGpsPosition();
+    const { latitude: lat, longitude: lng, accuracy } = pos.coords;
+
+    if (userLocationDot) leafletMap.removeLayer(userLocationDot);
+    if (userLocationRing) leafletMap.removeLayer(userLocationRing);
+    userLocationRing = L.circle([lat, lng], {
+      radius: Math.min(Math.max(accuracy || 0, 20), 3000),
+      color: '#2563eb', weight: 1, fillColor: '#3b82f6', fillOpacity: 0.14, interactive: false
+    }).addTo(leafletMap);
+    userLocationDot = L.circleMarker([lat, lng], {
+      radius: 8, color: '#ffffff', weight: 3, fillColor: '#2563eb', fillOpacity: 1
+    }).addTo(leafletMap).bindPopup('<strong>Bạn đang ở đây</strong>' + (accuracy ? `<br/>Sai số ~${Math.round(accuracy)} m` : ''));
+
+    leafletMap.invalidateSize({ pan: false });
+    leafletMap.flyTo([lat, lng], 16, { animate: true, duration: 0.6 });
+
+    const distFromCenter = haversineKm(lat, lng, BIEN_HOA_CENTER.lat, BIEN_HOA_CENTER.lng);
+    if (distFromCenter > 40) {
+      showNotificationToast(`Bạn đang cách Biên Hòa khoảng ${Math.round(distFromCenter)} km nên các quán sẽ nằm ngoài khung nhìn.`);
+    }
+  } catch (err) {
+    console.warn('Lỗi lấy vị trí hiện tại:', err);
+    alert(buildGpsErrorMessage(err));
+  } finally {
+    myLocationInFlight = false;
+    setMyLocationBtnLoading(false);
   }
 }
 

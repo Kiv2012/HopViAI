@@ -12,7 +12,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
   <title>HỢP VỊ AI – Hiểu đúng vị – Gợi đúng món | Ẩm thực Đồng Nai</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-  <link rel="stylesheet" href="/styles.css?v=20261112-v28" />
+  <link rel="stylesheet" href="/styles.css?v=20261112-v29" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 </head>
 <body data-role="customer">
@@ -43,6 +43,7 @@
     <symbol id="i-zap" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></symbol>
     <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
     <symbol id="i-locate" viewBox="0 0 24 24"><line x1="2" x2="5" y1="12" y2="12"/><line x1="19" x2="22" y1="12" y2="12"/><line x1="12" x2="12" y1="2" y2="5"/><line x1="12" x2="12" y1="19" y2="22"/><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-locate-fixed" viewBox="0 0 24 24"><line x1="2" x2="5" y1="12" y2="12"/><line x1="19" x2="22" y1="12" y2="12"/><line x1="12" x2="12" y1="2" y2="5"/><line x1="12" x2="12" y1="19" y2="22"/><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="3" fill="currentColor"/></symbol>
     <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol>
     <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/></symbol>
     <symbol id="i-navigation" viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></symbol>
@@ -101,7 +102,7 @@
           </div>
           <div>
             <div class="brand-title" id="brand-title-text">HỢP VỊ AI</div>
-            <div class="brand-slogan" id="brand-slogan-text">Ẩm thực Biên Hòa – Đồng Nai</div>
+            <div class="brand-slogan" id="brand-slogan-text">Ẩm thực Đồng Nai</div>
           </div>
         </div>
       </div>
@@ -162,7 +163,7 @@
       <!-- HERO BANNER TINH GỌN (CHÍNH XÁC THEO THIẾT KẾ MỚI) -->
       <div class="hero hero-clean-streamlined">
         <div class="hero-top-badge">
-          <svg class="ic" aria-hidden="true"><use href="#i-utensils"/></svg> Ẩm thực Biên Hòa – Đồng Nai • Ẩm thực cho mọi nhu cầu
+          <svg class="ic" aria-hidden="true"><use href="#i-utensils"/></svg> Ẩm thực Đồng Nai • Ẩm thực cho mọi nhu cầu
         </div>
         <h1 class="hero-headline">Hôm nay đi ăn gì cùng nhóm bạn?</h1>
         <p class="hero-subtext">
@@ -464,6 +465,9 @@
               <button type="button" class="dpad-btn" onclick="panMapBy(0, 180)"><svg class="ic" aria-hidden="true"><use href="#i-arrow-down"/></svg></button>
               <div></div>
             </div>
+            <button type="button" id="btn-map-my-location" class="map-my-location-btn" onclick="centerMapOnMyLocation()" title="Về vị trí hiện tại của tôi" aria-label="Về vị trí hiện tại của tôi">
+              <svg class="ic" aria-hidden="true"><use href="#i-locate-fixed"/></svg>
+            </button>
           </div>
 
           <div id="map-zone-list">
@@ -1103,6 +1107,6 @@
     </div>
   </div>
 
-  <script src="/app.js?v=20261112-v28"></script>
+  <script src="/app.js?v=20261112-v29"></script>
 </body>
 </html>

@@ -2551,3 +2551,33 @@ h2 > .ic, h3 > .ic { color: var(--primary); stroke-width: 2.1; margin-right: 0.1
   .ai-scan-line, .ai-scan-grid, .ai-scan-box, .skeleton-bar, .scan-row-enter, .scan-skeleton-row { animation: none !important; }
   .ai-scan-box { opacity: 0.6; }
 }
+
+/* ==================== NÚT "VỀ VỊ TRÍ CỦA TÔI" (GÓC DƯỚI PHẢI BẢN ĐỒ) ==================== */
+.map-my-location-btn {
+  position: absolute;
+  right: 12px;
+  bottom: 30px;
+  z-index: 500;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.96);
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.map-my-location-btn .ic { width: 22px; height: 22px; }
+.map-my-location-btn:hover { background: #eff6ff; }
+.map-my-location-btn:active { transform: scale(0.93); }
+.map-my-location-btn:disabled { cursor: progress; }
+.map-my-location-btn:focus-visible { outline: 3px solid rgba(37, 99, 235, 0.45); outline-offset: 2px; }
+
+@media (max-width: 768px) {
+  .map-my-location-btn { right: 8px; bottom: 26px; width: 40px; height: 40px; }
+  .map-my-location-btn .ic { width: 20px; height: 20px; }
+}
