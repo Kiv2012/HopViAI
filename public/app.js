@@ -84,6 +84,10 @@ function applyUserRolePermissions() {
   document.querySelectorAll('.role-mobile-nav').forEach(nav => {
     nav.style.display = nav.dataset.forRole === activeRole ? '' : 'none';
   });
+  const topPillsBar = document.getElementById('mobile-top-pills-bar');
+  if (topPillsBar) {
+    topPillsBar.style.display = activeRole === 'customer' ? 'flex' : 'none';
+  }
 
   // Đánh dấu nút chuyển nhanh trong Modal
   ['customer', 'partner', 'admin'].forEach(r => {
@@ -209,6 +213,9 @@ function switchView(viewName) {
   document.querySelectorAll('.mobile-nav-item').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.view === viewName);
   });
+  document.querySelectorAll('.top-pill-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.view === viewName);
+  });
   window.scrollTo({ top: 0, behavior: 'smooth' });
   setTimeout(() => {
     document.querySelectorAll('.auto-expand-textarea').forEach(el => autoResizeTextarea(el));
@@ -216,6 +223,62 @@ function switchView(viewName) {
   if ((viewName === 'map' || viewName === 'home') && leafletMap) {
     setTimeout(() => leafletMap.invalidateSize(), 180);
   }
+}
+
+function onHeroFilterChange(type) {
+  const people = document.getElementById('hero-filter-people')?.value || '3';
+  const budget = parseInt(document.getElementById('hero-filter-budget')?.value || '150000', 10);
+  const area = document.getElementById('hero-filter-area')?.value || 'all';
+
+  const lblPeople = document.getElementById('label-filter-people');
+  const lblBudget = document.getElementById('label-filter-budget');
+  const lblArea = document.getElementById('label-filter-area');
+
+  if (lblPeople) lblPeople.textContent = `👥 ${people} người ▾`;
+  if (lblBudget) lblBudget.textContent = `🪙 ${budget >= 1000 ? (budget / 1000) + 'k' : budget + 'đ'} ▾`;
+  if (lblArea) lblArea.textContent = `📍 ${area === 'all' ? 'Tất cả KV' : area} ▾`;
+
+  const quickInput = document.getElementById('home-quick-input');
+  if (quickInput) {
+    const areaText = area === 'all' ? 'ở Trấn Biên' : `ở ${area}`;
+    quickInput.placeholder = `Nhóm ${people} người ${areaText}, ngân sách ${budget.toLocaleString('vi-VN')}đ...`;
+  }
+}
+
+function runHeroSuggestedPrompt() {
+  const quickVal = document.getElementById('home-quick-input')?.value?.trim();
+  if (quickVal) {
+    triggerQuickRecommend();
+    return;
+  }
+  const people = document.getElementById('hero-filter-people')?.value || '3';
+  const budget = parseInt(document.getElementById('hero-filter-budget')?.value || '150000', 10);
+  const area = document.getElementById('hero-filter-area')?.value || 'all';
+
+  const areaStr = area === 'all' ? 'khu vực Trấn Biên hoặc lân cận' : `khu vực ${area}`;
+  const prompt = `Nhóm mình có ${people} người muốn ăn tại ${areaStr}, tổng ngân sách ${budget.toLocaleString('vi-VN')} đồng. Gợi ý combo món ăn phù hợp tại cùng 1 quán.`;
+
+  usePresetPrompt(prompt);
+}
+
+function scrollToRestaurants() {
+  const el = document.getElementById('restaurants-section-anchor');
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function showNotificationToast(msg) {
+  let toast = document.getElementById('global-toast-msg');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'global-toast-msg';
+    toast.className = 'global-toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg || 'Hệ thống HỢP VỊ AI đã cập nhật 21 quán ăn & 122 hình ảnh thực tế!';
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3500);
 }
 
 function scrollToSection(elementId) {
