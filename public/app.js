@@ -84,10 +84,6 @@ function applyUserRolePermissions() {
   document.querySelectorAll('.role-mobile-nav').forEach(nav => {
     nav.style.display = nav.dataset.forRole === activeRole ? '' : 'none';
   });
-  const topPillsBar = document.getElementById('mobile-top-pills-bar');
-  if (topPillsBar) {
-    topPillsBar.style.display = activeRole === 'customer' ? 'flex' : 'none';
-  }
 
   // Đánh dấu nút chuyển nhanh trong Modal
   ['customer', 'partner', 'admin'].forEach(r => {
@@ -135,9 +131,9 @@ function applyUserRolePermissions() {
       labelEl.textContent = user ? `Khách: ${user.name.split(' ').slice(-2).join(' ')}` : 'Khách hàng • Đổi vai trò';
     }
     if (btnEl) {
-      btnEl.style.background = '#f0fdf4';
-      btnEl.style.color = '#15803d';
-      btnEl.style.borderColor = '#bbf7d0';
+      btnEl.style.background = '#fff7ed';
+      btnEl.style.color = '#c2410c';
+      btnEl.style.borderColor = '#fed7aa';
     }
   }
 
@@ -213,9 +209,6 @@ function switchView(viewName) {
   document.querySelectorAll('.mobile-nav-item').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.view === viewName);
   });
-  document.querySelectorAll('.top-pill-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.view === viewName);
-  });
   window.scrollTo({ top: 0, behavior: 'smooth' });
   setTimeout(() => {
     document.querySelectorAll('.auto-expand-textarea').forEach(el => autoResizeTextarea(el));
@@ -223,65 +216,6 @@ function switchView(viewName) {
   if ((viewName === 'map' || viewName === 'home') && leafletMap) {
     setTimeout(() => leafletMap.invalidateSize(), 180);
   }
-}
-
-function onHeroFilterChange(type) {
-  const people = document.getElementById('hero-filter-people')?.value || '3';
-  const budget = parseInt(document.getElementById('hero-filter-budget')?.value || '150000', 10);
-  const area = document.getElementById('hero-filter-area')?.value || 'all';
-
-  const lblPeople = document.getElementById('label-filter-people');
-  const lblBudget = document.getElementById('label-filter-budget');
-  const lblArea = document.getElementById('label-filter-area');
-
-  if (lblPeople) lblPeople.textContent = `👥 ${people} người ▾`;
-  if (lblBudget) lblBudget.textContent = `🪙 ${budget >= 1000 ? (budget / 1000) + 'k' : budget + 'đ'} ▾`;
-  if (lblArea) {
-    const cleanArea = area === 'all' ? 'Khu vực' : (area.length > 9 ? area.replace(/^Phường\s+/, '') : area);
-    lblArea.textContent = `📍 ${cleanArea} ▾`;
-  }
-
-  const quickInput = document.getElementById('home-quick-input');
-  if (quickInput) {
-    const areaText = area === 'all' ? 'ở Trấn Biên' : `ở ${area}`;
-    quickInput.placeholder = `Nhóm ${people} người ${areaText}, ngân sách ${budget.toLocaleString('vi-VN')}đ...`;
-  }
-}
-
-function runHeroSuggestedPrompt() {
-  const quickVal = document.getElementById('home-quick-input')?.value?.trim();
-  if (quickVal) {
-    triggerQuickRecommend();
-    return;
-  }
-  const people = document.getElementById('hero-filter-people')?.value || '3';
-  const budget = parseInt(document.getElementById('hero-filter-budget')?.value || '150000', 10);
-  const area = document.getElementById('hero-filter-area')?.value || 'all';
-
-  const areaStr = area === 'all' ? 'khu vực Trấn Biên hoặc lân cận' : `khu vực ${area}`;
-  const prompt = `Nhóm mình có ${people} người muốn ăn tại ${areaStr}, tổng ngân sách ${budget.toLocaleString('vi-VN')} đồng. Gợi ý combo món ăn phù hợp tại cùng 1 quán.`;
-
-  usePresetPrompt(prompt);
-}
-
-function scrollToRestaurants() {
-  const el = document.getElementById('restaurants-section-anchor');
-  if (el) {
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-}
-
-function showNotificationToast(msg) {
-  let toast = document.getElementById('global-toast-msg');
-  if (!toast) {
-    toast = document.createElement('div');
-    toast.id = 'global-toast-msg';
-    toast.className = 'global-toast';
-    document.body.appendChild(toast);
-  }
-  toast.textContent = msg || 'Hệ thống HỢP VỊ AI đã cập nhật 21 quán ăn & 122 hình ảnh thực tế!';
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 3500);
 }
 
 function scrollToSection(elementId) {
@@ -690,13 +624,13 @@ function initOrUpdateLeafletMap() {
     });
     marker.bindPopup(`
       <div style="min-width:210px; font-family:'Segoe UI',sans-serif;">
-        <div style="font-size:0.75rem; color:#15803d; font-weight:700;">📍 Phường ${escapeHtml(r.area)}</div>
+        <div style="font-size:0.75rem; color:#c2410c; font-weight:700;">📍 Phường ${escapeHtml(r.area)}</div>
         <strong style="font-size:0.95rem;">${escapeHtml(r.name)}</strong>
         <div style="font-size:0.8rem; color:#57534e; margin:0.2rem 0;">${escapeHtml(r.address)}</div>
         <div style="font-size:0.78rem; margin-bottom:0.45rem;">🕒 ${escapeHtml(r.openingHours)} • ${(r.menu || []).length} món</div>
         <button
           onclick="routeToRestaurantById('${escapeAttr(r.id)}')"
-          style="background:#15803d; color:#fff; border:none; border-radius:6px; padding:0.35rem 0.65rem; font-size:0.78rem; font-weight:700; cursor:pointer; width:100%;"
+          style="background:#c2410c; color:#fff; border:none; border-radius:6px; padding:0.35rem 0.65rem; font-size:0.78rem; font-weight:700; cursor:pointer; width:100%;"
         >
           🧭 Vẽ đường đi tới quán này
         </button>
@@ -855,7 +789,7 @@ async function drawRouteToSelectedRestaurant() {
     if (leafletMap && typeof L !== 'undefined') {
       if (routePolyline) leafletMap.removeLayer(routePolyline);
       routePolyline = L.polyline(coords, {
-        color: '#15803d',
+        color: '#c2410c',
         weight: 6,
         opacity: 0.92,
         dashArray: isExactStreet ? null : '10, 8'
@@ -1754,135 +1688,46 @@ async function runSampleMenuScan(sampleKey) {
   }
 }
 
-function triggerMenuFileInput() {
-  const input = document.getElementById('menu-file-input');
-  if (input) {
-    input.value = ''; // Cho phép chọn lại cùng 1 file
-    input.click();
-  }
-}
-
-function compressAndResizeImage(file, maxDimension = 1600, quality = 0.85) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onerror = () => reject(new Error('Không thể đọc tệp ảnh từ thiết bị.'));
-    reader.onload = () => {
-      const img = new Image();
-      img.onerror = () => reject(new Error('Định dạng ảnh không được trình duyệt hỗ trợ. Vui lòng thử ảnh JPEG, PNG hoặc WebP.'));
-      img.onload = () => {
-        try {
-          let width = img.width;
-          let height = img.height;
-
-          if (width > maxDimension || height > maxDimension) {
-            if (width > height) {
-              height = Math.round((height * maxDimension) / width);
-              width = maxDimension;
-            } else {
-              width = Math.round((width * maxDimension) / height);
-              height = maxDimension;
-            }
-          }
-
-          const canvas = document.createElement('canvas');
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          if (!ctx) {
-            return resolve({ dataUrl: reader.result, mimeType: file.type || 'image/jpeg' });
-          }
-          ctx.fillStyle = '#ffffff';
-          ctx.fillRect(0, 0, width, height);
-          ctx.drawImage(img, 0, 0, width, height);
-
-          const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
-          resolve({
-            dataUrl: compressedDataUrl,
-            mimeType: 'image/jpeg',
-            width,
-            height
-          });
-        } catch (canvasErr) {
-          resolve({ dataUrl: reader.result, mimeType: file.type || 'image/jpeg' });
-        }
-      };
-      img.src = reader.result;
-    };
-    reader.readAsDataURL(file);
-  });
-}
-
 async function handleMenuImageUpload(event) {
   const file = event.target.files?.[0];
   if (!file) return;
 
-  const previewBox = document.getElementById('menu-source-preview');
-  const metaBox = document.getElementById('scan-ai-meta');
-
-  if (metaBox) {
-    metaBox.innerHTML = '⏳ <em>Đang nén & tối ưu hóa ảnh thực đơn...</em>';
+  if (file.size > 5 * 1024 * 1024) {
+    alert('Ảnh vượt quá giới hạn 5MB. Vui lòng chọn ảnh nhỏ hơn.');
+    return;
   }
 
-  try {
-    const { dataUrl, mimeType } = await compressAndResizeImage(file, 1600, 0.85);
+  const reader = new FileReader();
+  reader.onload = async () => {
+    const dataUrl = reader.result;
+    const previewBox = document.getElementById('menu-source-preview');
+    previewBox.innerHTML = `<img src="${dataUrl}" alt="Ảnh thực đơn tải lên" style="max-width:100%; max-height:380px; border-radius:10px; display:block; margin:0 auto;" />`;
 
-    if (previewBox) {
-      previewBox.innerHTML = `
-        <div style="text-align:center;">
-          <img src="${dataUrl}" alt="Ảnh thực đơn tải lên" style="max-width:100%; max-height:380px; border-radius:10px; display:block; margin:0 auto; object-fit:contain; box-shadow:0 3px 12px rgba(0,0,0,0.12);" />
-          <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.4rem;">📷 Ảnh thực tế từ thiết bị của quán (${(file.size / 1024).toFixed(0)} KB gốc ➔ nén nhẹ tối ưu OCR)</div>
-        </div>
-      `;
-    }
+    document.getElementById('scan-ai-meta').textContent = '⏳ Gemini 2.5 Flash Vision đang đọc ảnh thực đơn...';
 
-    if (metaBox) {
-      metaBox.innerHTML = '⏳ <strong>AI Vision đang nhận diện và bóc tách thực đơn...</strong>';
-    }
-
-    const response = await fetch('/api/v1/partner/scan-menu', {
+    const res = await fetch('/api/v1/partner/scan-menu', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         imageBase64: dataUrl,
-        mimeType: mimeType
+        mimeType: file.type
       })
-    });
+    }).then(r => r.json());
 
-    if (!response.ok) {
-      const errText = await response.text();
-      let errJson = {};
-      try { errJson = JSON.parse(errText); } catch (e) {}
-      throw new Error(errJson.error?.message || `Lỗi máy chủ (${response.status})`);
-    }
-
-    const res = await response.json();
-
-    if (res.success && res.data) {
+    if (res.success) {
       appState.scanDraftItems = res.data.items || [];
       if (res.data.detectedRestaurantName) {
-        const partnerNameInput = document.getElementById('partner-name');
-        if (partnerNameInput) partnerNameInput.value = res.data.detectedRestaurantName;
+        document.getElementById('partner-name').value = res.data.detectedRestaurantName;
       }
-      if (metaBox) {
-        const providerName = res.data.aiMeta?.provider || 'Gemini Vision';
-        const latency = res.data.aiMeta?.latencyMs || 0;
-        metaBox.innerHTML = `✅ <strong>Đã trích xuất ${appState.scanDraftItems.length} món</strong> • ${escapeHtml(providerName)} (${latency}ms)`;
-      }
+      document.getElementById('scan-ai-meta').textContent =
+        `✅ Đã trích xuất ${appState.scanDraftItems.length} món • ${res.data.aiMeta?.provider} (${res.data.aiMeta?.latencyMs}ms)`;
       renderScanDraftTable();
       await refreshAllData();
-      showNotificationToast(`Đã nhận diện thành công ${appState.scanDraftItems.length} món ăn từ ảnh thực đơn!`);
     } else {
-      throw new Error(res.error?.message || 'Không thể trích xuất món ăn từ hình ảnh.');
+      alert(res.error?.message || 'Lỗi quét ảnh thực đơn');
     }
-  } catch (err) {
-    console.error('Lỗi quét ảnh thực đơn:', err);
-    if (metaBox) {
-      metaBox.innerHTML = `<span style="color:var(--danger); font-weight:700;">⚠️ ${escapeHtml(err.message)}</span>`;
-    }
-    alert('Không thể quét ảnh thực đơn: ' + (err.message || 'Lỗi không xác định'));
-  } finally {
-    if (event.target) event.target.value = '';
-  }
+  };
+  reader.readAsDataURL(file);
 }
 
 function renderSampleMenuImagePreview(title, items) {
@@ -1890,13 +1735,13 @@ function renderSampleMenuImagePreview(title, items) {
   box.innerHTML = `
     <div style="background:#fffbeb; border:2px solid #d97706; border-radius:10px; padding:1.1rem; font-family:'Courier New', monospace;">
       <div style="text-align:center; border-bottom:2px dashed #b45309; padding-bottom:0.5rem; margin-bottom:0.75rem;">
-        <div style="font-weight:800; font-size:1rem; color:#15803d;">${escapeHtml(title)}</div>
-        <div style="font-size:0.76rem; color:#166534;">(Ảnh thực đơn nguồn dùng để đối chiếu trực tiếp với bảng trích xuất bên phải)</div>
+        <div style="font-weight:800; font-size:1rem; color:#9a3412;">${escapeHtml(title)}</div>
+        <div style="font-size:0.76rem; color:#78350f;">(Ảnh thực đơn nguồn dùng để đối chiếu trực tiếp với bảng trích xuất bên phải)</div>
       </div>
       ${items.map((it, i) => `
         <div style="display:flex; justify-content:space-between; padding:0.35rem 0; border-bottom:1px dotted #d6d3d1; font-size:0.88rem;">
           <span>${i + 1}. ${escapeHtml(it.name)}</span>
-          <strong style="color:#15803d;">${escapeHtml(it.rawPriceText)}</strong>
+          <strong style="color:#9a3412;">${escapeHtml(it.rawPriceText)}</strong>
         </div>
       `).join('')}
     </div>

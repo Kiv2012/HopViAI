@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#15803d" />
+  <meta name="theme-color" content="#c2410c" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Hợp Vị AI" />
@@ -19,22 +19,17 @@
   <!-- ==================== THANH ĐIỀU HƯỚNG TỰ ĐỘNG THEO 3 VAI TRÒ ==================== -->
   <header class="topbar">
     <div class="topbar-inner">
-      <div class="topbar-left-cluster">
-        <button class="topbar-icon-btn hamburger-btn" onclick="openAuthModal()" aria-label="Menu vai trò" title="Đổi vai trò & Đăng nhập">
-          <span>☰</span>
-        </button>
-        <div class="brand" onclick="onBrandClick()">
-          <div class="brand-logo" id="brand-logo-box">HV</div>
-          <div>
-            <div class="brand-title" id="brand-title-text">HỢP VỊ AI</div>
-            <div class="brand-slogan" id="brand-slogan-text">Ẩm thực Biên Hòa – Đồng Nai</div>
-          </div>
+      <div class="brand" onclick="onBrandClick()">
+        <div class="brand-logo" id="brand-logo-box">HV</div>
+        <div>
+          <div class="brand-title" id="brand-title-text">HỢP VỊ AI</div>
+          <div class="brand-slogan" id="brand-slogan-text">Hiểu đúng vị – Gợi đúng món • Đồng Nai</div>
         </div>
       </div>
 
       <!-- MENU DESKTOP 1: GIAO DIỆN KHÁCH HÀNG -->
-      <nav id="desktop-nav-customer" class="nav-tabs role-nav hide-on-mobile" data-for-role="customer" aria-label="Menu Khách hàng">
-        <button class="nav-btn active" data-view="home" onclick="switchView('home')">🍱 Trang chủ</button>
+      <nav id="desktop-nav-customer" class="nav-tabs role-nav" data-for-role="customer" aria-label="Menu Khách hàng">
+        <button class="nav-btn active" data-view="home" onclick="switchView('home')">🏠 Quán ngon</button>
         <button class="nav-btn" data-view="recommend" onclick="switchView('recommend')">🤖 Tìm món AI</button>
         <button class="nav-btn" data-view="map" onclick="switchView('map')">🗺️ Bản đồ</button>
         <button class="nav-btn" data-view="explore" onclick="switchView('explore')">🍊 Đặc sản</button>
@@ -42,19 +37,19 @@
       </nav>
 
       <!-- MENU DESKTOP 2: GIAO DIỆN CHỦ QUÁN (PARTNER PORTAL) -->
-      <nav id="desktop-nav-partner" class="nav-tabs role-nav hide-on-mobile" data-for-role="partner" style="display:none;" aria-label="Menu Chủ quán">
+      <nav id="desktop-nav-partner" class="nav-tabs role-nav" data-for-role="partner" style="display:none;" aria-label="Menu Chủ quán">
         <button class="nav-btn" data-view="partner" onclick="switchView('partner')">📸 AI Quét Thực đơn</button>
         <button class="nav-btn" data-view="partner-menus" onclick="switchView('partner-menus')">📋 Hồ sơ Quán của tôi</button>
         <button class="nav-btn" data-view="partner-reviews" onclick="switchView('partner-reviews')">💬 Phản hồi Khách hàng</button>
       </nav>
 
       <!-- MENU DESKTOP 3: GIAO DIỆN QUẢN TRỊ VIÊN (ADMIN CONSOLE) -->
-      <nav id="desktop-nav-admin" class="nav-tabs role-nav hide-on-mobile" data-for-role="admin" style="display:none;" aria-label="Menu Admin">
+      <nav id="desktop-nav-admin" class="nav-tabs role-nav" data-for-role="admin" style="display:none;" aria-label="Menu Admin">
         <button class="nav-btn" data-view="admin" onclick="switchView('admin')">
           📥 Duyệt Menu (<span id="pending-badge-count">1</span>)
         </button>
         <button class="nav-btn" data-view="admin-restaurants" onclick="switchView('admin-restaurants')">
-          🏪 Quản lý Quán (<span id="admin-rests-count-top">21</span>)
+          🏪 Quản lý Quán (<span id="admin-rests-count-top">18</span>)
         </button>
         <button class="nav-btn" data-view="admin-users" onclick="switchView('admin-users')">
           👥 Quản lý User
@@ -64,37 +59,15 @@
         </button>
       </nav>
 
-      <!-- Cụm biểu tượng góc phải: Chuông thông báo + Nút User Avatar -->
-      <div class="topbar-right-cluster">
-        <button class="topbar-icon-btn notif-btn" onclick="showNotificationToast('Hệ thống đã cập nhật 21 quán ăn & 122 hình ảnh thực tế đối chiếu từ khảo sát Đồng Nai!')" title="Thông báo hệ thống">
-          <span class="bell-icon">🔔</span>
-          <span class="notif-badge-dot"></span>
-        </button>
-
-        <button id="user-account-btn" class="topbar-icon-btn avatar-btn" onclick="openAuthModal()" title="Đăng nhập / Đổi vai trò (Khách hàng - Chủ quán - Admin)">
-          <span class="user-avatar-circle" id="user-account-avatar">👤</span>
+      <!-- Góc phải gọn gàng: Chỉ 1 nút Tài khoản / Đổi vai trò duy nhất -->
+      <div class="role-switcher">
+        <button id="user-account-btn" class="role-pill account-trigger-btn" onclick="openAuthModal()" title="Đăng nhập / Đăng ký hoặc Chuyển đổi giữa 3 giao diện: Khách hàng - Chủ quán - Admin">
+          <span id="user-account-icon">🙋</span>
+          <span id="user-account-label">Khách hàng</span>
+          <span style="font-size:0.7rem; opacity:0.75;">▾</span>
         </button>
       </div>
     </div>
-
-    <!-- Thanh Sub-Nav dạng Pills cuộn ngang mượt mà ngay dưới Topbar (cho Khách hàng trên Mobile theo chuẩn mockup) -->
-    <nav id="mobile-top-pills-bar" class="mobile-top-pills" aria-label="Điều hướng nhanh di động">
-      <button class="top-pill-btn active" data-view="home" onclick="switchView('home')">
-        <span class="pill-icon">🍱</span> Trang chủ
-      </button>
-      <button class="top-pill-btn" data-view="recommend" onclick="switchView('recommend')">
-        <span class="pill-icon">🤖</span> Tìm món AI
-      </button>
-      <button class="top-pill-btn" data-view="map" onclick="switchView('map')">
-        <span class="pill-icon">🗺️</span> Bản đồ
-      </button>
-      <button class="top-pill-btn" data-view="explore" onclick="switchView('explore')">
-        <span class="pill-icon">🍊</span> Đặc sản
-      </button>
-      <button class="top-pill-btn" data-view="feedback" onclick="switchView('feedback')">
-        <span class="pill-icon">💬</span> Đánh giá
-      </button>
-    </nav>
   </header>
 
   <main class="container">
@@ -104,137 +77,40 @@
 
     <!-- 1.1. KHÁCH HÀNG - TRANG CHỦ & DANH SÁCH QUÁN ĂN -->
     <section id="view-home" class="view-section active">
-      <!-- HERO BANNER TINH GỌN (CHÍNH XÁC THEO THIẾT KẾ MỚI) -->
-      <div class="hero hero-clean-streamlined">
-        <div class="hero-top-badge">
-          🍜 Ẩm thực Biên Hòa – Đồng Nai • Ẩm thực cho mọi nhu cầu
-        </div>
-        <h1 class="hero-headline">Hôm nay đi ăn gì cùng nhóm bạn?</h1>
-        <p class="hero-subtext">
-          Nhập số người, ngân sách và món yêu thích — AI sẽ chọn ngay combo món ăn vừa vặn túi tiền tại cùng 1 quán.
-        </p>
-
-        <!-- Khung tìm kiếm tròn sang trọng -->
-        <div class="hero-search-wrapper">
-          <div class="hero-search-box">
-            <input
-              type="text"
-              id="home-quick-input"
-              class="hero-search-input"
-              placeholder="VD: Nhóm 3 người có 150k ở Trấn Biên, 2 món nước..."
-              onkeydown="if(event.key==='Enter'){ triggerQuickRecommend(); }"
-            />
-            <button class="btn-hero-search" onclick="triggerQuickRecommend()">
-              🔍 Tìm món ngay
-            </button>
-          </div>
+      <div class="hero hero-clean">
+        <div class="hero-clean-top">
+          <span class="hero-badge">🍜 Ẩm thực Biên Hòa – Đồng Nai • 18 Quán thực đơn xác minh</span>
+          <h1>Hôm nay đi ăn gì cùng nhóm bạn?</h1>
+          <p>Nhập số người, ngân sách và món yêu thích — AI sẽ chọn ngay combo món ăn vừa vặn túi tiền tại cùng 1 quán.</p>
         </div>
 
-        <!-- 3 Nút lọc thả xuống (Dropdowns) gọn gàng, hiển thị trọn vẹn 100% -->
-        <div class="hero-filters-row">
-          <div class="hero-filter-pill">
-            <span class="filter-pill-label" id="label-filter-people">👥 3 người ▾</span>
-            <select id="hero-filter-people" class="filter-hidden-select" onchange="onHeroFilterChange('people')">
-              <option value="3" selected>👥 3 người</option>
-              <option value="1">👤 1 người</option>
-              <option value="2">👥 2 người</option>
-              <option value="4">👥 4 người</option>
-              <option value="5">👥 5+ người</option>
-            </select>
-          </div>
-
-          <div class="hero-filter-pill">
-            <span class="filter-pill-label" id="label-filter-budget">🪙 150k ▾</span>
-            <select id="hero-filter-budget" class="filter-hidden-select" onchange="onHeroFilterChange('budget')">
-              <option value="150000" selected>🪙 150.000đ</option>
-              <option value="50000">💰 50.000đ</option>
-              <option value="100000">💰 100.000đ</option>
-              <option value="200000">💰 200.000đ</option>
-              <option value="300000">💰 300.000đ</option>
-              <option value="500000">💰 500.000đ+</option>
-            </select>
-          </div>
-
-          <div class="hero-filter-pill">
-            <span class="filter-pill-label" id="label-filter-area">📍 Khu vực ▾</span>
-            <select id="hero-filter-area" class="filter-hidden-select" onchange="onHeroFilterChange('area')">
-              <option value="all" selected>📍 Tất cả KV</option>
-              <option value="Trấn Biên">📍 P. Trấn Biên</option>
-              <option value="Tam Hiệp">📍 P. Tam Hiệp</option>
-              <option value="Tân Triều">📍 P. Tân Triều</option>
-              <option value="Bửu Long">📍 P. Bửu Long</option>
-              <option value="Thanh Bình">📍 P. Thanh Bình</option>
-              <option value="Thống Nhất">📍 P. Thống Nhất</option>
-            </select>
-          </div>
+        <div class="quick-search-box">
+          <textarea
+            id="home-quick-input"
+            class="auto-expand-textarea"
+            rows="1"
+            placeholder="VD: Nhóm 3 người có 150k ở Trấn Biên, 2 món nước, 1 mì trộn..."
+            oninput="autoResizeTextarea(this)"
+            onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); triggerQuickRecommend(); }"
+          ></textarea>
+          <button class="btn btn-primary" onclick="triggerQuickRecommend()">🔍 Tìm món ngay</button>
         </div>
 
-        <!-- 2 Nút hành động CTA -->
-        <div class="hero-cta-row">
-          <button class="btn-hero-cta primary" onclick="runHeroSuggestedPrompt()">
-            ✨ Thử món gợi ý →
+        <div class="preset-chips">
+          <button class="preset-chip" onclick="usePresetPrompt('Nhóm mình có 3 người ở Trấn Biên, tổng ngân sách 150.000 đồng. Hai người thích món nước, một người thích mì trộn khô. Cả nhóm muốn ăn cùng một quán.')">
+            ⚡ Nhóm 3 người • 150k (Trấn Biên)
           </button>
-          <button class="btn-hero-cta secondary" onclick="switchView('explore')">
-            Khám phá đặc sản Đồng Nai
+          <button class="preset-chip" onclick="usePresetPrompt('Đi một mình ở Trấn Biên có tầm 45.000 đồng muốn ăn cơm gà.')">
+            👤 Đi 1 mình • 45k (Cơm gà)
+          </button>
+          <button class="preset-chip" onclick="usePresetPrompt('Nhóm 3 sinh viên có 140.000 đồng ở Trấn Biên, 2 bạn thích bún bò món nước, 1 bạn thích ăn cơm hoặc mì xào.')">
+            🎓 3 Sinh viên • 140k (Bún bò / Cơm)
+          </button>
+          <button class="preset-chip" onclick="usePresetPrompt('Nhóm 3 người muốn thưởng thức đặc sản Gỏi bưởi và Gà hấp trái bưởi ở Tân Triều với ngân sách 450.000 đồng.')">
+            🍊 Đặc sản Bưởi Tân Triều • 450k
           </button>
         </div>
       </div>
-
-      <!-- SECTION: CÁC CHỨC NĂNG CỦA WEBSITE - MỘT HÀNH TRÌNH, NHIỀU NHU CẦU -->
-      <section class="website-features-section">
-        <div class="features-overline">CÁC CHỨC NĂNG CỦA WEBSITE</div>
-        <h2 class="features-main-title">Một hành trình, nhiều nhu cầu</h2>
-
-        <div class="feature-cards-stack">
-          <!-- Card 1: AI chọn món -->
-          <div class="feature-item-card" onclick="switchView('recommend')">
-            <div class="feature-item-icon brain-icon-bg">
-              <span>🧠</span>
-            </div>
-            <div class="feature-item-body">
-              <h3 class="feature-item-title">AI chọn món</h3>
-              <p class="feature-item-desc">
-                Nhập yêu cầu tự nhiên, AI gợi ý món ăn và quán phù hợp.
-              </p>
-              <span class="feature-item-link">
-                Trải nghiệm chức năng →
-              </span>
-            </div>
-          </div>
-
-          <!-- Card 2: Đặc sản Đồng Nai -->
-          <div class="feature-item-card" onclick="switchView('explore')">
-            <div class="feature-item-icon citrus-icon-bg">
-              <span>🍊</span>
-            </div>
-            <div class="feature-item-body">
-              <h3 class="feature-item-title">Đặc sản Đồng Nai</h3>
-              <p class="feature-item-desc">
-                Khám phá đặc sản địa phương, hình minh họa và thông tin món nổi bật.
-              </p>
-              <span class="feature-item-link">
-                Xem các món đặc sản →
-              </span>
-            </div>
-          </div>
-
-          <!-- Card 3: Xem thêm các quán ăn -->
-          <div class="feature-item-card" onclick="scrollToRestaurants()">
-            <div class="feature-item-icon pin-icon-bg">
-              <span>📍</span>
-            </div>
-            <div class="feature-item-body">
-              <h3 class="feature-item-title">Xem thêm các quán ăn</h3>
-              <p class="feature-item-desc">
-                Tra cứu thêm quán ăn theo khu vực và nhu cầu.
-              </p>
-              <span class="feature-item-link">
-                Xem danh sách quán →
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <!-- Danh sách Quán ăn xác minh đặt ngay bên dưới để khách lướt chọn ngay -->
       <div class="section-header" id="restaurants-section-anchor" style="margin-top:0.5rem;">
@@ -537,26 +413,20 @@
         </div>
 
         <div style="display:flex; gap:0.55rem; flex-wrap:wrap; align-items:center; margin-top:0.25rem;">
-          <button type="button" class="btn btn-primary" style="cursor:pointer;" onclick="triggerMenuFileInput()">
+          <label class="btn btn-primary" style="cursor:pointer; background:#1d4ed8;">
             📷 Tải ảnh thực đơn từ máy
-          </button>
-          <input
-            type="file"
-            id="menu-file-input"
-            accept="image/*"
-            style="display:none;"
-            onchange="handleMenuImageUpload(event)"
-          />
-          <button type="button" class="btn btn-secondary btn-sm" onclick="runSampleMenuScan('sample_bun_thai')">
+            <input type="file" id="menu-file-input" accept="image/jpeg,image/png,image/webp" style="display:none;" onchange="handleMenuImageUpload(event)" />
+          </label>
+          <button class="btn btn-secondary btn-sm" onclick="runSampleMenuScan('sample_bun_thai')">
             🧪 Mẫu #1: Bún Thái & Mì Trộn
           </button>
-          <button type="button" class="btn btn-secondary btn-sm" onclick="runSampleMenuScan('sample_com_ga')">
+          <button class="btn btn-secondary btn-sm" onclick="runSampleMenuScan('sample_com_ga')">
             🧪 Mẫu #2: Cơm Gà & Bún Bò
           </button>
-          <button type="button" class="btn btn-secondary btn-sm" onclick="runSampleMenuScan('sample_tan_trieu')">
+          <button class="btn btn-secondary btn-sm" onclick="runSampleMenuScan('sample_tan_trieu')">
             🧪 Mẫu #3: Đặc Sản Tân Triều (Có giá thời giá/kg)
           </button>
-          <button type="button" class="btn btn-secondary btn-sm" onclick="addManualDraftRow()">
+          <button class="btn btn-secondary btn-sm" onclick="addManualDraftRow()">
             ➕ Thêm món thủ công
           </button>
         </div>
@@ -758,7 +628,7 @@
         <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.45rem;">
           <button type="button" id="quick-role-btn-customer" class="role-switch-card" onclick="quickDemoLogin('customer')">
             <span style="font-size:1.35rem;">🙋</span>
-            <strong style="font-size:0.8rem; color:#15803d;">Khách hàng</strong>
+            <strong style="font-size:0.8rem; color:#c2410c;">Khách hàng</strong>
             <span style="font-size:0.68rem; color:var(--text-muted);">Tìm món & Bản đồ</span>
           </button>
           <button type="button" id="quick-role-btn-partner" class="role-switch-card" onclick="quickDemoLogin('partner')">
