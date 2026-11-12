@@ -7,6 +7,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const supabaseClient = require('./supabaseClient');
 
 const { solveMealRecommendations } = require('./solver');
 
@@ -115,6 +116,25 @@ function ensureDefaultUsers(db) {
   return db;
 }
 
+let isSyncingSupabase = false;
+
+function syncSupabaseInBackground() {
+  if (isSyncingSupabase || !memoryDbCache) return;
+  isSyncingSupabase = true;
+  supabaseClient.syncDatabaseWithSupabase(memoryDbCache)
+    .then(result => {
+      if (result.updated) {
+        console.log(`[Supabase Live Sync]: Đã đồng bộ dữ liệu thời gian thực từ Supabase Cloud (${memoryDbCache.restaurants?.length} quán, ${memoryDbCache.menuItems?.length} món)`);
+      }
+    })
+    .catch(err => {
+      console.warn('[Supabase Sync Notice]:', err.message);
+    })
+    .finally(() => {
+      isSyncingSupabase = false;
+    });
+}
+
 function loadDatabase() {
   if (memoryDbCache) {
     return ensureDefaultUsers(memoryDbCache);
@@ -122,6 +142,7 @@ function loadDatabase() {
   try {
     if (process.env.VERCEL && fs.existsSync(TMP_DB_PATH)) {
       memoryDbCache = JSON.parse(fs.readFileSync(TMP_DB_PATH, 'utf8'));
+      syncSupabaseInBackground();
       return ensureDefaultUsers(memoryDbCache);
     }
   } catch (_) {}
@@ -129,9 +150,11 @@ function loadDatabase() {
   try {
     const raw = fs.readFileSync(DB_PATH, 'utf8');
     memoryDbCache = JSON.parse(raw);
+    syncSupabaseInBackground();
     return ensureDefaultUsers(memoryDbCache);
   } catch (_) {
     memoryDbCache = JSON.parse(JSON.stringify(BUNDLED_DB));
+    syncSupabaseInBackground();
     return ensureDefaultUsers(memoryDbCache);
   }
 }
@@ -401,6 +424,18 @@ async function handleApiRequest(req, res, parsedUrl) {
         timestamp: new Date().toISOString()
       });
       saveDatabase(db);
+      supabaseClient.insertPartnerSubmissionToSupabase({
+        id: newSub.id,
+        partnerName: newSub.partnerName,
+        restaurantName: newSub.partnerName,
+        restaurantAddress: newSub.address,
+        restaurantArea: newSub.area,
+        phone: newSub.contactPhone,
+        menuText: items.map(it => `${it.name}: ${it.price}đ`).join(', '),
+        extractedItems: newSub.items,
+        status: newSub.status,
+        createdAt: newSub.submittedAt
+      }).catch(err => console.warn('[Supabase Partner Sync Notice]:', err.message));
 
       return sendJson(res, 201, {
         success: true,
@@ -749,7 +784,38 @@ async function handleApiRequest(req, res, parsedUrl) {
         timestamp: new Date().toISOString()
       });
       saveDatabase(db);
+      supabaseClient.insertFeedbackToSupabase({
+        id: newFb.id,
+        restaurantId: newFb.restaurantName,
+        userName: newFb.userName,
+        userRole: 'customer',
+        rating: newFb.rating,
+        comment: newFb.comment,
+        status: newFb.status,
+        createdAt: newFb.createdAt
+      }).catch(err => console.warn('[Supabase Feedback Sync Notice]:', err.message));
+
       return sendJson(res, 201, { success: true, data: newFb });
+    }
+
+    // 10b. POST /api/v1/sync/supabase (Đồng bộ thời gian thực từ Supabase Cloud)
+    if ((method === 'POST' || method === 'GET') && pathname === '/api/v1/sync/supabase') {
+      const db = loadDatabase();
+      const syncResult = await supabaseClient.syncDatabaseWithSupabase(db);
+      if (syncResult.updated) {
+        saveDatabase(db);
+      }
+      return sendJson(res, 200, {
+        success: true,
+        data: {
+          synced: syncResult.updated,
+          source: syncResult.source,
+          totalRestaurants: db.restaurants.length,
+          totalMenuItems: db.menuItems.length,
+          totalSpecialties: db.specialties.length,
+          lastSupabaseSync: db.metadata?.lastSupabaseSync || new Date().toISOString()
+        }
+      });
     }
 
     // 11. POST /api/v1/config/api-key (Cấu hình nhanh Gemini API Key phục vụ demo)

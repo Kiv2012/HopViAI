@@ -221,3 +221,4 @@ if (Array.isArray(db.users)) {
 const outPath = path.join(__dirname, '..', 'supabase_migration.sql');
 fs.writeFileSync(outPath, sql, 'utf8');
 console.log('✅ Đã tạo file SQL migration thành công tại:', outPath);
+
