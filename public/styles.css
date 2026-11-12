@@ -2870,3 +2870,449 @@ li > .chat-place-inline { margin-left: -1.15rem; }
   .plan-dish-row { grid-template-columns: 52px minmax(0, 1fr) auto; }
   .plan-dish-price { grid-column: 3; text-align: right; max-width: 9rem; }
 }
+
+/* ==================================================================================
+   GIAO DIỆN QUẢN TRỊ KIỂU WORDPRESS (chỉ áp dụng khi đăng nhập vai trò Admin)
+   Thanh trên cùng tối + thanh bên tối + vùng nội dung xám nhạt, bảng danh sách, hộp tiện ích
+   ================================================================================== */
+:root {
+  --wp-bg: #f0f0f1;
+  --wp-dark: #1d2327;
+  --wp-dark-2: #2c3338;
+  --wp-dark-3: #3c434a;
+  --wp-text-light: #c3c4c7;
+  --wp-border: #c3c4c7;
+  --wp-border-soft: #dcdcde;
+  --wp-ink: #1d2327;
+  --wp-muted: #646970;
+  --wp-accent: #15803d;
+  --wp-accent-hover: #166534;
+  --wp-danger: #b32d2e;
+  --wp-topbar-h: 46px;
+  --wp-sidebar-w: 224px;
+  --wp-sidebar-w-collapsed: 56px;
+}
+
+/* ---------- Ẩn khung giao diện khách khi ở chế độ Admin ---------- */
+.wp-sidebar, .wp-sidebar-backdrop, .wp-menu-toggle { display: none; }
+
+body[data-role="admin"] { background: var(--wp-bg); color: var(--wp-ink); }
+body[data-role="admin"] .mobile-bottom-nav,
+body[data-role="admin"] .floating-chat-trigger,
+body[data-role="admin"] #mobile-top-pills-bar,
+body[data-role="admin"] .role-nav,
+body[data-role="admin"] #live-chat-panel,
+body[data-role="admin"] .topbar .brand-slogan { display: none !important; }
+
+/* ---------- Thanh trên cùng (Admin bar) ---------- */
+body[data-role="admin"] .topbar {
+  background: var(--wp-dark);
+  backdrop-filter: none;
+  border-bottom: 0;
+  padding: 0 0.85rem;
+  height: var(--wp-topbar-h);
+  display: flex;
+  align-items: center;
+}
+body[data-role="admin"] .topbar-inner { max-width: none; margin: 0; width: 100%; flex-wrap: nowrap; gap: 0.5rem; }
+body[data-role="admin"] .brand { gap: 0.55rem; }
+body[data-role="admin"] .brand-logo {
+  width: 30px; height: 30px; border-radius: 6px;
+  background: var(--wp-accent); box-shadow: none; border: 0; color: #fff;
+}
+body[data-role="admin"] .brand-logo .ic { width: 18px; height: 18px; }
+body[data-role="admin"] .brand-title { color: #f0f0f1; font-size: 0.95rem; letter-spacing: 0.01em; }
+body[data-role="admin"] .topbar-icon-btn { color: var(--wp-text-light); }
+body[data-role="admin"] .topbar-icon-btn:hover,
+body[data-role="admin"] .notif-btn[aria-expanded="true"] { background: var(--wp-dark-3); color: #fff; }
+body[data-role="admin"] .notif-btn .ic { color: var(--wp-text-light); }
+body[data-role="admin"] .notif-btn:hover .ic { color: #fff; }
+body[data-role="admin"] .user-avatar-circle { background: var(--wp-dark-3); border-color: #50575e; color: #f0f0f1; }
+body[data-role="admin"] .notif-badge { border-color: var(--wp-dark); }
+body[data-role="admin"] .wp-menu-toggle { color: #f0f0f1; }
+
+/* ---------- Thanh bên ---------- */
+body[data-role="admin"] .wp-sidebar {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: var(--wp-topbar-h);
+  left: 0;
+  bottom: 0;
+  width: var(--wp-sidebar-w);
+  background: var(--wp-dark);
+  z-index: 90;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: width 0.18s ease, transform 0.2s ease;
+}
+.wp-menu { display: flex; flex-direction: column; padding: 0.5rem 0 0.75rem; flex: 1; }
+.wp-menu-sep { height: 1px; background: var(--wp-dark-3); margin: 0.5rem 0.9rem; }
+.wp-menu-label { padding: 0.4rem 1rem 0.15rem; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: #8c8f94; }
+
+.wp-menu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  width: 100%;
+  padding: 0.62rem 1rem;
+  background: transparent;
+  border: 0;
+  border-left: 4px solid transparent;
+  color: var(--wp-text-light);
+  font: inherit;
+  font-size: 0.88rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.wp-menu-item .ic { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.85; }
+.wp-menu-item:hover { background: var(--wp-dark-2); color: #fff; }
+.wp-menu-item:hover .ic { opacity: 1; }
+.wp-menu-item.active {
+  background: var(--wp-accent);
+  border-left-color: #4ade80;
+  color: #fff;
+  font-weight: 600;
+}
+.wp-menu-item.active .ic { opacity: 1; }
+.wp-menu-item:focus-visible { outline: 2px solid #4ade80; outline-offset: -2px; }
+
+.wp-badge {
+  margin-left: auto;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #d63638;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+}
+.wp-badge[hidden] { display: none; }
+.wp-count { margin-left: auto; font-size: 0.74rem; color: #8c8f94; }
+.wp-menu-item.active .wp-count { color: #dcfce7; }
+
+.wp-sidebar-foot { border-top: 1px solid var(--wp-dark-3); padding: 0.75rem 0.85rem; display: flex; flex-direction: column; gap: 0.55rem; }
+.wp-user { display: flex; align-items: center; gap: 0.6rem; min-width: 0; }
+.wp-user-avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--wp-accent); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.78rem; font-weight: 700; flex-shrink: 0;
+}
+.wp-user > div { min-width: 0; display: flex; flex-direction: column; }
+.wp-user strong { color: #f0f0f1; font-size: 0.82rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wp-user small { color: #8c8f94; font-size: 0.7rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wp-foot-btn {
+  display: flex; align-items: center; gap: 0.5rem; width: 100%;
+  padding: 0.42rem 0.5rem; border-radius: 4px;
+  background: transparent; border: 0; color: var(--wp-text-light);
+  font: inherit; font-size: 0.8rem; cursor: pointer; text-align: left;
+}
+.wp-foot-btn:hover { background: var(--wp-dark-2); color: #fff; }
+.wp-foot-btn .ic { width: 16px; height: 16px; }
+
+/* ---------- Vùng nội dung ---------- */
+body[data-role="admin"] .container {
+  max-width: none;
+  margin: 0 0 0 var(--wp-sidebar-w);
+  padding: 1.25rem 1.6rem 3rem;
+  transition: margin-left 0.18s ease;
+}
+
+/* Thu gọn thanh bên (máy tính) */
+@media (min-width: 783px) {
+  body[data-role="admin"].wp-collapsed .wp-sidebar { width: var(--wp-sidebar-w-collapsed); }
+  body[data-role="admin"].wp-collapsed .container { margin-left: var(--wp-sidebar-w-collapsed); }
+  body[data-role="admin"].wp-collapsed .wp-menu-item { padding: 0.7rem 0; justify-content: center; border-left-width: 4px; }
+  body[data-role="admin"].wp-collapsed .wp-menu-item > span:not(.wp-badge) { display: none; }
+  body[data-role="admin"].wp-collapsed .wp-menu-item .wp-badge { position: absolute; top: 3px; right: 6px; min-width: 16px; height: 16px; line-height: 16px; font-size: 0.62rem; padding: 0 4px; margin: 0; }
+  body[data-role="admin"].wp-collapsed .wp-count { display: none; }
+  body[data-role="admin"].wp-collapsed .wp-menu-sep { margin: 0.5rem 0.6rem; }
+  body[data-role="admin"].wp-collapsed .wp-user > div,
+  body[data-role="admin"].wp-collapsed .wp-foot-btn span { display: none; }
+  body[data-role="admin"].wp-collapsed .wp-user { justify-content: center; }
+  body[data-role="admin"].wp-collapsed .wp-foot-btn { justify-content: center; }
+  body[data-role="admin"].wp-collapsed .wp-collapse-btn .ic { transform: rotate(180deg); }
+}
+
+/* ---------- Tiêu đề trang ---------- */
+body[data-role="admin"] .role-portal-banner.admin-banner {
+  background: none;
+  color: var(--wp-ink);
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0 0 0.15rem;
+  margin-bottom: 1rem;
+}
+body[data-role="admin"] .admin-banner .badge,
+body[data-role="admin"] .admin-banner h2 .ic { display: none; }
+body[data-role="admin"] .admin-banner h2 {
+  color: var(--wp-ink);
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0 0 0.2rem;
+  line-height: 1.3;
+}
+body[data-role="admin"] .admin-banner p { color: var(--wp-muted); opacity: 1 !important; font-size: 0.86rem !important; }
+body[data-role="admin"] .admin-banner strong { color: var(--wp-ink); }
+
+/* ---------- Hộp nội dung (postbox) ---------- */
+body[data-role="admin"] .view-section .card,
+.wp-postbox {
+  background: #fff;
+  border: 1px solid var(--wp-border);
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+  padding: 1rem 1.15rem;
+}
+body[data-role="admin"] .view-section .card > h3,
+.wp-postbox-head h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--wp-ink);
+  margin: -1rem -1.15rem 0.9rem;
+  padding: 0.7rem 1.15rem;
+  border-bottom: 1px solid var(--wp-border-soft);
+}
+.wp-postbox { padding: 0; overflow: hidden; }
+.wp-postbox-head h3 { margin: 0; display: flex; align-items: center; gap: 0.45rem; }
+.wp-postbox-head .ic { color: var(--wp-muted); }
+.wp-postbox-body { padding: 0.9rem 1.15rem 1.05rem; }
+.wp-postbox-body.flush { padding: 0; }
+
+/* ---------- Ô thống kê ---------- */
+.wp-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+.wp-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1rem 1.1rem;
+  background: #fff;
+  border: 1px solid var(--wp-border);
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease, transform 0.12s ease;
+}
+.wp-stat.static { cursor: default; }
+.wp-stat:not(.static):hover { border-color: var(--wp-accent); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); transform: translateY(-1px); }
+.wp-stat:focus-visible { outline: 2px solid var(--wp-accent); outline-offset: 2px; }
+.wp-stat-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.wp-stat-icon .ic { width: 22px; height: 22px; }
+.wp-stat-body { display: flex; flex-direction: column; min-width: 0; }
+.wp-stat-value { font-size: 1.65rem; font-weight: 700; line-height: 1.15; color: var(--wp-ink); }
+.wp-stat-label { font-size: 0.82rem; font-weight: 600; color: var(--wp-ink); }
+.wp-stat-sub { font-size: 0.74rem; color: var(--wp-muted); }
+.wp-stat.tone-green .wp-stat-icon { background: #dcfce7; color: #15803d; }
+.wp-stat.tone-blue .wp-stat-icon { background: #dbeafe; color: #1d4ed8; }
+.wp-stat.tone-amber .wp-stat-icon { background: #fef3c7; color: #b45309; }
+.wp-stat.tone-purple .wp-stat-icon { background: #f3e8ff; color: #7e22ce; }
+.wp-stat.tone-gray .wp-stat-icon { background: #f0f0f1; color: #646970; }
+
+/* ---------- Bảng tin: hai cột ---------- */
+.wp-dash-cols { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 1rem; align-items: start; }
+.wp-col { display: flex; flex-direction: column; gap: 1rem; min-width: 0; }
+
+.wp-todo, .wp-activity, .wp-glance { list-style: none; margin: 0; padding: 0; }
+.wp-todo li { display: flex; align-items: center; gap: 0.7rem; padding: 0.6rem 0; border-bottom: 1px solid var(--wp-border-soft); }
+.wp-todo li:last-child { border-bottom: 0; }
+.wp-todo-icon { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.wp-todo-icon .ic { width: 17px; height: 17px; }
+.wp-todo-icon.amber { background: #fef3c7; color: #b45309; }
+.wp-todo-icon.blue { background: #dbeafe; color: #1d4ed8; }
+.wp-todo-text { flex: 1; min-width: 0; display: flex; flex-direction: column; font-size: 0.86rem; }
+.wp-todo-text strong { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wp-todo-text span { color: var(--wp-muted); font-size: 0.78rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.wp-activity li { display: flex; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid var(--wp-border-soft); font-size: 0.83rem; line-height: 1.45; }
+.wp-activity li:last-child { border-bottom: 0; }
+.wp-activity-time { flex: 0 0 8.2rem; color: var(--wp-muted); font-size: 0.76rem; padding-top: 0.05rem; }
+.wp-tag { display: inline-block; padding: 0 0.4rem; border-radius: 3px; background: #f0f0f1; color: var(--wp-muted); font-size: 0.7rem; font-weight: 600; text-transform: uppercase; margin-right: 0.2rem; }
+
+.wp-glance li { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--wp-border-soft); font-size: 0.86rem; }
+.wp-glance li:last-child { border-bottom: 0; }
+.wp-glance li span { color: var(--wp-muted); }
+
+.wp-budget { margin-top: 0.75rem; }
+.wp-budget-row { display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 0.35rem; }
+.wp-progress { height: 8px; border-radius: 999px; background: #e0e0e1; overflow: hidden; }
+.wp-progress span { display: block; height: 100%; background: var(--wp-accent); border-radius: 999px; }
+
+.wp-notice {
+  display: flex; gap: 0.5rem; align-items: flex-start;
+  margin-top: 0.75rem; padding: 0.6rem 0.75rem;
+  background: #fff8e5; border: 1px solid #f0d58a; border-left: 4px solid #dba617;
+  font-size: 0.82rem; border-radius: 3px;
+}
+.wp-notice .ic { color: #996800; margin-top: 0.1rem; }
+
+.wp-quick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.5rem; }
+.wp-quick {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.6rem 0.7rem; background: #f6f7f7; border: 1px solid var(--wp-border-soft); border-radius: 4px;
+  font: inherit; font-size: 0.84rem; color: var(--wp-ink); cursor: pointer; text-align: left;
+}
+.wp-quick:hover { background: #fff; border-color: var(--wp-accent); color: var(--wp-accent); }
+.wp-quick .ic { color: var(--wp-accent); }
+
+/* ---------- Nút & liên kết ---------- */
+.wp-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem;
+  padding: 0.42rem 0.8rem; border-radius: 3px;
+  background: #f6f7f7; border: 1px solid #2c3338; color: #2c3338;
+  font: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer; white-space: nowrap;
+  border-color: var(--wp-border);
+}
+.wp-btn:hover { background: #fff; border-color: #8c8f94; }
+.wp-btn.primary { background: var(--wp-accent); border-color: var(--wp-accent-hover); color: #fff; }
+.wp-btn.primary:hover { background: var(--wp-accent-hover); }
+.wp-btn.danger { color: var(--wp-danger); border-color: var(--wp-danger); background: #fff; }
+.wp-btn.danger:hover { background: #fcf0f1; }
+.wp-btn.small { padding: 0.28rem 0.6rem; font-size: 0.76rem; }
+.wp-btn:focus-visible, .wp-link:focus-visible { outline: 2px solid var(--wp-accent); outline-offset: 2px; }
+
+.wp-link { background: none; border: 0; padding: 0; font: inherit; font-size: 0.78rem; color: var(--wp-accent); cursor: pointer; text-decoration: none; }
+.wp-link:hover { text-decoration: underline; color: var(--wp-accent-hover); }
+.wp-link.danger { color: var(--wp-danger); }
+
+/* ---------- Tab lọc + ô tìm kiếm ---------- */
+.wp-tablenav { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.6rem; margin-bottom: 0.75rem; }
+.wp-subsubsub { list-style: none; display: flex; flex-wrap: wrap; gap: 0; margin: 0; padding: 0; font-size: 0.85rem; }
+.wp-subsubsub li { display: inline-flex; align-items: center; }
+.wp-subsubsub li + li::before { content: '|'; color: #a7aaad; margin: 0 0.5rem; }
+.wp-subsubsub a { color: var(--wp-accent); text-decoration: none; padding: 0.1rem 0; }
+.wp-subsubsub a:hover { text-decoration: underline; }
+.wp-subsubsub a.current { color: var(--wp-ink); font-weight: 600; }
+.wp-subsubsub .count { color: var(--wp-muted); font-weight: 400; }
+.wp-search-box { position: relative; display: inline-flex; align-items: center; }
+.wp-search-box .ic { position: absolute; left: 0.55rem; width: 15px; height: 15px; color: #8c8f94; pointer-events: none; }
+.wp-search-box input {
+  width: 230px; max-width: 100%;
+  padding: 0.38rem 0.6rem 0.38rem 1.9rem;
+  border: 1px solid #8c8f94; border-radius: 4px; background: #fff;
+  font: inherit; font-size: 0.84rem; color: var(--wp-ink);
+}
+.wp-search-box input:focus { outline: 2px solid var(--wp-accent); outline-offset: 0; border-color: var(--wp-accent); }
+
+/* ---------- Bảng danh sách (wp-list-table) ---------- */
+.wp-table-wrap { overflow-x: auto; border: 1px solid var(--wp-border); border-radius: 4px; background: #fff; }
+.wp-list-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+.wp-list-table thead th {
+  background: #fff; text-align: left; font-weight: 600; color: var(--wp-ink);
+  padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--wp-border); white-space: nowrap;
+}
+.wp-list-table tbody td { padding: 0.65rem 0.8rem; vertical-align: top; border-bottom: 1px solid var(--wp-border-soft); }
+.wp-list-table tbody tr:last-child td { border-bottom: 0; }
+.wp-list-table tbody tr:nth-child(odd) { background: #f6f7f7; }
+.wp-list-table tbody tr:hover { background: #f0f6fc; }
+.wp-list-table tbody tr.wp-row-pending { box-shadow: inset 4px 0 0 #dba617; }
+.wp-title-cell { display: flex; gap: 0.7rem; align-items: flex-start; min-width: 0; }
+.wp-title-cell strong { font-weight: 600; color: var(--wp-ink); }
+.wp-meta { font-size: 0.76rem; color: var(--wp-muted); line-height: 1.45; }
+.wp-meta .ic { width: 0.95em; height: 0.95em; }
+.wp-muted { color: #8c8f94; }
+.wp-thumb { width: 44px; height: 44px; border-radius: 6px; object-fit: cover; flex-shrink: 0; background: #e5e5e6; }
+.wp-thumb-empty { display: flex; align-items: center; justify-content: center; color: #8c8f94; }
+.wp-avatar {
+  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.78rem; font-weight: 700; color: #fff; background: #646970;
+}
+.wp-avatar.role-admin { background: #7e22ce; }
+.wp-avatar.role-partner { background: #1d4ed8; }
+.wp-avatar.role-customer { background: var(--wp-accent); }
+
+/* Hàng thao tác hiện khi rê chuột (luôn hiện trên cảm ứng) */
+.row-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem; margin-top: 0.2rem; opacity: 0; transition: opacity 0.12s ease; min-height: 1.1rem; }
+.wp-list-table tbody tr:hover .row-actions,
+.wp-list-table tbody tr:focus-within .row-actions { opacity: 1; }
+@media (hover: none) { .row-actions { opacity: 1; } }
+.row-actions .sep { color: #a7aaad; font-size: 0.78rem; }
+.wp-comment { margin: 0.25rem 0 0; font-size: 0.86rem; line-height: 1.5; color: var(--wp-ink); }
+.wp-stars { color: #dba617; letter-spacing: 1px; }
+
+.wp-status { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.1rem 0.55rem; border-radius: 999px; font-size: 0.74rem; font-weight: 600; white-space: nowrap; background: #f0f0f1; color: #50575e; }
+.wp-status i { width: 7px; height: 7px; border-radius: 50%; background: #8c8f94; }
+.wp-status.ok { background: #dcfce7; color: #166534; } .wp-status.ok i { background: #16a34a; }
+.wp-status.warn { background: #fef3c7; color: #92400e; } .wp-status.warn i { background: #d97706; }
+.wp-status.bad { background: #fee2e2; color: #991b1b; } .wp-status.bad i { background: #dc2626; }
+
+.wp-empty { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; padding: 2rem 1rem; text-align: center; color: var(--wp-muted); font-size: 0.86rem; background: #fff; border: 1px dashed var(--wp-border); border-radius: 4px; }
+.wp-empty .ic { width: 26px; height: 26px; opacity: 0.55; }
+.wp-empty.ok { border: 0; padding: 1.2rem 1rem; } .wp-empty.ok .ic { color: #16a34a; opacity: 1; }
+
+/* ---------- Hồ sơ thực đơn ---------- */
+.wp-submission { background: #fff; border: 1px solid var(--wp-border); border-left: 4px solid #8c8f94; border-radius: 4px; padding: 0.85rem 1rem; margin-bottom: 0.75rem; }
+.wp-submission.pending { border-left-color: #dba617; background: #fffdf5; }
+.wp-submission.approved { border-left-color: #16a34a; }
+.wp-submission.rejected { border-left-color: #dc2626; }
+.wp-submission-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+.wp-submission-items { font-size: 0.84rem; margin-bottom: 0.65rem; }
+.wp-submission-item { display: flex; justify-content: space-between; gap: 0.6rem; padding: 0.3rem 0; border-bottom: 1px dashed var(--wp-border-soft); }
+.wp-flag { font-style: normal; font-size: 0.72rem; font-weight: 700; color: #92400e; background: #fef3c7; padding: 0 0.4rem; border-radius: 3px; margin-left: 0.3rem; }
+.wp-submission-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+/* ---------- Bảng điều khiển hệ thống ---------- */
+body[data-role="admin"] #view-admin-system .grid-2 { grid-template-columns: 1fr; }
+
+/* ---------- Thanh bên trên điện thoại: ngăn kéo ---------- */
+@media (max-width: 782px) {
+  body[data-role="admin"] .wp-menu-toggle { display: inline-flex; }
+  body[data-role="admin"] .topbar { padding: 0 0.5rem; }
+  body[data-role="admin"] .wp-sidebar { transform: translateX(-100%); width: 260px; z-index: 300; box-shadow: none; }
+  body[data-role="admin"].wp-sidebar-open .wp-sidebar { transform: none; box-shadow: 6px 0 24px rgba(0, 0, 0, 0.35); }
+  body[data-role="admin"] .wp-sidebar-backdrop {
+    display: block; position: fixed; inset: var(--wp-topbar-h) 0 0 0; background: rgba(0, 0, 0, 0.45);
+    z-index: 250; opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+  }
+  body[data-role="admin"].wp-sidebar-open .wp-sidebar-backdrop { opacity: 1; pointer-events: auto; }
+  body[data-role="admin"] .container { margin-left: 0; padding: 1rem 0.9rem 2.5rem; }
+  body[data-role="admin"] .wp-collapse-btn { display: none; }
+  body[data-role="admin"] .admin-banner h2 { font-size: 1.3rem; }
+  .wp-dash-cols { grid-template-columns: minmax(0, 1fr); }
+  .wp-search-box, .wp-search-box input { width: 100%; }
+  .wp-tablenav { flex-direction: column; align-items: stretch; }
+  .wp-activity li { flex-direction: column; gap: 0.1rem; }
+  .wp-activity-time { flex: none; }
+
+  /* Bảng → thẻ xếp dọc, mỗi ô có nhãn */
+  .wp-list-table thead { display: none; }
+  .wp-list-table, .wp-list-table tbody, .wp-list-table tr, .wp-list-table td { display: block; width: 100%; }
+  .wp-list-table tbody tr { padding: 0.5rem 0; border-bottom: 1px solid var(--wp-border); }
+  .wp-list-table tbody tr:last-child { border-bottom: 0; }
+  .wp-list-table tbody td { border-bottom: 0; padding: 0.3rem 0.85rem; }
+  .wp-list-table tbody td[data-label]:not(:first-child)::before {
+    content: attr(data-label); display: block; font-size: 0.68rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.04em; color: #8c8f94; margin-bottom: 0.1rem;
+  }
+  .row-actions { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-role="admin"] .wp-sidebar, body[data-role="admin"] .container, .wp-stat, .row-actions { transition: none; }
+}
+
+/* Nút tài khoản trên thanh trên cùng (ghi đè màu inline do JS gán theo vai trò) */
+body[data-role="admin"] #user-account-btn {
+  background: var(--wp-dark-3) !important;
+  color: #f0f0f1 !important;
+  border: 1px solid #50575e !important;
+  padding: 2px 0.8rem 2px 2px;
+  gap: 0.1rem;
+  max-width: 14rem;
+}
+body[data-role="admin"] #user-account-btn:hover { background: #50575e !important; }
+body[data-role="admin"] #user-account-btn .user-avatar-circle { background: var(--wp-accent); border-color: transparent; color: #fff; }
+body[data-role="admin"] #user-account-label { overflow: hidden; text-overflow: ellipsis; }
+
+/* Bảng gọn hơn */
+.wp-list-table tbody td { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.row-actions { min-height: 0.95rem; margin-top: 0.1rem; }

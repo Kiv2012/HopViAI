@@ -12,7 +12,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
   <title>HỢP VỊ AI – Hiểu đúng vị – Gợi đúng món | Ẩm thực Đồng Nai</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-  <link rel="stylesheet" href="/styles.css?v=20261113-v35" />
+  <link rel="stylesheet" href="/styles.css?v=20261113-v38" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 </head>
 <body data-role="customer">
@@ -93,6 +93,7 @@
   <header class="topbar">
     <div class="topbar-inner">
       <div class="topbar-left-cluster">
+        <button type="button" class="topbar-icon-btn wp-menu-toggle" onclick="toggleWpSidebar()" aria-label="Mở menu quản trị" title="Menu quản trị"><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg></button>
         <div class="brand" onclick="onBrandClick()">
           <div class="brand-logo" id="brand-logo-box">
             <img src="/icons/logo.png" alt="Hợp Vị AI" class="brand-logo-img" />
@@ -161,6 +162,41 @@
       </div>
     </div>
   </header>
+
+  <!-- ==================== THANH BÊN QUẢN TRỊ (KIỂU WORDPRESS) ==================== -->
+  <div id="wp-sidebar-backdrop" class="wp-sidebar-backdrop" onclick="closeWpSidebar()"></div>
+  <aside id="wp-sidebar" class="wp-sidebar" aria-label="Menu quản trị">
+    <nav class="wp-menu">
+      <button type="button" class="wp-menu-item" data-view="admin-dashboard" onclick="switchView('admin-dashboard')" title="Bảng tin">
+        <svg class="ic" aria-hidden="true"><use href="#i-home"/></svg> <span>Bảng tin</span>
+      </button>
+      <div class="wp-menu-sep"></div>
+      <button type="button" class="wp-menu-item" data-view="admin" onclick="switchView('admin')" title="Duyệt thực đơn">
+        <svg class="ic" aria-hidden="true"><use href="#i-inbox"/></svg> <span>Duyệt thực đơn</span> <span class="wp-badge" id="wp-badge-pending" hidden>0</span>
+      </button>
+      <button type="button" class="wp-menu-item" data-view="admin-restaurants" onclick="switchView('admin-restaurants')" title="Quán ăn">
+        <svg class="ic" aria-hidden="true"><use href="#i-store"/></svg> <span>Quán ăn</span> <span class="wp-count" id="wp-count-rests"></span>
+      </button>
+      <button type="button" class="wp-menu-item" data-view="admin-feedbacks" onclick="switchView('admin-feedbacks')" title="Phản hồi">
+        <svg class="ic" aria-hidden="true"><use href="#i-message"/></svg> <span>Phản hồi</span> <span class="wp-badge" id="wp-badge-fb" hidden>0</span>
+      </button>
+      <button type="button" class="wp-menu-item" data-view="admin-users" onclick="switchView('admin-users')" title="Người dùng">
+        <svg class="ic" aria-hidden="true"><use href="#i-users"/></svg> <span>Người dùng</span>
+      </button>
+      <div class="wp-menu-sep"></div>
+      <button type="button" class="wp-menu-item" data-view="admin-system" onclick="switchView('admin-system')" title="Hệ thống & AI">
+        <svg class="ic" aria-hidden="true"><use href="#i-sliders"/></svg> <span>Hệ thống &amp; AI</span>
+      </button>
+    </nav>
+    <div class="wp-sidebar-foot">
+      <div class="wp-user">
+        <span class="wp-user-avatar" id="wp-user-avatar">AD</span>
+        <div><strong id="wp-user-name">Quản trị viên</strong><small id="wp-user-email"></small></div>
+      </div>
+      <button type="button" class="wp-foot-btn" onclick="logoutUser()" title="Đăng xuất"><svg class="ic" aria-hidden="true"><use href="#i-logout"/></svg> <span>Đăng xuất</span></button>
+      <button type="button" class="wp-foot-btn wp-collapse-btn" onclick="toggleWpSidebarCollapse()" title="Thu gọn menu"><svg class="ic" aria-hidden="true"><use href="#i-arrow-left"/></svg> <span>Thu gọn menu</span></button>
+    </div>
+  </aside>
 
   <main class="container">
     <!-- ================================================================================== -->
@@ -740,12 +776,60 @@
     <!-- PHẦN III: GIAO DIỆN DÀNH RIÊNG CHO ADMIN (QUẢN TRỊ TOÀN TRANG WEB)                 -->
     <!-- ================================================================================== -->
 
+    <!-- 3.0. ADMIN: BẢNG TIN (TỔNG QUAN KIỂU WORDPRESS) -->
+    <section id="view-admin-dashboard" class="view-section">
+      <div class="role-portal-banner admin-banner">
+        <div>
+          <h2>Bảng tin</h2>
+          <p>Tổng quan hoạt động của HỢP VỊ AI và những việc cần xử lý.</p>
+        </div>
+      </div>
+
+      <div id="wp-dash-stats" class="wp-stat-grid"></div>
+
+      <div class="wp-dash-cols">
+        <div class="wp-col">
+          <div class="wp-postbox">
+            <div class="wp-postbox-head"><h3><svg class="ic" aria-hidden="true"><use href="#i-inbox"/></svg> Cần xử lý</h3></div>
+            <div class="wp-postbox-body" id="wp-dash-todo"></div>
+          </div>
+          <div class="wp-postbox">
+            <div class="wp-postbox-head"><h3><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg> Hoạt động gần đây</h3></div>
+            <div class="wp-postbox-body" id="wp-dash-activity"></div>
+          </div>
+        </div>
+        <div class="wp-col">
+          <div class="wp-postbox">
+            <div class="wp-postbox-head"><h3><svg class="ic" aria-hidden="true"><use href="#i-zap"/></svg> Trạng thái hệ thống</h3></div>
+            <div class="wp-postbox-body" id="wp-dash-system"></div>
+          </div>
+          <div class="wp-postbox">
+            <div class="wp-postbox-head"><h3><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> Truy cập nhanh</h3></div>
+            <div class="wp-postbox-body" id="wp-dash-quick"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3.0b. ADMIN: PHẢN HỒI CỦA KHÁCH HÀNG (GIỐNG MỤC "BÌNH LUẬN") -->
+    <section id="view-admin-feedbacks" class="view-section">
+      <div class="role-portal-banner admin-banner">
+        <div>
+          <h2>Phản hồi</h2>
+          <p>Xác minh hoặc xóa các đánh giá và báo giá của thực khách trước khi hiển thị.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div id="admin-feedbacks-manage-list"></div>
+      </div>
+    </section>
+
     <!-- 3.1. ADMIN TAB 1: DUYỆT HỒ SƠ THỰC ĐƠN CHỦ QUÁN -->
     <section id="view-admin" class="view-section">
       <div class="role-portal-banner admin-banner">
         <div>
           <span class="badge" style="background:#f3e8ff; color:#6b21a8; margin-bottom:0.25rem;"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg> QUẢN TRỊ VIÊN DUY NHẤT (SUPER ADMIN)</span>
-          <h2><svg class="ic" aria-hidden="true"><use href="#i-inbox"/></svg> Phê duyệt Hồ sơ Thực đơn Chủ quán</h2>
+          <h2>Duyệt thực đơn</h2>
           <p style="font-size:0.86rem; opacity:0.9;">
             Kiểm tra các thực đơn do Chủ quán gửi qua AI Scan Menu. Chỉ khi Admin bấm <strong>Phê duyệt</strong>, quán mới xuất hiện cho Khách hàng.
           </p>
@@ -762,7 +846,7 @@
       <div class="role-portal-banner admin-banner">
         <div>
           <span class="badge" style="background:#f3e8ff; color:#6b21a8; margin-bottom:0.25rem;"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg> QUẢN LÝ CƠ SỞ DỮ LIỆU QUÁN</span>
-          <h2><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg> Quản lý Hiển thị Quán ăn (<span id="admin-rests-count">18</span> quán)</h2>
+          <h2>Quán ăn</h2>
           <p style="font-size:0.86rem; opacity:0.9;">
             Bật hoặc tạm ẩn bất kỳ quán ăn nào trên toàn hệ thống gợi ý và bản đồ của Khách hàng.
           </p>
@@ -779,7 +863,7 @@
       <div class="role-portal-banner admin-banner">
         <div>
           <span class="badge" style="background:#f3e8ff; color:#6b21a8; margin-bottom:0.25rem;"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg> QUẢN TRỊ NGƯỜI DÙNG (RBAC)</span>
-          <h2><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg> Quản lý Tài khoản Khách hàng & Chủ quán (<span id="admin-users-count">3</span>)</h2>
+          <h2>Người dùng</h2>
           <p style="font-size:0.86rem; opacity:0.9;">
             Kiểm soát toàn bộ tài khoản đã đăng ký trên hệ thống. Admin có quyền tạm khóa hoặc mở khóa tài khoản vi phạm.
           </p>
@@ -797,7 +881,8 @@
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
           <div>
             <span class="badge" style="background:#f3e8ff; color:#6b21a8; margin-bottom:0.25rem;"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg> GIÁM SÁT HỆ THỐNG & AI</span>
-            <h2><svg class="ic" aria-hidden="true"><use href="#i-sliders"/></svg> Cấu hình AI, Kiểm duyệt Góp ý & Nhật ký Hệ thống</h2>
+            <h2>Hệ thống &amp; AI</h2>
+            <p style="font-size:0.86rem;">Chi phí AI, cấu hình khóa API và nhật ký hoạt động của hệ thống.</p>
           </div>
           <div style="display:flex; gap:0.45rem; flex-wrap:wrap;">
             <button id="api-status-btn" class="btn btn-secondary btn-sm" onclick="openApiKeyModal()">
@@ -817,14 +902,6 @@
       </div>
 
       <div class="grid-2">
-        <div class="card">
-          <h3><svg class="ic" aria-hidden="true"><use href="#i-message"/></svg> Kiểm duyệt Đánh giá & Báo giá từ Khách hàng</h3>
-          <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.75rem;">
-            Xác minh hoặc xóa các phản hồi không hợp lệ của người dùng.
-          </p>
-          <div id="admin-feedbacks-manage-list"></div>
-        </div>
-
         <div class="card">
           <h3><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg> Nhật ký Kiểm toán Hệ thống (Audit Logs)</h3>
           <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.75rem;">
@@ -1131,6 +1208,6 @@
     </div>
   </div>
 
-  <script src="/app.js?v=20261113-v35"></script>
+  <script src="/app.js?v=20261113-v38"></script>
 </body>
 </html>

@@ -52,7 +52,7 @@ function loadSavedUserSession() {
   if (role === 'partner') {
     switchView('partner');
   } else if (role === 'admin') {
-    switchView('admin');
+    switchView('admin-dashboard');
   } else {
     switchView('home');
   }
@@ -61,7 +61,7 @@ function loadSavedUserSession() {
 function onBrandClick() {
   const role = appState.currentUser?.role || 'customer';
   if (role === 'partner') switchView('partner');
-  else if (role === 'admin') switchView('admin');
+  else if (role === 'admin') switchView('admin-dashboard');
   else switchView('home');
 }
 
@@ -69,7 +69,7 @@ function applyUserRolePermissions() {
   const user = appState.currentUser;
   const activeRole = user?.role || 'customer';
   document.body.dataset.role = activeRole;
-  setTimeout(() => renderNotificationCenter(), 0);
+  setTimeout(() => { renderNotificationCenter(); updateWpSidebarUser(); }, 0);
 
   const iconEl = document.getElementById('user-account-avatar') || document.getElementById('user-account-icon');
   const labelEl = document.getElementById('user-account-label');
@@ -255,6 +255,11 @@ function switchView(viewName) {
   document.querySelectorAll('.top-pill-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.view === viewName);
   });
+  document.querySelectorAll('.wp-menu-item').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.view === viewName);
+    if (btn.dataset.view === viewName) btn.setAttribute('aria-current', 'page'); else btn.removeAttribute('aria-current');
+  });
+  if (typeof closeWpSidebar === 'function') closeWpSidebar();
   window.scrollTo({ top: 0, behavior: 'smooth' });
   setTimeout(() => {
     document.querySelectorAll('.auto-expand-textarea').forEach(el => autoResizeTextarea(el));
@@ -378,7 +383,7 @@ function buildNotifications() {
       id: `adm-fb-${unverifiedFb.length}`, icon: 'message', tone: 'warn',
       title: `${unverifiedFb.length} phản hồi chờ kiểm duyệt`,
       text: 'Có đánh giá / báo giá mới từ thực khách chưa được xác minh.',
-      go: () => switchView('admin-system')
+      go: () => switchView('admin-feedbacks')
     });
   } else if (role === 'partner') {
     if (pending.length) list.push({
@@ -513,6 +518,12 @@ document.addEventListener('keydown', e => {
     }
   }
 });
+
+/* Thông báo nổi dùng ở luồng đăng nhập / phân quyền (trước đây được gọi nhưng chưa có hàm → đăng nhập xong không chuyển trang).
+   Bỏ emoji đầu câu vì giao diện dùng icon SVG thay cho emoji. */
+function showToast(msg) {
+  showNotificationToast(String(msg || '').replace(/^(?:⚠️?|✅|❌|ℹ️?)\s*/u, ''));
+}
 
 function scrollToSection(elementId) {
   if (elementId === 'dongnai-map-anchor') {
@@ -2754,77 +2765,384 @@ async function submitPartnerMenuDraft() {
 
 /* ==================== KHU VỰC QUẢN TRỊ (ADMIN DASHBOARD) ==================== */
 
+/* ==================== TRANG QUẢN TRỊ KIỂU WORDPRESS ==================== */
+
+const wpIc = n => `<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+const ADMIN_ROLE_LABEL = { admin: 'Quản trị viên', partner: 'Chủ quán', customer: 'Khách hàng' };
+
+// Trạng thái lọc (tab "Tất cả | Chờ duyệt | ..." và ô tìm kiếm) của từng danh sách
+const adminFilters = {
+  subs: { tab: 'all', q: '' },
+  rests: { tab: 'all', q: '' },
+  users: { tab: 'all', q: '' },
+  fbs: { tab: 'all', q: '' }
+};
+const adminRowBuilders = {};
+
+function adminMatch(q, ...fields) {
+  const needle = stripVietnamese(q).trim();
+  if (!needle) return true;
+  return fields.some(f => stripVietnamese(f || '').includes(needle));
+}
+
+function adminInitials(name) {
+  const parts = String(name || '?').trim().split(/\s+/);
+  return ((parts[0]?.[0] || '') + (parts.length > 1 ? parts[parts.length - 1][0] : '')).toUpperCase() || '?';
+}
+
+function adminFormatDate(iso) {
+  const d = new Date(iso);
+  return isNaN(d) ? '' : d.toLocaleString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+function setAdminTab(key, tab) {
+  adminFilters[key].tab = tab;
+  renderAdminDashboard();
+}
+
+function setAdminSearch(key, val) {
+  adminFilters[key].q = val;
+  const slot = document.getElementById(`wp-slot-${key}`);
+  if (slot && adminRowBuilders[key]) slot.innerHTML = adminRowBuilders[key]();
+}
+
+/* Khung danh sách: hàng tab lọc + ô tìm kiếm + vùng bảng. Trả về vùng bảng để đổ dữ liệu vào. */
+function adminListShell(boxId, key, tabs, placeholder) {
+  const box = document.getElementById(boxId);
+  if (!box) return null;
+  const f = adminFilters[key];
+  const searchFocused = document.activeElement?.dataset?.adminSearch === key;
+  box.innerHTML = `
+    <div class="wp-tablenav">
+      <ul class="wp-subsubsub">
+        ${tabs.map(t => `<li><a href="#" class="${f.tab === t.id ? 'current' : ''}" onclick="event.preventDefault(); setAdminTab('${key}', '${t.id}')">${t.label} <span class="count">(${t.count})</span></a></li>`).join('')}
+      </ul>
+      <label class="wp-search-box">
+        ${wpIc('search')}
+        <input type="search" data-admin-search="${key}" placeholder="${placeholder}" aria-label="${placeholder}" value="${escapeAttr(f.q)}" oninput="setAdminSearch('${key}', this.value)" />
+      </label>
+    </div>
+    <div class="wp-table-slot" id="wp-slot-${key}"></div>`;
+  if (searchFocused) {
+    const inp = box.querySelector('input[data-admin-search]');
+    inp.focus();
+    inp.setSelectionRange(inp.value.length, inp.value.length);
+  }
+  return document.getElementById(`wp-slot-${key}`);
+}
+
+function adminEmpty(text) {
+  return `<div class="wp-empty">${wpIc('inbox')}<span>${text}</span></div>`;
+}
+
+function adminStatusPill(kind, text) {
+  return `<span class="wp-status ${kind}"><i></i>${text}</span>`;
+}
+
+function renderWpAdminLists(d) {
+  const { submissions = [], feedbacks = [], users = [], restaurants = [] } = d;
+
+  // ---------- Hồ sơ thực đơn ----------
+  const subCount = s => submissions.filter(x => x.status === s).length;
+  const subSlot = adminListShell('admin-submissions-list', 'subs', [
+    { id: 'all', label: 'Tất cả', count: submissions.length },
+    { id: 'pending', label: 'Chờ duyệt', count: subCount('pending') },
+    { id: 'approved', label: 'Đã công bố', count: subCount('approved') },
+    { id: 'rejected', label: 'Đã từ chối', count: subCount('rejected') }
+  ], 'Tìm hồ sơ...');
+  adminRowBuilders.subs = () => {
+    const f = adminFilters.subs;
+    const rows = submissions.filter(s => (f.tab === 'all' || s.status === f.tab) && adminMatch(f.q, s.partnerName, s.address, s.area));
+    if (!rows.length) return adminEmpty('Không có hồ sơ nào phù hợp.');
+    return rows.map(s => `
+      <div class="wp-submission ${s.status}">
+        <div class="wp-submission-head">
+          <div>
+            <strong>${escapeHtml(s.partnerName)}</strong>
+            <div class="wp-meta">${wpIc('pin')} ${escapeHtml(s.address)} (${escapeHtml(s.area)}) • ${wpIc('clock')} ${escapeHtml(s.openingHours)}${s.submittedAt ? ` • Gửi lúc ${adminFormatDate(s.submittedAt)}` : ''}</div>
+          </div>
+          ${s.status === 'approved' ? adminStatusPill('ok', 'Đã công bố') : s.status === 'rejected' ? adminStatusPill('bad', 'Đã từ chối') : adminStatusPill('warn', 'Chờ duyệt')}
+        </div>
+        <div class="wp-submission-items">
+          ${(s.items || []).map(it => `
+            <div class="wp-submission-item">
+              <span>${escapeHtml(it.name)} ${it.needsReview ? '<em class="wp-flag">Cần kiểm tra giá</em>' : ''}</span>
+              <strong>${Number(it.price).toLocaleString('vi-VN')}đ</strong>
+            </div>`).join('') || '<div class="wp-meta">Hồ sơ chưa có món nào.</div>'}
+        </div>
+        ${s.status === 'pending' ? `
+          <div class="wp-submission-actions">
+            <button class="wp-btn primary" onclick="adminReviewSubmission('${escapeAttr(s.id)}', 'approve')">${wpIc('check')} Phê duyệt & Công bố</button>
+            <button class="wp-btn danger" onclick="adminReviewSubmission('${escapeAttr(s.id)}', 'reject')">${wpIc('x')} Từ chối</button>
+          </div>` : ''}
+      </div>`).join('');
+  };
+  if (subSlot) subSlot.innerHTML = adminRowBuilders.subs();
+
+  // ---------- Quán ăn ----------
+  const restCount = s => restaurants.filter(r => r.status === s).length;
+  const restSlot = adminListShell('admin-restaurants-list', 'rests', [
+    { id: 'all', label: 'Tất cả', count: restaurants.length },
+    { id: 'approved', label: 'Đang hiển thị', count: restCount('approved') },
+    { id: 'hidden', label: 'Tạm ẩn', count: restaurants.length - restCount('approved') }
+  ], 'Tìm quán, khu vực...');
+  adminRowBuilders.rests = () => {
+    const f = adminFilters.rests;
+    const rows = restaurants.filter(r => {
+      const tabOk = f.tab === 'all' || (f.tab === 'approved' ? r.status === 'approved' : r.status !== 'approved');
+      return tabOk && adminMatch(f.q, r.name, r.area, r.address);
+    });
+    if (!rows.length) return adminEmpty('Không tìm thấy quán nào.');
+    return `<div class="wp-table-wrap"><table class="wp-list-table">
+      <thead><tr><th>Tên quán</th><th>Khu vực</th><th>Món</th><th>Giờ mở cửa</th><th>Trạng thái</th></tr></thead>
+      <tbody>${rows.map(r => `
+        <tr>
+          <td data-label="Tên quán">
+            <div class="wp-title-cell">
+              ${safeImgSrc(r.avatarUrl) ? `<img class="wp-thumb" src="${safeImgSrc(r.avatarUrl)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'" />` : `<span class="wp-thumb wp-thumb-empty">${wpIc('store')}</span>`}
+              <div>
+                <strong>${escapeHtml(r.name)}</strong>
+                <div class="wp-meta">${escapeHtml(r.address || '')}</div>
+                <div class="row-actions">
+                  <button class="wp-link" onclick="adminToggleRestaurantStatus('${escapeAttr(r.id)}')">${r.status === 'approved' ? 'Tạm ẩn' : 'Hiển thị'}</button>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td data-label="Khu vực">P. ${escapeHtml(r.area || '')}</td>
+          <td data-label="Món">${r.dishCount || 0}</td>
+          <td data-label="Giờ mở cửa">${escapeHtml(r.openingHours || '')}</td>
+          <td data-label="Trạng thái">${r.status === 'approved' ? adminStatusPill('ok', 'Đang hiển thị') : adminStatusPill('muted', 'Tạm ẩn')}</td>
+        </tr>`).join('')}</tbody></table></div>`;
+  };
+  if (restSlot) restSlot.innerHTML = adminRowBuilders.rests();
+
+  // ---------- Người dùng ----------
+  const roleCount = r => users.filter(u => u.role === r).length;
+  const userSlot = adminListShell('admin-users-list', 'users', [
+    { id: 'all', label: 'Tất cả', count: users.length },
+    { id: 'admin', label: 'Quản trị viên', count: roleCount('admin') },
+    { id: 'partner', label: 'Chủ quán', count: roleCount('partner') },
+    { id: 'customer', label: 'Khách hàng', count: roleCount('customer') }
+  ], 'Tìm người dùng...');
+  adminRowBuilders.users = () => {
+    const f = adminFilters.users;
+    const rows = users.filter(u => (f.tab === 'all' || u.role === f.tab) && adminMatch(f.q, u.name, u.email, u.restaurantName));
+    if (!rows.length) return adminEmpty('Không tìm thấy người dùng nào.');
+    return `<div class="wp-table-wrap"><table class="wp-list-table">
+      <thead><tr><th>Tên người dùng</th><th>Vai trò</th><th>Quán</th><th>Trạng thái</th></tr></thead>
+      <tbody>${rows.map(u => `
+        <tr>
+          <td data-label="Tên người dùng">
+            <div class="wp-title-cell">
+              <span class="wp-avatar role-${escapeAttr(u.role)}">${escapeHtml(adminInitials(u.name))}</span>
+              <div>
+                <strong>${escapeHtml(u.name)}</strong>
+                <div class="wp-meta">${wpIc('mail')} ${escapeHtml(u.email)}</div>
+                ${u.role !== 'admin' ? `<div class="row-actions"><button class="wp-link ${u.status === 'locked' ? '' : 'danger'}" onclick="adminToggleUserStatus('${escapeAttr(u.id)}')">${u.status === 'locked' ? 'Mở khóa' : 'Khóa tài khoản'}</button></div>` : ''}
+              </div>
+            </div>
+          </td>
+          <td data-label="Vai trò">${ADMIN_ROLE_LABEL[u.role] || escapeHtml(u.role)}</td>
+          <td data-label="Quán">${u.restaurantName ? escapeHtml(u.restaurantName) : '<span class="wp-muted">—</span>'}</td>
+          <td data-label="Trạng thái">${u.status === 'locked' ? adminStatusPill('bad', 'Đã khóa') : adminStatusPill('ok', 'Hoạt động')}</td>
+        </tr>`).join('')}</tbody></table></div>`;
+  };
+  if (userSlot) userSlot.innerHTML = adminRowBuilders.users();
+
+  // ---------- Phản hồi ----------
+  const fbVerified = feedbacks.filter(f => f.status === 'verified').length;
+  const fbSlot = adminListShell('admin-feedbacks-manage-list', 'fbs', [
+    { id: 'all', label: 'Tất cả', count: feedbacks.length },
+    { id: 'pending', label: 'Chờ duyệt', count: feedbacks.length - fbVerified },
+    { id: 'verified', label: 'Đã duyệt', count: fbVerified }
+  ], 'Tìm phản hồi...');
+  adminRowBuilders.fbs = () => {
+    const f = adminFilters.fbs;
+    const rows = feedbacks.filter(fb => {
+      const tabOk = f.tab === 'all' || (f.tab === 'verified' ? fb.status === 'verified' : fb.status !== 'verified');
+      return tabOk && adminMatch(f.q, fb.userName, fb.restaurantName, fb.comment);
+    });
+    if (!rows.length) return adminEmpty('Chưa có phản hồi nào.');
+    return `<div class="wp-table-wrap"><table class="wp-list-table">
+      <thead><tr><th>Tác giả</th><th>Phản hồi</th><th>Trạng thái</th></tr></thead>
+      <tbody>${rows.map(fb => `
+        <tr class="${fb.status === 'verified' ? '' : 'wp-row-pending'}">
+          <td data-label="Tác giả">
+            <div class="wp-title-cell">
+              <span class="wp-avatar role-customer">${escapeHtml(adminInitials(fb.userName))}</span>
+              <div><strong>${escapeHtml(fb.userName)}</strong><div class="wp-meta">${fb.createdAt ? adminFormatDate(fb.createdAt) : ''}</div></div>
+            </div>
+          </td>
+          <td data-label="Phản hồi">
+            <div class="wp-meta">Gửi tới <strong>${escapeHtml(fb.restaurantName || 'Chung toàn hệ thống')}</strong>${fb.rating ? ` • <span class="wp-stars">${'★'.repeat(Math.max(0, Math.min(5, fb.rating)))}</span>` : ''}</div>
+            <p class="wp-comment">${escapeHtml(fb.comment)}</p>
+            <div class="row-actions">
+              ${fb.status !== 'verified' ? `<button class="wp-link" onclick="adminManageFeedback('${escapeAttr(fb.id)}', 'verify')">Duyệt</button><span class="sep">|</span>` : ''}
+              <button class="wp-link danger" onclick="adminManageFeedback('${escapeAttr(fb.id)}', 'delete')">Xóa</button>
+            </div>
+          </td>
+          <td data-label="Trạng thái">${fb.status === 'verified' ? adminStatusPill('ok', 'Đã duyệt') : adminStatusPill('warn', 'Chờ duyệt')}</td>
+        </tr>`).join('')}</tbody></table></div>`;
+  };
+  if (fbSlot) fbSlot.innerHTML = adminRowBuilders.fbs();
+}
+
+/* ---------- Bảng tin (Dashboard) ---------- */
+function renderWpDashboardWidgets(d) {
+  const { submissions = [], feedbacks = [], users = [], restaurants = [], auditLogs = [], costStats = null } = d;
+  const stats = appState.overview?.stats || {};
+  const ai = appState.overview?.aiStatus || {};
+  const pending = submissions.filter(s => s.status === 'pending');
+  const fbPending = feedbacks.filter(f => f.status !== 'verified');
+  const shown = restaurants.filter(r => r.status === 'approved').length;
+
+  const tiles = document.getElementById('wp-dash-stats');
+  if (tiles) {
+    const tile = (view, icon, tone, value, label, sub) => `
+      <button type="button" class="wp-stat tone-${tone}" onclick="switchView('${view}')">
+        <span class="wp-stat-icon">${wpIc(icon)}</span>
+        <span class="wp-stat-body"><span class="wp-stat-value">${value}</span><span class="wp-stat-label">${label}</span>${sub ? `<span class="wp-stat-sub">${sub}</span>` : ''}</span>
+      </button>`;
+    tiles.innerHTML = [
+      tile('admin-restaurants', 'store', 'green', shown, 'Quán đang hiển thị', `Tổng ${restaurants.length} quán`),
+      tile('admin-restaurants', 'utensils', 'blue', stats.approvedMenuItems ?? '—', 'Món ăn đã duyệt', 'Thực đơn xác minh'),
+      tile('admin', 'inbox', pending.length ? 'amber' : 'gray', pending.length, 'Hồ sơ chờ duyệt', pending.length ? 'Cần xem xét' : 'Không tồn đọng'),
+      tile('admin-feedbacks', 'message', fbPending.length ? 'amber' : 'gray', fbPending.length, 'Phản hồi chờ duyệt', `Tổng ${feedbacks.length} phản hồi`)
+    ].join('');
+  }
+
+  const todo = document.getElementById('wp-dash-todo');
+  if (todo) {
+    const items = [
+      ...pending.slice(0, 4).map(s => `
+        <li>
+          <span class="wp-todo-icon amber">${wpIc('inbox')}</span>
+          <div class="wp-todo-text"><strong>${escapeHtml(s.partnerName)}</strong><span>Hồ sơ thực đơn • ${(s.items || []).length} món</span></div>
+          <button class="wp-btn small" onclick="switchView('admin')">Xem xét</button>
+        </li>`),
+      ...fbPending.slice(0, 3).map(fb => `
+        <li>
+          <span class="wp-todo-icon blue">${wpIc('message')}</span>
+          <div class="wp-todo-text"><strong>${escapeHtml(fb.userName)}${fb.restaurantName ? ` → ${escapeHtml(fb.restaurantName)}` : ''}</strong><span>${escapeHtml(String(fb.comment || '').slice(0, 80))}</span></div>
+          <button class="wp-btn small" onclick="adminManageFeedback('${escapeAttr(fb.id)}', 'verify')">Duyệt</button>
+        </li>`)
+    ];
+    todo.innerHTML = items.length
+      ? `<ul class="wp-todo">${items.join('')}</ul>`
+      : `<div class="wp-empty ok">${wpIc('check-circle')}<span>Mọi thứ đã xử lý xong. Không có việc nào đang chờ.</span></div>`;
+  }
+
+  const act = document.getElementById('wp-dash-activity');
+  if (act) {
+    const logs = auditLogs.slice(0, 6);
+    act.innerHTML = logs.length
+      ? `<ul class="wp-activity">${logs.map(l => `
+          <li>
+            <span class="wp-activity-time">${adminFormatDate(l.timestamp)}</span>
+            <span><strong>${escapeHtml(l.actor)}</strong> • ${escapeHtml(l.detail)}</span>
+          </li>`).join('')}</ul>`
+      : adminEmpty('Chưa có hoạt động nào được ghi nhận.');
+  }
+
+  const sys = document.getElementById('wp-dash-system');
+  if (sys) {
+    const used = costStats?.totalCostUsd || 0;
+    const limit = costStats?.budgetLimitUsd || 0;
+    const pct = limit ? Math.min(100, Math.round((used / limit) * 100)) : 0;
+    sys.innerHTML = `
+      <ul class="wp-glance">
+        <li><span>Mô hình AI</span><strong>${ai.hasApiKey ? adminStatusPill('ok', 'Trực tuyến') : adminStatusPill('warn', 'Chế độ dự phòng')}</strong></li>
+        <li><span>Lượt gọi AI</span><strong>${costStats ? costStats.totalCalls : '—'}</strong></li>
+        <li><span>Tài khoản</span><strong>${users.length}</strong></li>
+        <li><span>Đặc sản Đồng Nai</span><strong>${stats.specialtiesCount ?? '—'}</strong></li>
+        <li><span>Khu vực có dữ liệu</span><strong>${(stats.areas || []).length || '—'}</strong></li>
+      </ul>
+      ${costStats ? `
+        <div class="wp-budget">
+          <div class="wp-budget-row"><span>Chi phí API ước tính</span><strong>$${used.toFixed(4)} / $${limit.toFixed(2)}</strong></div>
+          <div class="wp-progress"><span style="width:${pct}%"></span></div>
+        </div>` : ''}
+      ${ai.hasApiKey ? '' : `<div class="wp-notice">${wpIc('alert')}<span>Chưa cấu hình API key nên AI đang trả lời bằng dữ liệu có sẵn.</span></div>`}
+      <button class="wp-btn" style="margin-top:0.75rem;" onclick="openApiKeyModal()">${wpIc('key')} Cấu hình khóa AI</button>`;
+  }
+
+  const quick = document.getElementById('wp-dash-quick');
+  if (quick) {
+    const q = (view, icon, label) => `<button class="wp-quick" onclick="switchView('${view}')">${wpIc(icon)}<span>${label}</span></button>`;
+    quick.innerHTML = `<div class="wp-quick-grid">
+      ${q('admin', 'inbox', 'Duyệt thực đơn')}
+      ${q('admin-restaurants', 'store', 'Quản lý quán ăn')}
+      ${q('admin-feedbacks', 'message', 'Kiểm duyệt phản hồi')}
+      ${q('admin-users', 'users', 'Quản lý người dùng')}
+      ${q('admin-system', 'sliders', 'Hệ thống & AI')}
+    </div>`;
+  }
+
+  // Số đếm trên thanh bên
+  const setBadge = (id, n) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = n > 99 ? '99+' : String(n);
+    el.hidden = !(n > 0);
+  };
+  setBadge('wp-badge-pending', pending.length);
+  setBadge('wp-badge-fb', fbPending.length);
+  const rc = document.getElementById('wp-count-rests');
+  if (rc) rc.textContent = restaurants.length;
+}
+
+/* ---------- Thanh bên & thanh trên cùng ---------- */
+function updateWpSidebarUser() {
+  const u = appState.currentUser;
+  const nameEl = document.getElementById('wp-user-name');
+  const mailEl = document.getElementById('wp-user-email');
+  const avEl = document.getElementById('wp-user-avatar');
+  if (nameEl) nameEl.textContent = u?.name || 'Quản trị viên';
+  if (mailEl) mailEl.textContent = u?.email || '';
+  if (avEl) avEl.textContent = adminInitials(u?.name || 'Admin');
+}
+
+function openWpSidebar() { document.body.classList.add('wp-sidebar-open'); }
+function closeWpSidebar() { document.body.classList.remove('wp-sidebar-open'); }
+function toggleWpSidebar() { document.body.classList.toggle('wp-sidebar-open'); }
+
+function toggleWpSidebarCollapse() {
+  const collapsed = document.body.classList.toggle('wp-collapsed');
+  try { localStorage.setItem('hv_wp_collapsed', collapsed ? '1' : '0'); } catch (_) {}
+}
+
+(function restoreWpSidebarState() {
+  try {
+    if (localStorage.getItem('hv_wp_collapsed') === '1') document.body.classList.add('wp-collapsed');
+  } catch (_) {}
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeWpSidebar(); });
+})();
+
 function renderAdminDashboard() {
   if (!appState.adminData) return;
-  const { submissions, feedbacks, users, restaurants, auditLogs, costStats } = appState.adminData;
+  const d = appState.adminData;
+  const { submissions, users, restaurants, auditLogs, costStats } = d;
 
   const costBox = document.getElementById('admin-llm-cost-panel');
   if (costBox && costStats) {
-    costBox.innerHTML = `
-      <div style="background:var(--surface-alt); padding:0.85rem; border-radius:10px;">
-        <div style="font-size:0.78rem; color:var(--text-muted);">Tổng lượt gọi xử lý AI</div>
-        <div style="font-size:1.35rem; font-weight:800; color:var(--primary);">${costStats.totalCalls} lượt</div>
-        <div style="font-size:0.75rem;">Gemini Live: ${costStats.geminiLiveCalls} | Fallback: ${costStats.fallbackCalls}</div>
-      </div>
-      <div style="background:var(--surface-alt); padding:0.85rem; border-radius:10px;">
-        <div style="font-size:0.78rem; color:var(--text-muted);">Tổng Token đã dùng</div>
-        <div style="font-size:1.35rem; font-weight:800;">${(costStats.totalInputTokens + costStats.totalOutputTokens).toLocaleString('vi-VN')}</div>
-        <div style="font-size:0.75rem;">In: ${costStats.totalInputTokens} • Out: ${costStats.totalOutputTokens}</div>
-      </div>
-      <div style="background:var(--surface-alt); padding:0.85rem; border-radius:10px;">
-        <div style="font-size:0.78rem; color:var(--text-muted);">Chi phí API ước tính</div>
-        <div style="font-size:1.35rem; font-weight:800; color:var(--accent);">$${costStats.totalCostUsd.toFixed(5)}</div>
-        <div style="font-size:0.75rem;">Hạn mức an toàn: $${costStats.budgetLimitUsd.toFixed(2)}</div>
-      </div>
-      <div style="background:var(--surface-alt); padding:0.85rem; border-radius:10px;">
-        <div style="font-size:0.78rem; color:var(--text-muted);">Phân quyền Hệ thống</div>
-        <div style="font-size:1.1rem; font-weight:800; color:#7e22ce;">3 Vai trò RBAC</div>
-        <div style="font-size:0.75rem;">Khách • Chủ quán • 1 Admin</div>
-      </div>
-    `;
+    const stat = (icon, tone, value, label, sub) => `
+      <div class="wp-stat static tone-${tone}">
+        <span class="wp-stat-icon">${wpIc(icon)}</span>
+        <span class="wp-stat-body"><span class="wp-stat-value">${value}</span><span class="wp-stat-label">${label}</span><span class="wp-stat-sub">${sub}</span></span>
+      </div>`;
+    costBox.innerHTML = [
+      stat('zap', 'green', `${costStats.totalCalls}`, 'Tổng lượt gọi AI', `Trực tuyến: ${costStats.geminiLiveCalls} • Dự phòng: ${costStats.fallbackCalls}`),
+      stat('file', 'blue', (costStats.totalInputTokens + costStats.totalOutputTokens).toLocaleString('vi-VN'), 'Tổng token đã dùng', `Vào: ${costStats.totalInputTokens} • Ra: ${costStats.totalOutputTokens}`),
+      stat('wallet', 'amber', `$${costStats.totalCostUsd.toFixed(5)}`, 'Chi phí API ước tính', `Hạn mức an toàn: $${costStats.budgetLimitUsd.toFixed(2)}`),
+      stat('shield', 'purple', '3 vai trò', 'Phân quyền hệ thống', 'Khách • Chủ quán • Admin')
+    ].join('');
   }
 
-  // 1. Hồ sơ thực đơn Chủ quán
-  const subBox = document.getElementById('admin-submissions-list');
-  if (subBox) {
-    if (!submissions || submissions.length === 0) {
-      subBox.innerHTML = `<p style="color:var(--text-muted);">Chưa có hồ sơ đối tác nào.</p>`;
-    } else {
-      subBox.innerHTML = submissions.map(s => `
-        <div style="border:1px solid var(--border); border-radius:12px; padding:0.9rem; margin-bottom:0.8rem; background:${s.status === 'pending' ? '#fffbeb' : 'var(--surface)'};">
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.35rem;">
-            <strong>${escapeHtml(s.partnerName)}</strong>
-            <span class="badge ${s.status === 'approved' ? 'badge-verified' : s.status === 'rejected' ? 'badge-danger' : 'badge-warning'}">
-              ${s.status === 'approved' ? '<svg class="ic" aria-hidden="true"><use href="#i-check"/></svg> Đã phê duyệt & Công bố' : s.status === 'rejected' ? '<svg class="ic" aria-hidden="true"><use href="#i-x"/></svg> Đã từ chối' : '<svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg> Chờ Admin duyệt'}
-            </span>
-          </div>
-          <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.45rem;">
-            <svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> ${escapeHtml(s.address)} (${escapeHtml(s.area)}) • <svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg> ${escapeHtml(s.openingHours)}
-          </div>
-          <div style="font-size:0.8rem; margin-bottom:0.6rem;">
-            ${(s.items || []).map(it => `
-              <div style="display:flex; justify-content:space-between; padding:0.18rem 0; border-bottom:1px dashed var(--border);">
-                <span>• ${escapeHtml(it.name)} ${it.needsReview ? '<strong style="color:var(--warning);">(Cảnh báo giá)</strong>' : ''}</span>
-                <strong>${Number(it.price).toLocaleString('vi-VN')}đ</strong>
-              </div>
-            `).join('')}
-          </div>
-          ${s.status === 'pending' ? `
-            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-              <button class="btn btn-success btn-sm" onclick="adminReviewSubmission('${escapeAttr(s.id)}', 'approve')">
-                <svg class="ic" aria-hidden="true"><use href="#i-check"/></svg> Phê duyệt & Công bố
-              </button>
-              <button class="btn btn-danger btn-sm" onclick="adminReviewSubmission('${escapeAttr(s.id)}', 'reject')">
-                <svg class="ic" aria-hidden="true"><use href="#i-x"/></svg> Từ chối
-              </button>
-            </div>
-          ` : ''}
-        </div>
-      `).join('');
-    }
-  }
+  renderWpAdminLists(d);
+  renderWpDashboardWidgets(d);
 
-  // Hiển thị lịch sử hồ sơ bên trang Chủ quán
+  // Lịch sử hồ sơ bên trang Chủ quán
   const partnerMySubBox = document.getElementById('partner-my-submissions-list');
   if (partnerMySubBox && submissions) {
     partnerMySubBox.innerHTML = submissions.map(s => `
@@ -2840,96 +3158,24 @@ function renderAdminDashboard() {
     `).join('');
   }
 
-  // 2. Quản lý Tài khoản (Khách hàng, Chủ quán, Admin)
-  const usersBox = document.getElementById('admin-users-list');
+  // Các bộ đếm cũ (giữ để tương thích)
   const usersCountEl = document.getElementById('admin-users-count');
   if (usersCountEl && users) usersCountEl.textContent = users.length;
-  if (usersBox && users) {
-    usersBox.innerHTML = users.map(u => {
-      const roleBadge = u.role === 'admin'
-        ? '<span class="badge" style="background:#f3e8ff; color:#7e22ce;"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg> Admin Duy nhất</span>'
-        : u.role === 'partner'
-          ? '<span class="badge" style="background:#eff6ff; color:#1d4ed8;"><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg> Chủ quán</span>'
-          : '<span class="badge badge-area"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg> Khách hàng</span>';
-      return `
-        <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; padding:0.6rem 0; border-bottom:1px solid var(--border); font-size:0.84rem;">
-          <div style="min-width:0;">
-            <div style="display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;">
-              <strong>${escapeHtml(u.name)}</strong>
-              ${roleBadge}
-              ${u.status === 'locked' ? '<span class="badge badge-danger"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg> Đã khóa</span>' : ''}
-            </div>
-            <div style="font-size:0.76rem; color:var(--text-muted);">
-              <svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg> ${escapeHtml(u.email)} ${u.restaurantName ? `• <svg class="ic" aria-hidden="true"><use href="#i-store"/></svg> ${escapeHtml(u.restaurantName)}` : ''}
-            </div>
-          </div>
-          ${u.role !== 'admin' ? `
-            <button class="btn ${u.status === 'locked' ? 'btn-success' : 'btn-secondary'} btn-sm" style="white-space:nowrap;" onclick="adminToggleUserStatus('${escapeAttr(u.id)}')">
-              ${u.status === 'locked' ? '<svg class="ic" aria-hidden="true"><use href="#i-unlock"/></svg> Mở khóa' : '<svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg> Khóa'}
-            </button>
-          ` : '<span style="font-size:0.74rem; color:var(--text-muted); white-space:nowrap;">Mặc định</span>'}
-        </div>
-      `;
-    }).join('');
-  }
-
-  // 3. Quản lý Toàn bộ Quán ăn trên Website
-  const restsBox = document.getElementById('admin-restaurants-list');
   const restsCountEl = document.getElementById('admin-rests-count');
   const restsCountTopEl = document.getElementById('admin-rests-count-top');
   if (restsCountEl && restaurants) restsCountEl.textContent = restaurants.length;
   if (restsCountTopEl && restaurants) restsCountTopEl.textContent = restaurants.length;
-  if (restsBox && restaurants) {
-    restsBox.innerHTML = restaurants.map(r => `
-      <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; padding:0.55rem 0; border-bottom:1px solid var(--border); font-size:0.83rem;">
-        <div style="min-width:0;">
-          <div style="display:flex; align-items:center; gap:0.35rem; flex-wrap:wrap;">
-            <strong>${escapeHtml(r.name)}</strong>
-            <span class="badge ${r.status === 'approved' ? 'badge-verified' : 'badge-warning'}">
-              ${r.status === 'approved' ? 'Đang hiển thị' : 'Đang tạm ẩn'}
-            </span>
-          </div>
-          <div style="font-size:0.75rem; color:var(--text-muted);">
-            <svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> P. ${escapeHtml(r.area)} • ${r.dishCount || 0} món • ${escapeHtml(r.openingHours)}
-          </div>
-        </div>
-        <button class="btn ${r.status === 'approved' ? 'btn-secondary' : 'btn-primary'} btn-sm" style="white-space:nowrap;" onclick="adminToggleRestaurantStatus('${escapeAttr(r.id)}')">
-          ${r.status === 'approved' ? '<svg class="ic" aria-hidden="true"><use href="#i-eye-off"/></svg> Tạm ẩn' : '<svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg> Hiển thị'}
-        </button>
-      </div>
-    `).join('');
-  }
 
-  // 4. Quản lý Đánh giá / Phản hồi của Khách hàng
-  const fbManageBox = document.getElementById('admin-feedbacks-manage-list');
-  if (fbManageBox && feedbacks) {
-    fbManageBox.innerHTML = feedbacks.map(fb => `
-      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:0.5rem; padding:0.5rem 0; border-bottom:1px dashed var(--border); font-size:0.82rem;">
-        <div style="min-width:0;">
-          <strong>${escapeHtml(fb.userName)}</strong> → <em>${escapeHtml(fb.restaurantName)}</em>
-          <div style="color:var(--text-muted); font-size:0.78rem;">${escapeHtml(fb.comment)}</div>
-        </div>
-        <div style="display:flex; gap:0.3rem; flex-shrink:0;">
-          ${fb.status !== 'verified' ? `
-            <button class="btn btn-success btn-sm" style="padding:0.25rem 0.5rem; font-size:0.74rem;" onclick="adminManageFeedback('${escapeAttr(fb.id)}', 'verify')" title="Xác minh phản hồi"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></button>
-          ` : '<span class="badge badge-verified">Đã duyệt</span>'}
-          <button class="btn btn-danger btn-sm" style="padding:0.25rem 0.5rem; font-size:0.74rem;" onclick="adminManageFeedback('${escapeAttr(fb.id)}', 'delete')" title="Xóa phản hồi"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg></button>
-        </div>
-      </div>
-    `).join('');
-  }
-
+  // Nhật ký kiểm toán (trang Hệ thống & AI)
   const logBox = document.getElementById('admin-audit-logs');
   if (logBox && auditLogs) {
-    logBox.innerHTML = auditLogs.map(l => `
-      <div style="border-bottom:1px solid var(--border); padding:0.5rem 0; font-size:0.8rem;">
-        <div style="display:flex; justify-content:space-between; color:var(--text-muted); font-size:0.73rem;">
-          <strong>[${escapeHtml(l.action)}] • ${escapeHtml(l.actor)}</strong>
-          <span>${new Date(l.timestamp).toLocaleString('vi-VN')}</span>
-        </div>
-        <div>${escapeHtml(l.detail)}</div>
-      </div>
-    `).join('');
+    logBox.innerHTML = auditLogs.length
+      ? `<ul class="wp-activity">${auditLogs.map(l => `
+          <li>
+            <span class="wp-activity-time">${adminFormatDate(l.timestamp)}</span>
+            <span><span class="wp-tag">${escapeHtml(l.action)}</span> <strong>${escapeHtml(l.actor)}</strong> • ${escapeHtml(l.detail)}</span>
+          </li>`).join('')}</ul>`
+      : adminEmpty('Chưa có nhật ký nào.');
   }
 }
 
@@ -3212,7 +3458,7 @@ async function handleAuthSuccess(user, token) {
   showToast(`✅ Đăng nhập thành công với vai trò: ${roleName}`);
 
   if (user.role === 'admin') {
-    switchView('admin');
+    switchView('admin-dashboard');
   } else if (user.role === 'partner') {
     switchView('partner');
   } else {
