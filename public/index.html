@@ -12,7 +12,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
   <title>HỢP VỊ AI – Hiểu đúng vị – Gợi đúng món | Ẩm thực Đồng Nai</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-  <link rel="stylesheet" href="/styles.css?v=20261112-v23" />
+  <link rel="stylesheet" href="/styles.css?v=20261112-v24" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 </head>
 <body data-role="customer">
@@ -24,7 +24,9 @@
           <span>☰</span>
         </button>
         <div class="brand" onclick="onBrandClick()">
-          <div class="brand-logo" id="brand-logo-box">HV</div>
+          <div class="brand-logo" id="brand-logo-box">
+            <img src="/icons/logo.png" alt="Hợp Vị AI" class="brand-logo-img" />
+          </div>
           <div>
             <div class="brand-title" id="brand-title-text">HỢP VỊ AI</div>
             <div class="brand-slogan" id="brand-slogan-text">Ẩm thực Biên Hòa – Đồng Nai</div>
@@ -978,7 +980,9 @@
   <div id="live-chat-panel" class="live-chat-panel" role="dialog" aria-label="Khung trò chuyện Hợp Vị AI">
     <div class="chat-panel-header">
       <div class="chat-header-info">
-        <div class="chat-header-avatar">HV</div>
+        <div class="chat-header-avatar" style="overflow:hidden; padding:2px;">
+          <img src="/icons/logo.png" alt="Hợp Vị AI" style="width:100%; height:100%; object-fit:cover; border-radius:8px;" />
+        </div>
         <div class="chat-header-text">
           <h4>Hợp Vị AI • Trợ lý Ẩm thực</h4>
           <span>Đồng Nai • Trực tuyến</span>
@@ -1002,6 +1006,6 @@
     </div>
   </div>
 
-  <script src="/app.js?v=20261112-v23"></script>
+  <script src="/app.js?v=20261112-v24"></script>
 </body>
 </html>
