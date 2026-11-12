@@ -174,6 +174,7 @@ async function refreshAllData() {
     renderHeaderStats();
     renderHomeSpecialties();
     renderHomeRestaurants();
+    renderRecommendRestaurants();
     initOrUpdateLeafletMap();
     renderExploreSpecialties();
     renderFeedbackSection();
@@ -232,6 +233,9 @@ function switchView(viewName) {
   }, 40);
   if ((viewName === 'map' || viewName === 'home') && leafletMap) {
     setTimeout(() => leafletMap.invalidateSize(), 180);
+  }
+  if (viewName === 'recommend') {
+    renderRecommendRestaurants();
   }
 
   // Điều phối hiển thị nút Chat AI: Chỉ hiện ở màn hình Khách hàng
@@ -1141,6 +1145,86 @@ function toggleMobileRestaurantsList(expand) {
   renderHomeRestaurants();
   if (!expand) {
     document.getElementById('restaurants-section-anchor')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+let showAllRecommendRestaurants = false;
+
+function renderRecommendRestaurants() {
+  const box = document.getElementById('recommend-restaurants-grid');
+  const moreWrap = document.getElementById('recommend-restaurants-more-wrap');
+  if (!box || !Array.isArray(appState.restaurants)) return;
+  const filterVal = (document.getElementById('recommend-area-filter')?.value || 'all').toLowerCase();
+  const fullList = filterVal === 'all'
+    ? appState.restaurants
+    : appState.restaurants.filter(r => r.area.toLowerCase() === filterVal);
+
+  const isMobile = window.innerWidth <= 768;
+  const shouldLimit = isMobile && !showAllRecommendRestaurants && filterVal === 'all' && fullList.length > 4;
+  const list = shouldLimit ? fullList.slice(0, 4) : fullList;
+
+  box.innerHTML = list.map(r => {
+    const sampleDishes = (r.menu || []).slice(0, 3);
+    return `
+      <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          ${buildRestaurantGalleryHtml(r, 'rec')}
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+            <span class="badge badge-area">📍 P. ${escapeHtml(r.area)}</span>
+            <span class="badge badge-verified">✓ Đã xác minh</span>
+          </div>
+          <h3 style="font-size:1.05rem; margin-bottom:0.2rem;">${escapeHtml(r.name)}</h3>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.25rem;">🏠 ${escapeHtml(r.address)}</p>
+          <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:0.55rem;">🕒 ${escapeHtml(r.openingHours || 'Đang mở cửa')}</p>
+          <div style="border-top:1px solid var(--border); padding-top:0.45rem;">
+            <div style="font-size:0.78rem; font-weight:700; margin-bottom:0.25rem;">Món tiêu biểu (${(r.menu || []).length} món):</div>
+            ${sampleDishes.map(d => `
+              <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; padding:0.22rem 0; gap:0.5rem;">
+                <div style="display:flex; align-items:center; gap:0.45rem; overflow:hidden; min-width:0;">
+                  ${d.imageUrl ? `<img src="${d.imageUrl}" alt="${escapeHtml(d.name)}" class="dish-mini-thumb" loading="lazy" onerror="this.style.display='none'" />` : '<span style="color:var(--text-muted);">•</span>'}
+                  <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(d.name)}</span>
+                </div>
+                <strong style="color:var(--primary); white-space:nowrap; flex-shrink:0;">${escapeHtml(d.rawPriceText || (d.price ? d.price.toLocaleString('vi-VN') + 'đ' : ''))}</strong>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        <div class="card-action-pair">
+          <button class="btn btn-secondary btn-sm" onclick="routeToRestaurantById('${escapeAttr(r.id)}')">
+            🧭 Dẫn đường
+          </button>
+          <button class="btn btn-primary btn-sm" onclick="usePresetPrompt('Tìm combo món ngon nhóm 2-3 người tại quán ${escapeAttr(r.name)} ở ${escapeAttr(r.area)} với ngân sách 150.000đ')">
+            🤖 Gợi ý tại đây
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  if (moreWrap) {
+    if (shouldLimit) {
+      moreWrap.innerHTML = `
+        <button class="btn btn-secondary" style="width:100%; max-width:420px; border:2px solid var(--primary); color:var(--primary);" onclick="toggleRecommendRestaurantsList(true)">
+          👇 Xem thêm toàn bộ ${fullList.length} quán ăn đã xác minh (+${fullList.length - 4} quán)
+        </button>
+      `;
+    } else if (isMobile && showAllRecommendRestaurants && filterVal === 'all' && fullList.length > 4) {
+      moreWrap.innerHTML = `
+        <button class="btn btn-secondary btn-sm" onclick="toggleRecommendRestaurantsList(false)">
+          🔼 Thu gọn danh sách quán (Chỉ hiện 4 quán nổi bật)
+        </button>
+      `;
+    } else {
+      moreWrap.innerHTML = '';
+    }
+  }
+}
+
+function toggleRecommendRestaurantsList(expand) {
+  showAllRecommendRestaurants = expand;
+  renderRecommendRestaurants();
+  if (!expand) {
+    document.getElementById('recommend-restaurants-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
 
