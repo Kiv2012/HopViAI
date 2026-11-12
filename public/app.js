@@ -3299,19 +3299,10 @@ function appendChatMessage(role, text, places) {
   }
 
   if (role === 'model' && places && places.length > 0) {
-    // Bong bóng + thẻ quán xếp dọc trong cùng một khối tin nhắn
     msgDiv.classList.add('has-places');
-    const body = document.createElement('div');
-    body.className = 'chat-msg-body';
-    body.appendChild(bubbleDiv);
-    const wrap = document.createElement('div');
-    wrap.className = 'chat-places';
-    wrap.innerHTML = buildChatPlacesHtml(places);
-    body.appendChild(wrap);
-    msgDiv.appendChild(body);
-  } else {
-    msgDiv.appendChild(bubbleDiv);
+    attachInlinePlaceButtons(bubbleDiv, places);
   }
+  msgDiv.appendChild(bubbleDiv);
 
   box.appendChild(msgDiv);
   box.scrollTop = box.scrollHeight;
@@ -3357,22 +3348,41 @@ function findRestaurantsMentioned(text, limit = 5) {
   return found.sort((a, b) => a.idx - b.idx).slice(0, limit).map(x => x.r);
 }
 
-function buildChatPlacesHtml(places) {
+/* Khối nút vị trí gắn ngay dưới dòng nhắc tên quán: địa chỉ + giờ mở cửa + "Dẫn đường" + "Google Maps" */
+function buildInlinePlaceHtml(r) {
   const ic = n => `<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
   return `
-    <div class="chat-places-title">${ic('pin')} Địa điểm được nhắc trong câu trả lời</div>
-    ${places.map(r => `
-      <div class="chat-place-card">
-        <div class="chat-place-name">${escapeHtml(r.name)}</div>
-        <div class="chat-place-meta">${ic('home')} ${escapeHtml(r.address || '')}</div>
-        <div class="chat-place-meta">${ic('clock')} ${escapeHtml(r.openingHours || 'Đang mở cửa')}${r.area ? ` • P. ${escapeHtml(r.area)}` : ''}</div>
-        <div class="chat-place-actions">
-          <button type="button" class="chat-place-btn primary" onclick="openPlaceOnMapFromChat('${escapeAttr(r.id)}')">${ic('map')} Xem trên bản đồ</button>
-          <button type="button" class="chat-place-btn" onclick="openPlaceInGoogleMaps('${escapeAttr(r.id)}')">${ic('navigation')} Google Maps</button>
-        </div>
-      </div>
-    `).join('')}
+    <div class="chat-place-inline-meta">${ic('pin')} ${escapeHtml(r.address || r.name)}${r.openingHours ? ` • ${ic('clock')} ${escapeHtml(r.openingHours)}` : ''}</div>
+    <div class="chat-place-actions">
+      <button type="button" class="chat-place-btn primary" onclick="openPlaceOnMapFromChat('${escapeAttr(r.id)}')" aria-label="Dẫn đường tới ${escapeAttr(r.name)}">${ic('navigation')} Dẫn đường</button>
+      <button type="button" class="chat-place-btn" onclick="openPlaceInGoogleMaps('${escapeAttr(r.id)}')" aria-label="Mở ${escapeAttr(r.name)} trên Google Maps">${ic('map')} Google Maps</button>
+    </div>
   `;
+}
+
+/* Gắn nút vị trí ngay sau đoạn / tiêu đề / dòng danh sách đầu tiên nhắc tới từng quán.
+   Không tìm được chỗ phù hợp thì đặt cuối bong bóng để người dùng vẫn có nút bấm. */
+function attachInlinePlaceButtons(bubbleDiv, places) {
+  const blocks = Array.from(bubbleDiv.querySelectorAll('h4, h5, p, li'));
+  const lastRowAfter = new Map(); // giữ đúng thứ tự khi một đoạn nhắc nhiều quán
+  places.forEach(r => {
+    const keys = buildRestaurantMatchKeys(r.name);
+    const target = blocks.find(b => {
+      const hay = normalizeForMatch(b.textContent);
+      return keys.some(k => hay.includes(k));
+    });
+    const row = document.createElement('div');
+    row.className = 'chat-place-inline';
+    row.innerHTML = buildInlinePlaceHtml(r);
+    if (!target) {
+      bubbleDiv.appendChild(row);
+    } else if (target.tagName === 'LI') {
+      target.appendChild(row);
+    } else {
+      (lastRowAfter.get(target) || target).insertAdjacentElement('afterend', row);
+      lastRowAfter.set(target, row);
+    }
+  });
 }
 
 function closeLiveChat() {

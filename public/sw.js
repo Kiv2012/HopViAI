@@ -4,7 +4,7 @@
  * tự động dùng bản lưu dự phòng (Offline Cache) nếu rớt mạng đột xuất khi thuyết trình.
  */
 
-const CACHE_NAME = 'hop-vi-ai-pwa-v33';
+const CACHE_NAME = 'hop-vi-ai-pwa-v34';
 const CORE_ASSETS = [
   '/',
   '/index.html',
