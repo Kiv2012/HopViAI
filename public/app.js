@@ -3108,12 +3108,12 @@ function formatChatMarkdown(text) {
   return html || safe;
 }
 
-function appendChatMessage(role, text) {
+function appendChatMessage(role, text, places) {
   const box = document.getElementById('chat-messages-box');
   if (!box) return;
   const msgDiv = document.createElement('div');
   msgDiv.className = `chat-msg ${role}`;
-  
+
   const bubbleDiv = document.createElement('div');
   bubbleDiv.className = 'chat-bubble';
   if (role === 'user') {
@@ -3121,9 +3121,100 @@ function appendChatMessage(role, text) {
   } else {
     bubbleDiv.innerHTML = formatChatMarkdown(text);
   }
-  msgDiv.appendChild(bubbleDiv);
+
+  if (role === 'model' && places && places.length > 0) {
+    // Bong bóng + thẻ quán xếp dọc trong cùng một khối tin nhắn
+    msgDiv.classList.add('has-places');
+    const body = document.createElement('div');
+    body.className = 'chat-msg-body';
+    body.appendChild(bubbleDiv);
+    const wrap = document.createElement('div');
+    wrap.className = 'chat-places';
+    wrap.innerHTML = buildChatPlacesHtml(places);
+    body.appendChild(wrap);
+    msgDiv.appendChild(body);
+  } else {
+    msgDiv.appendChild(bubbleDiv);
+  }
+
   box.appendChild(msgDiv);
   box.scrollTop = box.scrollHeight;
+}
+
+/* ==================== THẺ ĐỊA ĐIỂM TRONG CHAT ==================== */
+
+/* Chuẩn hóa để so khớp tên quán: bỏ dấu, chữ thường, ký tự lạ → khoảng trắng */
+function normalizeForMatch(str) {
+  return ' ' + stripVietnamese(str).replace(/&/g, ' va ').replace(/[^a-z0-9]+/g, ' ').trim() + ' ';
+}
+
+const CHAT_NUMBER_WORDS = { 1: 'mot', 2: 'hai', 3: 'ba', 4: 'bon', 5: 'nam', 6: 'sau', 7: 'bay', 8: 'tam', 9: 'chin' };
+
+/* Các cách người ta có thể gõ tên một quán: tên đầy đủ, từng vế tách bởi " - ", số ↔ chữ ("5 Ri" ↔ "Năm Ri"), bỏ chữ "và" */
+function buildRestaurantMatchKeys(name) {
+  const keys = new Set();
+  const parts = [name, ...String(name).split(/\s[-–—]\s/)];
+  parts.forEach(part => {
+    const base = normalizeForMatch(part).trim();
+    if (base.split(' ').length < 2) return; // tránh khớp nhầm tên 1 từ quá chung chung
+    const variants = new Set([base, base.replace(/ va /g, ' ')]);
+    variants.forEach(v => {
+      keys.add(` ${v} `);
+      keys.add(` ${v.replace(/\b([1-9])\b/g, d => CHAT_NUMBER_WORDS[d])} `);
+    });
+  });
+  return Array.from(keys);
+}
+
+/* Tìm các quán được nhắc trong câu trả lời của AI, theo thứ tự xuất hiện (tối đa `limit` quán) */
+function findRestaurantsMentioned(text, limit = 5) {
+  const haystack = normalizeForMatch(text);
+  const found = [];
+  (appState.restaurants || []).forEach(r => {
+    let firstIdx = -1;
+    buildRestaurantMatchKeys(r.name).forEach(k => {
+      const i = haystack.indexOf(k);
+      if (i >= 0 && (firstIdx < 0 || i < firstIdx)) firstIdx = i;
+    });
+    if (firstIdx >= 0) found.push({ r, idx: firstIdx });
+  });
+  return found.sort((a, b) => a.idx - b.idx).slice(0, limit).map(x => x.r);
+}
+
+function buildChatPlacesHtml(places) {
+  const ic = n => `<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+  return `
+    <div class="chat-places-title">${ic('pin')} Địa điểm được nhắc trong câu trả lời</div>
+    ${places.map(r => `
+      <div class="chat-place-card">
+        <div class="chat-place-name">${escapeHtml(r.name)}</div>
+        <div class="chat-place-meta">${ic('home')} ${escapeHtml(r.address || '')}</div>
+        <div class="chat-place-meta">${ic('clock')} ${escapeHtml(r.openingHours || 'Đang mở cửa')}${r.area ? ` • P. ${escapeHtml(r.area)}` : ''}</div>
+        <div class="chat-place-actions">
+          <button type="button" class="chat-place-btn primary" onclick="openPlaceOnMapFromChat('${escapeAttr(r.id)}')">${ic('map')} Xem trên bản đồ</button>
+          <button type="button" class="chat-place-btn" onclick="openPlaceInGoogleMaps('${escapeAttr(r.id)}')">${ic('navigation')} Google Maps</button>
+        </div>
+      </div>
+    `).join('')}
+  `;
+}
+
+function closeLiveChat() {
+  document.getElementById('live-chat-panel')?.classList.remove('open');
+}
+
+/* Đóng khung chat, mở tab Bản đồ, chọn sẵn quán và vẽ đường tới quán đó */
+function openPlaceOnMapFromChat(restId) {
+  closeLiveChat();
+  routeToRestaurantById(restId);
+}
+
+/* Mở Google Maps tại đúng quán (dùng tên + địa chỉ để hiện thẻ địa điểm, có đủ ảnh/đánh giá/dẫn đường) */
+function openPlaceInGoogleMaps(restId) {
+  const rest = (appState.restaurants || []).find(r => r.id === restId);
+  if (!rest) return;
+  const query = encodeURIComponent(`${rest.name}, ${rest.address || ''}`);
+  window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank', 'noopener');
 }
 
 async function sendLiveChatMessage(presetText) {
@@ -3165,7 +3256,7 @@ async function sendLiveChatMessage(presetText) {
     if (indicator) indicator.remove();
 
     if (result.success && result.data && result.data.reply) {
-      appendChatMessage('model', result.data.reply);
+      appendChatMessage('model', result.data.reply, findRestaurantsMentioned(result.data.reply));
       liveChatHistory.push(
         { role: 'user', content: text },
         { role: 'model', content: result.data.reply }
