@@ -41,8 +41,8 @@ let costTrackerState = Object.freeze({
 });
 
 function addCostRecord({ model, task, mode, inputTokens = 0, outputTokens = 0, latencyMs = 0 }) {
-  // Gemini 2.5 Flash reference pricing (~$0.15 / 1M input, ~$0.60 / 1M output)
-  const costUsd = mode === 'gemini_api'
+  // Gemini & GPT-4o-mini reference pricing (~$0.15 / 1M input, ~$0.60 / 1M output)
+  const costUsd = (mode === 'gemini_api' || mode === 'openai_api')
     ? (inputTokens * 0.00000015) + (outputTokens * 0.00000060)
     : 0;
 
@@ -79,6 +79,7 @@ function getCostStats() {
 
 // Lưu API key tạm thời trong phiên chạy (nếu người dùng nhập trên giao diện Web) hoặc đọc từ biến môi trường
 let runtimeApiKey = process.env.GEMINI_API_KEY || '';
+let runtimeOpenAiApiKey = process.env.OPENAI_API_KEY || '';
 
 function setRuntimeApiKey(key) {
   runtimeApiKey = (key || '').trim();
@@ -86,6 +87,57 @@ function setRuntimeApiKey(key) {
 
 function getActiveApiKey() {
   return runtimeApiKey || process.env.GEMINI_API_KEY || '';
+}
+
+function setRuntimeOpenAiApiKey(key) {
+  runtimeOpenAiApiKey = (key || '').trim();
+}
+
+function getActiveOpenAiApiKey() {
+  return runtimeOpenAiApiKey || process.env.OPENAI_API_KEY || '';
+}
+
+async function callOpenAiApi(messages, generationConfig = {}, taskName = 'nlp_parse') {
+  const apiKey = getActiveOpenAiApiKey();
+  if (!apiKey) return null;
+  const model = process.env.OPENAI_MODEL || 'gpt-4o-mini';
+  const startTime = Date.now();
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 12000);
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      signal: controller.signal,
+      body: JSON.stringify({
+        model,
+        messages,
+        temperature: generationConfig.temperature || 0.2,
+        max_tokens: generationConfig.maxOutputTokens || 1500
+      })
+    });
+    clearTimeout(timer);
+    if (response.ok) {
+      const data = await response.json();
+      const text = data?.choices?.[0]?.message?.content || '';
+      const usage = data?.usage || {};
+      addCostRecord({
+        model,
+        task: taskName,
+        mode: 'openai_api',
+        inputTokens: usage.prompt_tokens || 200,
+        outputTokens: usage.completion_tokens || 100,
+        latencyMs: Date.now() - startTime
+      });
+      return { text, model, usage };
+    }
+    return null;
+  } catch (err) {
+    return null;
+  }
 }
 
 function safeParseJson(rawText) {
@@ -447,16 +499,44 @@ Hãy phân tích câu yêu cầu tiếng Việt của người dùng và trả v
 }
 Tuyệt đối chỉ trả về JSON hợp lệ, không tự bịa tên quán hoặc giá món ăn.`;
 
-    const { text, model } = await callGeminiApi(
-      [
-        {
-          role: 'user',
-          parts: [{ text: `${systemInstruction}\n\nCâu yêu cầu của người dùng: "${promptText}"` }]
-        }
-      ],
-      { responseMimeType: 'application/json' },
-      'analyze_requirement'
-    );
+    let text = '';
+    let model = '';
+
+    // 1. Ưu tiên thử OpenAI GPT-4o-mini nếu có cấu hình key
+    if (getActiveOpenAiApiKey()) {
+      const openAiRes = await callOpenAiApi(
+        [
+          { role: 'system', content: systemInstruction },
+          { role: 'user', content: `Câu yêu cầu của người dùng: "${promptText}"` }
+        ],
+        { temperature: 0.2 },
+        'analyze_requirement'
+      );
+      if (openAiRes && openAiRes.text) {
+        text = openAiRes.text;
+        model = openAiRes.model;
+      }
+    }
+
+    // 2. Tự động Cascade sang Google Gemini nếu OpenAI không khả dụng hoặc hết hạn mức
+    if (!text && getActiveApiKey()) {
+      try {
+        const geminiRes = await callGeminiApi(
+          [
+            {
+              role: 'user',
+              parts: [{ text: `${systemInstruction}\n\nCâu yêu cầu của người dùng: "${promptText}"` }]
+            }
+          ],
+          { responseMimeType: 'application/json' },
+          'analyze_requirement'
+        );
+        text = geminiRes.text;
+        model = geminiRes.model;
+      } catch (_) {
+        // Chuyển tiếp xuống bộ phân tích heuristic
+      }
+    }
 
     const parsed = safeParseJson(text) || fallbackResult;
     const partySize = Math.max(1, Math.min(6, Number(parsed.partySize) || fallbackResult.partySize));
@@ -755,6 +835,41 @@ HƯỚNG DẪN TRẢ LỜI & NGUYÊN TẮC TỐI ƯU NGÂN SÁCH (RẤT QUAN TR�
     parts: [{ text: message }]
   });
 
+  // 1. Thử gọi OpenAI GPT-4o-mini trước nếu có cấu hình key
+  if (getActiveOpenAiApiKey()) {
+    try {
+      const openAiMessages = [
+        { role: 'system', content: systemInstruction },
+        { role: 'assistant', content: 'Chào bạn! Mình là Hợp Vị AI – Trợ lý ẩm thực Biên Hòa, Đồng Nai đây. Hôm nay bạn và nhóm muốn đi ăn gì, ở khu vực nào hay có ngân sách bao nhiêu? Cứ nhắn cho mình nhé, mình sẽ gợi ý quán ngon và món chuẩn vị nhất cho bạn!' }
+      ];
+      if (Array.isArray(history)) {
+        for (const h of history.slice(-8)) {
+          const msgText = String(h.text || h.message || h.content || '').trim();
+          if (msgText) {
+            openAiMessages.push({
+              role: (h.role === 'model' || h.role === 'assistant') ? 'assistant' : 'user',
+              content: msgText
+            });
+          }
+        }
+      }
+      openAiMessages.push({ role: 'user', content: message });
+
+      const openAiRes = await callOpenAiApi(openAiMessages, { temperature: 0.7, maxOutputTokens: 2500 }, 'chat_conversational');
+      if (openAiRes && openAiRes.text) {
+        return {
+          reply: openAiRes.text,
+          model: openAiRes.model,
+          usedLiveGemini: true,
+          latencyMs: Date.now() - startTime
+        };
+      }
+    } catch (_) {
+      // Tự động chuyển xuống Gemini
+    }
+  }
+
+  // 2. Cascade sang Google Gemini
   if (apiKey) {
     try {
       const { text, model } = await callGeminiApi(
