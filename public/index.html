@@ -12,16 +12,88 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
   <title>HỢP VỊ AI – Hiểu đúng vị – Gợi đúng món | Ẩm thực Đồng Nai</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-  <link rel="stylesheet" href="/styles.css?v=20261112-v23" />
+  <link rel="stylesheet" href="/styles.css?v=20261112-v25" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 </head>
 <body data-role="customer">
+  <!-- Bộ icon SVG dùng chung (phong cách Lucide, nét 2px) -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></symbol>
+    <symbol id="i-citrus" viewBox="0 0 24 24"><path d="M21.66 17.67a1.08 1.08 0 0 1-.04 1.6A12 12 0 0 1 4.73 2.38a1.1 1.1 0 0 1 1.61-.04z"/><path d="M19.65 15.66A8 8 0 0 1 8.35 4.34"/><path d="m14 10-5.5 5.5"/><path d="M14 17.85V10H6.15"/></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></symbol>
+    <symbol id="i-scan" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 8h8"/><path d="M7 12h10"/><path d="M7 16h6"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></symbol>
+    <symbol id="i-clipboard" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
+    <symbol id="i-store" viewBox="0 0 24 24"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="i-user-plus" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></symbol>
+    <symbol id="i-utensils" viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></symbol>
+    <symbol id="i-soup" viewBox="0 0 24 24"><path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z"/><path d="M7 21h10"/><path d="M19.5 12 22 6"/><path d="M16.25 3c.27.1.8.53.75 1.36-.06.83-.93 1.2-1 2.02-.05.78.34 1.24.73 1.62"/><path d="M11.25 3c.27.1.8.53.74 1.36-.05.83-.93 1.2-.98 2.02-.06.78.33 1.24.72 1.62"/><path d="M6.25 3c.27.1.8.53.75 1.36-.06.83-.93 1.2-1 2.02-.05.78.34 1.24.74 1.62"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+    <symbol id="i-locate" viewBox="0 0 24 24"><line x1="2" x2="5" y1="12" y2="12"/><line x1="19" x2="22" y1="12" y2="12"/><line x1="12" x2="12" y1="2" y2="5"/><line x1="12" x2="12" y1="19" y2="22"/><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/></symbol>
+    <symbol id="i-navigation" viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></symbol>
+    <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-arrows-h" viewBox="0 0 24 24"><path d="m18 8 4 4-4 4"/><path d="M2 12h20"/><path d="m6 8-4 4 4 4"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M3 12h.01"/><path d="M3 18h.01"/><path d="M3 6h.01"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M8 6h13"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/><path d="M7 16h10"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-x-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    <symbol id="i-unlock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></symbol>
+    <symbol id="i-smartphone" viewBox="0 0 24 24"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></symbol>
+    <symbol id="i-qr" viewBox="0 0 24 24"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+    <symbol id="i-loader" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></symbol>
+    <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></symbol>
+    <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></symbol>
+    <symbol id="i-chevron-up" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></symbol>
+    <symbol id="i-more-v" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></symbol>
+  </svg>
   <!-- ==================== THANH ĐIỀU HƯỚNG TỰ ĐỘNG THEO 3 VAI TRÒ ==================== -->
   <header class="topbar">
     <div class="topbar-inner">
       <div class="topbar-left-cluster">
         <button class="topbar-icon-btn hamburger-btn" onclick="openAuthModal()" aria-label="Menu vai trò" title="Đổi vai trò & Đăng nhập">
-          <span>☰</span>
+          <span><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg></span>
         </button>
         <div class="brand" onclick="onBrandClick()">
           <div class="brand-logo" id="brand-logo-box">HV</div>
@@ -34,45 +106,45 @@
 
       <!-- MENU DESKTOP 1: GIAO DIỆN KHÁCH HÀNG -->
       <nav id="desktop-nav-customer" class="nav-tabs role-nav hide-on-mobile" data-for-role="customer" aria-label="Menu Khách hàng">
-        <button class="nav-btn active" data-view="home" onclick="switchView('home')">🍱 Trang chủ</button>
-        <button class="nav-btn" data-view="recommend" onclick="switchView('recommend')">🤖 Tìm món AI</button>
-        <button class="nav-btn" data-view="map" onclick="switchView('map')">🗺️ Bản đồ</button>
-        <button class="nav-btn" data-view="explore" onclick="switchView('explore')">🍊 Đặc sản</button>
-        <button class="nav-btn" data-view="feedback" onclick="switchView('feedback')">💬 Đánh giá</button>
+        <button class="nav-btn active" data-view="home" onclick="switchView('home')"><svg class="ic" aria-hidden="true"><use href="#i-utensils"/></svg> Trang chủ</button>
+        <button class="nav-btn" data-view="recommend" onclick="switchView('recommend')"><svg class="ic" aria-hidden="true"><use href="#i-sparkles"/></svg> Tìm món AI</button>
+        <button class="nav-btn" data-view="map" onclick="switchView('map')"><svg class="ic" aria-hidden="true"><use href="#i-map"/></svg> Bản đồ</button>
+        <button class="nav-btn" data-view="explore" onclick="switchView('explore')"><svg class="ic" aria-hidden="true"><use href="#i-citrus"/></svg> Đặc sản</button>
+        <button class="nav-btn" data-view="feedback" onclick="switchView('feedback')"><svg class="ic" aria-hidden="true"><use href="#i-message"/></svg> Đánh giá</button>
       </nav>
 
       <!-- MENU DESKTOP 2: GIAO DIỆN CHỦ QUÁN (PARTNER PORTAL) -->
       <nav id="desktop-nav-partner" class="nav-tabs role-nav hide-on-mobile" data-for-role="partner" style="display:none;" aria-label="Menu Chủ quán">
-        <button class="nav-btn" data-view="partner" onclick="switchView('partner')">📸 AI Quét Thực đơn</button>
-        <button class="nav-btn" data-view="partner-menus" onclick="switchView('partner-menus')">📋 Hồ sơ Quán của tôi</button>
-        <button class="nav-btn" data-view="partner-reviews" onclick="switchView('partner-reviews')">💬 Phản hồi Khách hàng</button>
+        <button class="nav-btn" data-view="partner" onclick="switchView('partner')"><svg class="ic" aria-hidden="true"><use href="#i-scan"/></svg> AI Quét Thực đơn</button>
+        <button class="nav-btn" data-view="partner-menus" onclick="switchView('partner-menus')"><svg class="ic" aria-hidden="true"><use href="#i-clipboard"/></svg> Hồ sơ Quán của tôi</button>
+        <button class="nav-btn" data-view="partner-reviews" onclick="switchView('partner-reviews')"><svg class="ic" aria-hidden="true"><use href="#i-message"/></svg> Phản hồi Khách hàng</button>
       </nav>
 
       <!-- MENU DESKTOP 3: GIAO DIỆN QUẢN TRỊ VIÊN (ADMIN CONSOLE) -->
       <nav id="desktop-nav-admin" class="nav-tabs role-nav hide-on-mobile" data-for-role="admin" style="display:none;" aria-label="Menu Admin">
         <button class="nav-btn" data-view="admin" onclick="switchView('admin')">
-          📥 Duyệt Menu (<span id="pending-badge-count">1</span>)
+          <svg class="ic" aria-hidden="true"><use href="#i-inbox"/></svg> Duyệt Menu (<span id="pending-badge-count">1</span>)
         </button>
         <button class="nav-btn" data-view="admin-restaurants" onclick="switchView('admin-restaurants')">
-          🏪 Quản lý Quán (<span id="admin-rests-count-top">21</span>)
+          <svg class="ic" aria-hidden="true"><use href="#i-store"/></svg> Quản lý Quán (<span id="admin-rests-count-top">21</span>)
         </button>
         <button class="nav-btn" data-view="admin-users" onclick="switchView('admin-users')">
-          👥 Quản lý User
+          <svg class="ic" aria-hidden="true"><use href="#i-users"/></svg> Quản lý User
         </button>
         <button class="nav-btn" data-view="admin-system" onclick="switchView('admin-system')">
-          ⚙️ Hệ thống & AI
+          <svg class="ic" aria-hidden="true"><use href="#i-sliders"/></svg> Hệ thống & AI
         </button>
       </nav>
 
       <!-- Cụm biểu tượng góc phải: Chuông thông báo + Nút User Avatar -->
       <div class="topbar-right-cluster">
         <button class="topbar-icon-btn notif-btn" onclick="showNotificationToast('Hệ thống đã cập nhật 21 quán ăn & 122 hình ảnh thực tế đối chiếu từ khảo sát Đồng Nai!')" title="Thông báo hệ thống">
-          <span class="bell-icon">🔔</span>
+          <span class="bell-icon"><svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg></span>
           <span class="notif-badge-dot"></span>
         </button>
 
         <button id="user-account-btn" class="topbar-icon-btn avatar-btn" onclick="openAuthModal()" title="Đăng nhập / Đổi vai trò (Khách hàng - Chủ quán - Admin)">
-          <span class="user-avatar-circle" id="user-account-avatar">👤</span>
+          <span class="user-avatar-circle" id="user-account-avatar"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg></span>
         </button>
       </div>
     </div>
@@ -88,7 +160,7 @@
       <!-- HERO BANNER TINH GỌN (CHÍNH XÁC THEO THIẾT KẾ MỚI) -->
       <div class="hero hero-clean-streamlined">
         <div class="hero-top-badge">
-          🍜 Ẩm thực Biên Hòa – Đồng Nai • Ẩm thực cho mọi nhu cầu
+          <svg class="ic" aria-hidden="true"><use href="#i-utensils"/></svg> Ẩm thực Biên Hòa – Đồng Nai • Ẩm thực cho mọi nhu cầu
         </div>
         <h1 class="hero-headline">Hôm nay đi ăn gì cùng nhóm bạn?</h1>
         <p class="hero-subtext">
@@ -106,7 +178,7 @@
               onkeydown="if(event.key==='Enter'){ triggerQuickRecommend(); }"
             />
             <button class="btn-hero-search" onclick="triggerQuickRecommend()">
-              🔍 Tìm món ngay
+              <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg> Tìm món ngay
             </button>
           </div>
         </div>
@@ -114,38 +186,38 @@
         <!-- 3 Nút lọc thả xuống (Dropdowns) gọn gàng, hiển thị trọn vẹn 100% -->
         <div class="hero-filters-row">
           <div class="hero-filter-pill">
-            <span class="filter-pill-label" id="label-filter-people">👥 3 người ▾</span>
+            <span class="filter-pill-label" id="label-filter-people"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg> 3 người ▾</span>
             <select id="hero-filter-people" class="filter-hidden-select" onchange="onHeroFilterChange('people')">
-              <option value="3" selected>👥 3 người</option>
-              <option value="1">👤 1 người</option>
-              <option value="2">👥 2 người</option>
-              <option value="4">👥 4 người</option>
-              <option value="5">👥 5+ người</option>
+              <option value="3" selected>3 người</option>
+              <option value="1">1 người</option>
+              <option value="2">2 người</option>
+              <option value="4">4 người</option>
+              <option value="5">5+ người</option>
             </select>
           </div>
 
           <div class="hero-filter-pill">
-            <span class="filter-pill-label" id="label-filter-budget">🪙 150k ▾</span>
+            <span class="filter-pill-label" id="label-filter-budget"><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg> 150k ▾</span>
             <select id="hero-filter-budget" class="filter-hidden-select" onchange="onHeroFilterChange('budget')">
-              <option value="150000" selected>🪙 150.000đ</option>
-              <option value="50000">💰 50.000đ</option>
-              <option value="100000">💰 100.000đ</option>
-              <option value="200000">💰 200.000đ</option>
-              <option value="300000">💰 300.000đ</option>
-              <option value="500000">💰 500.000đ+</option>
+              <option value="150000" selected>150.000đ</option>
+              <option value="50000">50.000đ</option>
+              <option value="100000">100.000đ</option>
+              <option value="200000">200.000đ</option>
+              <option value="300000">300.000đ</option>
+              <option value="500000">500.000đ+</option>
             </select>
           </div>
 
           <div class="hero-filter-pill">
-            <span class="filter-pill-label" id="label-filter-area">📍 Khu vực ▾</span>
+            <span class="filter-pill-label" id="label-filter-area"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> Khu vực ▾</span>
             <select id="hero-filter-area" class="filter-hidden-select" onchange="onHeroFilterChange('area')">
-              <option value="all" selected>📍 Tất cả KV</option>
-              <option value="Trấn Biên">📍 P. Trấn Biên</option>
-              <option value="Tam Hiệp">📍 P. Tam Hiệp</option>
-              <option value="Tân Triều">📍 P. Tân Triều</option>
-              <option value="Bửu Long">📍 P. Bửu Long</option>
-              <option value="Thanh Bình">📍 P. Thanh Bình</option>
-              <option value="Thống Nhất">📍 P. Thống Nhất</option>
+              <option value="all" selected>Tất cả KV</option>
+              <option value="Trấn Biên">P. Trấn Biên</option>
+              <option value="Tam Hiệp">P. Tam Hiệp</option>
+              <option value="Tân Triều">P. Tân Triều</option>
+              <option value="Bửu Long">P. Bửu Long</option>
+              <option value="Thanh Bình">P. Thanh Bình</option>
+              <option value="Thống Nhất">P. Thống Nhất</option>
             </select>
           </div>
         </div>
@@ -167,7 +239,7 @@
           <!-- Card 1: AI chọn món -->
           <div class="feature-item-card" onclick="switchView('recommend')">
             <div class="feature-item-icon brain-icon-bg">
-              <span>🧠</span>
+              <span><svg class="ic" aria-hidden="true"><use href="#i-sparkles"/></svg></span>
             </div>
             <div class="feature-item-body">
               <h3 class="feature-item-title">AI chọn món</h3>
@@ -183,7 +255,7 @@
           <!-- Card 2: Đặc sản Đồng Nai -->
           <div class="feature-item-card" onclick="switchView('explore')">
             <div class="feature-item-icon citrus-icon-bg">
-              <span>🍊</span>
+              <span><svg class="ic" aria-hidden="true"><use href="#i-citrus"/></svg></span>
             </div>
             <div class="feature-item-body">
               <h3 class="feature-item-title">Đặc sản Đồng Nai</h3>
@@ -199,7 +271,7 @@
           <!-- Card 3: Xem thêm các quán ăn -->
           <div class="feature-item-card" onclick="scrollToRestaurants()">
             <div class="feature-item-icon pin-icon-bg">
-              <span>📍</span>
+              <span><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg></span>
             </div>
             <div class="feature-item-body">
               <h3 class="feature-item-title">Xem thêm các quán ăn</h3>
@@ -218,12 +290,12 @@
       <div id="home-restaurants-wrapper" class="hide-on-mobile">
         <div class="section-header" id="restaurants-section-anchor" style="margin-top:0.5rem;">
           <div>
-            <h2>🏪 Quán ngon đã xác minh giá tại Biên Hòa</h2>
+            <h2><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg> Quán ngon đã xác minh giá tại Biên Hòa</h2>
             <p style="font-size:0.84rem; color:var(--text-muted);">Bấm vào từng quán để xem thực đơn hoặc bấm chỉ đường.</p>
           </div>
           <div>
             <select id="home-area-filter" class="form-control" style="width:auto; display:inline-block;" onchange="renderHomeRestaurants()">
-              <option value="all">📍 Tất cả khu vực (18 quán)</option>
+              <option value="all">Tất cả khu vực (18 quán)</option>
               <option value="Trấn Biên">Phường Trấn Biên (7 quán)</option>
               <option value="Tam Hiệp">Phường Tam Hiệp (5 quán)</option>
               <option value="Tân Triều">Phường Tân Triều (3 quán)</option>
@@ -240,7 +312,7 @@
       <!-- Đặc sản nổi bật (Ẩn trên điện thoại để giao diện tinh gọn, xem tại tab Đặc sản) -->
       <div id="home-specialties-wrapper" class="hide-on-mobile">
         <div class="section-header">
-          <h2>🍊 Đặc sản Đồng Nai nổi bật</h2>
+          <h2><svg class="ic" aria-hidden="true"><use href="#i-citrus"/></svg> Đặc sản Đồng Nai nổi bật</h2>
           <button class="btn btn-secondary btn-sm" onclick="switchView('explore')">Xem tất cả đặc sản →</button>
         </div>
         <div id="home-specialties-grid" class="grid-2" style="margin-bottom:1.5rem;"></div>
@@ -252,7 +324,7 @@
       <div class="card" style="margin-bottom:1rem;">
         <div class="section-header" style="margin-bottom:0.5rem;">
           <div>
-            <h2>🤖 Tìm món ăn theo Ngân sách & Khẩu vị</h2>
+            <h2><svg class="ic" aria-hidden="true"><use href="#i-sparkles"/></svg> Tìm món ăn theo Ngân sách & Khẩu vị</h2>
             <p style="color:var(--text-muted); font-size:0.85rem;">
               Nhập câu tự nhiên mô tả số người, số tiền hiện có và món muốn ăn.
             </p>
@@ -270,21 +342,21 @@
         </div>
 
         <button id="btn-analyze-prompt" class="btn btn-primary" style="width:100%; margin-bottom:0.6rem; min-height:44px;" onclick="runStep1Analyze()">
-          🔍 Phân tích nhu cầu & Tìm tổ hợp món ngay
+          <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg> Phân tích nhu cầu & Tìm tổ hợp món ngay
         </button>
 
         <div class="sample-prompts-row">
           <button class="btn btn-secondary btn-sm" onclick="fillAndAnalyze('Nhóm mình có 3 người ở Trấn Biên, tổng ngân sách 150.000 đồng. Hai người thích món nước, một người thích mì trộn. Cả nhóm muốn ăn cùng quán.')">
-            ⚡ Mẫu 1: Nhóm 3 người (150k)
+            <svg class="ic" aria-hidden="true"><use href="#i-zap"/></svg> Mẫu 1: Nhóm 3 người (150k)
           </button>
           <button class="btn btn-secondary btn-sm" onclick="fillAndAnalyze('Nhóm 3 người ở Trấn Biên có 90.000 đồng, 2 người thích bún thái hải sản, 1 người thích mì trộn hải sản.')">
-            ⚠️ Mẫu 2: Thiếu ngân sách (90k)
+            <svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg> Mẫu 2: Thiếu ngân sách (90k)
           </button>
           <button class="btn btn-secondary btn-sm" onclick="fillAndAnalyze('Nhóm 2 người muốn ăn ở khu vực Long Khánh với ngân sách 100.000 đồng.')">
-            📍 Mẫu 3: Khu vực chưa có dữ liệu
+            <svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> Mẫu 3: Khu vực chưa có dữ liệu
           </button>
           <button class="btn btn-secondary btn-sm" onclick="fillAndAnalyze('Đi một mình ở Trấn Biên có tầm 45.000 đồng muốn ăn cơm gà.')">
-            👤 Mẫu 4: Đi 1 mình (45k)
+            <svg class="ic" aria-hidden="true"><use href="#i-user"/></svg> Mẫu 4: Đi 1 mình (45k)
           </button>
         </div>
       </div>
@@ -320,20 +392,20 @@
       <div class="dongnai-map-card" id="dongnai-map-anchor" style="margin-bottom:1rem;">
         <div class="section-header" style="margin-bottom:0.65rem;">
           <div>
-            <h2>🗺️ Bản đồ & Dẫn đường 18 Quán ăn (Biên Hòa)</h2>
+            <h2><svg class="ic" aria-hidden="true"><use href="#i-map"/></svg> Bản đồ & Dẫn đường 18 Quán ăn (Biên Hòa)</h2>
             <p class="hide-on-mobile" style="font-size:0.86rem; color:var(--text-muted);">
               Chọn điểm xuất phát và quán muốn đến để xem ngay lộ trình, khoảng cách (km) và thời gian di chuyển.
             </p>
           </div>
           <div class="map-top-actions" style="display:flex; gap:0.45rem; flex-wrap:wrap;">
-            <button class="btn btn-primary btn-sm" onclick="useMyGpsLocation()">📍 Định vị GPS</button>
-            <button class="btn btn-secondary btn-sm" onclick="selectMapArea('all')">🔄 Hiện 18 quán</button>
+            <button class="btn btn-primary btn-sm" onclick="useMyGpsLocation()"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> Định vị GPS</button>
+            <button class="btn btn-secondary btn-sm" onclick="selectMapArea('all')"><svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg> Hiện 18 quán</button>
           </div>
         </div>
 
         <div class="routing-control-bar">
           <div style="display:flex; align-items:center; gap:0.4rem; flex:1; min-width:200px;">
-            <strong style="font-size:0.82rem; white-space:nowrap;">🚩 Điểm đi:</strong>
+            <strong style="font-size:0.82rem; white-space:nowrap;"><svg class="ic" aria-hidden="true"><use href="#i-flag"/></svg> Điểm đi:</strong>
             <select id="route-origin-select" class="form-control" style="padding:0.45rem 0.65rem; font-size:0.86rem;" onchange="onOriginChange()">
               <option value="10.9508,106.8222">Công viên Biên Hùng (P. Trấn Biên)</option>
               <option value="10.9635,106.8065">Đại học Lạc Hồng (P. Bửu Long)</option>
@@ -344,15 +416,15 @@
           </div>
 
           <div style="display:flex; align-items:center; gap:0.4rem; flex:1.2; min-width:210px;">
-            <strong style="font-size:0.82rem; white-space:nowrap;">🎯 Quán đến:</strong>
+            <strong style="font-size:0.82rem; white-space:nowrap;"><svg class="ic" aria-hidden="true"><use href="#i-locate"/></svg> Quán đến:</strong>
             <select id="route-dest-select" class="form-control" style="padding:0.45rem 0.65rem; font-size:0.86rem;" onchange="drawRouteToSelectedRestaurant()">
               <option value="">-- Chọn quán ăn để vẽ đường đi --</option>
             </select>
           </div>
 
           <div class="routing-btn-pair">
-            <button class="btn btn-primary btn-sm" onclick="drawRouteToSelectedRestaurant()">🧭 Vẽ đường</button>
-            <button class="btn btn-secondary btn-sm" onclick="openExternalGoogleMapsDir()">🛵 Google Maps</button>
+            <button class="btn btn-primary btn-sm" onclick="drawRouteToSelectedRestaurant()"><svg class="ic" aria-hidden="true"><use href="#i-navigation"/></svg> Vẽ đường</button>
+            <button class="btn btn-secondary btn-sm" onclick="openExternalGoogleMapsDir()"><svg class="ic" aria-hidden="true"><use href="#i-route"/></svg> Google Maps</button>
           </div>
         </div>
 
@@ -363,13 +435,13 @@
             <div id="leaflet-routing-map"></div>
             <div class="map-pan-dpad" title="Di chuyển bản đồ">
               <div></div>
-              <button type="button" class="dpad-btn" onclick="panMapBy(0, -180)">⬆️</button>
+              <button type="button" class="dpad-btn" onclick="panMapBy(0, -180)"><svg class="ic" aria-hidden="true"><use href="#i-arrow-up"/></svg></button>
               <div></div>
-              <button type="button" class="dpad-btn" onclick="panMapBy(-220, 0)">⬅️</button>
-              <button type="button" class="dpad-btn" onclick="centerMapOnActiveTarget()">🎯</button>
-              <button type="button" class="dpad-btn" onclick="panMapBy(220, 0)">➡️</button>
+              <button type="button" class="dpad-btn" onclick="panMapBy(-220, 0)"><svg class="ic" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+              <button type="button" class="dpad-btn" onclick="centerMapOnActiveTarget()"><svg class="ic" aria-hidden="true"><use href="#i-locate"/></svg></button>
+              <button type="button" class="dpad-btn" onclick="panMapBy(220, 0)"><svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
               <div></div>
-              <button type="button" class="dpad-btn" onclick="panMapBy(0, 180)">⬇️</button>
+              <button type="button" class="dpad-btn" onclick="panMapBy(0, 180)"><svg class="ic" aria-hidden="true"><use href="#i-arrow-down"/></svg></button>
               <div></div>
             </div>
           </div>
@@ -377,28 +449,28 @@
           <div id="map-zone-list">
             <button class="map-zone-btn" onclick="selectMapArea('Trấn Biên')">
               <div>
-                <strong style="color:var(--primary);">📍 P. Trấn Biên</strong>
+                <strong style="color:var(--primary);"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> P. Trấn Biên</strong>
                 <div class="hide-on-mobile" style="font-size:0.78rem; color:var(--text-muted);">Bún Thái Thành Minh, Bún Bò ViNaTex, Lẩu Tôm 5 Ri, Cơm Gà S88...</div>
               </div>
               <span class="badge badge-area">7 quán</span>
             </button>
             <button class="map-zone-btn" onclick="selectMapArea('Tam Hiệp')">
               <div>
-                <strong style="color:#0f766e;">📍 P. Tam Hiệp</strong>
+                <strong style="color:#0f766e;"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> P. Tam Hiệp</strong>
                 <div class="hide-on-mobile" style="font-size:0.78rem; color:var(--text-muted);">Tiệm Ăn Nhà Túc, Bún Đậu Ngọc Thanh Tâm, Chay Thiện Duyên 2...</div>
               </div>
               <span class="badge badge-verified">5 quán</span>
             </button>
             <button class="map-zone-btn" onclick="selectMapArea('Tân Triều')">
               <div>
-                <strong style="color:var(--accent);">📍 P. Tân Triều</strong>
+                <strong style="color:var(--accent);"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> P. Tân Triều</strong>
                 <div class="hide-on-mobile" style="font-size:0.78rem; color:var(--text-muted);">Làng Bưởi Năm Huệ, Vườn Bưởi Tư Trung, Cháo Hến Cô Tươi</div>
               </div>
               <span class="badge badge-verified">3 quán</span>
             </button>
             <button class="map-zone-btn" onclick="selectMapArea('Bửu Long')">
               <div>
-                <strong style="color:#b45309;">📍 Bửu Long & Khác</strong>
+                <strong style="color:#b45309;"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> Bửu Long & Khác</strong>
                 <div class="hide-on-mobile" style="font-size:0.78rem; color:var(--text-muted);">Chả Lụi Cô Yến, Tiệm Mì Vĩnh Vĩnh, Tiệm Gà Sugar</div>
               </div>
               <span class="badge badge-warning">3 quán</span>
@@ -411,7 +483,7 @@
     <!-- 1.4. KHÁCH HÀNG - KHÁM PHÁ ĐẶC SẢN ĐỒNG NAI -->
     <section id="view-explore" class="view-section">
       <div class="card" style="margin-bottom:1.1rem;">
-        <h2>🍊 Khám phá Đặc sản Ẩm thực Đồng Nai</h2>
+        <h2><svg class="ic" aria-hidden="true"><use href="#i-citrus"/></svg> Khám phá Đặc sản Ẩm thực Đồng Nai</h2>
         <p style="color:var(--text-muted); font-size:0.88rem;">
           Tìm hiểu nguồn gốc các món đặc sản trứ danh Biên Hòa – Đồng Nai và đặt lộ trình đến thưởng thức tại các quán chính gốc.
         </p>
@@ -423,7 +495,7 @@
     <section id="view-feedback" class="view-section">
       <div class="grid-2">
         <div class="card">
-          <h2>💬 Đánh giá Quán ăn & Báo cập nhật giá</h2>
+          <h2><svg class="ic" aria-hidden="true"><use href="#i-message"/></svg> Đánh giá Quán ăn & Báo cập nhật giá</h2>
           <p style="color:var(--text-muted); font-size:0.86rem; margin-bottom:1rem;">
             Chia sẻ trải nghiệm của bạn hoặc báo cho hệ thống nếu quán thay đổi giá bán.
           </p>
@@ -436,8 +508,8 @@
           <div class="form-group">
             <label>Loại phản hồi:</label>
             <select id="fb-type" class="form-control">
-              <option value="experience">🌟 Đánh giá chất lượng món ăn & quán</option>
-              <option value="price_discrepancy">⚠️ Báo cáo thay đổi giá bán / giờ mở cửa</option>
+              <option value="experience">Đánh giá chất lượng món ăn & quán</option>
+              <option value="price_discrepancy">Báo cáo thay đổi giá bán / giờ mở cửa</option>
             </select>
           </div>
 
@@ -449,11 +521,11 @@
           <div class="form-group">
             <label>Mức độ hài lòng:</label>
             <select id="fb-rating" class="form-control">
-              <option value="5">⭐⭐⭐⭐⭐ (5/5 - Rất ngon & đáng tiền)</option>
-              <option value="4">⭐⭐⭐⭐ (4/5 - Tốt)</option>
-              <option value="3">⭐⭐⭐ (3/5 - Khá)</option>
-              <option value="2">⭐⭐ (2/5 - Cần cải thiện)</option>
-              <option value="1">⭐ (1/5 - Chưa hài lòng)</option>
+              <option value="5">★★★★★ (5/5 - Rất ngon & đáng tiền)</option>
+              <option value="4">★★★★ (4/5 - Tốt)</option>
+              <option value="3">★★★ (3/5 - Khá)</option>
+              <option value="2">★★ (2/5 - Cần cải thiện)</option>
+              <option value="1">★ (1/5 - Chưa hài lòng)</option>
             </select>
           </div>
 
@@ -462,12 +534,12 @@
             <textarea id="fb-comment" class="form-control auto-expand-textarea" rows="3" oninput="autoResizeTextarea(this)" placeholder="Nhập cảm nhận của bạn hoặc thông tin giá mới tại quán..."></textarea>
           </div>
 
-          <button class="btn btn-primary" style="width:100%;" onclick="submitUserFeedback()">📤 Gửi đánh giá</button>
+          <button class="btn btn-primary" style="width:100%;" onclick="submitUserFeedback()"><svg class="ic" aria-hidden="true"><use href="#i-send"/></svg> Gửi đánh giá</button>
           <div id="fb-status-msg" style="margin-top:0.75rem; font-weight:600;"></div>
         </div>
 
         <div class="card">
-          <h3>📌 Đánh giá gần đây từ thực khách</h3>
+          <h3><svg class="ic" aria-hidden="true"><use href="#i-list"/></svg> Đánh giá gần đây từ thực khách</h3>
           <p style="color:var(--text-muted); font-size:0.84rem; margin-bottom:0.85rem;">
             Các nhận xét thực tế từ cộng đồng ăn uống tại Biên Hòa.
           </p>
@@ -484,8 +556,8 @@
     <section id="view-partner" class="view-section">
       <div class="role-portal-banner partner-banner">
         <div>
-          <span class="badge" style="background:#dbeafe; color:#1e40af; margin-bottom:0.25rem;">🏪 CỔNG DÀNH RIÊNG CHO CHỦ QUÁN</span>
-          <h2>📸 Số hóa Thực đơn Quán bằng AI (Gemini Vision)</h2>
+          <span class="badge" style="background:#dbeafe; color:#1e40af; margin-bottom:0.25rem;"><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg> CỔNG DÀNH RIÊNG CHO CHỦ QUÁN</span>
+          <h2><svg class="ic" aria-hidden="true"><use href="#i-scan"/></svg> Số hóa Thực đơn Quán bằng AI (Gemini Vision)</h2>
           <p style="font-size:0.86rem; opacity:0.9;">
             Chụp ảnh thực đơn giấy của quán để AI tự động đọc tên món và giá bán. Sau khi kiểm tra, hãy bấm gửi để Admin công bố quán lên hệ thống.
           </p>
@@ -520,7 +592,7 @@
 
         <div style="display:flex; gap:0.55rem; flex-wrap:wrap; align-items:center; margin-top:0.25rem;">
           <button type="button" class="btn btn-primary" style="cursor:pointer;" onclick="triggerMenuFileInput()">
-            📷 Tải ảnh thực đơn từ máy
+            <svg class="ic" aria-hidden="true"><use href="#i-upload"/></svg> Tải ảnh thực đơn từ máy
           </button>
           <input
             type="file"
@@ -530,23 +602,23 @@
             onchange="handleMenuImageUpload(event)"
           />
           <button type="button" class="btn btn-secondary btn-sm" onclick="runSampleMenuScan('sample_bun_thai')">
-            🧪 Mẫu #1: Bún Thái & Mì Trộn
+            <svg class="ic" aria-hidden="true"><use href="#i-flask"/></svg> Mẫu #1: Bún Thái & Mì Trộn
           </button>
           <button type="button" class="btn btn-secondary btn-sm" onclick="runSampleMenuScan('sample_com_ga')">
-            🧪 Mẫu #2: Cơm Gà & Bún Bò
+            <svg class="ic" aria-hidden="true"><use href="#i-flask"/></svg> Mẫu #2: Cơm Gà & Bún Bò
           </button>
           <button type="button" class="btn btn-secondary btn-sm" onclick="runSampleMenuScan('sample_tan_trieu')">
-            🧪 Mẫu #3: Đặc Sản Tân Triều (Có giá thời giá/kg)
+            <svg class="ic" aria-hidden="true"><use href="#i-flask"/></svg> Mẫu #3: Đặc Sản Tân Triều (Có giá thời giá/kg)
           </button>
           <button type="button" class="btn btn-secondary btn-sm" onclick="addManualDraftRow()">
-            ➕ Thêm món thủ công
+            <svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg> Thêm món thủ công
           </button>
         </div>
       </div>
 
       <div class="grid-2">
         <div class="card">
-          <h3>🖼️ Ảnh Thực Đơn Gốc</h3>
+          <h3><svg class="ic" aria-hidden="true"><use href="#i-image"/></svg> Ảnh Thực Đơn Gốc</h3>
           <p id="scan-ai-meta" style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.65rem;">
             Tải ảnh menu hoặc chọn mẫu thử để AI bóc tách tự động.
           </p>
@@ -555,7 +627,7 @@
 
         <div class="card">
           <div class="section-header">
-            <h3>📑 Danh sách món AI đã đọc (Chỉnh sửa trực tiếp)</h3>
+            <h3><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg> Danh sách món AI đã đọc (Chỉnh sửa trực tiếp)</h3>
             <span class="badge badge-warning">Ô vàng = Cần kiểm tra giá</span>
           </div>
           <div class="scan-table-wrap">
@@ -569,13 +641,20 @@
                   <th>Xóa</th>
                 </tr>
               </thead>
-              <tbody id="scan-draft-tbody"></tbody>
+              <tbody id="scan-draft-tbody">
+                <tr class="scan-empty-row">
+                  <td colspan="5">
+                    <svg class="ic" aria-hidden="true"><use href="#i-scan"/></svg>
+                    Chưa có món nào. Tải ảnh thực đơn hoặc chọn mẫu thử để AI tự động điền danh sách.
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </div>
 
           <div style="margin-top:1rem; display:flex; justify-content:flex-end;">
             <button class="btn btn-success" style="width:100%; min-height:44px;" onclick="submitPartnerMenuDraft()">
-              ✅ Gửi Thực đơn lên Admin Phê duyệt
+              <svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg> Gửi Thực đơn lên Admin Phê duyệt
             </button>
           </div>
           <div id="partner-submit-msg" style="margin-top:0.75rem; font-weight:700;"></div>
@@ -587,8 +666,8 @@
     <section id="view-partner-menus" class="view-section">
       <div class="role-portal-banner partner-banner">
         <div>
-          <span class="badge" style="background:#dbeafe; color:#1e40af; margin-bottom:0.25rem;">🏪 QUẢN LÝ HỒ SƠ QUÁN</span>
-          <h2>📋 Trạng thái Hồ sơ Thực đơn của Quán</h2>
+          <span class="badge" style="background:#dbeafe; color:#1e40af; margin-bottom:0.25rem;"><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg> QUẢN LÝ HỒ SƠ QUÁN</span>
+          <h2><svg class="ic" aria-hidden="true"><use href="#i-clipboard"/></svg> Trạng thái Hồ sơ Thực đơn của Quán</h2>
           <p style="font-size:0.86rem; opacity:0.9;">
             Theo dõi các bản cập nhật thực đơn bạn đã gửi và kiểm tra xem Admin đã phê duyệt công bố lên trang tìm kiếm chưa.
           </p>
@@ -597,9 +676,9 @@
 
       <div class="card">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.85rem;">
-          <h3>📌 Danh sách hồ sơ thực đơn đã gửi</h3>
+          <h3><svg class="ic" aria-hidden="true"><use href="#i-list"/></svg> Danh sách hồ sơ thực đơn đã gửi</h3>
           <button class="btn btn-primary btn-sm" style="background:#1d4ed8;" onclick="switchView('partner')">
-            ➕ Quét & Gửi thực đơn mới
+            <svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg> Quét & Gửi thực đơn mới
           </button>
         </div>
         <div id="partner-my-submissions-list"></div>
@@ -610,8 +689,8 @@
     <section id="view-partner-reviews" class="view-section">
       <div class="role-portal-banner partner-banner">
         <div>
-          <span class="badge" style="background:#dbeafe; color:#1e40af; margin-bottom:0.25rem;">🏪 CHĂM SÓC THỰC KHÁCH</span>
-          <h2>💬 Đánh giá & Báo giá từ Khách hàng</h2>
+          <span class="badge" style="background:#dbeafe; color:#1e40af; margin-bottom:0.25rem;"><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg> CHĂM SÓC THỰC KHÁCH</span>
+          <h2><svg class="ic" aria-hidden="true"><use href="#i-message"/></svg> Đánh giá & Báo giá từ Khách hàng</h2>
           <p style="font-size:0.86rem; opacity:0.9;">
             Theo dõi nhận xét của thực khách và các báo cáo thay đổi giá để kịp thời cập nhật thực đơn.
           </p>
@@ -619,7 +698,7 @@
       </div>
 
       <div class="card">
-        <h3>📌 Toàn bộ phản hồi từ thực khách</h3>
+        <h3><svg class="ic" aria-hidden="true"><use href="#i-list"/></svg> Toàn bộ phản hồi từ thực khách</h3>
         <div id="partner-feedback-list-box" style="margin-top:0.75rem;"></div>
       </div>
     </section>
@@ -632,8 +711,8 @@
     <section id="view-admin" class="view-section">
       <div class="role-portal-banner admin-banner">
         <div>
-          <span class="badge" style="background:#f3e8ff; color:#6b21a8; margin-bottom:0.25rem;">🛡️ QUẢN TRỊ VIÊN DUY NHẤT (SUPER ADMIN)</span>
-          <h2>📥 Phê duyệt Hồ sơ Thực đơn Chủ quán</h2>
+          <span class="badge" style="background:#f3e8ff; color:#6b21a8; margin-bottom:0.25rem;"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg> QUẢN TRỊ VIÊN DUY NHẤT (SUPER ADMIN)</span>
+          <h2><svg class="ic" aria-hidden="true"><use href="#i-inbox"/></svg> Phê duyệt Hồ sơ Thực đơn Chủ quán</h2>
           <p style="font-size:0.86rem; opacity:0.9;">
             Kiểm tra các thực đơn do Chủ quán gửi qua AI Scan Menu. Chỉ khi Admin bấm <strong>Phê duyệt</strong>, quán mới xuất hiện cho Khách hàng.
           </p>
@@ -649,8 +728,8 @@
     <section id="view-admin-restaurants" class="view-section">
       <div class="role-portal-banner admin-banner">
         <div>
-          <span class="badge" style="background:#f3e8ff; color:#6b21a8; margin-bottom:0.25rem;">🛡️ QUẢN LÝ CƠ SỞ DỮ LIỆU QUÁN</span>
-          <h2>🏪 Quản lý Hiển thị Quán ăn (<span id="admin-rests-count">18</span> quán)</h2>
+          <span class="badge" style="background:#f3e8ff; color:#6b21a8; margin-bottom:0.25rem;"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg> QUẢN LÝ CƠ SỞ DỮ LIỆU QUÁN</span>
+          <h2><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg> Quản lý Hiển thị Quán ăn (<span id="admin-rests-count">18</span> quán)</h2>
           <p style="font-size:0.86rem; opacity:0.9;">
             Bật hoặc tạm ẩn bất kỳ quán ăn nào trên toàn hệ thống gợi ý và bản đồ của Khách hàng.
           </p>
@@ -666,8 +745,8 @@
     <section id="view-admin-users" class="view-section">
       <div class="role-portal-banner admin-banner">
         <div>
-          <span class="badge" style="background:#f3e8ff; color:#6b21a8; margin-bottom:0.25rem;">🛡️ QUẢN TRỊ NGƯỜI DÙNG (RBAC)</span>
-          <h2>👥 Quản lý Tài khoản Khách hàng & Chủ quán (<span id="admin-users-count">3</span>)</h2>
+          <span class="badge" style="background:#f3e8ff; color:#6b21a8; margin-bottom:0.25rem;"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg> QUẢN TRỊ NGƯỜI DÙNG (RBAC)</span>
+          <h2><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg> Quản lý Tài khoản Khách hàng & Chủ quán (<span id="admin-users-count">3</span>)</h2>
           <p style="font-size:0.86rem; opacity:0.9;">
             Kiểm soát toàn bộ tài khoản đã đăng ký trên hệ thống. Admin có quyền tạm khóa hoặc mở khóa tài khoản vi phạm.
           </p>
@@ -684,15 +763,15 @@
       <div class="role-portal-banner admin-banner">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
           <div>
-            <span class="badge" style="background:#f3e8ff; color:#6b21a8; margin-bottom:0.25rem;">🛡️ GIÁM SÁT HỆ THỐNG & AI</span>
-            <h2>⚙️ Cấu hình AI, Kiểm duyệt Góp ý & Nhật ký Hệ thống</h2>
+            <span class="badge" style="background:#f3e8ff; color:#6b21a8; margin-bottom:0.25rem;"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg> GIÁM SÁT HỆ THỐNG & AI</span>
+            <h2><svg class="ic" aria-hidden="true"><use href="#i-sliders"/></svg> Cấu hình AI, Kiểm duyệt Góp ý & Nhật ký Hệ thống</h2>
           </div>
           <div style="display:flex; gap:0.45rem; flex-wrap:wrap;">
             <button id="api-status-btn" class="btn btn-secondary btn-sm" onclick="openApiKeyModal()">
-              ⚡ <span id="api-status-text">Cấu hình Gemini Key</span>
+              <svg class="ic" aria-hidden="true"><use href="#i-zap"/></svg> <span id="api-status-text">Cấu hình Gemini Key</span>
             </button>
-            <button class="btn btn-secondary btn-sm" onclick="openQrModal()">📱 Mã QR Demo</button>
-            <button class="btn btn-secondary btn-sm" onclick="triggerPwaInstall()">📲 Cài App PWA</button>
+            <button class="btn btn-secondary btn-sm" onclick="openQrModal()"><svg class="ic" aria-hidden="true"><use href="#i-qr"/></svg> Mã QR Demo</button>
+            <button class="btn btn-secondary btn-sm" onclick="triggerPwaInstall()"><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg> Cài App PWA</button>
           </div>
         </div>
       </div>
@@ -706,7 +785,7 @@
 
       <div class="grid-2">
         <div class="card">
-          <h3>💬 Kiểm duyệt Đánh giá & Báo giá từ Khách hàng</h3>
+          <h3><svg class="ic" aria-hidden="true"><use href="#i-message"/></svg> Kiểm duyệt Đánh giá & Báo giá từ Khách hàng</h3>
           <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.75rem;">
             Xác minh hoặc xóa các phản hồi không hợp lệ của người dùng.
           </p>
@@ -714,7 +793,7 @@
         </div>
 
         <div class="card">
-          <h3>📜 Nhật ký Kiểm toán Hệ thống (Audit Logs)</h3>
+          <h3><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg> Nhật ký Kiểm toán Hệ thống (Audit Logs)</h3>
           <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.75rem;">
             Ghi nhận tự động mọi thao tác đăng ký, gửi menu và phê duyệt trên hệ thống.
           </p>
@@ -728,28 +807,28 @@
   <div id="auth-modal" class="modal-backdrop">
     <div class="modal-box" style="max-width:520px; max-height:92vh; overflow-y:auto;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
-        <h3>🔐 Chuyển Vai trò & Tài khoản</h3>
-        <button class="btn btn-secondary btn-sm" onclick="closeAuthModal()">✕</button>
+        <h3><svg class="ic" aria-hidden="true"><use href="#i-key"/></svg> Chuyển Vai trò & Tài khoản</h3>
+        <button class="btn btn-secondary btn-sm" onclick="closeAuthModal()"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
       </div>
 
       <!-- BỘ CHUYỂN NHANH 3 GIAO DIỆN RIÊNG BIỆT (1 CHẠM) -->
       <div style="background:var(--surface-alt); border:1px solid var(--border); border-radius:12px; padding:0.75rem; margin-bottom:0.9rem;">
         <div style="font-size:0.78rem; font-weight:800; color:var(--text-muted); text-transform:uppercase; margin-bottom:0.5rem;">
-          ⚡ Chọn nhanh 1 trong 3 Giao diện theo Vai trò:
+          <svg class="ic" aria-hidden="true"><use href="#i-zap"/></svg> Chọn nhanh 1 trong 3 Giao diện theo Vai trò:
         </div>
         <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.45rem;">
           <button type="button" id="quick-role-btn-customer" class="role-switch-card" onclick="quickDemoLogin('customer')">
-            <span style="font-size:1.35rem;">🙋</span>
+            <span style="font-size:1.35rem;"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg></span>
             <strong style="font-size:0.8rem; color:#15803d;">Khách hàng</strong>
             <span style="font-size:0.68rem; color:var(--text-muted);">Tìm món & Bản đồ</span>
           </button>
           <button type="button" id="quick-role-btn-partner" class="role-switch-card" onclick="quickDemoLogin('partner')">
-            <span style="font-size:1.35rem;">🏪</span>
+            <span style="font-size:1.35rem;"><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg></span>
             <strong style="font-size:0.8rem; color:#1d4ed8;">Chủ quán</strong>
             <span style="font-size:0.68rem; color:var(--text-muted);">AI Quét Menu</span>
           </button>
           <button type="button" id="quick-role-btn-admin" class="role-switch-card" onclick="quickDemoLogin('admin')">
-            <span style="font-size:1.35rem;">🛡️</span>
+            <span style="font-size:1.35rem;"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg></span>
             <strong style="font-size:0.8rem; color:#7e22ce;">Admin</strong>
             <span style="font-size:0.68rem; color:var(--text-muted);">Quản trị toàn web</span>
           </button>
@@ -761,8 +840,8 @@
 
       <!-- Thanh chuyển Tab: Đăng nhập vs Đăng ký -->
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.4rem; background:var(--surface-alt); padding:0.3rem; border-radius:10px; margin-bottom:0.85rem;">
-        <button id="auth-tab-login" class="subtab-btn active" onclick="switchAuthTab('login')">🔑 Đăng nhập bằng Email</button>
-        <button id="auth-tab-register" class="subtab-btn" onclick="switchAuthTab('register')">📝 Đăng ký tài khoản</button>
+        <button id="auth-tab-login" class="subtab-btn active" onclick="switchAuthTab('login')"><svg class="ic" aria-hidden="true"><use href="#i-key"/></svg> Đăng nhập bằng Email</button>
+        <button id="auth-tab-register" class="subtab-btn" onclick="switchAuthTab('register')"><svg class="ic" aria-hidden="true"><use href="#i-user-plus"/></svg> Đăng ký tài khoản</button>
       </div>
 
       <!-- FORM 1: ĐĂNG NHẬP -->
@@ -776,7 +855,7 @@
           <input type="password" id="login-password" class="form-control" placeholder="Nhập mật khẩu..." value="123456" />
         </div>
         <button class="btn btn-primary" style="width:100%; min-height:42px;" onclick="submitLogin()">
-          🔑 Đăng nhập
+          <svg class="ic" aria-hidden="true"><use href="#i-key"/></svg> Đăng nhập
         </button>
       </div>
 
@@ -787,13 +866,13 @@
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
             <label id="reg-role-customer-card" style="border:2px solid var(--primary); background:#fff7ed; padding:0.6rem; border-radius:10px; cursor:pointer; text-align:center;" onclick="selectRegisterRole('customer')">
               <input type="radio" name="reg-role" value="customer" checked style="display:none;" />
-              <div style="font-size:1.2rem;">🙋</div>
+              <div style="font-size:1.2rem;"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg></div>
               <div style="font-weight:800; font-size:0.84rem; color:var(--primary);">Khách hàng</div>
               <div style="font-size:0.72rem; color:var(--text-muted);">Giao diện Tìm món & Bản đồ</div>
             </label>
             <label id="reg-role-partner-card" style="border:2px solid var(--border); background:var(--surface); padding:0.6rem; border-radius:10px; cursor:pointer; text-align:center;" onclick="selectRegisterRole('partner')">
               <input type="radio" name="reg-role" value="partner" style="display:none;" />
-              <div style="font-size:1.2rem;">🏪</div>
+              <div style="font-size:1.2rem;"><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg></div>
               <div style="font-weight:800; font-size:0.84rem; color:#1d4ed8;">Chủ quán</div>
               <div style="font-size:0.72rem; color:var(--text-muted);">Giao diện Quản lý Quán</div>
             </label>
@@ -817,7 +896,7 @@
         </div>
 
         <div id="reg-partner-extra-fields" style="display:none; background:#eff6ff; border:1px solid #bfdbfe; padding:0.75rem; border-radius:10px; margin-bottom:0.85rem;">
-          <div style="font-weight:700; font-size:0.83rem; color:#1d4ed8; margin-bottom:0.45rem;">🏪 Thông tin Quán đăng ký:</div>
+          <div style="font-weight:700; font-size:0.83rem; color:#1d4ed8; margin-bottom:0.45rem;"><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg> Thông tin Quán đăng ký:</div>
           <div class="form-group" style="margin-bottom:0.5rem;">
             <label style="font-size:0.78rem;">Tên quán ăn:</label>
             <input type="text" id="reg-rest-name" class="form-control" placeholder="VD: Phở & Bún Bò Gia Truyền Biên Hòa" />
@@ -840,7 +919,7 @@
         </div>
 
         <button class="btn btn-success" style="width:100%; min-height:42px;" onclick="submitRegister()">
-          ✅ Tạo tài khoản & Mở giao diện tương ứng
+          <svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg> Tạo tài khoản & Mở giao diện tương ứng
         </button>
       </div>
 
@@ -851,7 +930,7 @@
   <!-- Modal Cấu hình Google Gemini API Key -->
   <div id="api-key-modal" class="modal-backdrop">
     <div class="modal-box">
-      <h3 style="margin-bottom:0.5rem;">🔑 Cấu hình Google Gemini API Key (`gemini-2.5-flash`)</h3>
+      <h3 style="margin-bottom:0.5rem;"><svg class="ic" aria-hidden="true"><use href="#i-key"/></svg> Cấu hình Google Gemini API Key (`gemini-2.5-flash`)</h3>
       <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1rem;">
         Nhập khóa API từ <strong>Google AI Studio</strong> để kích hoạt trực tiếp mô hình <code>gemini-2.5-flash</code>. Nếu để trống, hệ thống tự động dùng bộ phân tích ngữ nghĩa tiếng Việt dự phòng (Semantic Fallback).
       </p>
@@ -869,7 +948,7 @@
   <!-- Modal QR Code -->
   <div id="qr-modal" class="modal-backdrop">
     <div class="modal-box" style="text-align:center;">
-      <h3 style="margin-bottom:0.4rem;">📱 Quét mã QR trải nghiệm HỢP VỊ AI</h3>
+      <h3 style="margin-bottom:0.4rem;"><svg class="ic" aria-hidden="true"><use href="#i-qr"/></svg> Quét mã QR trải nghiệm HỢP VỊ AI</h3>
       <div id="qr-image-container" style="margin:1rem auto; display:flex; justify-content:center;"></div>
       <div class="form-group" style="text-align:left;">
         <label>Đường dẫn truy cập:</label>
@@ -885,20 +964,20 @@
       <div style="display:flex; align-items:center; gap:0.85rem; margin-bottom:0.85rem;">
         <img src="/icons/icon-192.png" alt="Hợp Vị AI Icon" width="56" height="56" style="border-radius:14px;" />
         <div>
-          <h3 style="margin-bottom:0.15rem;">📲 Cài đặt App HỢP VỊ AI</h3>
+          <h3 style="margin-bottom:0.15rem;"><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg> Cài đặt App HỢP VỊ AI</h3>
           <span class="badge badge-verified">Chạy toàn màn hình như Ứng dụng gốc</span>
         </div>
       </div>
       <div id="pwa-native-install-box" style="display:none; margin-bottom:1rem;">
         <button class="btn btn-primary" style="width:100%; min-height:46px;" onclick="confirmNativePwaInstall()">
-          ⬇️ Cài đặt Ứng dụng Hợp Vị AI ngay (1 Chạm)
+          <svg class="ic" aria-hidden="true"><use href="#i-arrow-down"/></svg> Cài đặt Ứng dụng Hợp Vị AI ngay (1 Chạm)
         </button>
       </div>
       <div style="background:var(--surface-alt); border:1px solid var(--border); border-radius:12px; padding:0.85rem; font-size:0.84rem; margin-bottom:0.85rem;">
-        <strong>🍎 Trên iPhone (Safari):</strong> Bấm nút <strong>Chia sẻ (⬆️)</strong> → Chọn <strong>"Thêm vào MH chính" (➕)</strong>.
+        <strong><svg class="ic" aria-hidden="true"><use href="#i-smartphone"/></svg> Trên iPhone (Safari):</strong> Bấm nút <strong>Chia sẻ (<svg class="ic" aria-hidden="true"><use href="#i-arrow-up"/></svg>)</strong> → Chọn <strong>"Thêm vào MH chính" (<svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg>)</strong>.
       </div>
       <div style="background:var(--surface-alt); border:1px solid var(--border); border-radius:12px; padding:0.85rem; font-size:0.84rem; margin-bottom:1rem;">
-        <strong>🤖 Trên Android (Chrome):</strong> Bấm menu <strong>3 chấm (⋮)</strong> → Chọn <strong>"Cài đặt ứng dụng"</strong>.
+        <strong><svg class="ic" aria-hidden="true"><use href="#i-smartphone"/></svg> Trên Android (Chrome):</strong> Bấm menu <strong>3 chấm (<svg class="ic" aria-hidden="true"><use href="#i-more-v"/></svg>)</strong> → Chọn <strong>"Cài đặt ứng dụng"</strong>.
       </div>
       <div style="display:flex; justify-content:flex-end;">
         <button class="btn btn-primary" onclick="closePwaModal()">Đã hiểu</button>
@@ -911,23 +990,23 @@
   <!-- MOBILE NAV 1: KHÁCH HÀNG (5 Tab thuần Khách hàng) -->
   <nav id="mobile-nav-customer" class="mobile-bottom-nav role-mobile-nav" data-for-role="customer" aria-label="Menu di động Khách hàng">
     <button class="mobile-nav-item active" data-view="home" onclick="switchView('home')">
-      <span class="m-icon">🏠</span>
+      <span class="m-icon"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg></span>
       <span class="m-label">Quán ngon</span>
     </button>
     <button class="mobile-nav-item" data-view="recommend" onclick="switchView('recommend')">
-      <span class="m-icon">🤖</span>
+      <span class="m-icon"><svg class="ic" aria-hidden="true"><use href="#i-sparkles"/></svg></span>
       <span class="m-label">Tìm món AI</span>
     </button>
     <button class="mobile-nav-item" data-view="map" onclick="switchView('map')">
-      <span class="m-icon">🗺️</span>
+      <span class="m-icon"><svg class="ic" aria-hidden="true"><use href="#i-map"/></svg></span>
       <span class="m-label">Bản đồ</span>
     </button>
     <button class="mobile-nav-item" data-view="explore" onclick="switchView('explore')">
-      <span class="m-icon">🍊</span>
+      <span class="m-icon"><svg class="ic" aria-hidden="true"><use href="#i-citrus"/></svg></span>
       <span class="m-label">Đặc sản</span>
     </button>
     <button class="mobile-nav-item" data-view="feedback" onclick="switchView('feedback')">
-      <span class="m-icon">💬</span>
+      <span class="m-icon"><svg class="ic" aria-hidden="true"><use href="#i-message"/></svg></span>
       <span class="m-label">Đánh giá</span>
     </button>
   </nav>
@@ -935,15 +1014,15 @@
   <!-- MOBILE NAV 2: CHỦ QUÁN (3 Tab thuần Quản lý Quán) -->
   <nav id="mobile-nav-partner" class="mobile-bottom-nav role-mobile-nav" data-for-role="partner" style="display:none; grid-template-columns:repeat(3, minmax(0, 1fr));" aria-label="Menu di động Chủ quán">
     <button class="mobile-nav-item" data-view="partner" onclick="switchView('partner')">
-      <span class="m-icon">📸</span>
+      <span class="m-icon"><svg class="ic" aria-hidden="true"><use href="#i-scan"/></svg></span>
       <span class="m-label">Quét Menu AI</span>
     </button>
     <button class="mobile-nav-item" data-view="partner-menus" onclick="switchView('partner-menus')">
-      <span class="m-icon">📋</span>
+      <span class="m-icon"><svg class="ic" aria-hidden="true"><use href="#i-clipboard"/></svg></span>
       <span class="m-label">Hồ sơ Quán</span>
     </button>
     <button class="mobile-nav-item" data-view="partner-reviews" onclick="switchView('partner-reviews')">
-      <span class="m-icon">💬</span>
+      <span class="m-icon"><svg class="ic" aria-hidden="true"><use href="#i-message"/></svg></span>
       <span class="m-label">Đánh giá Khách</span>
     </button>
   </nav>
@@ -951,19 +1030,19 @@
   <!-- MOBILE NAV 3: ADMIN (4 Tab thuần Quản trị Hệ thống) -->
   <nav id="mobile-nav-admin" class="mobile-bottom-nav role-mobile-nav" data-for-role="admin" style="display:none; grid-template-columns:repeat(4, minmax(0, 1fr));" aria-label="Menu di động Admin">
     <button class="mobile-nav-item" data-view="admin" onclick="switchView('admin')">
-      <span class="m-icon">📥</span>
+      <span class="m-icon"><svg class="ic" aria-hidden="true"><use href="#i-inbox"/></svg></span>
       <span class="m-label">Duyệt Menu</span>
     </button>
     <button class="mobile-nav-item" data-view="admin-restaurants" onclick="switchView('admin-restaurants')">
-      <span class="m-icon">🏪</span>
+      <span class="m-icon"><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg></span>
       <span class="m-label">18+ Quán</span>
     </button>
     <button class="mobile-nav-item" data-view="admin-users" onclick="switchView('admin-users')">
-      <span class="m-icon">👥</span>
+      <span class="m-icon"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg></span>
       <span class="m-label">Tài khoản</span>
     </button>
     <button class="mobile-nav-item" data-view="admin-system" onclick="switchView('admin-system')">
-      <span class="m-icon">⚙️</span>
+      <span class="m-icon"><svg class="ic" aria-hidden="true"><use href="#i-sliders"/></svg></span>
       <span class="m-label">Hệ thống</span>
     </button>
   </nav>
@@ -971,7 +1050,7 @@
   <!-- NÚT CHAT TRỰC TIẾP HỢP VỊ AI (DÀNH RIÊNG CHO KHÁCH HÀNG TƯ VẤN) -->
   <button id="floating-chat-btn" class="floating-chat-trigger role-customer-only" data-for-role="customer" onclick="toggleLiveChat()" title="Chat trực tiếp với Hợp Vị AI" aria-label="Mở khung trò chuyện AI">
     <span class="chat-dot-live"></span>
-    <span>💬 Trò chuyện AI</span>
+    <span><svg class="ic" aria-hidden="true"><use href="#i-message"/></svg> Trò chuyện AI</span>
   </button>
 
   <!-- KHUNG TRÒ CHUYỆN TRỰC TIẾP HỢP VỊ AI -->
@@ -985,23 +1064,23 @@
         </div>
       </div>
       <div class="chat-header-actions">
-        <button class="chat-header-btn" onclick="clearLiveChatHistory()" title="Xóa lịch sử chat">🗑️</button>
-        <button class="chat-header-btn" onclick="toggleLiveChat()" title="Đóng khung chat">✖</button>
+        <button class="chat-header-btn" onclick="clearLiveChatHistory()" title="Xóa lịch sử chat"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg></button>
+        <button class="chat-header-btn" onclick="toggleLiveChat()" title="Đóng khung chat"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
       </div>
     </div>
     <div id="chat-messages-box" class="chat-messages-container"></div>
     <div class="chat-quick-suggestions">
-      <button class="chat-chip-btn" onclick="sendQuickChatSuggestion('Nhóm 3 người có 150k ở Trấn Biên ăn gì?')">👥 Nhóm 3 người 150k</button>
-      <button class="chat-chip-btn" onclick="sendQuickChatSuggestion('Quán lẩu tôm Năm Ri ở đâu và có món gì ngon?')">🦐 Lẩu tôm Năm Ri</button>
-      <button class="chat-chip-btn" onclick="sendQuickChatSuggestion('Đặc sản Bưởi Tân Triều có những món gì?')">🍊 Bưởi Tân Triều</button>
-      <button class="chat-chip-btn" onclick="sendQuickChatSuggestion('Gỏi cá Biên Hòa ăn ở quán nào chuẩn vị nhất?')">🐟 Gỏi cá Tân Mai</button>
+      <button class="chat-chip-btn" onclick="sendQuickChatSuggestion('Nhóm 3 người có 150k ở Trấn Biên ăn gì?')"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg> Nhóm 3 người 150k</button>
+      <button class="chat-chip-btn" onclick="sendQuickChatSuggestion('Quán lẩu tôm Năm Ri ở đâu và có món gì ngon?')"><svg class="ic" aria-hidden="true"><use href="#i-soup"/></svg> Lẩu tôm Năm Ri</button>
+      <button class="chat-chip-btn" onclick="sendQuickChatSuggestion('Đặc sản Bưởi Tân Triều có những món gì?')"><svg class="ic" aria-hidden="true"><use href="#i-citrus"/></svg> Bưởi Tân Triều</button>
+      <button class="chat-chip-btn" onclick="sendQuickChatSuggestion('Gỏi cá Biên Hòa ăn ở quán nào chuẩn vị nhất?')"><svg class="ic" aria-hidden="true"><use href="#i-utensils"/></svg> Gỏi cá Tân Mai</button>
     </div>
     <div class="chat-input-bar">
       <input type="text" id="live-chat-input" placeholder="Hỏi món ngon, quán ăn, giá tiền..." onkeydown="if(event.key==='Enter') sendLiveChatMessage()" />
-      <button class="chat-send-btn" id="live-chat-send-btn" onclick="sendLiveChatMessage()" title="Gửi tin nhắn">➤</button>
+      <button class="chat-send-btn" id="live-chat-send-btn" onclick="sendLiveChatMessage()" title="Gửi tin nhắn"><svg class="ic" aria-hidden="true"><use href="#i-send"/></svg></button>
     </div>
   </div>
 
-  <script src="/app.js?v=20261112-v23"></script>
+  <script src="/app.js?v=20261112-v25"></script>
 </body>
 </html>

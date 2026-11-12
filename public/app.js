@@ -96,10 +96,10 @@ function applyUserRolePermissions() {
   });
 
   if (activeRole === 'partner') {
-    if (logoBox) logoBox.textContent = '🏪';
+    if (logoBox) logoBox.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#i-store"/></svg>';
     if (titleText) titleText.textContent = 'HỢP VỊ AI • CHỦ QUÁN';
     if (sloganText) sloganText.textContent = 'Cổng Quản lý Thực đơn & Nhà hàng • Đồng Nai';
-    if (iconEl) iconEl.textContent = '🏪';
+    if (iconEl) iconEl.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#i-store"/></svg>';
     if (labelEl) labelEl.textContent = user ? `Chủ quán: ${user.name.split(' ').slice(-2).join(' ')}` : 'Chủ quán';
     if (btnEl) {
       btnEl.style.background = '#eff6ff';
@@ -116,10 +116,10 @@ function applyUserRolePermissions() {
       document.getElementById('partner-area').value = user.restaurantArea;
     }
   } else if (activeRole === 'admin') {
-    if (logoBox) logoBox.textContent = '🛡️';
+    if (logoBox) logoBox.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>';
     if (titleText) titleText.textContent = 'HỢP VỊ AI • ADMIN';
     if (sloganText) sloganText.textContent = 'Trung tâm Quản trị Toàn trang Web';
-    if (iconEl) iconEl.textContent = '🛡️';
+    if (iconEl) iconEl.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>';
     if (labelEl) labelEl.textContent = 'Admin Toàn quyền';
     if (btnEl) {
       btnEl.style.background = '#f3e8ff';
@@ -130,7 +130,7 @@ function applyUserRolePermissions() {
     if (logoBox) logoBox.textContent = 'HV';
     if (titleText) titleText.textContent = 'HỢP VỊ AI';
     if (sloganText) sloganText.textContent = 'Ẩm thực Biên Hòa – Đồng Nai';
-    if (iconEl) iconEl.textContent = '🙋';
+    if (iconEl) iconEl.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>';
     if (labelEl) {
       labelEl.textContent = user ? `Khách: ${user.name.split(' ').slice(-2).join(' ')}` : 'Khách hàng • Đổi vai trò';
     }
@@ -256,11 +256,11 @@ function onHeroFilterChange(type) {
   const lblBudget = document.getElementById('label-filter-budget');
   const lblArea = document.getElementById('label-filter-area');
 
-  if (lblPeople) lblPeople.textContent = `👥 ${people} người ▾`;
-  if (lblBudget) lblBudget.textContent = `🪙 ${budget >= 1000 ? (budget / 1000) + 'k' : budget + 'đ'} ▾`;
+  if (lblPeople) lblPeople.innerHTML = `<svg class="ic" aria-hidden="true"><use href="#i-users"/></svg> ${escapeHtml(people)} người ▾`;
+  if (lblBudget) lblBudget.innerHTML = `<svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg> ${budget >= 1000 ? (budget / 1000) + 'k' : budget + 'đ'} ▾`;
   if (lblArea) {
     const cleanArea = area === 'all' ? 'Khu vực' : (area.length > 9 ? area.replace(/^Phường\s+/, '') : area);
-    lblArea.textContent = `📍 ${cleanArea} ▾`;
+    lblArea.innerHTML = `<svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> ${escapeHtml(cleanArea)} ▾`;
   }
 
   const quickInput = document.getElementById('home-quick-input');
@@ -480,10 +480,10 @@ function buildRestaurantGalleryHtml(r, prefix = 'home') {
   const mainPhotoUrl = r.avatarUrl || (r.photos && r.photos[0] && r.photos[0].url) || '';
   slides.push({
     imageUrl: mainPhotoUrl,
-    badge: '📸 Không gian & Nhận diện',
-    tag: `📍 P. ${r.area || ''}`,
+    badge: 'Không gian & Nhận diện',
+    tag: `P. ${r.area || ''}`,
     title: r.name,
-    sub: `🕒 ${r.openingHours || 'Đang mở cửa'} • 🏠 ${r.address || ''}`,
+    sub: `${r.openingHours || 'Đang mở cửa'} • ${r.address || ''}`,
     gradient: theme.gradients[0],
     icon: theme.icons[0]
   });
@@ -498,10 +498,10 @@ function buildRestaurantGalleryHtml(r, prefix = 'home') {
       const idx = slides.length;
       slides.push({
         imageUrl: d.imageUrl,
-        badge: `🍽️ Món tiêu biểu`,
+        badge: `Món tiêu biểu`,
         tag: d.rawPriceText || `${(d.price || 0).toLocaleString('vi-VN')}đ`,
         title: d.name,
-        sub: `💰 Giá niêm yết: ${d.rawPriceText || `${(d.price || 0).toLocaleString('vi-VN')}đ`} • ${d.portionMin || 1} người`,
+        sub: `Giá niêm yết: ${d.rawPriceText || `${(d.price || 0).toLocaleString('vi-VN')}đ`} • ${d.portionMin || 1} người`,
         gradient: theme.gradients[idx % theme.gradients.length],
         icon: theme.icons[idx % theme.icons.length]
       });
@@ -518,10 +518,10 @@ function buildRestaurantGalleryHtml(r, prefix = 'home') {
         const cleanTitle = p.title ? p.title.replace(/\.[^/.]+$/, '').replace(/_/g, ' ') : r.name;
         slides.push({
           imageUrl: p.url,
-          badge: `📸 Ảnh thực tế tại quán`,
+          badge: `Ảnh thực tế tại quán`,
           tag: theme.label,
           title: cleanTitle.charAt(0).toUpperCase() + cleanTitle.slice(1),
-          sub: `✓ Xác minh thực tế tại ${r.name}`,
+          sub: `Xác minh thực tế tại ${r.name}`,
           gradient: theme.gradients[idx % theme.gradients.length],
           icon: theme.icons[idx % theme.icons.length]
         });
@@ -537,10 +537,10 @@ function buildRestaurantGalleryHtml(r, prefix = 'home') {
         const idx = slides.length;
         slides.push({
           imageUrl: '',
-          badge: `🍽️ Thực đơn xác minh`,
+          badge: `Thực đơn xác minh`,
           tag: d.rawPriceText || `${(d.price || 0).toLocaleString('vi-VN')}đ`,
           title: d.name,
-          sub: `💰 Giá niêm yết: ${d.rawPriceText || `${(d.price || 0).toLocaleString('vi-VN')}đ`}`,
+          sub: `Giá niêm yết: ${d.rawPriceText || `${(d.price || 0).toLocaleString('vi-VN')}đ`}`,
           gradient: theme.gradients[idx % theme.gradients.length],
           icon: theme.icons[idx % theme.icons.length]
         });
@@ -563,10 +563,10 @@ function buildRestaurantGalleryHtml(r, prefix = 'home') {
                 onerror="this.style.display='none'; this.parentElement.querySelector('.rest-slide-center')?.classList.remove('hidden-for-img');" />
             ` : ''}
             <div class="rest-slide-top">
-              <span class="rest-visual-tag">📸 Ảnh ${idx + 1}/${total} • ${escapeHtml(s.badge.replace(/^📸\s*/, ''))}</span>
+              <span class="rest-visual-tag"><svg class="ic" aria-hidden="true"><use href="#i-camera"/></svg> Ảnh ${idx + 1}/${total} • ${escapeHtml(s.badge)}</span>
               <span class="rest-visual-tag">${escapeHtml(s.tag || theme.label)}</span>
             </div>
-            <div class="rest-slide-center ${s.imageUrl ? 'hidden-for-img' : ''}">${s.icon}</div>
+            <div class="rest-slide-center ${s.imageUrl ? 'hidden-for-img' : ''}"><svg class="ic" aria-hidden="true"><use href="#i-utensils"/></svg></div>
             <div class="rest-slide-bottom">
               <div>
                 <div class="rest-slide-caption">${escapeHtml(s.title)}</div>
@@ -577,7 +577,7 @@ function buildRestaurantGalleryHtml(r, prefix = 'home') {
         `).join('')}
       </div>
       <div class="gallery-hint-bar">
-        <span>↔️ Cuộn ngang hoặc bấm nút ‹ › để xem ${total} ảnh quán & món ăn</span>
+        <span><svg class="ic" aria-hidden="true"><use href="#i-arrows-h"/></svg> Cuộn ngang hoặc bấm nút ‹ › để xem ${total} ảnh quán & món ăn</span>
         <span>${total} ảnh thực tế</span>
       </div>
     </div>
@@ -615,7 +615,7 @@ function initOrUpdateLeafletMap() {
   if (destSelect) {
     const prevVal = destSelect.value;
     destSelect.innerHTML = `<option value="">-- Chọn quán ăn để vẽ đường đi trực tiếp (${appState.restaurants.length} quán) --</option>` +
-      appState.restaurants.map(r => `<option value="${r.id}">📍 [${escapeHtml(r.area)}] ${escapeHtml(r.name)} (${escapeHtml(r.address)})</option>`).join('');
+      appState.restaurants.map(r => `<option value="${r.id}">[${escapeHtml(r.area)}] ${escapeHtml(r.name)} (${escapeHtml(r.address)})</option>`).join('');
     if (prevVal) destSelect.value = prevVal;
   }
 
@@ -717,15 +717,15 @@ function initOrUpdateLeafletMap() {
     });
     marker.bindPopup(`
       <div style="min-width:210px; font-family:'Segoe UI',sans-serif;">
-        <div style="font-size:0.75rem; color:#15803d; font-weight:700;">📍 Phường ${escapeHtml(r.area)}</div>
+        <div style="font-size:0.75rem; color:#15803d; font-weight:700;"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> Phường ${escapeHtml(r.area)}</div>
         <strong style="font-size:0.95rem;">${escapeHtml(r.name)}</strong>
         <div style="font-size:0.8rem; color:#57534e; margin:0.2rem 0;">${escapeHtml(r.address)}</div>
-        <div style="font-size:0.78rem; margin-bottom:0.45rem;">🕒 ${escapeHtml(r.openingHours)} • ${(r.menu || []).length} món</div>
+        <div style="font-size:0.78rem; margin-bottom:0.45rem;"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg> ${escapeHtml(r.openingHours)} • ${(r.menu || []).length} món</div>
         <button
           onclick="routeToRestaurantById('${escapeAttr(r.id)}')"
           style="background:#15803d; color:#fff; border:none; border-radius:6px; padding:0.35rem 0.65rem; font-size:0.78rem; font-weight:700; cursor:pointer; width:100%;"
         >
-          🧭 Vẽ đường đi tới quán này
+          <svg class="ic" aria-hidden="true"><use href="#i-navigation"/></svg> Vẽ đường đi tới quán này
         </button>
       </div>
     `, { autoPanPadding: [40, 40] });
@@ -770,14 +770,14 @@ function updateOriginMarkerOnMap() {
 
   const originIcon = L.divIcon({
     className: 'custom-origin-pin',
-    html: `<div style="background:#15803d; color:#fff; font-weight:800; font-size:0.75rem; padding:3px 8px; border-radius:999px; border:2px solid #fff; box-shadow:0 3px 8px rgba(0,0,0,0.35); white-space:nowrap;">🚩 Điểm đi</div>`,
+    html: `<div style="background:#15803d; color:#fff; font-weight:800; font-size:0.75rem; padding:3px 8px; border-radius:999px; border:2px solid #fff; box-shadow:0 3px 8px rgba(0,0,0,0.35); white-space:nowrap;"><svg class="ic" aria-hidden="true"><use href="#i-flag"/></svg> Điểm đi</div>`,
     iconSize: [75, 26],
     iconAnchor: [37, 13]
   });
 
   originMarker = L.marker([currentOriginCoords.lat, currentOriginCoords.lng], { icon: originIcon })
     .addTo(leafletMap)
-    .bindPopup(`<strong>🚩 Điểm xuất phát của bạn:</strong><br/>${escapeHtml(currentOriginCoords.label)}`);
+    .bindPopup(`<strong><svg class="ic" aria-hidden="true"><use href="#i-flag"/></svg> Điểm xuất phát của bạn:</strong><br/>${escapeHtml(currentOriginCoords.label)}`);
 }
 
 function onOriginChange() {
@@ -818,7 +818,7 @@ function useMyGpsLocation() {
           sel.prepend(opt);
         }
         opt.value = customVal;
-        opt.textContent = `📍 Vị trí GPS của tôi (${currentOriginCoords.lat.toFixed(4)}, ${currentOriginCoords.lng.toFixed(4)})`;
+        opt.textContent = `Vị trí GPS của tôi (${currentOriginCoords.lat.toFixed(4)}, ${currentOriginCoords.lng.toFixed(4)})`;
         sel.value = customVal;
       }
       updateOriginMarkerOnMap();
@@ -895,13 +895,13 @@ async function drawRouteToSelectedRestaurant() {
       summaryBox.classList.add('active');
       summaryBox.innerHTML = `
         <div>
-          <strong>🛵 Lộ trình dẫn đường:</strong> Từ <em>${escapeHtml(start.label)}</em> → <strong>${escapeHtml(rest.name)}</strong> (${escapeHtml(rest.address)})
+          <strong><svg class="ic" aria-hidden="true"><use href="#i-route"/></svg> Lộ trình dẫn đường:</strong> Từ <em>${escapeHtml(start.label)}</em> → <strong>${escapeHtml(rest.name)}</strong> (${escapeHtml(rest.address)})
           <div style="margin-top:0.2rem; color:#1d4ed8;">
-            📏 Quãng đường: <strong>${dist.toFixed(1)} km</strong> • ⏱️ Thời gian di chuyển dự kiến: <strong>~${dur} phút</strong> • 🕒 Giờ mở cửa quán: ${escapeHtml(rest.openingHours)}
+            <svg class="ic" aria-hidden="true"><use href="#i-route"/></svg> Quãng đường: <strong>${dist.toFixed(1)} km</strong> • <svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg> Thời gian di chuyển dự kiến: <strong>~${dur} phút</strong> • <svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg> Giờ mở cửa quán: ${escapeHtml(rest.openingHours)}
           </div>
         </div>
         <button class="btn btn-primary btn-sm" onclick="openExternalGoogleMapsDir()">
-          🚀 Bật dẫn đường giọng nói (Google Maps)
+          <svg class="ic" aria-hidden="true"><use href="#i-navigation"/></svg> Bật dẫn đường giọng nói (Google Maps)
         </button>
       `;
     }
@@ -1025,10 +1025,10 @@ function renderHomeSpecialties() {
                     onerror="this.style.display='none'; this.parentElement.querySelector('.rest-slide-center')?.classList.remove('hidden-for-img');" />
                 ` : ''}
                 <div class="rest-slide-top">
-                  <span class="rest-visual-tag">📸 Ảnh ${sIdx + 1}/${slides.length} • Đặc sản</span>
-                  <span class="rest-visual-tag">📍 ${escapeHtml(sp.originArea)}</span>
+                  <span class="rest-visual-tag"><svg class="ic" aria-hidden="true"><use href="#i-camera"/></svg> Ảnh ${sIdx + 1}/${slides.length} • Đặc sản</span>
+                  <span class="rest-visual-tag"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> ${escapeHtml(sp.originArea)}</span>
                 </div>
-                <div class="rest-slide-center ${s.url ? 'hidden-for-img' : ''}">${s.icon}</div>
+                <div class="rest-slide-center ${s.url ? 'hidden-for-img' : ''}"><svg class="ic" aria-hidden="true"><use href="#i-utensils"/></svg></div>
                 <div class="rest-slide-bottom">
                   <div>
                     <div class="rest-slide-caption">${escapeHtml(s.title)}</div>
@@ -1039,7 +1039,7 @@ function renderHomeSpecialties() {
             `).join('')}
           </div>
           <div class="gallery-hint-bar">
-            <span>↔️ Lướt ngang hoặc bấm ‹ › để xem bộ ảnh thực tế</span>
+            <span><svg class="ic" aria-hidden="true"><use href="#i-arrows-h"/></svg> Lướt ngang hoặc bấm ‹ › để xem bộ ảnh thực tế</span>
             <span>${slides.length} ảnh thực tế</span>
           </div>
         </div>
@@ -1055,10 +1055,10 @@ function renderHomeSpecialties() {
       </div>
       <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
         <button class="btn btn-primary btn-sm" onclick="useSpecialtyPrompt('${escapeAttr(sp.suggestedQuery)}')">
-          🤖 AI Gợi ý quán thưởng thức món này
+          <svg class="ic" aria-hidden="true"><use href="#i-sparkles"/></svg> AI Gợi ý quán thưởng thức món này
         </button>
         <button class="btn btn-secondary btn-sm" onclick="switchView('explore')">
-          📖 Xem nguồn gốc & quán bán
+          <svg class="ic" aria-hidden="true"><use href="#i-book"/></svg> Xem nguồn gốc & quán bán
         </button>
       </div>
     </div>
@@ -1086,12 +1086,12 @@ function renderHomeRestaurants() {
         <div>
           ${buildRestaurantGalleryHtml(r, 'home')}
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
-            <span class="badge badge-area">📍 P. ${escapeHtml(r.area)}</span>
-            <span class="badge badge-verified">✓ Đã xác minh</span>
+            <span class="badge badge-area"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> P. ${escapeHtml(r.area)}</span>
+            <span class="badge badge-verified"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg> Đã xác minh</span>
           </div>
           <h3 style="font-size:1.05rem; margin-bottom:0.2rem;">${escapeHtml(r.name)}</h3>
-          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.25rem;">🏠 ${escapeHtml(r.address)}</p>
-          <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:0.55rem;">🕒 ${escapeHtml(r.openingHours)}</p>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.25rem;"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg> ${escapeHtml(r.address)}</p>
+          <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:0.55rem;"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg> ${escapeHtml(r.openingHours)}</p>
           <div style="border-top:1px solid var(--border); padding-top:0.45rem;">
             <div style="font-size:0.78rem; font-weight:700; margin-bottom:0.25rem;">Món tiêu biểu (${(r.menu || []).length} món):</div>
             ${sampleDishes.map(d => `
@@ -1107,10 +1107,10 @@ function renderHomeRestaurants() {
         </div>
         <div class="card-action-pair">
           <button class="btn btn-secondary btn-sm" onclick="routeToRestaurantById('${escapeAttr(r.id)}')">
-            🧭 Dẫn đường
+            <svg class="ic" aria-hidden="true"><use href="#i-navigation"/></svg> Dẫn đường
           </button>
           <button class="btn btn-primary btn-sm" onclick="usePresetPrompt('Nhóm 2 người muốn ăn tại khu vực ${escapeAttr(r.area)} với ngân sách 130.000 đồng')">
-            🤖 Gợi ý tại đây
+            <svg class="ic" aria-hidden="true"><use href="#i-sparkles"/></svg> Gợi ý tại đây
           </button>
         </div>
       </div>
@@ -1121,13 +1121,13 @@ function renderHomeRestaurants() {
     if (shouldLimit) {
       moreWrap.innerHTML = `
         <button class="btn btn-secondary" style="width:100%; max-width:420px; border:2px solid var(--primary); color:var(--primary);" onclick="toggleMobileRestaurantsList(true)">
-          👇 Xem thêm toàn bộ ${fullList.length} quán ăn đã xác minh (+${fullList.length - 4} quán)
+          <svg class="ic" aria-hidden="true"><use href="#i-chevron-down"/></svg> Xem thêm toàn bộ ${fullList.length} quán ăn đã xác minh (+${fullList.length - 4} quán)
         </button>
       `;
     } else if (isMobile && showAllMobileRestaurants && filterVal === 'all' && fullList.length > 4) {
       moreWrap.innerHTML = `
         <button class="btn btn-secondary btn-sm" onclick="toggleMobileRestaurantsList(false)">
-          🔼 Thu gọn danh sách quán (Chỉ hiện 4 quán nổi bật)
+          <svg class="ic" aria-hidden="true"><use href="#i-chevron-up"/></svg> Thu gọn danh sách quán (Chỉ hiện 4 quán nổi bật)
         </button>
       `;
     } else {
@@ -1148,8 +1148,84 @@ function toggleMobileRestaurantsList(expand) {
 
 function triggerQuickRecommend() {
   const val = document.getElementById('home-quick-input')?.value?.trim();
-  const prompt = val || 'Nhóm mình có 3 người ở Trấn Biên, tổng ngân sách 150.000 đồng. Hai người thích món nước, một người thích mì trộn khô. Cả nhóm muốn ăn cùng một quán.';
+  // Ô tìm kiếm trống → dựng câu yêu cầu hoàn toàn từ 3 bộ lọc
+  if (!val) {
+    runHeroSuggestedPrompt();
+    return;
+  }
+
+  // Ô tìm kiếm có nội dung → ưu tiên nội dung người dùng gõ, chỉ bổ sung phần còn thiếu từ 3 bộ lọc
+  const { prompt, added } = buildMergedQuickPrompt(val);
+  if (added.length > 0) {
+    showNotificationToast(`Đã bổ sung từ bộ lọc: ${added.join(' • ')}`);
+  }
   usePresetPrompt(prompt);
+}
+
+/* Bỏ dấu tiếng Việt để nhận diện được cả câu gõ không dấu ("3 nguoi", "tran bien") */
+function stripVietnamese(str) {
+  return String(str || '')
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/Đ/g, 'D')
+    .toLowerCase();
+}
+
+/* Kiểm tra câu người dùng gõ đã nêu Số người / Ngân sách / Khu vực hay chưa */
+function detectPromptSlots(text) {
+  const t = stripVietnamese(text);
+  const num = '(?:\\d+|mot|hai|ba|bon|tu|nam|sau|bay|tam|chin|muoi)';
+
+  const people =
+    new RegExp(`(?:^|[^\\w])${num}\\s*(?:nguoi|ng|ban|dua|thanh vien|khach|member)(?![a-z])`).test(t) ||
+    /(?:^|[^\w])(?:mot minh|1 minh|di minh|an minh|minh toi|cap doi|vo chong|ca nha|gia dinh)(?![a-z])/.test(t) ||
+    /nhom\s*\d+/.test(t);
+
+  const budget =
+    /\d+(?:[.,]\d+)?\s*(?:k|ka|nghin|ngan|tr|trieu|cu|d|dong|vnd)(?![a-z])/.test(t) ||
+    /\d{1,3}(?:[.,]\d{3})+/.test(t) ||
+    new RegExp(`${num}\\s*tram(?![a-z])`).test(t);
+
+  const areaNames = new Set();
+  document.querySelectorAll('#hero-filter-area option').forEach(o => {
+    if (o.value && o.value !== 'all') areaNames.add(o.value);
+  });
+  (appState.restaurants || []).forEach(r => { if (r.area) areaNames.add(r.area); });
+  const area = Array.from(areaNames).some(a => {
+    const key = stripVietnamese(a).replace(/^phuong\s+/, '').trim();
+    return key.length > 2 && t.includes(key);
+  });
+
+  return { people, budget, area };
+}
+
+/* Gộp câu người dùng gõ với giá trị 3 bộ lọc (chỉ thêm phần còn thiếu) */
+function buildMergedQuickPrompt(userText) {
+  const people = document.getElementById('hero-filter-people')?.value || '3';
+  const budget = parseInt(document.getElementById('hero-filter-budget')?.value || '150000', 10);
+  const area = document.getElementById('hero-filter-area')?.value || 'all';
+
+  const slots = detectPromptSlots(userText);
+  const extras = [];
+  const added = [];
+
+  if (!slots.people) {
+    extras.push(people === '1' ? 'đi 1 người' : `nhóm ${people} người`);
+    added.push(`${people} người`);
+  }
+  if (!slots.budget && budget > 0) {
+    extras.push(`tổng ngân sách ${budget.toLocaleString('vi-VN')} đồng`);
+    added.push(budget >= 1000 ? `${budget / 1000}k` : `${budget}đ`);
+  }
+  if (!slots.area && area !== 'all') {
+    extras.push(`ở khu vực ${area}`);
+    added.push(area);
+  }
+
+  if (extras.length === 0) return { prompt: userText, added };
+  const base = userText.replace(/[\s.,;]+$/, '');
+  return { prompt: `${base}, ${extras.join(', ')}.`, added };
 }
 
 function usePresetPrompt(promptText) {
@@ -1183,8 +1259,8 @@ async function runStep1Analyze() {
   }
 
   const btn = document.getElementById('btn-analyze-prompt');
-  const origText = btn.textContent;
-  btn.textContent = '⏳ AI đang phân tích câu yêu cầu...';
+  const origText = btn.innerHTML;
+  btn.innerHTML = '<svg class="ic ic-spin" aria-hidden="true"><use href="#i-loader"/></svg> AI đang phân tích câu yêu cầu...';
   btn.disabled = true;
 
   try {
@@ -1207,7 +1283,7 @@ async function runStep1Analyze() {
   } catch (err) {
     console.error(err);
   } finally {
-    btn.textContent = origText;
+    btn.innerHTML = origText;
     btn.disabled = false;
   }
 }
@@ -1235,7 +1311,7 @@ function renderConfirmationPanel(analysis) {
   if (analysis.clarifications && analysis.clarifications.length > 0) {
     alertsBox.innerHTML = analysis.clarifications.map(c => `
       <div style="background:var(--warning-light); color:var(--warning); padding:0.5rem 0.75rem; border-radius:9px; font-size:0.82rem; margin-bottom:0.35rem; border:1px solid #fde68a;">
-        💡 <strong>Lưu ý:</strong> ${escapeHtml(c)}
+        <svg class="ic" aria-hidden="true"><use href="#i-bulb"/></svg> <strong>Lưu ý:</strong> ${escapeHtml(c)}
       </div>
     `).join('');
   } else {
@@ -1249,7 +1325,7 @@ function renderConfirmationPanel(analysis) {
   const drawer = document.getElementById('conf-details-drawer');
   const toggleBtn = document.getElementById('btn-toggle-conf-drawer');
   if (drawer) drawer.style.display = 'none';
-  if (toggleBtn) toggleBtn.textContent = '⚙️ Tinh chỉnh ▾';
+  if (toggleBtn) toggleBtn.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#i-sliders"/></svg> Tinh chỉnh ▾';
 }
 
 function toggleConfirmationDrawer() {
@@ -1259,7 +1335,7 @@ function toggleConfirmationDrawer() {
   const isHidden = drawer.style.display === 'none';
   drawer.style.display = isHidden ? 'block' : 'none';
   if (toggleBtn) {
-    toggleBtn.textContent = isHidden ? '🔼 Thu gọn' : '⚙️ Tinh chỉnh ▾';
+    toggleBtn.innerHTML = isHidden ? '<svg class="ic" aria-hidden="true"><use href="#i-chevron-up"/></svg> Thu gọn' : '<svg class="ic" aria-hidden="true"><use href="#i-sliders"/></svg> Tinh chỉnh ▾';
   }
 }
 
@@ -1270,7 +1346,7 @@ function updateConfSummaryText() {
   const shortArea = area === 'Tất cả khu vực đã xác minh' ? 'Toàn Biên Hòa' : `P. ${area}`;
   const summaryEl = document.getElementById('conf-compact-summary-text');
   if (summaryEl) {
-    summaryEl.textContent = `👥 ${partySize} người • 💰 Tối đa ${maxBudget.toLocaleString('vi-VN')}đ • 📍 ${shortArea}`;
+    summaryEl.innerHTML = `<svg class="ic" aria-hidden="true"><use href="#i-users"/></svg> ${partySize} người • <svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg> Tối đa ${maxBudget.toLocaleString('vi-VN')}đ • <svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> ${escapeHtml(shortArea)}`;
   }
 }
 
@@ -1293,27 +1369,27 @@ function renderMemberEditors(members) {
   box.innerHTML = members.map((m, idx) => `
     <div style="background:var(--surface-alt); padding:0.85rem; border-radius:10px; border:1px solid var(--border);">
       <div style="font-weight:700; font-size:0.88rem; margin-bottom:0.45rem; color:var(--primary);">
-        👤 Thành viên #${idx + 1} (${escapeHtml(m.label || `Người ${idx + 1}`)})
+        <svg class="ic" aria-hidden="true"><use href="#i-user"/></svg> Thành viên #${idx + 1} (${escapeHtml(m.label || `Người ${idx + 1}`)})
       </div>
       <div class="form-group" style="margin-bottom:0.5rem;">
         <label style="font-size:0.78rem;">Loại món ưu tiên:</label>
         <select class="form-control member-type-select" data-idx="${idx}" style="padding:0.4rem 0.6rem; font-size:0.84rem;">
           <option value="any" ${m.preferredType === 'any' ? 'selected' : ''}>Linh hoạt mọi loại món</option>
-          <option value="mon_nuoc" ${m.preferredType === 'mon_nuoc' ? 'selected' : ''}>🍜 Món nước (Bún, Mì nước, Cháo, Soup)</option>
-          <option value="mon_kho" ${m.preferredType === 'mon_kho' ? 'selected' : ''}>🍝 Món khô / Trộn / Xào / Bánh hỏi</option>
-          <option value="com" ${m.preferredType === 'com' ? 'selected' : ''}>🍚 Cơm (Cơm gà, Cơm chiên, Cơm Nhật...)</option>
-          <option value="lau" ${m.preferredType === 'lau' ? 'selected' : ''}>🍲 Món Lẩu</option>
-          <option value="goi" ${m.preferredType === 'goi' ? 'selected' : ''}>🥗 Món Gỏi / Đặc sản</option>
-          <option value="an_vat" ${m.preferredType === 'an_vat' ? 'selected' : ''}>🍢 Ăn vặt (Chả lụi, Nem, Combo gà...)</option>
-          <option value="chay" ${m.preferredType === 'chay' ? 'selected' : ''}>🌱 Ăn chay (Ràng buộc bắt buộc)</option>
+          <option value="mon_nuoc" ${m.preferredType === 'mon_nuoc' ? 'selected' : ''}>Món nước (Bún, Mì nước, Cháo, Soup)</option>
+          <option value="mon_kho" ${m.preferredType === 'mon_kho' ? 'selected' : ''}>Món khô / Trộn / Xào / Bánh hỏi</option>
+          <option value="com" ${m.preferredType === 'com' ? 'selected' : ''}>Cơm (Cơm gà, Cơm chiên, Cơm Nhật...)</option>
+          <option value="lau" ${m.preferredType === 'lau' ? 'selected' : ''}>Món Lẩu</option>
+          <option value="goi" ${m.preferredType === 'goi' ? 'selected' : ''}>Món Gỏi / Đặc sản</option>
+          <option value="an_vat" ${m.preferredType === 'an_vat' ? 'selected' : ''}>Ăn vặt (Chả lụi, Nem, Combo gà...)</option>
+          <option value="chay" ${m.preferredType === 'chay' ? 'selected' : ''}>Ăn chay (Ràng buộc bắt buộc)</option>
         </select>
       </div>
       <div class="form-group" style="margin-bottom:0.5rem;">
         <label style="font-size:0.78rem;">Khẩu vị:</label>
         <select class="form-control member-flavor-select" data-idx="${idx}" style="padding:0.4rem 0.6rem; font-size:0.84rem;">
           <option value="any" ${m.flavor === 'any' ? 'selected' : ''}>Bình thường / Linh hoạt</option>
-          <option value="vi_cay" ${m.flavor === 'vi_cay' ? 'selected' : ''}>🌶️ Thích vị cay / Đậm đà</option>
-          <option value="vi_thanh" ${m.flavor === 'vi_thanh' ? 'selected' : ''}>🍃 Thích vị thanh nhẹ / Không cay</option>
+          <option value="vi_cay" ${m.flavor === 'vi_cay' ? 'selected' : ''}>Thích vị cay / Đậm đà</option>
+          <option value="vi_thanh" ${m.flavor === 'vi_thanh' ? 'selected' : ''}>Thích vị thanh nhẹ / Không cay</option>
         </select>
       </div>
       <div class="form-group" style="margin-bottom:0;">
@@ -1364,7 +1440,7 @@ async function runStep2Solve(fromManualUpdate = false) {
     const drawer = document.getElementById('conf-details-drawer');
     const toggleBtn = document.getElementById('btn-toggle-conf-drawer');
     if (drawer) drawer.style.display = 'none';
-    if (toggleBtn) toggleBtn.textContent = '⚙️ Tinh chỉnh ▾';
+    if (toggleBtn) toggleBtn.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#i-sliders"/></svg> Tinh chỉnh ▾';
   }
 
   const requirements = {
@@ -1409,19 +1485,19 @@ function renderSolverResults(result, requirements) {
           <div class="plan-card ${idx === 0 ? 'rank-1' : ''}">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
               <span class="plan-rank-ribbon" style="margin-bottom:0;">
-                ${idx === 0 ? '🏆 Phương án #1 (Tối ưu nhất)' : `⭐ Phương án #${idx + 1}`}
+                ${idx === 0 ? '<svg class="ic" aria-hidden="true"><use href="#i-trophy"/></svg> Phương án #1 (Tối ưu nhất)' : `<svg class="ic ic-star" aria-hidden="true"><use href="#i-star"/></svg> Phương án #${idx + 1}`}
               </span>
-              <span class="badge badge-area">📍 ${escapeHtml(plan.restaurant.area)}</span>
+              <span class="badge badge-area"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> ${escapeHtml(plan.restaurant.area)}</span>
             </div>
 
             ${buildRestaurantGalleryHtml(fullRest, 'plan-' + idx)}
 
             <h3 style="font-size:1.15rem; margin-bottom:0.2rem;">${escapeHtml(plan.restaurant.name)}</h3>
-            <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.2rem;">🏠 ${escapeHtml(plan.restaurant.address)}</p>
+            <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:0.2rem;"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg> ${escapeHtml(plan.restaurant.address)}</p>
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem;">
-              <span style="font-size:0.8rem; color:var(--text-muted);">🕒 ${escapeHtml(plan.restaurant.openingHours)}</span>
+              <span style="font-size:0.8rem; color:var(--text-muted);"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg> ${escapeHtml(plan.restaurant.openingHours)}</span>
               <button class="btn btn-secondary btn-sm" style="padding:0.25rem 0.6rem; font-size:0.76rem;" onclick="routeToRestaurantById('${escapeAttr(plan.restaurant.id)}')">
-                🧭 Dẫn đường trên Map
+                <svg class="ic" aria-hidden="true"><use href="#i-navigation"/></svg> Dẫn đường trên Map
               </button>
             </div>
 
@@ -1491,7 +1567,7 @@ function renderSolverResults(result, requirements) {
 
             <!-- Nguồn xác minh -->
             <div style="font-size:0.76rem; color:var(--text-muted); border-top:1px dashed var(--border); padding-top:0.5rem;">
-              ✅ <strong>Nguồn dữ liệu:</strong> ${escapeHtml(plan.restaurant.verificationSource)} • Cập nhật: ${escapeHtml(plan.restaurant.verifiedAt)}
+              <svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg> <strong>Nguồn dữ liệu:</strong> ${escapeHtml(plan.restaurant.verificationSource)} • Cập nhật: ${escapeHtml(plan.restaurant.verifiedAt)}
               <br/>* Giá hiển thị là giá tham khảo theo thực đơn đã ghi nhận, chưa bao gồm phụ phí ngoài thực đơn.
             </div>
           </div>
@@ -1506,13 +1582,13 @@ function renderSolverResults(result, requirements) {
   if (result.status === 'insufficient_data') {
     container.innerHTML = `
       <div class="card" style="border:2px solid #f59e0b; background:var(--warning-light);">
-        <span class="badge badge-warning" style="margin-bottom:0.5rem;">⚠️ Chưa đủ dữ liệu xác minh tại khu vực yêu cầu</span>
+        <span class="badge badge-warning" style="margin-bottom:0.5rem;"><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg> Chưa đủ dữ liệu xác minh tại khu vực yêu cầu</span>
         <h3 style="margin-bottom:0.4rem;">${escapeHtml(result.summary)}</h3>
         <p style="font-size:0.9rem; margin-bottom:0.9rem;">
           Theo nguyên tắc độ tin cậy (Mục 6.6), HỢP VỊ AI tuyệt đối không tự suy đoán hay tự bịa tên quán ngoài cơ sở dữ liệu đã kiểm duyệt.
         </p>
         <button class="btn btn-primary" onclick="document.getElementById('conf-area').value='Tất cả khu vực đã xác minh'; runStep2Solve();">
-          🔄 Chuyển sang tìm kiếm trên toàn bộ 18 quán đã xác minh tại Biên Hòa
+          <svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg> Chuyển sang tìm kiếm trên toàn bộ 18 quán đã xác minh tại Biên Hòa
         </button>
       </div>
     `;
@@ -1525,10 +1601,10 @@ function renderSolverResults(result, requirements) {
     const altPlan = alt.plan;
     container.innerHTML = `
       <div class="card" style="border:2px solid #dc2626; background:#fef2f2; margin-bottom:1.25rem;">
-        <span class="badge badge-danger" style="margin-bottom:0.5rem;">❌ Không có phương án hợp lệ trong giới hạn ngân sách hiện tại</span>
+        <span class="badge badge-danger" style="margin-bottom:0.5rem;"><svg class="ic" aria-hidden="true"><use href="#i-x-circle"/></svg> Không có phương án hợp lệ trong giới hạn ngân sách hiện tại</span>
         <h3 style="margin-bottom:0.4rem; color:#991b1b;">${escapeHtml(result.summary)}</h3>
         <p style="font-size:0.92rem; color:#7f1d1d; margin-bottom:0.85rem;">
-          💡 <strong>Phân tích nguyên nhân & Kịch bản điều chỉnh (Mục 4.3.5):</strong><br/>
+          <svg class="ic" aria-hidden="true"><use href="#i-bulb"/></svg> <strong>Phân tích nguyên nhân & Kịch bản điều chỉnh (Mục 4.3.5):</strong><br/>
           ${escapeHtml(alt.message)}
         </p>
 
@@ -1539,7 +1615,7 @@ function renderSolverResults(result, requirements) {
               <h4 style="margin-top:0.35rem;">${escapeHtml(altPlan.restaurant.name)} (${escapeHtml(altPlan.restaurant.area)})</h4>
             </div>
             <button class="btn btn-primary" onclick="applyRelaxedBudget(${alt.suggestedBudget})">
-              ✅ Đồng ý nâng ngân sách lên ${alt.suggestedBudget.toLocaleString('vi-VN')}đ (+${alt.extraAmountNeeded.toLocaleString('vi-VN')}đ)
+              <svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg> Đồng ý nâng ngân sách lên ${alt.suggestedBudget.toLocaleString('vi-VN')}đ (+${alt.extraAmountNeeded.toLocaleString('vi-VN')}đ)
             </button>
           </div>
           <table class="data-table">
@@ -1565,7 +1641,7 @@ function renderSolverResults(result, requirements) {
   // Trường hợp 4: Xung đột ràng buộc cứng khác
   container.innerHTML = `
     <div class="card" style="border:2px solid var(--warning);">
-      <span class="badge badge-warning" style="margin-bottom:0.5rem;">⚠️ Không tìm thấy tổ hợp thỏa mãn đồng thời mọi ràng buộc tại cùng 1 quán</span>
+      <span class="badge badge-warning" style="margin-bottom:0.5rem;"><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg> Không tìm thấy tổ hợp thỏa mãn đồng thời mọi ràng buộc tại cùng 1 quán</span>
       <h3 style="margin-bottom:0.4rem;">${escapeHtml(result.summary)}</h3>
       <p style="font-size:0.9rem; color:var(--text-muted);">
         ${escapeHtml(result.alternativeScenario?.message || 'Hãy thử nới lỏng từ khóa món ăn hoặc mở rộng khu vực tìm kiếm.')}
@@ -1611,10 +1687,10 @@ function renderExploreSpecialties() {
                       onerror="this.style.display='none'; this.parentElement.querySelector('.rest-slide-center')?.classList.remove('hidden-for-img');" />
                   ` : ''}
                   <div class="rest-slide-top">
-                    <span class="rest-visual-tag">📸 Ảnh ${sIdx + 1}/${slides.length} • Đặc sản Đồng Nai</span>
-                    <span class="rest-visual-tag">📍 ${escapeHtml(sp.originArea)}</span>
+                    <span class="rest-visual-tag"><svg class="ic" aria-hidden="true"><use href="#i-camera"/></svg> Ảnh ${sIdx + 1}/${slides.length} • Đặc sản Đồng Nai</span>
+                    <span class="rest-visual-tag"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> ${escapeHtml(sp.originArea)}</span>
                   </div>
-                  <div class="rest-slide-center ${s.url ? 'hidden-for-img' : ''}">${s.icon}</div>
+                  <div class="rest-slide-center ${s.url ? 'hidden-for-img' : ''}"><svg class="ic" aria-hidden="true"><use href="#i-utensils"/></svg></div>
                   <div class="rest-slide-bottom">
                     <div>
                       <div class="rest-slide-caption">${escapeHtml(s.title)}</div>
@@ -1625,40 +1701,40 @@ function renderExploreSpecialties() {
               `).join('')}
             </div>
             <div class="gallery-hint-bar">
-              <span>↔️ Lướt ngang hoặc bấm ‹ › để xem ảnh thực tế đặc sản</span>
+              <span><svg class="ic" aria-hidden="true"><use href="#i-arrows-h"/></svg> Lướt ngang hoặc bấm ‹ › để xem ảnh thực tế đặc sản</span>
               <span>${slides.length} ảnh thực tế</span>
             </div>
           </div>
         ` : ''}
         <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.5rem;">
           <span class="badge badge-area">${escapeHtml(sp.classification)}</span>
-          <span class="badge badge-verified">📍 ${escapeHtml(sp.originArea)}</span>
+          <span class="badge badge-verified"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> ${escapeHtml(sp.originArea)}</span>
         </div>
         <h3 style="font-size:1.25rem; color:var(--primary); margin-bottom:0.4rem;">${escapeHtml(sp.name)}</h3>
         <p style="font-size:0.92rem; margin-bottom:0.65rem;">${escapeHtml(sp.summary)}</p>
 
         <div style="background:var(--surface-alt); padding:0.85rem; border-radius:10px; font-size:0.85rem; margin-bottom:0.75rem;">
-          <div style="margin-bottom:0.4rem;"><strong>📖 Câu chuyện & Nguồn gốc địa phương:</strong> ${escapeHtml(sp.culturalStory)}</div>
-          <div style="margin-bottom:0.3rem;"><strong>🥗 Nguyên liệu đặc trưng:</strong> ${escapeHtml((sp.ingredients || []).join(', '))}</div>
-          <div style="margin-bottom:0.3rem;"><strong>👅 Hương vị:</strong> ${escapeHtml(sp.flavorProfile)}</div>
-          <div><strong>💰 Giá tham khảo:</strong> ${escapeHtml(sp.referencePriceRange)}</div>
+          <div style="margin-bottom:0.4rem;"><strong><svg class="ic" aria-hidden="true"><use href="#i-book"/></svg> Câu chuyện & Nguồn gốc địa phương:</strong> ${escapeHtml(sp.culturalStory)}</div>
+          <div style="margin-bottom:0.3rem;"><strong><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg> Nguyên liệu đặc trưng:</strong> ${escapeHtml((sp.ingredients || []).join(', '))}</div>
+          <div style="margin-bottom:0.3rem;"><strong><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg> Hương vị:</strong> ${escapeHtml(sp.flavorProfile)}</div>
+          <div><strong><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg> Giá tham khảo:</strong> ${escapeHtml(sp.referencePriceRange)}</div>
         </div>
 
         <div style="margin-bottom:0.75rem;">
-          <div style="font-weight:700; font-size:0.86rem; margin-bottom:0.4rem;">🏪 Địa điểm thưởng thức đã xác minh trong hệ thống:</div>
+          <div style="font-weight:700; font-size:0.86rem; margin-bottom:0.4rem;"><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg> Địa điểm thưởng thức đã xác minh trong hệ thống:</div>
           ${(sp.linkedRestaurants || []).map(r => `
             <div style="border:1px solid var(--border); border-radius:9px; padding:0.6rem 0.75rem; margin-bottom:0.45rem; font-size:0.83rem;">
               <div style="display:flex; justify-content:space-between;">
                 <strong>${escapeHtml(r.name)}</strong>
                 <span class="badge badge-verified">Đã xác minh (${escapeHtml(r.verifiedAt)})</span>
               </div>
-              <div style="color:var(--text-muted);">📍 ${escapeHtml(r.address)} • 🕒 ${escapeHtml(r.openingHours)}</div>
+              <div style="color:var(--text-muted);"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> ${escapeHtml(r.address)} • <svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg> ${escapeHtml(r.openingHours)}</div>
             </div>
           `).join('')}
         </div>
 
         <div style="font-size:0.76rem; color:var(--text-muted);">
-          <strong>📚 Nguồn tư liệu & đối chiếu:</strong>
+          <strong><svg class="ic" aria-hidden="true"><use href="#i-book"/></svg> Nguồn tư liệu & đối chiếu:</strong>
           <ul style="padding-left:1.1rem; margin-top:0.2rem;">
             ${(sp.sources || []).map(s => `<li>${escapeHtml(s)}</li>`).join('')}
           </ul>
@@ -1669,7 +1745,7 @@ function renderExploreSpecialties() {
       </div>
 
       <button class="btn btn-primary" onclick="useSpecialtyPrompt('${escapeAttr(sp.suggestedQuery)}')">
-        🤖 Gợi ý quán để thưởng thức món này (Chuyển sang bộ giải AI)
+        <svg class="ic" aria-hidden="true"><use href="#i-sparkles"/></svg> Gợi ý quán để thưởng thức món này (Chuyển sang bộ giải AI)
       </button>
     </div>
   `;
@@ -1694,11 +1770,11 @@ function renderFeedbackSection() {
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.25rem;">
           <strong>${escapeHtml(fb.userName)}</strong>
           <span class="badge ${fb.status === 'verified' ? 'badge-verified' : 'badge-warning'}">
-            ${fb.status === 'verified' ? '✓ Đã xác minh' : '⏳ Mới tiếp nhận'}
+            ${fb.status === 'verified' ? '<svg class="ic" aria-hidden="true"><use href="#i-check"/></svg> Đã xác minh' : '<svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg> Mới tiếp nhận'}
           </span>
         </div>
         <div style="font-size:0.8rem; color:var(--primary); font-weight:600; margin-bottom:0.25rem;">
-          📍 ${escapeHtml(fb.restaurantName)} • ${'⭐'.repeat(fb.rating || 5)}
+          <svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> ${escapeHtml(fb.restaurantName)} • ${'<svg class="ic ic-star" aria-hidden="true"><use href="#i-star"/></svg>'.repeat(fb.rating || 5)}
         </div>
         <p style="font-size:0.86rem;">${escapeHtml(fb.comment)}</p>
       </div>
@@ -1718,7 +1794,7 @@ async function submitUserFeedback() {
 
   if (!comment) {
     msgEl.style.color = 'var(--danger)';
-    msgEl.textContent = '⚠️ Vui lòng nhập nội dung nhận xét hoặc báo cáo.';
+    msgEl.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg> Vui lòng nhập nội dung nhận xét hoặc báo cáo.';
     return;
   }
 
@@ -1731,7 +1807,7 @@ async function submitUserFeedback() {
   if (res.success) {
     document.getElementById('fb-comment').value = '';
     msgEl.style.color = 'var(--accent)';
-    msgEl.textContent = '✅ Cảm ơn bạn! Phản hồi đã được ghi nhận và chuyển đến Admin xác minh.';
+    msgEl.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg> Cảm ơn bạn! Phản hồi đã được ghi nhận và chuyển đến Admin xác minh.';
     await refreshAllData();
   }
 }
@@ -1760,24 +1836,163 @@ async function runSampleMenuScan(sampleKey) {
     }
   }[sampleKey] || {};
 
+  if (appState.scanBusy) {
+    showNotificationToast('AI đang quét thực đơn, vui lòng đợi trong giây lát...');
+    return;
+  }
+
   if (presetInfo.name) {
     document.getElementById('partner-name').value = presetInfo.name;
     document.getElementById('partner-address').value = presetInfo.address;
     document.getElementById('partner-area').value = presetInfo.area;
   }
 
-  const res = await fetch('/api/v1/partner/scan-menu', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ sampleKey })
-  }).then(r => r.json());
+  const metaBox = document.getElementById('scan-ai-meta');
+  const prevItems = appState.scanDraftItems.slice();
+  const startedAt = Date.now();
 
-  if (res.success) {
-    appState.scanDraftItems = res.data.items || [];
-    document.getElementById('scan-ai-meta').textContent =
-      `Mô-đun: ${res.data.aiMeta?.provider} • Thời gian xử lý: ${res.data.aiMeta?.latencyMs}ms`;
-    renderSampleMenuImagePreview(presetInfo.svgTitle || 'ẢNH CHỤP THỰC ĐƠN MẪU', appState.scanDraftItems);
+  try {
+    appState.scanBusy = true;
+    if (metaBox) metaBox.innerHTML = '<svg class="ic ic-spin" aria-hidden="true"><use href="#i-loader"/></svg> <strong>AI Vision đang nhận diện và bóc tách thực đơn...</strong>';
+
+    const res = await fetch('/api/v1/partner/scan-menu', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sampleKey })
+    }).then(r => r.json());
+
+    if (!res.success) throw new Error(res.error?.message || 'Không thể quét thực đơn mẫu.');
+
+    const items = res.data.items || [];
+    // Hiện ảnh thực đơn mẫu dưới lớp quét AI, giữ hiệu ứng tối thiểu để người dùng thấy quá trình nhận diện
+    startScanEffect(buildSampleMenuPaperHtml(presetInfo.svgTitle || 'ẢNH CHỤP THỰC ĐƠN MẪU', items));
+    await waitScanMinimum(startedAt, 2200);
+
+    appState.scanDraftItems = items;
+    finishScanEffect(items.length);
+    if (metaBox) {
+      metaBox.innerHTML = `<svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg> <strong>Đã trích xuất ${items.length} món</strong> • ${escapeHtml(res.data.aiMeta?.provider || 'AI')} (${res.data.aiMeta?.latencyMs || 0}ms)`;
+    }
+    renderScanDraftTable({ animate: true });
+    revealScanDraftTable();
+  } catch (err) {
+    console.error('Lỗi quét thực đơn mẫu:', err);
+    failScanEffect();
+    appState.scanDraftItems = prevItems;
     renderScanDraftTable();
+    if (metaBox) {
+      metaBox.innerHTML = `<span style="color:var(--danger); font-weight:700;"><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg> ${escapeHtml(err.message)}</span>`;
+    }
+  } finally {
+    appState.scanBusy = false;
+  }
+}
+
+/* ==================== HIỆU ỨNG AI ĐANG QUÉT ẢNH THỰC ĐƠN ==================== */
+
+const SCAN_STATUS_STEPS = [
+  'Đang phát hiện vùng chữ trên ảnh...',
+  'Đang đọc tên từng món ăn...',
+  'Đang ghép giá bán với từng món...',
+  'Đang phân loại món & kiểm tra độ tin cậy...'
+];
+let scanStatusTimer = null;
+
+function waitScanMinimum(startedAt, minMs) {
+  const remain = minMs - (Date.now() - startedAt);
+  return remain > 0 ? new Promise(r => setTimeout(r, remain)) : Promise.resolve();
+}
+
+/* Bọc nội dung ảnh trong "sân khấu" quét: lưới, tia quét, khung góc, ô nhận diện chữ và nhãn trạng thái */
+function startScanEffect(mediaHtml, captionHtml = '') {
+  const box = document.getElementById('menu-source-preview');
+  if (!box) return;
+
+  const detectBoxes = Array.from({ length: 7 }, (_, i) => {
+    const top = 10 + i * 11.5 + Math.random() * 4;
+    const left = 6 + Math.random() * 18;
+    const width = 38 + Math.random() * 40;
+    return `<span class="ai-scan-box" style="top:${top.toFixed(1)}%; left:${left.toFixed(1)}%; width:${width.toFixed(1)}%; animation-delay:${(i * 0.32).toFixed(2)}s;"></span>`;
+  }).join('');
+
+  box.innerHTML = `
+    <div class="ai-scan-stage is-scanning">
+      <div class="ai-scan-media">${mediaHtml}</div>
+      <div class="ai-scan-overlay" aria-hidden="true">
+        <div class="ai-scan-grid"></div>
+        ${detectBoxes}
+        <div class="ai-scan-line"></div>
+        <span class="ai-scan-corner tl"></span><span class="ai-scan-corner tr"></span>
+        <span class="ai-scan-corner bl"></span><span class="ai-scan-corner br"></span>
+      </div>
+      <div class="ai-scan-status" role="status" aria-live="polite">
+        <svg class="ic ic-spin" aria-hidden="true"><use href="#i-loader"/></svg>
+        <span class="ai-scan-status-text">${SCAN_STATUS_STEPS[0]}</span>
+      </div>
+    </div>
+    ${captionHtml}
+  `;
+
+  let step = 0;
+  clearInterval(scanStatusTimer);
+  scanStatusTimer = setInterval(() => {
+    step = (step + 1) % SCAN_STATUS_STEPS.length;
+    const el = box.querySelector('.ai-scan-status-text');
+    if (el) el.textContent = SCAN_STATUS_STEPS[step];
+  }, 1100);
+
+  renderScanDraftSkeleton();
+}
+
+function finishScanEffect(count) {
+  clearInterval(scanStatusTimer);
+  const stage = document.querySelector('#menu-source-preview .ai-scan-stage');
+  if (!stage) return;
+  stage.classList.remove('is-scanning');
+  stage.classList.add('is-done');
+  const status = stage.querySelector('.ai-scan-status');
+  if (status) {
+    status.innerHTML = `<svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg> <span>Đã nhận diện ${count} món ăn</span>`;
+    setTimeout(() => status.classList.add('fade-out'), 2600);
+  }
+}
+
+function failScanEffect() {
+  clearInterval(scanStatusTimer);
+  const stage = document.querySelector('#menu-source-preview .ai-scan-stage');
+  if (!stage) return;
+  stage.classList.remove('is-scanning');
+  stage.classList.add('is-failed');
+  const status = stage.querySelector('.ai-scan-status');
+  if (status) status.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg> <span>Không nhận diện được thực đơn</span>';
+}
+
+/* Bảng món: hàng chờ dạng khung xương trong lúc AI đang đọc ảnh */
+function renderScanDraftSkeleton() {
+  const tbody = document.getElementById('scan-draft-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = Array.from({ length: 4 }, (_, i) => `
+    <tr class="scan-skeleton-row" style="animation-delay:${i * 0.12}s;">
+      <td><span class="skeleton-bar" style="width:${70 + (i % 2) * 20}%;"></span></td>
+      <td><span class="skeleton-bar" style="width:70%;"></span></td>
+      <td><span class="skeleton-bar" style="width:80%;"></span></td>
+      <td><span class="skeleton-bar" style="width:55%;"></span></td>
+      <td><span class="skeleton-bar" style="width:28px;"></span></td>
+    </tr>
+  `).join('');
+}
+
+/* Sau khi quét xong: đưa danh sách món vào tầm nhìn (đặc biệt trên điện thoại khi bảng nằm bên dưới ảnh) */
+function revealScanDraftTable() {
+  const wrap = document.querySelector('#view-partner .scan-table-wrap');
+  if (!wrap) return;
+  const card = wrap.closest('.card') || wrap;
+  card.classList.remove('scan-list-updated');
+  void card.offsetWidth; // khởi động lại animation
+  card.classList.add('scan-list-updated');
+  const rect = card.getBoundingClientRect();
+  if (rect.top > window.innerHeight * 0.6 || rect.bottom < 0) {
+    setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'start' }), 650);
   }
 }
 
@@ -1842,28 +2057,32 @@ function compressAndResizeImage(file, maxDimension = 1600, quality = 0.85) {
 async function handleMenuImageUpload(event) {
   const file = event.target.files?.[0];
   if (!file) return;
+  if (appState.scanBusy) {
+    showNotificationToast('AI đang quét thực đơn, vui lòng đợi trong giây lát...');
+    if (event.target) event.target.value = '';
+    return;
+  }
 
-  const previewBox = document.getElementById('menu-source-preview');
   const metaBox = document.getElementById('scan-ai-meta');
+  const prevItems = appState.scanDraftItems.slice();
+  appState.scanBusy = true;
 
   if (metaBox) {
-    metaBox.innerHTML = '⏳ <em>Đang nén & tối ưu hóa ảnh thực đơn...</em>';
+    metaBox.innerHTML = '<svg class="ic ic-spin" aria-hidden="true"><use href="#i-loader"/></svg> <em>Đang nén & tối ưu hóa ảnh thực đơn...</em>';
   }
 
   try {
     const { dataUrl, mimeType } = await compressAndResizeImage(file, 1600, 0.85);
+    const startedAt = Date.now();
 
-    if (previewBox) {
-      previewBox.innerHTML = `
-        <div style="text-align:center;">
-          <img src="${dataUrl}" alt="Ảnh thực đơn tải lên" style="max-width:100%; max-height:380px; border-radius:10px; display:block; margin:0 auto; object-fit:contain; box-shadow:0 3px 12px rgba(0,0,0,0.12);" />
-          <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.4rem;">📷 Ảnh thực tế từ thiết bị của quán (${(file.size / 1024).toFixed(0)} KB gốc ➔ nén nhẹ tối ưu OCR)</div>
-        </div>
-      `;
-    }
+    // Hiện ảnh vừa tải lên dưới lớp hiệu ứng AI đang quét
+    startScanEffect(
+      `<img src="${dataUrl}" alt="Ảnh thực đơn tải lên" class="ai-scan-img" />`,
+      `<div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.45rem; text-align:center;"><svg class="ic" aria-hidden="true"><use href="#i-upload"/></svg> Ảnh thực tế từ thiết bị của quán (${(file.size / 1024).toFixed(0)} KB gốc <svg class="ic" aria-hidden="true"><use href="#i-arrow-right"/></svg> nén nhẹ tối ưu OCR)</div>`
+    );
 
     if (metaBox) {
-      metaBox.innerHTML = '⏳ <strong>AI Vision đang nhận diện và bóc tách thực đơn...</strong>';
+      metaBox.innerHTML = '<svg class="ic ic-spin" aria-hidden="true"><use href="#i-loader"/></svg> <strong>AI Vision đang nhận diện và bóc tách thực đơn...</strong>';
     }
 
     const response = await fetch('/api/v1/partner/scan-menu', {
@@ -1885,36 +2104,47 @@ async function handleMenuImageUpload(event) {
     const res = await response.json();
 
     if (res.success && res.data) {
+      await waitScanMinimum(startedAt, 1600);
       appState.scanDraftItems = res.data.items || [];
       if (res.data.detectedRestaurantName) {
         const partnerNameInput = document.getElementById('partner-name');
         if (partnerNameInput) partnerNameInput.value = res.data.detectedRestaurantName;
       }
+      finishScanEffect(appState.scanDraftItems.length);
       if (metaBox) {
         const providerName = res.data.aiMeta?.provider || 'Gemini Vision';
         const latency = res.data.aiMeta?.latencyMs || 0;
-        metaBox.innerHTML = `✅ <strong>Đã trích xuất ${appState.scanDraftItems.length} món</strong> • ${escapeHtml(providerName)} (${latency}ms)`;
+        metaBox.innerHTML = `<svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg> <strong>Đã trích xuất ${appState.scanDraftItems.length} món</strong> • ${escapeHtml(providerName)} (${latency}ms)`;
       }
-      renderScanDraftTable();
-      await refreshAllData();
-      showNotificationToast(`Đã nhận diện thành công ${appState.scanDraftItems.length} món ăn từ ảnh thực đơn!`);
+      renderScanDraftTable({ animate: true });
+      revealScanDraftTable();
+      showNotificationToast(`Đã nhận diện thành công ${appState.scanDraftItems.length} món ăn và cập nhật vào danh sách!`);
+      refreshAllData();
     } else {
       throw new Error(res.error?.message || 'Không thể trích xuất món ăn từ hình ảnh.');
     }
   } catch (err) {
     console.error('Lỗi quét ảnh thực đơn:', err);
+    failScanEffect();
+    appState.scanDraftItems = prevItems;
+    renderScanDraftTable();
     if (metaBox) {
-      metaBox.innerHTML = `<span style="color:var(--danger); font-weight:700;">⚠️ ${escapeHtml(err.message)}</span>`;
+      metaBox.innerHTML = `<span style="color:var(--danger); font-weight:700;"><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg> ${escapeHtml(err.message)}</span>`;
     }
     alert('Không thể quét ảnh thực đơn: ' + (err.message || 'Lỗi không xác định'));
   } finally {
+    appState.scanBusy = false;
     if (event.target) event.target.value = '';
   }
 }
 
 function renderSampleMenuImagePreview(title, items) {
   const box = document.getElementById('menu-source-preview');
-  box.innerHTML = `
+  if (box) box.innerHTML = buildSampleMenuPaperHtml(title, items);
+}
+
+function buildSampleMenuPaperHtml(title, items) {
+  return `
     <div style="background:#fffbeb; border:2px solid #d97706; border-radius:10px; padding:1.1rem; font-family:'Courier New', monospace;">
       <div style="text-align:center; border-bottom:2px dashed #b45309; padding-bottom:0.5rem; margin-bottom:0.75rem;">
         <div style="font-weight:800; font-size:1rem; color:#15803d;">${escapeHtml(title)}</div>
@@ -1930,12 +2160,24 @@ function renderSampleMenuImagePreview(title, items) {
   `;
 }
 
-function renderScanDraftTable() {
+function renderScanDraftTable(opts = {}) {
   const tbody = document.getElementById('scan-draft-tbody');
   if (!tbody) return;
 
+  if (appState.scanDraftItems.length === 0) {
+    tbody.innerHTML = `
+      <tr class="scan-empty-row">
+        <td colspan="5">
+          <svg class="ic" aria-hidden="true"><use href="#i-scan"/></svg>
+          Chưa có món nào. Tải ảnh thực đơn hoặc chọn mẫu thử để AI tự động điền danh sách.
+        </td>
+      </tr>`;
+    return;
+  }
+
+  const enterCls = opts.animate ? 'scan-row-enter' : '';
   tbody.innerHTML = appState.scanDraftItems.map((it, idx) => `
-    <tr class="scan-draft-row ${it.needsReview ? 'row-needs-review' : ''}">
+    <tr class="scan-draft-row ${it.needsReview ? 'row-needs-review' : ''} ${enterCls}" style="${opts.animate ? `animation-delay:${Math.min(idx, 12) * 0.08}s;` : ''}">
       <td class="scan-td-name">
         <input
           type="text"
@@ -1973,10 +2215,10 @@ function renderScanDraftTable() {
         <span class="badge ${it.needsReview ? 'badge-warning' : 'badge-verified'}">
           ${Math.round((it.confidence || 0.95) * 100)}%
         </span>
-        ${it.needsReview ? `<span style="color:var(--warning); margin-left:0.25rem;">⚠️ ${escapeHtml(it.reviewReason || 'Cần kiểm tra')}</span>` : '<span style="color:var(--accent); margin-left:0.25rem;">Khớp rõ</span>'}
+        ${it.needsReview ? `<span style="color:var(--warning); margin-left:0.25rem;"><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg> ${escapeHtml(it.reviewReason || 'Cần kiểm tra')}</span>` : '<span style="color:var(--accent); margin-left:0.25rem;">Khớp rõ</span>'}
       </td>
       <td class="scan-td-del">
-        <button class="btn btn-danger btn-sm" onclick="removeDraftItem(${idx})" title="Xóa món này">✕</button>
+        <button class="btn btn-danger btn-sm" onclick="removeDraftItem(${idx})" title="Xóa món này"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
       </td>
     </tr>
   `).join('');
@@ -2024,7 +2266,7 @@ async function submitPartnerMenuDraft() {
 
   if (!partnerName || !address || appState.scanDraftItems.length === 0) {
     msgEl.style.color = 'var(--danger)';
-    msgEl.textContent = '⚠️ Vui lòng nhập tên quán, địa chỉ và có ít nhất 1 món ăn.';
+    msgEl.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg> Vui lòng nhập tên quán, địa chỉ và có ít nhất 1 món ăn.';
     return;
   }
 
@@ -2042,7 +2284,7 @@ async function submitPartnerMenuDraft() {
 
   if (res.success) {
     msgEl.style.color = 'var(--accent)';
-    msgEl.textContent = `✅ ${res.message}`;
+    msgEl.innerHTML = `<svg class="ic" aria-hidden="true"><use href="#i-check-circle"/></svg> ${escapeHtml(res.message)}`;
     await refreshAllData();
   }
 }
@@ -2090,11 +2332,11 @@ function renderAdminDashboard() {
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.35rem;">
             <strong>${escapeHtml(s.partnerName)}</strong>
             <span class="badge ${s.status === 'approved' ? 'badge-verified' : s.status === 'rejected' ? 'badge-danger' : 'badge-warning'}">
-              ${s.status === 'approved' ? '✓ Đã phê duyệt & Công bố' : s.status === 'rejected' ? '✕ Đã từ chối' : '⏳ Chờ Admin duyệt'}
+              ${s.status === 'approved' ? '<svg class="ic" aria-hidden="true"><use href="#i-check"/></svg> Đã phê duyệt & Công bố' : s.status === 'rejected' ? '<svg class="ic" aria-hidden="true"><use href="#i-x"/></svg> Đã từ chối' : '<svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg> Chờ Admin duyệt'}
             </span>
           </div>
           <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.45rem;">
-            📍 ${escapeHtml(s.address)} (${escapeHtml(s.area)}) • 🕒 ${escapeHtml(s.openingHours)}
+            <svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> ${escapeHtml(s.address)} (${escapeHtml(s.area)}) • <svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg> ${escapeHtml(s.openingHours)}
           </div>
           <div style="font-size:0.8rem; margin-bottom:0.6rem;">
             ${(s.items || []).map(it => `
@@ -2107,10 +2349,10 @@ function renderAdminDashboard() {
           ${s.status === 'pending' ? `
             <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
               <button class="btn btn-success btn-sm" onclick="adminReviewSubmission('${escapeAttr(s.id)}', 'approve')">
-                ✓ Phê duyệt & Công bố
+                <svg class="ic" aria-hidden="true"><use href="#i-check"/></svg> Phê duyệt & Công bố
               </button>
               <button class="btn btn-danger btn-sm" onclick="adminReviewSubmission('${escapeAttr(s.id)}', 'reject')">
-                ✕ Từ chối
+                <svg class="ic" aria-hidden="true"><use href="#i-x"/></svg> Từ chối
               </button>
             </div>
           ` : ''}
@@ -2126,10 +2368,10 @@ function renderAdminDashboard() {
       <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; padding:0.65rem 0; border-bottom:1px solid var(--border); font-size:0.85rem;">
         <div>
           <strong>${escapeHtml(s.partnerName)}</strong> (${(s.items || []).length} món)
-          <div style="font-size:0.76rem; color:var(--text-muted);">📍 ${escapeHtml(s.address)} • Gửi lúc: ${new Date(s.submittedAt).toLocaleString('vi-VN')}</div>
+          <div style="font-size:0.76rem; color:var(--text-muted);"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> ${escapeHtml(s.address)} • Gửi lúc: ${new Date(s.submittedAt).toLocaleString('vi-VN')}</div>
         </div>
         <span class="badge ${s.status === 'approved' ? 'badge-verified' : s.status === 'rejected' ? 'badge-danger' : 'badge-warning'}">
-          ${s.status === 'approved' ? '✓ Đã được Admin công bố' : s.status === 'rejected' ? '✕ Bị từ chối' : '⏳ Đang chờ Admin duyệt'}
+          ${s.status === 'approved' ? '<svg class="ic" aria-hidden="true"><use href="#i-check"/></svg> Đã được Admin công bố' : s.status === 'rejected' ? '<svg class="ic" aria-hidden="true"><use href="#i-x"/></svg> Bị từ chối' : '<svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg> Đang chờ Admin duyệt'}
         </span>
       </div>
     `).join('');
@@ -2142,25 +2384,25 @@ function renderAdminDashboard() {
   if (usersBox && users) {
     usersBox.innerHTML = users.map(u => {
       const roleBadge = u.role === 'admin'
-        ? '<span class="badge" style="background:#f3e8ff; color:#7e22ce;">🛡️ Admin Duy nhất</span>'
+        ? '<span class="badge" style="background:#f3e8ff; color:#7e22ce;"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg> Admin Duy nhất</span>'
         : u.role === 'partner'
-          ? '<span class="badge" style="background:#eff6ff; color:#1d4ed8;">🏪 Chủ quán</span>'
-          : '<span class="badge badge-area">🙋 Khách hàng</span>';
+          ? '<span class="badge" style="background:#eff6ff; color:#1d4ed8;"><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg> Chủ quán</span>'
+          : '<span class="badge badge-area"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg> Khách hàng</span>';
       return `
         <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; padding:0.6rem 0; border-bottom:1px solid var(--border); font-size:0.84rem;">
           <div style="min-width:0;">
             <div style="display:flex; align-items:center; gap:0.4rem; flex-wrap:wrap;">
               <strong>${escapeHtml(u.name)}</strong>
               ${roleBadge}
-              ${u.status === 'locked' ? '<span class="badge badge-danger">🔒 Đã khóa</span>' : ''}
+              ${u.status === 'locked' ? '<span class="badge badge-danger"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg> Đã khóa</span>' : ''}
             </div>
             <div style="font-size:0.76rem; color:var(--text-muted);">
-              ✉️ ${escapeHtml(u.email)} ${u.restaurantName ? `• 🏪 ${escapeHtml(u.restaurantName)}` : ''}
+              <svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg> ${escapeHtml(u.email)} ${u.restaurantName ? `• <svg class="ic" aria-hidden="true"><use href="#i-store"/></svg> ${escapeHtml(u.restaurantName)}` : ''}
             </div>
           </div>
           ${u.role !== 'admin' ? `
             <button class="btn ${u.status === 'locked' ? 'btn-success' : 'btn-secondary'} btn-sm" style="white-space:nowrap;" onclick="adminToggleUserStatus('${escapeAttr(u.id)}')">
-              ${u.status === 'locked' ? '🔓 Mở khóa' : '🔒 Khóa'}
+              ${u.status === 'locked' ? '<svg class="ic" aria-hidden="true"><use href="#i-unlock"/></svg> Mở khóa' : '<svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg> Khóa'}
             </button>
           ` : '<span style="font-size:0.74rem; color:var(--text-muted); white-space:nowrap;">Mặc định</span>'}
         </div>
@@ -2185,11 +2427,11 @@ function renderAdminDashboard() {
             </span>
           </div>
           <div style="font-size:0.75rem; color:var(--text-muted);">
-            📍 P. ${escapeHtml(r.area)} • ${r.dishCount || 0} món • ${escapeHtml(r.openingHours)}
+            <svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> P. ${escapeHtml(r.area)} • ${r.dishCount || 0} món • ${escapeHtml(r.openingHours)}
           </div>
         </div>
         <button class="btn ${r.status === 'approved' ? 'btn-secondary' : 'btn-primary'} btn-sm" style="white-space:nowrap;" onclick="adminToggleRestaurantStatus('${escapeAttr(r.id)}')">
-          ${r.status === 'approved' ? '🙈 Tạm ẩn' : '👁️ Hiển thị'}
+          ${r.status === 'approved' ? '<svg class="ic" aria-hidden="true"><use href="#i-eye-off"/></svg> Tạm ẩn' : '<svg class="ic" aria-hidden="true"><use href="#i-eye"/></svg> Hiển thị'}
         </button>
       </div>
     `).join('');
@@ -2206,9 +2448,9 @@ function renderAdminDashboard() {
         </div>
         <div style="display:flex; gap:0.3rem; flex-shrink:0;">
           ${fb.status !== 'verified' ? `
-            <button class="btn btn-success btn-sm" style="padding:0.25rem 0.5rem; font-size:0.74rem;" onclick="adminManageFeedback('${escapeAttr(fb.id)}', 'verify')" title="Xác minh phản hồi">✓</button>
+            <button class="btn btn-success btn-sm" style="padding:0.25rem 0.5rem; font-size:0.74rem;" onclick="adminManageFeedback('${escapeAttr(fb.id)}', 'verify')" title="Xác minh phản hồi"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg></button>
           ` : '<span class="badge badge-verified">Đã duyệt</span>'}
-          <button class="btn btn-danger btn-sm" style="padding:0.25rem 0.5rem; font-size:0.74rem;" onclick="adminManageFeedback('${escapeAttr(fb.id)}', 'delete')" title="Xóa phản hồi">🗑️</button>
+          <button class="btn btn-danger btn-sm" style="padding:0.25rem 0.5rem; font-size:0.74rem;" onclick="adminManageFeedback('${escapeAttr(fb.id)}', 'delete')" title="Xóa phản hồi"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg></button>
         </div>
       </div>
     `).join('');
@@ -2360,18 +2602,18 @@ function renderAuthCurrentBanner() {
   const u = appState.currentUser;
   if (!u) {
     banner.innerHTML = `
-      <div>👋 Bạn đang truy cập ở chế độ <strong>Khách vãng lai</strong>. Hãy đăng nhập hoặc đăng ký tài khoản theo tư cách <strong>Khách hàng</strong> hoặc <strong>Chủ quán</strong>!</div>
+      <div><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg> Bạn đang truy cập ở chế độ <strong>Khách vãng lai</strong>. Hãy đăng nhập hoặc đăng ký tài khoản theo tư cách <strong>Khách hàng</strong> hoặc <strong>Chủ quán</strong>!</div>
     `;
     return;
   }
-  const roleLabel = u.role === 'admin' ? '🛡️ Quản trị viên Toàn quyền (Admin)' : u.role === 'partner' ? '🏪 Chủ quán / Đối tác' : '🙋 Khách hàng';
+  const roleLabel = u.role === 'admin' ? '<svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg> Quản trị viên Toàn quyền (Admin)' : u.role === 'partner' ? '<svg class="ic" aria-hidden="true"><use href="#i-store"/></svg> Chủ quán / Đối tác' : '<svg class="ic" aria-hidden="true"><use href="#i-user"/></svg> Khách hàng';
   banner.innerHTML = `
     <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; flex-wrap:wrap;">
       <div>
         <div>Đang đăng nhập: <strong>${escapeHtml(u.name)}</strong> (${escapeHtml(u.email)})</div>
         <div style="color:var(--primary); font-weight:700; font-size:0.8rem;">Vai trò: ${roleLabel}</div>
       </div>
-      <button class="btn btn-danger btn-sm" onclick="logoutUser()">🚪 Đăng xuất</button>
+      <button class="btn btn-danger btn-sm" onclick="logoutUser()"><svg class="ic" aria-hidden="true"><use href="#i-logout"/></svg> Đăng xuất</button>
     </div>
   `;
 }
@@ -2420,7 +2662,7 @@ async function submitLogin() {
   if (!res.success) {
     if (errEl) {
       errEl.style.color = 'var(--danger)';
-      errEl.textContent = `⚠️ ${res.error?.message || 'Đăng nhập thất bại'}`;
+      errEl.innerHTML = `<svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg> ${escapeHtml(res.error?.message || 'Đăng nhập thất bại')}`;
     }
     return;
   }
@@ -2454,7 +2696,7 @@ async function submitRegister() {
   if (!res.success) {
     if (errEl) {
       errEl.style.color = 'var(--danger)';
-      errEl.textContent = `⚠️ ${res.error?.message || 'Đăng ký thất bại'}`;
+      errEl.innerHTML = `<svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg> ${escapeHtml(res.error?.message || 'Đăng ký thất bại')}`;
     }
     return;
   }
@@ -2550,7 +2792,7 @@ function toggleLiveChat() {
   if (isOpen) {
     const box = document.getElementById('chat-messages-box');
     if (box && box.children.length === 0) {
-      appendChatMessage('model', `Xin chào bạn! Mình là **Hợp Vị AI** – trợ lý ẩm thực Đồng Nai được tích hợp trí tuệ nhân tạo Google Gemini 2.5/3.8 Flash. 🍲\n\nMình nắm rõ thực đơn, giá tiền chính xác của 21 quán ăn nổi tiếng và đặc sản Biên Hòa (Bưởi Tân Triều, Gỏi cá Biên Hòa, Lẩu tôm Năm Ri, Chả lụi...). Bạn đang muốn tìm món gì hay đi ăn nhóm mấy người nè?`);
+      appendChatMessage('model', `Xin chào bạn! Mình là **Hợp Vị AI** – trợ lý ẩm thực Đồng Nai được tích hợp trí tuệ nhân tạo Google Gemini 2.5/3.8 Flash.\n\nMình nắm rõ thực đơn, giá tiền chính xác của 21 quán ăn nổi tiếng và đặc sản Biên Hòa (Bưởi Tân Triều, Gỏi cá Biên Hòa, Lẩu tôm Năm Ri, Chả lụi...). Bạn đang muốn tìm món gì hay đi ăn nhóm mấy người nè?`);
     }
     const input = document.getElementById('live-chat-input');
     if (input) {
@@ -2563,7 +2805,7 @@ function clearLiveChatHistory() {
   liveChatHistory = [];
   const box = document.getElementById('chat-messages-box');
   if (box) box.innerHTML = '';
-  appendChatMessage('model', `Đã xóa lịch sử trò chuyện. Bạn muốn hỏi gì tiếp theo về ẩm thực Biên Hòa - Đồng Nai nè? ✨`);
+  appendChatMessage('model', `Đã xóa lịch sử trò chuyện. Bạn muốn hỏi gì tiếp theo về ẩm thực Biên Hòa - Đồng Nai nè?`);
 }
 
 function sendQuickChatSuggestion(text) {
@@ -2651,7 +2893,7 @@ async function sendLiveChatMessage(presetText) {
   const typingDiv = document.createElement('div');
   typingDiv.className = 'chat-msg model typing-indicator';
   typingDiv.id = 'chat-typing-indicator';
-  typingDiv.innerHTML = '<div class="chat-bubble" style="color:var(--text-muted); font-style:italic;">Hợp Vị AI đang suy nghĩ... ⏳</div>';
+  typingDiv.innerHTML = '<div class="chat-bubble" style="color:var(--text-muted); font-style:italic;"><svg class="ic ic-spin" aria-hidden="true"><use href="#i-loader"/></svg> Hợp Vị AI đang suy nghĩ...</div>';
   if (box) {
     box.appendChild(typingDiv);
     box.scrollTop = box.scrollHeight;
