@@ -794,47 +794,141 @@ function onOriginChange() {
     lng: parseFloat(lngStr),
     label
   };
+  const isGpsOption = sel.options[sel.selectedIndex]?.dataset.gps === 'true';
+  if (!isGpsOption && gpsAccuracyCircle && leafletMap) {
+    leafletMap.removeLayer(gpsAccuracyCircle);
+    gpsAccuracyCircle = null;
+  }
   updateOriginMarkerOnMap();
   if (document.getElementById('route-dest-select')?.value) {
     drawRouteToSelectedRestaurant();
   }
 }
 
-function useMyGpsLocation() {
-  if (!navigator.geolocation) {
-    alert('Trình duyệt không hỗ trợ định vị GPS.');
+/* ==================== ĐỊNH VỊ GPS ==================== */
+let gpsAccuracyCircle = null;
+let gpsRequestInFlight = false;
+const BIEN_HOA_CENTER = { lat: 10.9508, lng: 106.8222 };
+
+function setGpsButtonState(state) {
+  const btn = document.getElementById('btn-gps-locate');
+  if (!btn) return;
+  btn.disabled = state === 'loading';
+  btn.innerHTML = state === 'loading'
+    ? '<svg class="ic ic-spin" aria-hidden="true"><use href="#i-loader"/></svg> Đang định vị...'
+    : `<svg class="ic" aria-hidden="true"><use href="#i-locate"/></svg> ${state === 'ok' ? 'Định vị lại GPS' : 'Định vị GPS'}`;
+}
+
+/* Bọc getCurrentPosition thành Promise, luôn có thời gian chờ để không bị treo vô hạn */
+function requestGpsPosition(highAccuracy) {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject, {
+      enableHighAccuracy: highAccuracy,
+      timeout: highAccuracy ? 10000 : 15000,
+      // Lần chính xác cao luôn lấy vị trí mới (để "Định vị lại" phản ánh đúng chỗ đang đứng);
+      // lần dự phòng bằng mạng chấp nhận vị trí đã lưu trong 1 phút cho nhanh
+      maximumAge: highAccuracy ? 0 : 60000
+    });
+  });
+}
+
+function buildGpsErrorMessage(err) {
+  const keepNote = `\n\nHệ thống tạm giữ điểm xuất phát hiện tại: ${currentOriginCoords.label}.`;
+  switch (err?.code) {
+    case 1: // PERMISSION_DENIED
+      return 'Bạn chưa cho phép trang web truy cập vị trí.\n\n' +
+        '• Máy tính: bấm biểu tượng ổ khóa cạnh thanh địa chỉ → Vị trí → Cho phép, rồi bấm "Định vị GPS" lại.\n' +
+        '• Điện thoại: bật Dịch vụ vị trí (GPS) và cấp quyền Vị trí cho trình duyệt trong Cài đặt.' + keepNote;
+    case 2: // POSITION_UNAVAILABLE
+      return 'Thiết bị chưa xác định được vị trí. Hãy bật GPS / Wi-Fi rồi thử lại.' + keepNote;
+    case 3: // TIMEOUT
+      return 'Hết thời gian chờ tín hiệu định vị. Hãy thử lại ở nơi thoáng hoặc bật Wi-Fi để định vị nhanh hơn.' + keepNote;
+    default:
+      return `Không lấy được vị trí GPS${err?.message ? ` (${err.message})` : ''}.` + keepNote;
+  }
+}
+
+/* Đưa toạ độ GPS vào ô "Điểm đi", vẽ chấm vị trí + vòng sai số và vẽ lại lộ trình nếu đã chọn quán */
+function applyGpsPosition(pos) {
+  const { latitude: lat, longitude: lng, accuracy } = pos.coords;
+  currentOriginCoords = {
+    lat,
+    lng,
+    label: `Vị trí GPS hiện tại của bạn (${lat.toFixed(4)}, ${lng.toFixed(4)})`
+  };
+
+  const sel = document.getElementById('route-origin-select');
+  if (sel) {
+    const customVal = `${lat},${lng}`;
+    let opt = Array.from(sel.options).find(o => o.dataset.gps === 'true');
+    if (!opt) {
+      opt = document.createElement('option');
+      opt.dataset.gps = 'true';
+      sel.prepend(opt);
+    }
+    opt.value = customVal;
+    opt.textContent = `Vị trí GPS của tôi (${lat.toFixed(4)}, ${lng.toFixed(4)})`;
+    sel.value = customVal;
+  }
+
+  updateOriginMarkerOnMap();
+  if (leafletMap && typeof L !== 'undefined') {
+    if (gpsAccuracyCircle) leafletMap.removeLayer(gpsAccuracyCircle);
+    gpsAccuracyCircle = L.circle([lat, lng], {
+      radius: Math.min(Math.max(accuracy || 0, 25), 3000),
+      color: '#2563eb',
+      weight: 1,
+      fillColor: '#3b82f6',
+      fillOpacity: 0.12
+    }).addTo(leafletMap);
+    leafletMap.invalidateSize();
+    leafletMap.setView([lat, lng], 15);
+  }
+
+  if (document.getElementById('route-dest-select')?.value) {
+    drawRouteToSelectedRestaurant();
+  }
+
+  const distFromCenter = haversineKm(lat, lng, BIEN_HOA_CENTER.lat, BIEN_HOA_CENTER.lng);
+  const accText = accuracy ? ` (sai số ~${Math.round(accuracy)} m)` : '';
+  showNotificationToast(distFromCenter > 40
+    ? `Đã định vị${accText}. Bạn đang cách Biên Hòa khoảng ${Math.round(distFromCenter)} km nên lộ trình sẽ khá dài.`
+    : `Đã định vị vị trí của bạn${accText}.`);
+}
+
+async function useMyGpsLocation() {
+  if (gpsRequestInFlight) return;
+
+  if (!window.isSecureContext) {
+    alert('Định vị GPS chỉ hoạt động khi trang chạy bằng HTTPS (hoặc localhost).\n\n' +
+      `Bạn đang mở trang qua địa chỉ không bảo mật (${location.origin}). Hãy dùng bản đã deploy (https://...) hoặc mở bằng http://localhost trên máy chạy server.`);
     return;
   }
-  navigator.geolocation.getCurrentPosition(
-    pos => {
-      currentOriginCoords = {
-        lat: pos.coords.latitude,
-        lng: pos.coords.longitude,
-        label: `Vị trí GPS hiện tại của bạn (${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)})`
-      };
-      const sel = document.getElementById('route-origin-select');
-      if (sel) {
-        const customVal = `${currentOriginCoords.lat},${currentOriginCoords.lng}`;
-        let opt = Array.from(sel.options).find(o => o.dataset.gps === 'true');
-        if (!opt) {
-          opt = document.createElement('option');
-          opt.dataset.gps = 'true';
-          sel.prepend(opt);
-        }
-        opt.value = customVal;
-        opt.textContent = `Vị trí GPS của tôi (${currentOriginCoords.lat.toFixed(4)}, ${currentOriginCoords.lng.toFixed(4)})`;
-        sel.value = customVal;
-      }
-      updateOriginMarkerOnMap();
-      if (leafletMap) leafletMap.setView([currentOriginCoords.lat, currentOriginCoords.lng], 14);
-      if (document.getElementById('route-dest-select')?.value) {
-        drawRouteToSelectedRestaurant();
-      }
-    },
-    () => {
-      alert('Không lấy được quyền truy cập GPS. Hệ thống giữ điểm xuất phát mặc định tại Trung tâm Biên Hòa.');
+  if (!('geolocation' in navigator)) {
+    alert('Trình duyệt này không hỗ trợ định vị GPS. Bạn có thể chọn điểm xuất phát có sẵn trong ô "Điểm đi".');
+    return;
+  }
+
+  gpsRequestInFlight = true;
+  setGpsButtonState('loading');
+  try {
+    let pos;
+    try {
+      // Ưu tiên GPS chính xác cao; nếu hết giờ / không khả dụng thì thử lại bằng định vị mạng (Wi-Fi, IP)
+      pos = await requestGpsPosition(true);
+    } catch (err) {
+      if (err?.code === 1) throw err;
+      pos = await requestGpsPosition(false);
     }
-  );
+    applyGpsPosition(pos);
+    setGpsButtonState('ok');
+  } catch (err) {
+    console.warn('Lỗi định vị GPS:', err);
+    setGpsButtonState('idle');
+    alert(buildGpsErrorMessage(err));
+  } finally {
+    gpsRequestInFlight = false;
+  }
 }
 
 function haversineKm(lat1, lon1, lat2, lon2) {
@@ -1170,12 +1264,12 @@ function renderRecommendRestaurants() {
         <div>
           ${buildRestaurantGalleryHtml(r, 'rec')}
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
-            <span class="badge badge-area">📍 P. ${escapeHtml(r.area)}</span>
-            <span class="badge badge-verified">✓ Đã xác minh</span>
+            <span class="badge badge-area"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> P. ${escapeHtml(r.area)}</span>
+            <span class="badge badge-verified"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg> Đã xác minh</span>
           </div>
           <h3 style="font-size:1.05rem; margin-bottom:0.2rem;">${escapeHtml(r.name)}</h3>
-          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.25rem;">🏠 ${escapeHtml(r.address)}</p>
-          <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:0.55rem;">🕒 ${escapeHtml(r.openingHours || 'Đang mở cửa')}</p>
+          <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.25rem;"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg> ${escapeHtml(r.address)}</p>
+          <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:0.55rem;"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg> ${escapeHtml(r.openingHours || 'Đang mở cửa')}</p>
           <div style="border-top:1px solid var(--border); padding-top:0.45rem;">
             <div style="font-size:0.78rem; font-weight:700; margin-bottom:0.25rem;">Món tiêu biểu (${(r.menu || []).length} món):</div>
             ${sampleDishes.map(d => `
@@ -1191,10 +1285,10 @@ function renderRecommendRestaurants() {
         </div>
         <div class="card-action-pair">
           <button class="btn btn-secondary btn-sm" onclick="routeToRestaurantById('${escapeAttr(r.id)}')">
-            🧭 Dẫn đường
+            <svg class="ic" aria-hidden="true"><use href="#i-navigation"/></svg> Dẫn đường
           </button>
           <button class="btn btn-primary btn-sm" onclick="usePresetPrompt('Tìm combo món ngon nhóm 2-3 người tại quán ${escapeAttr(r.name)} ở ${escapeAttr(r.area)} với ngân sách 150.000đ')">
-            🤖 Gợi ý tại đây
+            <svg class="ic" aria-hidden="true"><use href="#i-sparkles"/></svg> Gợi ý tại đây
           </button>
         </div>
       </div>
@@ -1205,13 +1299,13 @@ function renderRecommendRestaurants() {
     if (shouldLimit) {
       moreWrap.innerHTML = `
         <button class="btn btn-secondary" style="width:100%; max-width:420px; border:2px solid var(--primary); color:var(--primary);" onclick="toggleRecommendRestaurantsList(true)">
-          👇 Xem thêm toàn bộ ${fullList.length} quán ăn đã xác minh (+${fullList.length - 4} quán)
+          <svg class="ic" aria-hidden="true"><use href="#i-chevron-down"/></svg> Xem thêm toàn bộ ${fullList.length} quán ăn đã xác minh (+${fullList.length - 4} quán)
         </button>
       `;
     } else if (isMobile && showAllRecommendRestaurants && filterVal === 'all' && fullList.length > 4) {
       moreWrap.innerHTML = `
         <button class="btn btn-secondary btn-sm" onclick="toggleRecommendRestaurantsList(false)">
-          🔼 Thu gọn danh sách quán (Chỉ hiện 4 quán nổi bật)
+          <svg class="ic" aria-hidden="true"><use href="#i-chevron-up"/></svg> Thu gọn danh sách quán (Chỉ hiện 4 quán nổi bật)
         </button>
       `;
     } else {

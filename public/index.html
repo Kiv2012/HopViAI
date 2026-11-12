@@ -12,7 +12,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
   <title>HỢP VỊ AI – Hiểu đúng vị – Gợi đúng món | Ẩm thực Đồng Nai</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-  <link rel="stylesheet" href="/styles.css?v=20261112-v27" />
+  <link rel="stylesheet" href="/styles.css?v=20261112-v28" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 </head>
 <body data-role="customer">
@@ -385,14 +385,14 @@
       <div id="recommend-restaurants-section" style="margin-top:1.2rem;">
         <div class="section-header" style="margin-bottom:0.75rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
           <div>
-            <h2 style="font-size:1.15rem; margin-bottom:0.2rem;">🏪 Quán ngon đã xác minh tại Biên Hòa</h2>
+            <h2 style="font-size:1.15rem; margin-bottom:0.2rem;"><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg> Quán ngon đã xác minh tại Biên Hòa</h2>
             <p style="font-size:0.83rem; color:var(--text-muted); margin:0;">
               Hình ảnh thực tế, thực đơn niêm yết và mức giá chuẩn xác
             </p>
           </div>
           <div>
             <select id="recommend-area-filter" class="form-control" style="width:auto; font-size:0.84rem; padding:0.35rem 0.6rem;" onchange="renderRecommendRestaurants()">
-              <option value="all">📍 Tất cả khu vực (21 quán)</option>
+              <option value="all">Tất cả khu vực (21 quán)</option>
               <option value="Trấn Biên">Phường Trấn Biên (7 quán)</option>
               <option value="Tam Hiệp">Phường Tam Hiệp (5 quán)</option>
               <option value="Tân Triều">Phường Tân Triều (3 quán)</option>
@@ -418,7 +418,7 @@
             </p>
           </div>
           <div class="map-top-actions" style="display:flex; gap:0.45rem; flex-wrap:wrap;">
-            <button class="btn btn-primary btn-sm" onclick="useMyGpsLocation()"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> Định vị GPS</button>
+            <button class="btn btn-primary btn-sm" id="btn-gps-locate" onclick="useMyGpsLocation()"><svg class="ic" aria-hidden="true"><use href="#i-locate"/></svg> Định vị GPS</button>
             <button class="btn btn-secondary btn-sm" onclick="selectMapArea('all')"><svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg> Hiện 18 quán</button>
           </div>
         </div>
@@ -436,7 +436,7 @@
           </div>
 
           <div style="display:flex; align-items:center; gap:0.4rem; flex:1.2; min-width:210px;">
-            <strong style="font-size:0.82rem; white-space:nowrap;"><svg class="ic" aria-hidden="true"><use href="#i-locate"/></svg> Quán đến:</strong>
+            <strong style="font-size:0.82rem; white-space:nowrap;"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> Quán đến:</strong>
             <select id="route-dest-select" class="form-control" style="padding:0.45rem 0.65rem; font-size:0.86rem;" onchange="drawRouteToSelectedRestaurant()">
               <option value="">-- Chọn quán ăn để vẽ đường đi --</option>
             </select>
@@ -1103,6 +1103,6 @@
     </div>
   </div>
 
-  <script src="/app.js?v=20261112-v27"></script>
+  <script src="/app.js?v=20261112-v28"></script>
 </body>
 </html>
