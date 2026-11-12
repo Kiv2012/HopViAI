@@ -135,9 +135,9 @@ function applyUserRolePermissions() {
       labelEl.textContent = user ? `Khách: ${user.name.split(' ').slice(-2).join(' ')}` : 'Khách hàng • Đổi vai trò';
     }
     if (btnEl) {
-      btnEl.style.background = '#fff7ed';
-      btnEl.style.color = '#c2410c';
-      btnEl.style.borderColor = '#fed7aa';
+      btnEl.style.background = '#f0fdf4';
+      btnEl.style.color = '#15803d';
+      btnEl.style.borderColor = '#bbf7d0';
     }
   }
 
@@ -687,13 +687,13 @@ function initOrUpdateLeafletMap() {
     });
     marker.bindPopup(`
       <div style="min-width:210px; font-family:'Segoe UI',sans-serif;">
-        <div style="font-size:0.75rem; color:#c2410c; font-weight:700;">📍 Phường ${escapeHtml(r.area)}</div>
+        <div style="font-size:0.75rem; color:#15803d; font-weight:700;">📍 Phường ${escapeHtml(r.area)}</div>
         <strong style="font-size:0.95rem;">${escapeHtml(r.name)}</strong>
         <div style="font-size:0.8rem; color:#57534e; margin:0.2rem 0;">${escapeHtml(r.address)}</div>
         <div style="font-size:0.78rem; margin-bottom:0.45rem;">🕒 ${escapeHtml(r.openingHours)} • ${(r.menu || []).length} món</div>
         <button
           onclick="routeToRestaurantById('${escapeAttr(r.id)}')"
-          style="background:#c2410c; color:#fff; border:none; border-radius:6px; padding:0.35rem 0.65rem; font-size:0.78rem; font-weight:700; cursor:pointer; width:100%;"
+          style="background:#15803d; color:#fff; border:none; border-radius:6px; padding:0.35rem 0.65rem; font-size:0.78rem; font-weight:700; cursor:pointer; width:100%;"
         >
           🧭 Vẽ đường đi tới quán này
         </button>
@@ -852,7 +852,7 @@ async function drawRouteToSelectedRestaurant() {
     if (leafletMap && typeof L !== 'undefined') {
       if (routePolyline) leafletMap.removeLayer(routePolyline);
       routePolyline = L.polyline(coords, {
-        color: '#c2410c',
+        color: '#15803d',
         weight: 6,
         opacity: 0.92,
         dashArray: isExactStreet ? null : '10, 8'
@@ -1798,13 +1798,13 @@ function renderSampleMenuImagePreview(title, items) {
   box.innerHTML = `
     <div style="background:#fffbeb; border:2px solid #d97706; border-radius:10px; padding:1.1rem; font-family:'Courier New', monospace;">
       <div style="text-align:center; border-bottom:2px dashed #b45309; padding-bottom:0.5rem; margin-bottom:0.75rem;">
-        <div style="font-weight:800; font-size:1rem; color:#9a3412;">${escapeHtml(title)}</div>
-        <div style="font-size:0.76rem; color:#78350f;">(Ảnh thực đơn nguồn dùng để đối chiếu trực tiếp với bảng trích xuất bên phải)</div>
+        <div style="font-weight:800; font-size:1rem; color:#15803d;">${escapeHtml(title)}</div>
+        <div style="font-size:0.76rem; color:#166534;">(Ảnh thực đơn nguồn dùng để đối chiếu trực tiếp với bảng trích xuất bên phải)</div>
       </div>
       ${items.map((it, i) => `
         <div style="display:flex; justify-content:space-between; padding:0.35rem 0; border-bottom:1px dotted #d6d3d1; font-size:0.88rem;">
           <span>${i + 1}. ${escapeHtml(it.name)}</span>
-          <strong style="color:#9a3412;">${escapeHtml(it.rawPriceText)}</strong>
+          <strong style="color:#15803d;">${escapeHtml(it.rawPriceText)}</strong>
         </div>
       `).join('')}
     </div>
