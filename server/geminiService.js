@@ -151,7 +151,8 @@ async function callGeminiApi(contents, generationConfig = {}, taskName = 'nlp_pa
 
       if (response.ok) {
         const data = await response.json();
-        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        const parts = data?.candidates?.[0]?.content?.parts || [];
+        const text = parts.map(p => p.text || '').join('').trim();
         const usage = data?.usageMetadata || {};
         addCostRecord({
           model,
@@ -749,7 +750,11 @@ HƯỚNG DẪN TRẢ LỜI:
     try {
       const { text, model } = await callGeminiApi(
         contents,
-        { temperature: 0.7, maxOutputTokens: 800 },
+        {
+          temperature: 0.7,
+          maxOutputTokens: 2500,
+          thinkingConfig: { thinkingBudget: 0 }
+        },
         'chat_conversational'
       );
       return {

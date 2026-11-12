@@ -145,6 +145,16 @@ function applyUserRolePermissions() {
   if (fbNameInput && user) {
     fbNameInput.value = user.name;
   }
+
+  // AI Trợ lý Tư vấn chỉ dành riêng cho Khách hàng (ẩn hoàn toàn với Chủ quán và Admin)
+  const chatBtn = document.getElementById('floating-chat-btn');
+  const chatPanel = document.getElementById('live-chat-panel');
+  if (chatBtn) {
+    chatBtn.style.display = activeRole === 'customer' ? 'flex' : 'none';
+  }
+  if (activeRole !== 'customer' && chatPanel) {
+    chatPanel.classList.remove('open');
+  }
 }
 
 async function refreshAllData() {
@@ -222,6 +232,18 @@ function switchView(viewName) {
   }, 40);
   if ((viewName === 'map' || viewName === 'home') && leafletMap) {
     setTimeout(() => leafletMap.invalidateSize(), 180);
+  }
+
+  // Điều phối hiển thị nút Chat AI: Chỉ hiện ở màn hình Khách hàng
+  const chatBtn = document.getElementById('floating-chat-btn');
+  const chatPanel = document.getElementById('live-chat-panel');
+  const isCustView = !viewName.startsWith('partner') && !viewName.startsWith('admin');
+  const role = appState.currentUser?.role || 'customer';
+  if (chatBtn) {
+    chatBtn.style.display = (isCustView && role === 'customer') ? 'flex' : 'none';
+  }
+  if (!isCustView && chatPanel) {
+    chatPanel.classList.remove('open');
   }
 }
 
@@ -2550,13 +2572,46 @@ function sendQuickChatSuggestion(text) {
 function formatChatMarkdown(text) {
   if (!text) return '';
   let safe = escapeHtml(text);
+  // Headings
+  safe = safe.replace(/^###\s+(.*)$/gm, '<h5 style="margin:0.45rem 0 0.15rem; color:#15803d; font-size:0.92rem; font-weight:700;">$1</h5>');
+  safe = safe.replace(/^##\s+(.*)$/gm, '<h4 style="margin:0.55rem 0 0.2rem; color:#15803d; font-size:0.98rem; font-weight:800;">$1</h4>');
   // Bold **text**
   safe = safe.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-  // Bullet points
-  safe = safe.replace(/^[•\-\*]\s+(.*)$/gm, '<li>$1</li>');
-  // Line breaks to <p>
-  const paragraphs = safe.split(/\n\s*\n/).map(p => `<p>${p.replace(/\n/g, '<br/>')}</p>`).join('');
-  return paragraphs || safe;
+  // Italic *text*
+  safe = safe.replace(/(?<!\*)\*([^\*\n]+)\*(?!\*)/g, '<em>$1</em>');
+
+  const rawLines = safe.split('\n');
+  let html = '';
+  let inList = false;
+
+  for (const rawLine of rawLines) {
+    const line = rawLine.trim();
+    if (!line) {
+      if (inList) { html += '</ul>'; inList = false; }
+      continue;
+    }
+
+    const listMatch = line.match(/^[•\-\*]\s+(.*)$/);
+    if (listMatch) {
+      if (!inList) {
+        html += '<ul style="margin:0.3rem 0; padding-left:1.15rem; list-style-type:disc;">';
+        inList = true;
+      }
+      html += `<li style="margin-bottom:0.2rem;">${listMatch[1]}</li>`;
+    } else {
+      if (inList) {
+        html += '</ul>';
+        inList = false;
+      }
+      if (line.startsWith('<h4') || line.startsWith('<h5')) {
+        html += line;
+      } else {
+        html += `<p style="margin:0.3rem 0;">${line}</p>`;
+      }
+    }
+  }
+  if (inList) html += '</ul>';
+  return html || safe;
 }
 
 function appendChatMessage(role, text) {

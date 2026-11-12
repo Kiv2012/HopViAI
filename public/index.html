@@ -12,7 +12,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
   <title>HỢP VỊ AI – Hiểu đúng vị – Gợi đúng món | Ẩm thực Đồng Nai</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-  <link rel="stylesheet" href="/styles.css?v=20261112-v17" />
+  <link rel="stylesheet" href="/styles.css?v=20261112-v18" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 </head>
 <body data-role="customer">
@@ -986,8 +986,8 @@
     </button>
   </nav>
 
-  <!-- NÚT CHAT TRỰC TIẾP HỢP VỊ AI (GEMINI) -->
-  <button id="floating-chat-btn" class="floating-chat-trigger" onclick="toggleLiveChat()" title="Chat trực tiếp với Hợp Vị AI" aria-label="Mở khung trò chuyện AI">
+  <!-- NÚT CHAT TRỰC TIẾP HỢP VỊ AI (DÀNH RIÊNG CHO KHÁCH HÀNG TƯ VẤN) -->
+  <button id="floating-chat-btn" class="floating-chat-trigger role-customer-only" data-for-role="customer" onclick="toggleLiveChat()" title="Chat trực tiếp với Hợp Vị AI" aria-label="Mở khung trò chuyện AI">
     <span class="chat-dot-live"></span>
     <span>💬 Trò chuyện AI</span>
   </button>
@@ -1020,6 +1020,6 @@
     </div>
   </div>
 
-  <script src="/app.js?v=20261112-v17"></script>
+  <script src="/app.js?v=20261112-v18"></script>
 </body>
 </html>
