@@ -104,17 +104,6 @@ body {
   height: 36px;
 }
 
-.notif-badge-dot {
-  position: absolute;
-  top: 5px;
-  right: 6px;
-  width: 8px;
-  height: 8px;
-  background: #ef4444;
-  border-radius: 999px;
-  border: 1.5px solid #ffffff;
-}
-
 .avatar-btn {
   padding: 0;
 }
@@ -2640,3 +2629,136 @@ h2 > .ic, h3 > .ic { color: var(--primary); stroke-width: 2.1; margin-right: 0.1
 .chat-place-btn:active { transform: scale(0.97); }
 .chat-place-btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
 .chat-place-btn.primary:hover { background: #166534; }
+
+/* ==================== TRUNG TÂM THÔNG BÁO (CHUÔNG) ==================== */
+.notif-wrap { position: relative; }
+.notif-btn { width: 38px; height: 38px; }
+.notif-btn[aria-expanded="true"] { background: var(--surface-alt); }
+
+.notif-badge {
+  position: absolute;
+  top: 1px;
+  right: 0;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 0.64rem;
+  font-weight: 800;
+  line-height: 14px;
+  text-align: center;
+  border: 1.5px solid #ffffff;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+.notif-badge[hidden] { display: none; }
+
+.notif-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: -4px;
+  width: 352px;
+  max-width: calc(100vw - 16px);
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.2);
+  z-index: 1200;
+  overflow: hidden;
+  animation: notif-pop 0.16s ease;
+}
+.notif-panel[hidden] { display: none; }
+@keyframes notif-pop { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+.notif-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.95rem;
+}
+.notif-mark-all {
+  border: none;
+  background: transparent;
+  color: var(--primary);
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.25rem 0.4rem;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.notif-mark-all:hover:not(:disabled) { background: #dcfce7; }
+.notif-mark-all:disabled { color: var(--text-muted); opacity: 0.55; cursor: default; }
+
+.notif-list { max-height: min(60vh, 420px); overflow-y: auto; }
+.notif-item {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.7rem 0.9rem;
+  border: none;
+  border-bottom: 1px solid #f1f5f1;
+  background: #ffffff;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+.notif-item:last-child { border-bottom: none; }
+.notif-item:hover { background: #f8faf8; }
+.notif-item.unread { background: #f0fdf4; }
+.notif-item.unread:hover { background: #dcfce7; }
+
+.notif-item-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.notif-item-icon .ic { width: 18px; height: 18px; }
+.notif-item-icon.tone-info { background: #dbeafe; color: #1d4ed8; }
+.notif-item-icon.tone-success { background: #dcfce7; color: #15803d; }
+.notif-item-icon.tone-warn { background: #fef3c7; color: #b45309; }
+.notif-item-icon.tone-danger { background: #fee2e2; color: #b91c1c; }
+
+.notif-item-body { display: flex; flex-direction: column; gap: 0.12rem; min-width: 0; flex: 1; }
+.notif-item-title { font-size: 0.84rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+.notif-item.unread .notif-item-title { font-weight: 800; }
+.notif-item-text { font-size: 0.78rem; color: var(--text-muted); line-height: 1.4; }
+.notif-item-dot { width: 9px; height: 9px; border-radius: 50%; background: #ef4444; margin-top: 0.35rem; flex-shrink: 0; }
+
+.notif-empty {
+  padding: 1.6rem 1rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+.notif-empty .ic { width: 28px; height: 28px; opacity: 0.5; }
+
+@media (max-width: 768px) {
+  .notif-wrap { position: static; }
+  .notif-panel {
+    position: fixed;
+    top: 58px;
+    left: 8px;
+    right: 8px;
+    width: auto;
+    max-width: none;
+  }
+  .notif-list { max-height: calc(100vh - 150px); }
+}

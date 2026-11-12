@@ -69,6 +69,7 @@ function applyUserRolePermissions() {
   const user = appState.currentUser;
   const activeRole = user?.role || 'customer';
   document.body.dataset.role = activeRole;
+  setTimeout(() => renderNotificationCenter(), 0);
 
   const iconEl = document.getElementById('user-account-icon');
   const labelEl = document.getElementById('user-account-label');
@@ -179,6 +180,7 @@ async function refreshAllData() {
     renderExploreSpecialties();
     renderFeedbackSection();
     renderAdminDashboard();
+    renderNotificationCenter();
   } catch (err) {
     console.error('Lỗi tải dữ liệu khởi tạo:', err);
   }
@@ -314,6 +316,177 @@ function showNotificationToast(msg) {
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 3500);
 }
+
+/* ==================== TRUNG TÂM THÔNG BÁO (CHUÔNG) ==================== */
+
+const NOTIF_READ_KEY = 'hv_notif_read';
+let notifItems = [];
+
+function loadReadNotifications() {
+  try { return new Set(JSON.parse(localStorage.getItem(NOTIF_READ_KEY) || '[]')); } catch (_) { return new Set(); }
+}
+function saveReadNotifications(set) {
+  try { localStorage.setItem(NOTIF_READ_KEY, JSON.stringify(Array.from(set).slice(-200))); } catch (_) { /* chế độ riêng tư: bỏ qua */ }
+}
+
+/* Dựng danh sách thông báo từ dữ liệu thật, theo vai trò đang dùng.
+   Id chứa số liệu (ví dụ số hồ sơ chờ duyệt) nên khi số liệu đổi, thông báo sẽ báo mới trở lại. */
+function buildNotifications() {
+  const role = document.body.dataset.role || 'customer';
+  const rests = appState.restaurants || [];
+  const subs = appState.adminData?.submissions || [];
+  const fbs = appState.adminData?.feedbacks || [];
+  const pending = subs.filter(s => s.status === 'pending');
+  const unverifiedFb = fbs.filter(f => f.status !== 'verified');
+  const photos = rests.reduce((sum, r) => sum + ((r.photos || []).length), 0);
+  const list = [];
+
+  if (role === 'admin') {
+    if (pending.length) list.push({
+      id: `adm-pending-${pending.length}`, icon: 'inbox', tone: 'warn',
+      title: `${pending.length} hồ sơ thực đơn chờ duyệt`,
+      text: 'Chủ quán đã gửi thực đơn mới, cần kiểm tra và công bố.',
+      go: () => switchView('admin')
+    });
+    if (unverifiedFb.length) list.push({
+      id: `adm-fb-${unverifiedFb.length}`, icon: 'message', tone: 'warn',
+      title: `${unverifiedFb.length} phản hồi chờ kiểm duyệt`,
+      text: 'Có đánh giá / báo giá mới từ thực khách chưa được xác minh.',
+      go: () => switchView('admin-system')
+    });
+  } else if (role === 'partner') {
+    if (pending.length) list.push({
+      id: `par-pending-${pending.length}`, icon: 'clock', tone: 'warn',
+      title: `${pending.length} hồ sơ đang chờ Admin duyệt`,
+      text: 'Thực đơn bạn gửi sẽ hiển thị cho khách sau khi được công bố.',
+      go: () => switchView('partner-menus')
+    });
+    subs.filter(s => s.status === 'approved' || s.status === 'rejected')
+      .sort((a, b) => new Date(b.reviewedAt || b.submittedAt || 0) - new Date(a.reviewedAt || a.submittedAt || 0))
+      .slice(0, 3)
+      .forEach(s => list.push({
+        id: `par-${s.id}-${s.status}`,
+        icon: s.status === 'approved' ? 'check-circle' : 'x-circle',
+        tone: s.status === 'approved' ? 'success' : 'danger',
+        title: `Hồ sơ "${s.partnerName}" ${s.status === 'approved' ? 'đã được công bố' : 'bị từ chối'}`,
+        text: s.status === 'approved' ? 'Thực đơn đã hiển thị trên hệ thống cho khách hàng.' : 'Hãy kiểm tra lại thông tin và gửi lại hồ sơ.',
+        go: () => switchView('partner-menus')
+      }));
+    if (fbs.length) list.push({
+      id: `par-fb-${fbs.length}`, icon: 'message', tone: 'info',
+      title: `${fbs.length} phản hồi từ khách hàng`,
+      text: 'Xem đánh giá và báo giá mới nhất về quán của bạn.',
+      go: () => switchView('partner-reviews')
+    });
+  }
+
+  if (rests.length) list.push({
+    id: `sys-data-${rests.length}-${photos}`, icon: 'store', tone: 'info',
+    title: 'Dữ liệu quán ăn đã được cập nhật',
+    text: `${rests.length} quán đã xác minh${photos ? ` và ${photos} ảnh thực tế` : ''} từ khảo sát tại Đồng Nai.`,
+    go: role === 'customer' ? () => { switchView('home'); setTimeout(scrollToRestaurants, 150); } : null
+  });
+
+  if (role === 'customer') {
+    list.push({
+      id: 'tip-chat', icon: 'sparkles', tone: 'info',
+      title: 'Hỏi Hợp Vị AI về món và quán ăn',
+      text: 'Bấm vào thẻ quán trong câu trả lời để xem ngay trên bản đồ.',
+      go: () => { const p = document.getElementById('live-chat-panel'); if (p && !p.classList.contains('open')) toggleLiveChat(); }
+    });
+    list.push({
+      id: 'tip-gps', icon: 'locate-fixed', tone: 'info',
+      title: 'Xem đường đi từ vị trí của bạn',
+      text: 'Vào Bản đồ và bấm "Định vị GPS" để đặt điểm xuất phát.',
+      go: () => switchView('map')
+    });
+  }
+  return list;
+}
+
+function renderNotificationCenter() {
+  notifItems = buildNotifications();
+  const read = loadReadNotifications();
+  const unread = notifItems.filter(n => !read.has(n.id)).length;
+
+  const badge = document.getElementById('notif-badge');
+  if (badge) {
+    badge.hidden = unread === 0;
+    badge.textContent = unread > 9 ? '9+' : String(unread);
+  }
+  const btn = document.getElementById('notif-btn');
+  if (btn) btn.setAttribute('aria-label', unread ? `Thông báo, ${unread} chưa đọc` : 'Thông báo');
+
+  const markAll = document.getElementById('notif-mark-all');
+  if (markAll) markAll.disabled = unread === 0;
+
+  const box = document.getElementById('notif-list');
+  if (!box) return;
+  if (notifItems.length === 0) {
+    box.innerHTML = '<div class="notif-empty"><svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg>Chưa có thông báo nào</div>';
+    return;
+  }
+  box.innerHTML = notifItems.map((n, i) => `
+    <button type="button" class="notif-item ${read.has(n.id) ? '' : 'unread'}" onclick="onNotificationClick(${i})">
+      <span class="notif-item-icon tone-${n.tone}"><svg class="ic" aria-hidden="true"><use href="#i-${n.icon}"/></svg></span>
+      <span class="notif-item-body">
+        <span class="notif-item-title">${escapeHtml(n.title)}</span>
+        <span class="notif-item-text">${escapeHtml(n.text)}</span>
+      </span>
+      ${read.has(n.id) ? '' : '<span class="notif-item-dot" aria-hidden="true"></span>'}
+    </button>
+  `).join('');
+}
+
+function setNotificationPanelOpen(open) {
+  const panel = document.getElementById('notif-panel');
+  const btn = document.getElementById('notif-btn');
+  if (!panel || !btn) return;
+  panel.hidden = !open;
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  if (open) renderNotificationCenter();
+}
+
+function toggleNotificationPanel(event) {
+  if (event) event.stopPropagation();
+  const panel = document.getElementById('notif-panel');
+  if (!panel) return;
+  setNotificationPanelOpen(panel.hidden);
+}
+
+function markAllNotificationsRead() {
+  const read = loadReadNotifications();
+  notifItems.forEach(n => read.add(n.id));
+  saveReadNotifications(read);
+  renderNotificationCenter();
+}
+
+function onNotificationClick(idx) {
+  const n = notifItems[idx];
+  if (!n) return;
+  const read = loadReadNotifications();
+  read.add(n.id);
+  saveReadNotifications(read);
+  setNotificationPanelOpen(false);
+  renderNotificationCenter();
+  if (typeof n.go === 'function') n.go();
+}
+
+// Bấm ra ngoài hoặc nhấn Esc để đóng hộp thông báo
+document.addEventListener('click', e => {
+  const panel = document.getElementById('notif-panel');
+  if (!panel || panel.hidden) return;
+  if (!e.target.closest('.notif-wrap')) setNotificationPanelOpen(false);
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    const panel = document.getElementById('notif-panel');
+    if (panel && !panel.hidden) {
+      setNotificationPanelOpen(false);
+      document.getElementById('notif-btn')?.focus();
+    }
+  }
+});
 
 function scrollToSection(elementId) {
   if (elementId === 'dongnai-map-anchor') {

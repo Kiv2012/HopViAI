@@ -12,7 +12,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
   <title>HỢP VỊ AI – Hiểu đúng vị – Gợi đúng món | Ẩm thực Đồng Nai</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-  <link rel="stylesheet" href="/styles.css?v=20261112-v32" />
+  <link rel="stylesheet" href="/styles.css?v=20261113-v33" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 </head>
 <body data-role="customer">
@@ -138,10 +138,21 @@
 
       <!-- Cụm biểu tượng góc phải: Chuông thông báo + Nút User Avatar -->
       <div class="topbar-right-cluster">
-        <button class="topbar-icon-btn notif-btn" onclick="showNotificationToast('Hệ thống đã cập nhật 21 quán ăn & 122 hình ảnh thực tế đối chiếu từ khảo sát Đồng Nai!')" title="Thông báo hệ thống">
-          <span class="bell-icon"><svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg></span>
-          <span class="notif-badge-dot"></span>
-        </button>
+        <div class="notif-wrap">
+          <button type="button" id="notif-btn" class="topbar-icon-btn notif-btn" onclick="toggleNotificationPanel(event)" aria-haspopup="dialog" aria-expanded="false" aria-controls="notif-panel" aria-label="Thông báo" title="Thông báo">
+            <svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg>
+            <span id="notif-badge" class="notif-badge" hidden>0</span>
+          </button>
+          <div id="notif-panel" class="notif-panel" role="dialog" aria-label="Thông báo" hidden>
+            <div class="notif-panel-head">
+              <strong>Thông báo</strong>
+              <button type="button" id="notif-mark-all" class="notif-mark-all" onclick="markAllNotificationsRead()">
+                <svg class="ic" aria-hidden="true"><use href="#i-check"/></svg> Đánh dấu đã đọc
+              </button>
+            </div>
+            <div id="notif-list" class="notif-list"></div>
+          </div>
+        </div>
 
         <button id="user-account-btn" class="topbar-icon-btn avatar-btn" onclick="openAuthModal()" title="Đăng nhập / Đổi vai trò (Khách hàng - Chủ quán - Admin)">
           <span class="user-avatar-circle" id="user-account-avatar"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg></span>
@@ -1104,6 +1115,6 @@
     </div>
   </div>
 
-  <script src="/app.js?v=20261112-v32"></script>
+  <script src="/app.js?v=20261113-v33"></script>
 </body>
 </html>
