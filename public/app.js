@@ -562,15 +562,15 @@ function buildRestaurantGalleryHtml(r, prefix = 'home') {
       <div id="${trackId}" class="rest-gallery-track">
         ${slides.map((s, idx) => `
           <div class="rest-gallery-slide" style="background:${s.gradient};">
-            ${s.imageUrl ? `
-              <img class="rest-slide-img" src="${s.imageUrl}" alt="${escapeHtml(s.title)}" loading="lazy"
+            ${safeImgSrc(s.imageUrl) ? `
+              <img class="rest-slide-img" src="${safeImgSrc(s.imageUrl)}" alt="${escapeHtml(s.title)}" loading="lazy"
                 onerror="this.style.display='none'; this.parentElement.querySelector('.rest-slide-center')?.classList.remove('hidden-for-img');" />
             ` : ''}
             <div class="rest-slide-top">
               <span class="rest-visual-tag"><svg class="ic" aria-hidden="true"><use href="#i-camera"/></svg> Ảnh ${idx + 1}/${total} • ${escapeHtml(s.badge)}</span>
               <span class="rest-visual-tag">${escapeHtml(s.tag || theme.label)}</span>
             </div>
-            <div class="rest-slide-center ${s.imageUrl ? 'hidden-for-img' : ''}"><svg class="ic" aria-hidden="true"><use href="#i-utensils"/></svg></div>
+            <div class="rest-slide-center ${safeImgSrc(s.imageUrl) ? 'hidden-for-img' : ''}"><svg class="ic" aria-hidden="true"><use href="#i-utensils"/></svg></div>
             <div class="rest-slide-bottom">
               <div>
                 <div class="rest-slide-caption">${escapeHtml(s.title)}</div>
@@ -1024,15 +1024,15 @@ function renderHomeSpecialties() {
           <div id="${trackId}" class="rest-gallery-track">
             ${slides.map((s, sIdx) => `
               <div class="rest-gallery-slide" style="background:${s.g};">
-                ${s.url ? `
-                  <img class="rest-slide-img" src="${s.url}" alt="${escapeHtml(s.title)}" loading="lazy"
+                ${safeImgSrc(s.url) ? `
+                  <img class="rest-slide-img" src="${safeImgSrc(s.url)}" alt="${escapeHtml(s.title)}" loading="lazy"
                     onerror="this.style.display='none'; this.parentElement.querySelector('.rest-slide-center')?.classList.remove('hidden-for-img');" />
                 ` : ''}
                 <div class="rest-slide-top">
                   <span class="rest-visual-tag"><svg class="ic" aria-hidden="true"><use href="#i-camera"/></svg> Ảnh ${sIdx + 1}/${slides.length} • Đặc sản</span>
                   <span class="rest-visual-tag"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> ${escapeHtml(sp.originArea)}</span>
                 </div>
-                <div class="rest-slide-center ${s.url ? 'hidden-for-img' : ''}"><svg class="ic" aria-hidden="true"><use href="#i-utensils"/></svg></div>
+                <div class="rest-slide-center ${safeImgSrc(s.url) ? 'hidden-for-img' : ''}"><svg class="ic" aria-hidden="true"><use href="#i-utensils"/></svg></div>
                 <div class="rest-slide-bottom">
                   <div>
                     <div class="rest-slide-caption">${escapeHtml(s.title)}</div>
@@ -1101,7 +1101,7 @@ function renderHomeRestaurants() {
             ${sampleDishes.map(d => `
               <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; padding:0.22rem 0; gap:0.5rem;">
                 <div style="display:flex; align-items:center; gap:0.45rem; overflow:hidden; min-width:0;">
-                  ${d.imageUrl ? `<img src="${d.imageUrl}" alt="${escapeHtml(d.name)}" class="dish-mini-thumb" loading="lazy" onerror="this.style.display='none'" />` : '<span style="color:var(--text-muted);">•</span>'}
+                  ${safeImgSrc(d.imageUrl) ? `<img src="${safeImgSrc(d.imageUrl)}" alt="${escapeHtml(d.name)}" class="dish-mini-thumb" loading="lazy" onerror="this.style.display='none'" />` : '<span style="color:var(--text-muted);">•</span>'}
                   <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(d.name)}</span>
                 </div>
                 <strong style="color:var(--primary); white-space:nowrap; flex-shrink:0;">${escapeHtml(d.rawPriceText)}</strong>
@@ -1181,7 +1181,7 @@ function renderRecommendRestaurants() {
             ${sampleDishes.map(d => `
               <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.8rem; padding:0.22rem 0; gap:0.5rem;">
                 <div style="display:flex; align-items:center; gap:0.45rem; overflow:hidden; min-width:0;">
-                  ${d.imageUrl ? `<img src="${d.imageUrl}" alt="${escapeHtml(d.name)}" class="dish-mini-thumb" loading="lazy" onerror="this.style.display='none'" />` : '<span style="color:var(--text-muted);">•</span>'}
+                  ${safeImgSrc(d.imageUrl) ? `<img src="${safeImgSrc(d.imageUrl)}" alt="${escapeHtml(d.name)}" class="dish-mini-thumb" loading="lazy" onerror="this.style.display='none'" />` : '<span style="color:var(--text-muted);">•</span>'}
                   <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(d.name)}</span>
                 </div>
                 <strong style="color:var(--primary); white-space:nowrap; flex-shrink:0;">${escapeHtml(d.rawPriceText || (d.price ? d.price.toLocaleString('vi-VN') + 'đ' : ''))}</strong>
@@ -1619,7 +1619,7 @@ function renderSolverResults(result, requirements) {
                     </td>
                     <td>
                       <div style="display:flex; align-items:center; gap:0.6rem;">
-                        ${a.imageUrl ? `<img src="${a.imageUrl}" alt="${escapeHtml(a.dishName)}" class="dish-plan-thumb" loading="lazy" onerror="this.style.display='none'" />` : ''}
+                        ${safeImgSrc(a.imageUrl) ? `<img src="${safeImgSrc(a.imageUrl)}" alt="${escapeHtml(a.dishName)}" class="dish-plan-thumb" loading="lazy" onerror="this.style.display='none'" />` : ''}
                         <div>
                           <div style="font-weight:600;">${escapeHtml(a.dishName)}</div>
                           <div style="font-size:0.74rem; color:var(--text-muted);">${escapeHtml((a.reasons || []).join(', '))}</div>
@@ -1766,15 +1766,15 @@ function renderExploreSpecialties() {
             <div id="${trackId}" class="rest-gallery-track">
               ${slides.map((s, sIdx) => `
                 <div class="rest-gallery-slide" style="background:${s.g};">
-                  ${s.url ? `
-                    <img class="rest-slide-img" src="${s.url}" alt="${escapeHtml(s.title)}" loading="lazy"
+                  ${safeImgSrc(s.url) ? `
+                    <img class="rest-slide-img" src="${safeImgSrc(s.url)}" alt="${escapeHtml(s.title)}" loading="lazy"
                       onerror="this.style.display='none'; this.parentElement.querySelector('.rest-slide-center')?.classList.remove('hidden-for-img');" />
                   ` : ''}
                   <div class="rest-slide-top">
                     <span class="rest-visual-tag"><svg class="ic" aria-hidden="true"><use href="#i-camera"/></svg> Ảnh ${sIdx + 1}/${slides.length} • Đặc sản Đồng Nai</span>
                     <span class="rest-visual-tag"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> ${escapeHtml(sp.originArea)}</span>
                   </div>
-                  <div class="rest-slide-center ${s.url ? 'hidden-for-img' : ''}"><svg class="ic" aria-hidden="true"><use href="#i-utensils"/></svg></div>
+                  <div class="rest-slide-center ${safeImgSrc(s.url) ? 'hidden-for-img' : ''}"><svg class="ic" aria-hidden="true"><use href="#i-utensils"/></svg></div>
                   <div class="rest-slide-bottom">
                     <div>
                       <div class="rest-slide-caption">${escapeHtml(s.title)}</div>
@@ -2859,6 +2859,17 @@ function escapeHtml(str) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
+}
+
+/* Chỉ cho phép đường dẫn ảnh an toàn (http/https, đường dẫn nội bộ, data:image) rồi escape để chèn vào thuộc tính src.
+   Đường dẫn không hợp lệ trả về chuỗi rỗng → giao diện tự hiển thị ảnh dự phòng. */
+function safeImgSrc(url) {
+  const u = String(url ?? '').trim();
+  if (!u) return '';
+  if (/^(https?:\/\/|\/(?!\/))/i.test(u) || /^data:image\/(png|jpe?g|webp|gif);base64,/i.test(u)) {
+    return escapeAttr(u);
+  }
+  return '';
 }
 
 function escapeAttr(str) {
