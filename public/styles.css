@@ -1,20 +1,20 @@
 :root {
-  --bg: #faf7f2;
+  --bg: #f8faf8;
   --surface: #ffffff;
-  --surface-alt: #f3ede2;
+  --surface-alt: #f0fdf4;
   --text: #1c1917;
-  --text-muted: #57534e;
-  --primary: #c2410c;
-  --primary-hover: #9a3412;
-  --primary-light: #ffedd5;
-  --accent: #15803d;
-  --accent-light: #dcfce7;
+  --text-muted: #52525b;
+  --primary: #15803d;
+  --primary-hover: #166534;
+  --primary-light: #dcfce7;
+  --accent: #b45309;
+  --accent-light: #fef3c7;
   --warning: #b45309;
   --warning-light: #fef3c7;
   --danger: #b91c1c;
   --danger-light: #fee2e2;
-  --border: #e7e0d6;
-  --shadow: 0 4px 20px -2px rgba(28, 25, 23, 0.08);
+  --border: #dcfce7;
+  --shadow: 0 4px 20px -2px rgba(21, 128, 61, 0.08);
   --radius: 14px;
 }
 
@@ -63,14 +63,14 @@ body {
   width: 42px;
   height: 42px;
   border-radius: 11px;
-  background: linear-gradient(135deg, #ea580c, #9a3412);
+  background: linear-gradient(135deg, #16a34a, #15803d);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 800;
   font-size: 1.2rem;
-  box-shadow: 0 3px 10px rgba(194, 65, 12, 0.3);
+  box-shadow: 0 3px 10px rgba(22, 163, 74, 0.3);
 }
 
 .brand-title {
@@ -190,7 +190,7 @@ body {
 
 /* Hero Banner */
 .hero {
-  background: linear-gradient(135deg, #431407 0%, #7c2d12 55%, #9a3412 100%);
+  background: linear-gradient(135deg, #052e16 0%, #14532d 55%, #15803d 100%);
   color: #fff;
   border-radius: 20px;
   padding: 2.5rem 2.25rem;
@@ -203,7 +203,7 @@ body {
 .hero-badge {
   display: inline-block;
   background: rgba(255, 255, 255, 0.16);
-  color: #fed7aa;
+  color: #dcfce7;
   padding: 0.3rem 0.85rem;
   border-radius: 999px;
   font-size: 0.82rem;
@@ -218,7 +218,7 @@ body {
 }
 
 .hero p {
-  color: #ffedd5;
+  color: #dcfce7;
   max-width: 780px;
   font-size: 1.02rem;
   margin-bottom: 1.4rem;
