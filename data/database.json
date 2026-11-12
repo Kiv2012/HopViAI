@@ -22,14 +22,20 @@
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
       "isSpecialtySpot": true,
-      "avatarUrl": "/images/restaurants/REST_01/cha_lui.jpg",
+      "avatarUrl": "/images/restaurants/REST_01/quan_cha_lui_co_yen.jpg",
       "photos": [
+        {
+          "title": "Không gian & Chả Lụi Cô Yến",
+          "cleanName": "quan_cha_lui_co_yen.jpg",
+          "url": "/images/restaurants/REST_01/quan_cha_lui_co_yen.jpg"
+        },
         {
           "title": "chả lụi.jpg",
           "cleanName": "cha_lui.jpg",
           "url": "/images/restaurants/REST_01/cha_lui.jpg"
         }
-      ]
+      ],
+      "coverImage": "/images/restaurants/REST_01/quan_cha_lui_co_yen.jpg"
     },
     {
       "id": "REST_02",
@@ -646,8 +652,13 @@
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
       "isSpecialtySpot": false,
-      "avatarUrl": "/images/restaurants/REST_13/bun_cha.jpg",
+      "avatarUrl": "/images/restaurants/REST_13/bun_cha_phu_khang.webp",
       "photos": [
+        {
+          "title": "Bún Chả Hà Nội Phú Khang",
+          "cleanName": "bun_cha_phu_khang.webp",
+          "url": "/images/restaurants/REST_13/bun_cha_phu_khang.webp"
+        },
         {
           "title": "Bún chả",
           "cleanName": "bun_cha.jpg",
@@ -658,7 +669,8 @@
           "cleanName": "nem_cua_be.jpg",
           "url": "/images/restaurants/REST_13/nem_cua_be.jpg"
         }
-      ]
+      ],
+      "coverImage": "/images/restaurants/REST_13/bun_cha_phu_khang.webp"
     },
     {
       "id": "REST_14",
@@ -673,8 +685,13 @@
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
       "isSpecialtySpot": false,
-      "avatarUrl": "/images/restaurants/REST_14/com_ga_xe.jpg",
+      "avatarUrl": "/images/restaurants/REST_14/com_ga_xe_s88.webp",
       "photos": [
+        {
+          "title": "Cơm Gà Xé Phú Yên S88",
+          "cleanName": "com_ga_xe_s88.webp",
+          "url": "/images/restaurants/REST_14/com_ga_xe_s88.webp"
+        },
         {
           "title": "Cơm gà xé",
           "cleanName": "com_ga_xe.jpg",
@@ -685,7 +702,8 @@
           "cleanName": "com_dui_ga_chien_mam.jpg",
           "url": "/images/restaurants/REST_14/com_dui_ga_chien_mam.jpg"
         }
-      ]
+      ],
+      "coverImage": "/images/restaurants/REST_14/com_ga_xe_s88.webp"
     },
     {
       "id": "REST_15",
@@ -700,8 +718,13 @@
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
       "isSpecialtySpot": true,
-      "avatarUrl": "/images/restaurants/REST_15/chao_hen.jpg",
+      "avatarUrl": "/images/restaurants/REST_15/chao_hen_co_tuoi.jpg",
       "photos": [
+        {
+          "title": "Cháo Hến Cô Tươi",
+          "cleanName": "chao_hen_co_tuoi.jpg",
+          "url": "/images/restaurants/REST_15/chao_hen_co_tuoi.jpg"
+        },
         {
           "title": "Cháo hến",
           "cleanName": "chao_hen.jpg",
@@ -712,7 +735,8 @@
           "cleanName": "chao_them_hen.jpg",
           "url": "/images/restaurants/REST_15/chao_them_hen.jpg"
         }
-      ]
+      ],
+      "coverImage": "/images/restaurants/REST_15/chao_hen_co_tuoi.jpg"
     },
     {
       "id": "REST_16",
@@ -727,8 +751,13 @@
       "verificationSource": "Khảo sát thực đơn thực tế (Hợp vị AI.xlsx)",
       "verifiedAt": "2026-11-10",
       "isSpecialtySpot": true,
-      "avatarUrl": "/images/restaurants/REST_16/bo_bop_thau.jpg",
+      "avatarUrl": "/images/restaurants/REST_16/goi_ca_kim_yen_tan_mai.jpg",
       "photos": [
+        {
+          "title": "Gỏi Cá Kim Yến Tân Mai",
+          "cleanName": "goi_ca_kim_yen_tan_mai.jpg",
+          "url": "/images/restaurants/REST_16/goi_ca_kim_yen_tan_mai.jpg"
+        },
         {
           "title": "Bò Bóp Thấu",
           "cleanName": "bo_bop_thau.jpg",
@@ -769,7 +798,8 @@
           "cleanName": "muc_ne.jpg",
           "url": "/images/restaurants/REST_16/muc_ne.jpg"
         }
-      ]
+      ],
+      "coverImage": "/images/restaurants/REST_16/goi_ca_kim_yen_tan_mai.jpg"
     },
     {
       "id": "REST_17",
@@ -1008,7 +1038,7 @@
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 3)",
       "verifiedAt": "2026-11-10",
-      "imageUrl": "/images/restaurants/REST_01/cha_lui.jpg",
+      "imageUrl": "/images/restaurants/REST_01/quan_cha_lui_co_yen.jpg",
       "imageTitle": "chả lụi.jpg"
     },
     {
@@ -3989,7 +4019,7 @@
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 97)",
       "verifiedAt": "2026-11-10",
-      "imageUrl": "/images/restaurants/REST_13/bun_cha.jpg",
+      "imageUrl": "/images/restaurants/REST_13/bun_cha_phu_khang.webp",
       "imageTitle": "Bún chả"
     },
     {
@@ -4054,7 +4084,7 @@
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 99)",
       "verifiedAt": "2026-11-10",
-      "imageUrl": "/images/restaurants/REST_14/com_ga_xe.jpg",
+      "imageUrl": "/images/restaurants/REST_14/com_ga_xe_s88.webp",
       "imageTitle": "Cơm gà xé"
     },
     {
@@ -4120,7 +4150,7 @@
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 101)",
       "verifiedAt": "2026-11-10",
-      "imageUrl": "/images/restaurants/REST_15/chao_hen.jpg",
+      "imageUrl": "/images/restaurants/REST_15/chao_hen_co_tuoi.jpg",
       "imageTitle": "Cháo hến"
     },
     {
@@ -4185,7 +4215,7 @@
       "status": "approved",
       "verificationSource": "Hợp vị AI.xlsx (Dòng 103)",
       "verifiedAt": "2026-11-10",
-      "imageUrl": "/images/restaurants/REST_16/goi_ca.jpg",
+      "imageUrl": "/images/restaurants/REST_16/goi_ca_kim_yen_tan_mai.jpg",
       "imageTitle": "Gỏi cá"
     },
     {
