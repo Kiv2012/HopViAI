@@ -76,6 +76,25 @@
         </button>
       </div>
     </div>
+
+    <!-- Thanh Sub-Nav dạng Pills cuộn ngang mượt mà ngay dưới Topbar (cho Khách hàng trên Mobile theo chuẩn mockup) -->
+    <nav id="mobile-top-pills-bar" class="mobile-top-pills" aria-label="Điều hướng nhanh di động">
+      <button class="top-pill-btn active" data-view="home" onclick="switchView('home')">
+        <span class="pill-icon">🍱</span> Trang chủ
+      </button>
+      <button class="top-pill-btn" data-view="recommend" onclick="switchView('recommend')">
+        <span class="pill-icon">🤖</span> Tìm món AI
+      </button>
+      <button class="top-pill-btn" data-view="map" onclick="switchView('map')">
+        <span class="pill-icon">🗺️</span> Bản đồ
+      </button>
+      <button class="top-pill-btn" data-view="explore" onclick="switchView('explore')">
+        <span class="pill-icon">🍊</span> Đặc sản
+      </button>
+      <button class="top-pill-btn" data-view="feedback" onclick="switchView('feedback')">
+        <span class="pill-icon">💬</span> Đánh giá
+      </button>
+    </nav>
   </header>
 
   <main class="container">

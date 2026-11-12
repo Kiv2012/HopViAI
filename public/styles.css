@@ -139,18 +139,8 @@ body {
   border: 1.5px solid #86efac;
 }
 
-/* Horizontal Sub-nav Pills */
+/* Horizontal Sub-nav Pills (Ẩn trên Desktop, Hiện trên Di động) */
 .mobile-top-pills {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  overflow-x: auto;
-  padding: 0.45rem 0.25rem 0.15rem;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-}
-
-.mobile-top-pills::-webkit-scrollbar {
   display: none;
 }
 
@@ -431,12 +421,16 @@ body {
   background: rgba(255, 255, 255, 0.16);
   backdrop-filter: blur(4px);
   border-radius: 999px;
-  padding: 0.28rem 0.85rem;
-  font-size: 0.74rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
   color: #dcfce7;
   margin-bottom: 0.75rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .hero-headline {
@@ -1390,6 +1384,21 @@ body {
     flex-wrap: nowrap;
     justify-content: space-between;
     gap: 0.35rem;
+  }
+
+  .mobile-top-pills {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    overflow-x: auto;
+    padding: 0.35rem 0.15rem 0.15rem;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+  }
+
+  .mobile-top-pills::-webkit-scrollbar {
+    display: none !important;
   }
 
   .brand {
