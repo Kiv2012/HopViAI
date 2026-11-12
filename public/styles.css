@@ -2001,35 +2001,35 @@ body[data-role="admin"] .mobile-nav-item.active {
 /* ==================== CỬA SỔ CHAT TRỰC TIẾP HỢP VỊ AI ==================== */
 .floating-chat-trigger {
   position: fixed;
-  bottom: 82px;
-  right: 18px;
+  bottom: 72px;
+  right: 14px;
   z-index: 999;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
   background: linear-gradient(135deg, #16a34a, #15803d);
   color: #ffffff;
-  padding: 0.65rem 1.15rem;
+  padding: 0.4rem 0.75rem;
   border-radius: 999px;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   font-weight: 700;
-  font-size: 0.9rem;
-  box-shadow: 0 4px 16px rgba(21, 128, 61, 0.35);
+  font-size: 0.78rem;
+  box-shadow: 0 3px 12px rgba(21, 128, 61, 0.28);
   cursor: pointer;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
 }
 
 .floating-chat-trigger:hover {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 6px 20px rgba(21, 128, 61, 0.45);
+  box-shadow: 0 5px 16px rgba(21, 128, 61, 0.38);
 }
 
 .floating-chat-trigger .chat-dot-live {
-  width: 9px;
-  height: 9px;
+  width: 7px;
+  height: 7px;
   background: #4ade80;
   border-radius: 50%;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.9);
   animation: pulse-dot 1.8s infinite;
 }
 
