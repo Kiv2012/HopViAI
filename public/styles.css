@@ -97,13 +97,6 @@ body {
   background: var(--surface-alt);
 }
 
-.hamburger-btn {
-  font-size: 1.35rem;
-  color: #292524;
-  padding: 0.2rem 0.35rem;
-  border-radius: 8px;
-}
-
 .notif-btn {
   position: relative;
   font-size: 1.25rem;
@@ -1386,10 +1379,6 @@ body {
     display: none !important;
   }
 
-  .hamburger-btn {
-    display: none !important;
-  }
-
   /* Thanh Header trên điện thoại tinh gọn (54px), hiển thị slogan và cụm icon */
   .topbar {
     padding: 0.45rem 0.75rem 0.2rem;
@@ -2323,7 +2312,6 @@ h2 > .ic, h3 > .ic { color: var(--primary); stroke-width: 2.1; margin-right: 0.1
 .badge .ic { width: 1.05em; height: 1.05em; vertical-align: -0.2em; }
 
 /* Topbar */
-.hamburger-btn .ic { width: 22px; height: 22px; color: #292524; }
 .notif-btn .ic { width: 20px; height: 20px; color: #44403c; }
 .user-avatar-circle .ic { width: 18px; height: 18px; }
 .brand-logo .ic { width: 22px; height: 22px; stroke-width: 2.1; }
