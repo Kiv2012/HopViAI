@@ -781,12 +781,14 @@ function normalizeChatHistory(history) {
     .slice(-8)
     .map(h => ({
       role: (h?.role === 'model' || h?.role === 'assistant') ? 'model' : 'user',
-      text: String(h?.text || h?.message || h?.content || '').trim().slice(0, 4000)
+      text: String(h?.text || h?.message || h?.content || '').trim().slice(0, 2000)
     }))
     .filter(h => h.text);
 }
 
 async function chatWithGemini({ message, history = [], db = null }) {
+  // Chặn đầu vào quá dài ngay cả khi hàm được gọi từ nơi khác ngoài route /api/v1/ai/chat
+  message = String(message || '').slice(0, 1000);
   const apiKey = getActiveApiKey();
   const startTime = Date.now();
   const turns = normalizeChatHistory(history);

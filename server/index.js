@@ -9,6 +9,9 @@ const path = require('path');
 const crypto = require('crypto');
 
 const { solveMealRecommendations } = require('./solver');
+
+// Giới hạn độ dài tin nhắn chat: tránh tốn chi phí AI và CPU xử lý với đầu vào quá lớn
+const CHAT_MAX_MESSAGE_CHARS = 1000;
 const {
   analyzeUserRequirement,
   scanMenuFromImage,
@@ -305,7 +308,13 @@ async function handleApiRequest(req, res, parsedUrl) {
           error: { code: 'validation_error', message: 'Vui lòng nhập nội dung tin nhắn.' }
         });
       }
-      const history = Array.isArray(body.history) ? body.history : [];
+      if (message.length > CHAT_MAX_MESSAGE_CHARS) {
+        return sendJson(res, 400, {
+          success: false,
+          error: { code: 'message_too_long', message: `Tin nhắn quá dài (tối đa ${CHAT_MAX_MESSAGE_CHARS} ký tự). Bạn rút gọn lại giúp mình nhé!` }
+        });
+      }
+      const history = Array.isArray(body.history) ? body.history.slice(-10) : [];
       const db = loadDatabase();
       const replyData = await chatWithGemini({ message, history, db });
       return sendJson(res, 200, { success: true, data: replyData });

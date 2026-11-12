@@ -301,7 +301,12 @@ function generateSmartFallbackReply(message, db, solverCtx) {
   const words = t.trim().split(' ').filter(w => w.length >= 3 && !STOP.has(w));
 
   // Lời chào ngắn ("xin chao", "hello") không phải là hỏi món cháo
-  const isGreeting = /^(xin chao|chao ban|chao|hello|hi|alo|hey)( (ban|ai|hop vi|hop vi ai|nhe|nha))*$/.test(stripVi(message).replace(/[^a-z ]+/g, ' ').replace(/\s+/g, ' ').trim());
+  // Kiểm tra bằng tập từ (không dùng regex lặp lồng nhau để tránh backtracking — ReDoS)
+  const GREETING_WORDS = new Set(['xin', 'chao', 'hello', 'hi', 'alo', 'hey', 'ban', 'ai', 'hop', 'vi', 'nhe', 'nha']);
+  const greetTokens = stripVi(message).slice(0, 200).replace(/[^a-z ]+/g, ' ').split(' ').filter(Boolean);
+  const isGreeting = greetTokens.length > 0 && greetTokens.length <= 6
+    && ['chao', 'hello', 'hi', 'alo', 'hey'].includes(greetTokens.find(w => w !== 'xin'))
+    && greetTokens.every(w => GREETING_WORDS.has(w));
 
   const scored = isGreeting ? [] : items.map(d => {
     let score = 0;
