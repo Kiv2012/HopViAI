@@ -1907,6 +1907,46 @@ function applyRelaxedBudget(suggestedBudget) {
   runStep2Solve();
 }
 
+/* Gom các dòng món của một phương án để hiển thị:
+   - Món dùng chung (lẩu/combo cả nhóm) → 1 dòng "Cả nhóm (N người)" thay vì lặp lại cho từng người
+   - Lý do phù hợp: bỏ trùng, hiện tối đa 3 ý (đủ ý xem khi rê chuột) */
+function groupPlanAssignments(plan) {
+  const list = plan.assignments || [];
+  const fmtPrice = a => (a.displayPrice ? a.displayPrice : `${(a.price || 0).toLocaleString('vi-VN')}đ`);
+  const shortReasons = reasons => {
+    const uniq = Array.from(new Set((reasons || []).map(r => String(r).trim()).filter(Boolean)));
+    return { reasons: uniq.slice(0, 3), allReasons: uniq.join(', ') };
+  };
+
+  if (plan.planType === 'shared_combo') {
+    const byDish = new Map();
+    list.forEach(a => {
+      if (!byDish.has(a.dishId)) byDish.set(a.dishId, []);
+      byDish.get(a.dishId).push(a);
+    });
+    return Array.from(byDish.values()).map(group => {
+      const main = group.find(a => a.price > 0) || group[0];
+      return {
+        who: group.length > 1 ? `Cả nhóm (${group.length} người)` : main.memberLabel,
+        score: Math.min(...group.map(a => Number(a.score) || 0)),
+        dishName: main.dishName,
+        imageUrl: main.imageUrl,
+        price: fmtPrice(main),
+        ...shortReasons(group.flatMap(a => a.reasons || []))
+      };
+    });
+  }
+
+  return list.map(a => ({
+    who: a.memberLabel,
+    score: a.score,
+    dishName: a.dishName,
+    imageUrl: a.imageUrl,
+    price: fmtPrice(a),
+    ...shortReasons(a.reasons)
+  }));
+}
+
 function renderSolverResults(result, requirements) {
   const container = document.getElementById('solver-results-container');
 
@@ -1946,39 +1986,24 @@ function renderSolverResults(result, requirements) {
               </div>
             </div>
 
-            <!-- Bảng phân bổ món cho từng thành viên -->
-            <div class="table-responsive" style="margin-bottom:0.85rem;">
-            <table class="data-table" style="margin-top:0;">
-              <thead>
-                <tr>
-                  <th>Thành viên</th>
-                  <th>Món đề xuất</th>
-                  <th>Giá</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${plan.assignments.map(a => `
-                  <tr>
-                    <td>
-                      <strong>${escapeHtml(a.memberLabel)}</strong>
-                      <div style="font-size:0.73rem; color:var(--accent);">Độ hợp: ${a.score}/100</div>
-                    </td>
-                    <td>
-                      <div style="display:flex; align-items:center; gap:0.6rem;">
-                        ${safeImgSrc(a.imageUrl) ? `<img src="${safeImgSrc(a.imageUrl)}" alt="${escapeHtml(a.dishName)}" class="dish-plan-thumb" loading="lazy" onerror="this.style.display='none'" />` : ''}
-                        <div>
-                          <div style="font-weight:600;">${escapeHtml(a.dishName)}</div>
-                          <div style="font-size:0.74rem; color:var(--text-muted);">${escapeHtml((a.reasons || []).join(', '))}</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td style="font-weight:700; white-space:nowrap;">
-                      ${a.displayPrice ? escapeHtml(a.displayPrice) : `${a.price.toLocaleString('vi-VN')}đ`}
-                    </td>
-                  </tr>
-                `).join('')}
-              </tbody>
-            </table>
+            <!-- Danh sách món cho từng thành viên (xếp dọc, vừa thẻ hẹp; món dùng chung chỉ hiện 1 dòng) -->
+            <div class="plan-dish-list">
+              ${groupPlanAssignments(plan).map(g => `
+                <div class="plan-dish-row">
+                  ${safeImgSrc(g.imageUrl)
+                    ? `<img src="${safeImgSrc(g.imageUrl)}" alt="${escapeHtml(g.dishName)}" class="plan-dish-thumb" loading="lazy" onerror="this.style.visibility='hidden'" />`
+                    : '<span class="plan-dish-thumb plan-dish-thumb-empty"><svg class="ic" aria-hidden="true"><use href="#i-utensils"/></svg></span>'}
+                  <div class="plan-dish-body">
+                    <div class="plan-dish-top">
+                      <span class="plan-dish-who">${escapeHtml(g.who)}</span>
+                      <span class="plan-dish-score">Độ hợp ${g.score}/100</span>
+                    </div>
+                    <div class="plan-dish-name">${escapeHtml(g.dishName)}</div>
+                    ${g.reasons.length ? `<div class="plan-dish-reasons" title="${escapeAttr(g.allReasons)}">${g.reasons.map(r => `<span>${escapeHtml(r)}</span>`).join('')}</div>` : ''}
+                  </div>
+                  <div class="plan-dish-price">${escapeHtml(g.price)}</div>
+                </div>
+              `).join('')}
             </div>
 
             <!-- Tổng chi phí & số tiền còn dư -->
