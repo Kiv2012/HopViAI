@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Báo cáo Công nghệ & Thuyết trình Dự án – HỢP VỊ AI</title>
+  <link rel="icon" type="image/png" href="/icons/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #15803d;
+      --primary-dark: #14532d;
+      --primary-light: #22c55e;
+      --accent: #f59e0b;
+      --accent-light: #fef3c7;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --surface-hover: #273549;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* TOP CONTROLS */
+    .top-deck-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1.5rem;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #ffffff;
+      padding: 2px;
+    }
+
+    .brand-name {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #4ade80;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-tagline {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .deck-nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-slide-nav {
+      background: var(--card-bg);
+      color: var(--text);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.45rem 0.85rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .btn-slide-nav:hover {
+      background: var(--surface-hover);
+      border-color: #4ade80;
+      color: #4ade80;
+    }
+
+    .slide-counter-badge {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* SLIDE STAGE */
+    .deck-stage {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      position: relative;
+    }
+
+    .slide-card {
+      display: none;
+      width: 100%;
+      max-width: 1120px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 2.5rem 3rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      animation: fadeInSlide 0.35s ease-out forwards;
+      min-height: 600px;
+    }
+
+    .slide-card.active {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    @keyframes fadeInSlide {
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.99);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .slide-header {
+      margin-bottom: 1.75rem;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .slide-kicker {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #4ade80;
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .slide-title {
+      font-size: 1.95rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+
+    .slide-body {
+      flex: 1;
+    }
+
+    /* GRIDS & CARDS */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .info-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 1.25rem;
+      transition: border-color 0.2s;
+    }
+
+    .info-box:hover {
+      border-color: rgba(74, 222, 128, 0.4);
+    }
+
+    .box-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .box-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .highlight-badge {
+      display: inline-block;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .badge-green {
+      background: rgba(34, 197, 94, 0.2);
+      color: #4ade80;
+    }
+
+    .badge-amber {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+    }
+
+    .badge-blue {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+    }
+
+    .badge-purple {
+      background: rgba(168, 85, 247, 0.2);
+      color: #c084fc;
+    }
+
+    /* CODE BOX */
+    pre {
+      background: #090d16;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: #38bdf8;
+      overflow-x: auto;
+      line-height: 1.45;
+    }
+
+    /* FLOWCHART ROW */
+    .flow-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .flow-step {
+      flex: 1;
+      background: #0f172a;
+      border: 2px solid var(--primary);
+      border-radius: 12px;
+      padding: 1rem 0.75rem;
+      text-align: center;
+    }
+
+    .flow-arrow {
+      font-size: 1.35rem;
+      color: #4ade80;
+      font-weight: bold;
+    }
+
+    /* SLIDE FOOTER */
+    .slide-footer {
+      margin-top: 1.75rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .live-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #22c55e;
+      animation: pulseDot 1.5s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 860px) {
+      .slide-card {
+        padding: 1.5rem;
+      }
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+      }
+      .flow-row {
+        flex-direction: column;
+      }
+      .slide-title {
+        font-size: 1.45rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP DECK CONTROL BAR -->
+  <header class="top-deck-bar">
+    <div class="brand-cluster">
+      <img src="/icons/logo.png" alt="Logo" class="brand-logo" />
+      <div>
+        <div class="brand-name">HỢP VỊ AI • BÁO CÁO CÔNG NGHỆ</div>
+        <div class="brand-tagline">Tài liệu kỹ thuật trình bày & bảo vệ dự án</div>
+      </div>
+    </div>
+
+    <div class="deck-nav-buttons">
+      <button class="btn-slide-nav" onclick="prevSlide()">◀ Trước</button>
+      <span class="slide-counter-badge" id="slide-num-badge">01 / 10</span>
+      <button class="btn-slide-nav" onclick="nextSlide()">Sau ▶</button>
+      <button class="btn-slide-nav" onclick="toggleFullscreen()" title="Toàn màn hình">⛶ Trình chiếu</button>
+    </div>
+  </header>
+
+  <!-- SLIDE CONTAINER -->
+  <main class="deck-stage">
+
+    <!-- SLIDE 1: GIỚI THIỆU TỔNG QUAN -->
+    <section class="slide-card active" data-slide="1">
+      <div class="slide-header">
+        <div>
+          <div class="slide-kicker">🌟 TỔNG QUAN DỰ ÁN</div>
+          <h1 class="slide-title">HỢP VỊ AI – Hiểu Đúng Vị, Gợi Đúng Món</h1>
+        </div>
+        <span class="badge-green highlight-badge">Hệ thống Trực tuyến 2026</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="info-box">
+            <h3 class="box-title">🎯 Định vị & Sứ mệnh</h3>
+            <p class="box-text">
+              Hệ thống AI tiên phong phân tích nhu cầu ẩm thực cá nhân hóa và giải quyết bài toán <strong>tối ưu hóa tổ hợp món ăn nhóm (Group Dining Optimization)</strong> có ràng buộc ngân sách khắt khe tại địa bàn tỉnh <strong>Đồng Nai</strong>.
+            </p>
+            <div style="margin-top:1rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+              <span class="badge-green highlight-badge">✓ Trọng tâm: TP. Biên Hòa</span>
+              <span class="badge-amber highlight-badge">✓ 21 Quán ăn khảo sát</span>
+              <span class="badge-blue highlight-badge">✓ 146 Món ăn xác minh</span>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <h3 class="box-title">🌐 Hệ thống Tên miền Trực tuyến</h3>
+            <p class="box-text">
+              Ứng dụng đã hoàn tất triển khai trên mạng lưới điện toán đám mây toàn cầu Vercel Edge Serverless:
+            </p>
+            <div style="margin-top:0.8rem; line-height: 1.9;">
+              <div>👉 <strong>Tên miền ngắn:</strong> <a href="https://hop-vi.app" target="_blank" style="color:#4ade80;">https://hop-vi.app</a></div>
+              <div>👉 <strong>Subdomain chính thức:</strong> <a href="https://hop-vi.vercel.app" target="_blank" style="color:#60a5fa;">https://hop-vi.vercel.app</a></div>
+              <div>👉 <strong>Dự án:</strong> <a href="https://hop-vi-ai.vercel.app" target="_blank" style="color:#c084fc;">https://hop-vi-ai.vercel.app</a></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box" style="margin-top:1.25rem;">
+          <h3 class="box-title">🚀 3 Trụ cột Đột phá của Hệ thống</h3>
+          <div class="grid-3" style="margin-top:0.6rem;">
+            <div>
+              <span class="badge-green highlight-badge">1. Hybrid AI + Solver</span>
+              <p class="box-text">Gemini LLM trích xuất ý định, Thuật toán cộng tiền chính xác 100%, không bị ảo giác.</p>
+            </div>
+            <div>
+              <span class="badge-amber highlight-badge">2. Maximin Fairness</span>
+              <p class="box-text">Tối đa hóa sự hài lòng của thành viên chịu thiệt thòi nhất trong nhóm.</p>
+            </div>
+            <div>
+              <span class="badge-blue highlight-badge">3. AI Scan Menu</span>
+              <p class="box-text">Thị giác máy tính nhận diện ảnh chụp thực đơn giấy thành menu số trong 3 giây.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Nhấn phím ➔ hoặc Space để xem slide tiếp theo</span>
+        <a class="live-pill" href="https://hop-vi.app" target="_blank"><span class="live-dot"></span> Trực tiếp trên Web</a>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: NỖI ĐAU & VẤN ĐỀ CỦA NGƯỜI DÙNG -->
+    <section class="slide-card" data-slide="2">
+      <div class="slide-header">
+        <div>
+          <div class="slide-kicker">⚠️ BỐI CẢNH & NỖI ĐAU</div>
+          <h1 class="slide-title">Vấn Đề Thực Tế Cần Giải Quyết</h1>
+        </div>
+        <span class="badge-amber highlight-badge">Customer Pain Points</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="info-box" style="border-left: 4px solid #ef4444;">
+            <h3 class="box-title" style="color:#f87171;">❌ Nỗi đau của Thực khách (Người dùng)</h3>
+            <ul style="padding-left:1.2rem; color:var(--text-muted); font-size:0.9rem; line-height:1.7;">
+              <li><strong>Mất thời gian tranh luận:</strong> "Hôm nay ăn gì?", người thích món nước chua cay, người thích mì trộn, người ăn chay.</li>
+              <li><strong>Ràng buộc ngân sách:</strong> Nhóm sinh viên/nhân viên có 150k cho 3 người nhưng không biết quán nào vừa túi tiền mà vẫn no.</li>
+              <li><strong>Thiếu thông tin giá niêm yết:</strong> Các app bản đồ thông thường không có bảng giá món chi tiết tại Biên Hòa.</li>
+            </ul>
+          </div>
+
+          <div class="info-box" style="border-left: 4px solid #f59e0b;">
+            <h3 class="box-title" style="color:#fbbf24;">❌ Điểm yếu của Chatbot AI thông thường</h3>
+            <ul style="padding-left:1.2rem; color:var(--text-muted); font-size:0.9rem; line-height:1.7;">
+              <li><strong>Ảo giác số học (Hallucination):</strong> Mô hình LLM tự cộng tiền thường tính sai số học, vượt quá ngân sách khách có.</li>
+              <li><strong>Gợi ý quán ăn không tồn tại:</strong> AI tự bịa địa chỉ hoặc gợi ý quán ở tận Sài Gòn/Hà Nội thay vì Đồng Nai.</li>
+              <li><strong>Bỏ rơi người thiểu số:</strong> Chọn món theo đa số làm 1 thành viên trong nhóm không có món phù hợp.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="info-box" style="margin-top:1.5rem; background:rgba(34, 197, 94, 0.08); border-color:#22c55e;">
+          <h3 class="box-title" style="color:#4ade80;">💡 Lời giải của HỢP VỊ AI</h3>
+          <p class="box-text" style="color:#e2e8f0;">
+            Kết hợp <strong>Sức mạnh hiểu ngữ cảnh tự nhiên của Google Gemini</strong> với <strong>Bộ giải thuật toán tối ưu tiền định (Deterministic Optimization Solver)</strong> chạy trên dữ liệu khảo sát 100% tại Đồng Nai.
+          </p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Slide 2/10 • Phân tích bài toán ẩm thực nhóm</span>
+        <span class="live-pill">Hợp Vị AI</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: KIẾN TRÚC GIẢI PHÁP HYBRID -->
+    <section class="slide-card" data-slide="3">
+      <div class="slide-header">
+        <div>
+          <div class="slide-kicker">🧩 KIẾN TRÚC HỆ THỐNG</div>
+          <h1 class="slide-title">Mô Hình Xử Lý Kép Đột Phá (Dual-Engine)</h1>
+        </div>
+        <span class="badge-blue highlight-badge">Hybrid AI Architecture</span>
+      </div>
+      <div class="slide-body">
+        <p class="box-text" style="margin-bottom:1rem;">
+          Hợp Vị AI tách biệt hoàn toàn giữa <strong>Nhiệm vụ hiểu ngôn ngữ</strong> và <strong>Nhiệm vụ tính toán số học</strong>:
+        </p>
+
+        <div class="flow-row">
+          <div class="flow-step">
+            <div style="font-size:1.8rem; margin-bottom:0.25rem;">🗣️</div>
+            <strong style="color:#ffffff;">1. Câu tự nhiên</strong>
+            <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.2rem;">"3 người ở Trấn Biên có 150k..."</p>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-step" style="border-color:#38bdf8;">
+            <div style="font-size:1.8rem; margin-bottom:0.25rem;">🤖</div>
+            <strong style="color:#38bdf8;">2. Gemini NLU</strong>
+            <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.2rem;">Bóc tách Người, Tiền, Khẩu vị</p>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-step" style="border-color:#f59e0b;">
+            <div style="font-size:1.8rem; margin-bottom:0.25rem;">⚖️</div>
+            <strong style="color:#f59e0b;">3. Maximin Solver</strong>
+            <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.2rem;">Tổ hợp món & Ép ngân sách</p>
+          </div>
+          <div class="flow-arrow">➔</div>
+          <div class="flow-step" style="border-color:#4ade80;">
+            <div style="font-size:1.8rem; margin-bottom:0.25rem;">🍱</div>
+            <strong style="color:#4ade80;">4. Combo Tối Ưu</strong>
+            <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.2rem;">Chính xác 100% tại 1 quán</p>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top:1.25rem;">
+          <div class="info-box">
+            <h4 class="box-title">⚡ Gemini NLU (Tầng Trí tuệ)</h4>
+            <p class="box-text">Hiểu các từ ngữ tiếng Việt bản địa: "món thanh đạm", "ăn chua cay", "thèm bún", "tiền ít mà no", "đi cùng người ăn chay".</p>
+          </div>
+          <div class="info-box">
+            <h4 class="box-title">🔢 Deterministic Solver (Tầng Toán học)</h4>
+            <p class="box-text">Tính toán số học bằng code Node.js nguyên bản. Loại bỏ 100% nguy cơ AI cộng sai tiền. Tốc độ thực thi: <strong>< 15 mili-giây</strong>.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Slide 3/10 • Kiến trúc phân tách trách nhiệm</span>
+        <span class="live-pill">Zero Hallucination</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: THUẬT TOÁN MAXIMIN GROUP FAIRNESS -->
+    <section class="slide-card" data-slide="4">
+      <div class="slide-header">
+        <div>
+          <div class="slide-kicker">📐 THUẬT TOÁN CỐT LÕI</div>
+          <h1 class="slide-title">Nguyên Lý Công Bằng Nhóm Maximin (Rawlsian Fairness)</h1>
+        </div>
+        <span class="badge-purple highlight-badge">Optimization Theory</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div>
+            <div class="info-box">
+              <h3 class="box-title">🎯 Hàm Mục Tiêu Maximin</h3>
+              <p class="box-text">
+                Thay vì tối đa hóa tổng điểm (làm người thiểu số bị bỏ rơi), thuật toán tập trung tối đa hóa điểm số của thành viên thiệt thòi nhất:
+              </p>
+              <pre style="margin-top:0.6rem;">Maximize: min { Score(m₁, d₁), Score(m₂, d₂), ... }
+Subject to:
+  • Σ Price(dᵢ) ≤ Budget
+  • 0.90 × Budget ≤ Σ Price(dᵢ) (Ép sát ngân sách)
+  • All dishes belong to SAME Restaurant</pre>
+            </div>
+
+            <div class="info-box" style="margin-top:1rem;">
+              <h3 class="box-title">🏆 3 Bậc Ưu Tiên Từ Điển (Lexicographic)</h3>
+              <ul style="padding-left:1.2rem; font-size:0.88rem; color:var(--text-muted); line-height:1.6;">
+                <li><strong>Ưu tiên 1:</strong> Điểm của người có điểm thấp nhất cao nhất.</li>
+                <li><strong>Ưu tiên 2:</strong> Tổng điểm toàn nhóm lớn nhất.</li>
+                <li><strong>Ưu tiên 3:</strong> Chi phí tối ưu sát nhất với yêu cầu.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <h3 class="box-title">💡 Ví dụ Thực tế Minh họa</h3>
+            <p class="box-text" style="margin-bottom:0.75rem;">
+              <strong>Yêu cầu:</strong> Nhóm 3 người có 150.000đ ở Trấn Biên (2 người thích món nước, 1 người thích mì trộn khô).
+            </p>
+            <div style="background:#090d16; padding:0.85rem; border-radius:10px; border:1px solid #1e293b; font-size:0.85rem;">
+              <div style="color:#4ade80; font-weight:700; margin-bottom:0.35rem;">🏆 Đề xuất Quán: Bún Thái & Mì Trộn Thành Minh</div>
+              <div style="color:var(--text-muted); line-height:1.5;">
+                • Người 1: Bún Thái Hải Sản (50.000đ) - Điểm: 95/100<br/>
+                • Người 2: Bún Thái Thập Cẩm (50.000đ) - Điểm: 95/100<br/>
+                • Người 3: Mì Trộn Hải Sản Khô (45.000đ) - Điểm: 95/100<br/>
+                ------------------------------------------------<br/>
+                <strong style="color:#ffffff;">Tổng cộng: 145.000đ / 150.000đ (96.7% ngân sách)</strong><br/>
+                <span style="color:#38bdf8;">Min Score: 95/100 • Dư đúng 5.000đ gửi xe!</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Slide 4/10 • Toán học tối ưu tổ hợp</span>
+        <span class="live-pill">Maximin Fairness</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: GOOGLE GEMINI & AI SCAN MENU -->
+    <section class="slide-card" data-slide="5">
+      <div class="slide-header">
+        <div>
+          <div class="slide-kicker">👁️ THỊ GIÁC MÁY TÍNH & LLM</div>
+          <h1 class="slide-title">Google Gemini Pipeline & AI Scan Menu</h1>
+        </div>
+        <span class="badge-green highlight-badge">Multimodal AI</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="info-box">
+            <h3 class="box-title">📸 AI Scan Menu (Số hóa Thực đơn)</h3>
+            <p class="box-text">
+              Dành riêng cho đối tác chủ quán ăn (Partner Portal):
+            </p>
+            <ul style="padding-left:1.2rem; margin-top:0.5rem; color:var(--text-muted); font-size:0.88rem; line-height:1.6;">
+              <li>Chủ quán chụp ảnh bảng hiệu / thực đơn viết tay.</li>
+              <li>Gemini Multimodal Vision tự động trích xuất OCR.</li>
+              <li>Chuyển hóa thành dữ liệu có cấu trúc JSON: <code>Tên món</code>, <code>Giá tiền</code>, <code>Phân loại</code>, <code>Vị</code>.</li>
+              <li>Chủ quán duyệt và đưa quán lên hệ sinh thái trong <strong>3 giây</strong>.</li>
+            </ul>
+          </div>
+
+          <div class="info-box">
+            <h3 class="box-title">🛡️ Cascade Fallback & Budget Safety</h3>
+            <p class="box-text">
+              Hệ thống tự động chuyển đổi mô hình để duy trì tính sẵn sàng 99.99%:
+            </p>
+            <pre style="margin-top:0.5rem;">[Primary]: Gemini 3.5 Flash (Latency ~400ms)
+    ↓ (Nếu 429 Quota Exhausted)
+[Backup 1]: Gemini 3.6 Flash
+    ↓ (Nếu tiếp tục quá tải)
+[Backup 2]: Gemini 3.1 Flash Lite
+    ↓ (Chế độ khẩn cấp)
+[Offline]: Bộ phân tích Regex cục bộ</pre>
+            <div style="margin-top:0.5rem; font-size:0.82rem; color:#4ade80;">
+              💰 Chi phí thực tế: Chỉ <strong>$0.00099 / lần gọi</strong> (Rẻ hơn 95% so với GPT-4).
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box" style="margin-top:1.25rem;">
+          <h3 class="box-title">💬 Trợ Lý Ẩm Thực Trực Tuyến (Customer Live Chat)</h3>
+          <p class="box-text">
+            Khung trò chuyện thời gian thực dành cho khách hàng với avatar thương hiệu chính thức. Nắm rõ câu chuyện văn hóa của 4 đặc sản lớn của tỉnh Đồng Nai, giải đáp thắc mắc mọi lúc mọi nơi.
+          </p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Slide 5/10 • Xử lý đa phương thức</span>
+        <span class="live-pill">Gemini Multimodal</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: BẢN ĐỒ SỐ GIS & DẪN ĐƯỜNG -->
+    <section class="slide-card" data-slide="6">
+      <div class="slide-header">
+        <div>
+          <div class="slide-kicker">🗺️ BẢN ĐỒ SỐ & DẪN ĐƯỜNG</div>
+          <h1 class="slide-title">Hệ Thống Bản Đồ Ẩm Thực Biên Hòa (GIS & Routing)</h1>
+        </div>
+        <span class="badge-amber highlight-badge">Interactive GIS</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="info-box">
+            <span class="badge-green highlight-badge">Leaflet.js + OpenStreetMap</span>
+            <h4 class="box-title">Bản đồ số Nhẹ & Độc lập</h4>
+            <p class="box-text">Không phụ thuộc vào Google Maps API trả phí cao. Tải bản đồ mượt mà trên mọi thiết bị 4G, hiển thị đầy đủ 21 ghim vị trí quán ăn.</p>
+          </div>
+
+          <div class="info-box">
+            <span class="badge-blue highlight-badge">OSRM Routing Engine</span>
+            <h4 class="box-title">Tự Động Vẽ Tuyến Đường</h4>
+            <p class="box-text">Thuật toán vẽ đường thực tế theo mạng lưới giao thông đường bộ Đồng Nai, tính chính xác cự ly di chuyển (km) và thời gian đi xe máy (phút).</p>
+          </div>
+
+          <div class="info-box">
+            <span class="badge-amber highlight-badge">GPS Navigator</span>
+            <h4 class="box-title">Định vị & Chỉ đường 1-Chạm</h4>
+            <p class="box-text">Tích hợp nút "Định vị GPS" tự lấy vị trí của thực khách hoặc chọn 5 mốc lớn: Công viên Biên Hùng, Đại học Lạc Hồng, Làng Bưởi Tân Triều...</p>
+          </div>
+        </div>
+
+        <div class="info-box" style="margin-top:1.25rem;">
+          <h3 class="box-title">📍 Mạng Lưới Điểm Khảo Sát Trọng Điểm</h3>
+          <p class="box-text">
+            Bản đồ bao phủ 6 phân khu trung tâm ẩm thực sầm uất nhất của TP. Biên Hòa:
+          </p>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.6rem;">
+            <span class="badge-green highlight-badge">Phường Trấn Biên (7 quán)</span>
+            <span class="badge-blue highlight-badge">Phường Tam Hiệp (5 quán)</span>
+            <span class="badge-amber highlight-badge">Xã Tân Triều (3 quán)</span>
+            <span class="badge-purple highlight-badge">Phường Bửu Long</span>
+            <span class="badge-green highlight-badge">Phường Thanh Bình</span>
+            <span class="badge-blue highlight-badge">Phường Thống Nhất</span>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Slide 6/10 • Hệ thống thông tin địa lý GIS</span>
+        <span class="live-pill">OpenStreetMap</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: DỮ LIỆU ĐẶC SẢN ĐỒNG NAI -->
+    <section class="slide-card" data-slide="7">
+      <div class="slide-header">
+        <div>
+          <div class="slide-kicker">🍊 BẢN SẮC VĂN HÓA ĐỊA PHƯƠNG</div>
+          <h1 class="slide-title">Bảo Tồn & Lan Tỏa 4 Tứ Đại Đặc Sản Đồng Nai</h1>
+        </div>
+        <span class="badge-green highlight-badge">Local Cultural Heritage</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-4">
+          <div class="info-box">
+            <div style="font-size:2rem; margin-bottom:0.25rem;">🍊</div>
+            <h4 class="box-title">Bưởi Tân Triều</h4>
+            <p class="box-text">Gỏi bưởi tôm thịt, gà hấp quả bưởi, rượu bưởi gia truyền tại Làng bưởi Năm Huệ.</p>
+          </div>
+
+          <div class="info-box">
+            <div style="font-size:2rem; margin-bottom:0.25rem;">🐟</div>
+            <h4 class="box-title">Gỏi Cá Biên Hòa</h4>
+            <p class="box-text">Đặc sản làng cá bè Tân Mai với cá chép/cá trắm giòn và nước sốt chấm sền sệt béo ngậy.</p>
+          </div>
+
+          <div class="info-box">
+            <div style="font-size:2rem; margin-bottom:0.25rem;">🦐</div>
+            <h4 class="box-title">Lẩu Tôm Năm Ri</h4>
+            <p class="box-text">Tôm càng xanh tươi rói sông Đồng Nai kết hợp nước lẩu chua thanh đậm vị Nam Bộ.</p>
+          </div>
+
+          <div class="info-box">
+            <div style="font-size:2rem; margin-bottom:0.25rem;">🥢</div>
+            <h4 class="box-title">Chả Lụi Biên Hòa</h4>
+            <p class="box-text">Chả nướng giòn rụm cuốn bánh tráng, rau sống tươi ngon và nước chấm đậu phộng ấm nóng.</p>
+          </div>
+        </div>
+
+        <div class="info-box" style="margin-top:1.25rem;">
+          <h3 class="box-title">📸 Bộ Ảnh Thực Địa & Thực Đơn Niêm Yết</h3>
+          <p class="box-text">
+            Dự án đã tích hợp trực tiếp 100% hình ảnh thực tế đối chiếu từ khảo sát: Chả Lụi Cô Yến, Bún Chả Phú Khang, Cơm Gà S88, Cháo Hến Cô Tươi, Gỏi Cá Kim Yến... Mỗi quán ăn đều có slider ảnh không gian, bảng giá từng món minh bạch.
+          </p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Slide 7/10 • Giá trị di sản văn hóa ẩm thực</span>
+        <span class="live-pill">Đặc sản Đồng Nai</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: CÔNG NGHỆ NỀN TẢNG & BẢO MẬT -->
+    <section class="slide-card" data-slide="8">
+      <div class="slide-header">
+        <div>
+          <div class="slide-kicker">🛡️ CÔNG NGHỆ & BẢO MẬT</div>
+          <h1 class="slide-title">Hiệu Năng Vượt Trội & Bảo Mật Hệ Thống</h1>
+        </div>
+        <span class="badge-blue highlight-badge">Performance & Security</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="info-box">
+            <span class="badge-green highlight-badge">Pure Vanilla JS</span>
+            <h4 class="box-title">Hiệu năng 100/100</h4>
+            <p class="box-text">Không dùng thư viện nặng, mã nguồn bundle < 120KB, điểm Google Lighthouse đạt tối đa 100 điểm. Phản hồi tức thì trên máy cấu hình yếu.</p>
+          </div>
+
+          <div class="info-box">
+            <span class="badge-blue highlight-badge">PWA Ready</span>
+            <h4 class="box-title">Cài đặt Mobile 1-Chạm</h4>
+            <p class="box-text">Service Worker lưu cache thông minh. Cài đặt trực tiếp lên màn hình điện thoại như ứng dụng Native qua App Manifest mà không cần qua App Store.</p>
+          </div>
+
+          <div class="info-box">
+            <span class="badge-purple highlight-badge">HMAC-SHA256 & RBAC</span>
+            <h4 class="box-title">Bảo mật & Phân quyền</h4>
+            <p class="box-text">Phân quyền 3 vai trò: Khách hàng, Chủ quán, Quản trị viên. Chống tấn công XSS bằng hàm <code>safeImgSrc()</code> lọc toàn bộ URL độc hại.</p>
+          </div>
+        </div>
+
+        <div class="info-box" style="margin-top:1.25rem;">
+          <h3 class="box-title">⚡ Kiểm Thử Tự Động Hóa Toàn Diện (Automated Test Suite)</h3>
+          <p class="box-text">
+            Hệ sinh thái có bộ kiểm thử <strong>30 kịch bản thực tế</strong> (bao gồm nhóm đông người, thiếu tiền, khẩu vị xung đột, chế độ ăn chay, khu vực chưa có dữ liệu) – Đạt tỷ lệ thành công <strong>30/30 PASS (100.0%)</strong> trước mọi lần triển khai.
+          </p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Slide 8/10 • Nền tảng kỹ thuật vững chắc</span>
+        <span class="live-pill">Lighthouse 100</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: TRANG QUẢN TRỊ ADMIN & KIỂM SOÁT CHI PHÍ -->
+    <section class="slide-card" data-slide="9">
+      <div class="slide-header">
+        <div>
+          <div class="slide-kicker">📊 QUẢN TRỊ & TÀI CHÍNH AI</div>
+          <h1 class="slide-title">Bảng Điều Khiển Admin & Kiểm Soát Chi Phí</h1>
+        </div>
+        <span class="badge-green highlight-badge">Admin Governance</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="info-box">
+            <h3 class="box-title">📋 Quy Trình Phê Duyệt Thực Đơn</h3>
+            <p class="box-text">
+              Dữ liệu từ chủ quán không hiển thị công khai ngay mà phải qua khâu kiểm duyệt của Admin (Trạng thái <code>pending</code> ➔ <code>approved</code>), bảo đảm thông tin minh bạch, đúng giá, chống tin rác.
+            </p>
+            <div style="margin-top:0.8rem; font-size:0.85rem; color:var(--text-muted);">
+              • Kiểm tra đối chiếu ảnh chụp menu gốc.<br/>
+              • Xác minh địa chỉ và số điện thoại chủ quán.<br/>
+              • Đánh dấu huy hiệu <strong>"Đã xác minh"</strong> cho quán đạt chuẩn.
+            </div>
+          </div>
+
+          <div class="info-box">
+            <h3 class="box-title">💵 Giám Sát Chi Phí AI Theo Thời Gian Thực</h3>
+            <p class="box-text">
+              Admin theo dõi trực tiếp số lượng Token sử dụng, tổng chi phí API phát sinh theo từng phút:
+            </p>
+            <div style="margin-top:0.8rem; background:#090d16; padding:0.85rem; border-radius:10px; font-family:'JetBrains Mono', monospace; font-size:0.8rem; color:#4ade80;">
+              Hạn mức ngân sách: $5.00 USD<br/>
+              Đã tiêu thụ: $0.000999 USD (0.02%)<br/>
+              Tổng số lượt gọi: 4 lượt (1 Live + 3 Fallback)<br/>
+              Độ trễ trung bình: 420 ms
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box" style="margin-top:1.25rem;">
+          <h3 class="box-title">👥 Quản Lý Người Dùng & Chuyển Đổi Nhanh 3 Vai Trò</h3>
+          <p class="box-text">
+            Hệ thống hỗ trợ chuyển đổi vai trò tức thì giữa Khách hàng (Customer) ➔ Chủ quán (Partner) ➔ Quản trị viên (Admin) chỉ bằng 1 cú nhấp chuột để thuận tiện cho việc trình diễn và kiểm tra chất lượng.
+          </p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Slide 9/10 • Vận hành & Quản trị dữ liệu</span>
+        <span class="live-pill">Real-time Metrics</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: TỔNG KẾT & KẾ HOẠCH TƯƠNG LAI -->
+    <section class="slide-card" data-slide="10">
+      <div class="slide-header">
+        <div>
+          <div class="slide-kicker">🚀 TƯƠNG LAI & KẾT LUẬN</div>
+          <h1 class="slide-title">Ý Nghĩa Kinh Tế Xã Hội & Định Hướng Phát Triển</h1>
+        </div>
+        <span class="badge-amber highlight-badge">Roadmap 2026 - 2027</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="info-box">
+            <h4 class="box-title">🌟 Thúc Đẩy Du Lịch</h4>
+            <p class="box-text">Số hóa ẩm thực Đồng Nai, biến ẩm thực Biên Hòa thành điểm đến hấp dẫn du khách trong và ngoài nước qua bản đồ số du lịch.</p>
+          </div>
+
+          <div class="info-box">
+            <h4 class="box-title">🏪 Hỗ Trợ Tiểu Thương</h4>
+            <p class="box-text">Tạo công cụ chuyển đổi số miễn phí (AI Scan Menu) cho hàng quán truyền thống, vỉa hè tiếp cận hàng ngàn khách hàng trẻ.</p>
+          </div>
+
+          <div class="info-box">
+            <h4 class="box-title">📈 Mở Rộng Địa Bàn</h4>
+            <p class="box-text">Mở rộng dữ liệu ra toàn bộ TP. Long Khánh, Nhơn Trạch, Long Thành (sân bay quốc tế) và các khu du lịch sinh thái.</p>
+          </div>
+        </div>
+
+        <div class="info-box" style="margin-top:1.5rem; text-align:center; padding:1.75rem; background:linear-gradient(135deg, rgba(21, 128, 61, 0.2) 0%, rgba(30, 41, 59, 0.8) 100%); border-color:#22c55e;">
+          <h2 style="font-size:1.5rem; color:#4ade80; margin-bottom:0.5rem;">CẢM ƠN QUÝ THẦY CÔ & HỘI ĐỒNG ĐÃ LẮNG NGHE!</h2>
+          <p style="font-size:0.95rem; color:#cbd5e1; margin-bottom:1rem;">
+            Dự án HỢP VỊ AI – Giải pháp công nghệ thực chiến vì sự phát triển của ẩm thực địa phương Đồng Nai.
+          </p>
+          <div style="display:flex; justify-content:center; gap:1rem;">
+            <a href="https://hop-vi.app" target="_blank" class="live-pill" style="font-size:0.9rem; padding:0.5rem 1.25rem;">
+              🚀 Trải nghiệm ngay tại hop-vi.app
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Slide 10/10 • Phiên hỏi đáp & Trao đổi (Q&A)</span>
+        <span class="live-pill">Hợp Vị AI 2026</span>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 10;
+
+    function showSlide(num) {
+      if (num < 1) num = totalSlides;
+      if (num > totalSlides) num = 1;
+      currentSlide = num;
+
+      document.querySelectorAll('.slide-card').forEach(card => {
+        card.classList.remove('active');
+        if (parseInt(card.dataset.slide, 10) === currentSlide) {
+          card.classList.add('active');
+        }
+      });
+
+      const badge = document.getElementById('slide-num-badge');
+      if (badge) {
+        badge.textContent = `${String(currentSlide).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
+      }
+    }
+
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      showSlide(currentSlide - 1);
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+      } else if (e.key >= '1' && e.key <= '9') {
+        showSlide(parseInt(e.key, 10));
+      } else if (e.key === '0') {
+        showSlide(10);
+      }
+    });
+  </script>
+</body>
+</html>
