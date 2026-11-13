@@ -310,45 +310,22 @@
           </div>
 
           <!-- Card 3: Xem thêm các quán ăn -->
-          <div class="feature-item-card" onclick="switchView('recommend')">
+          <div class="feature-item-card" onclick="switchView('map')">
             <div class="feature-item-icon pin-icon-bg">
-              <span><svg class="ic" aria-hidden="true"><use href="#i-sparkles"/></svg></span>
+              <span><svg class="ic" aria-hidden="true"><use href="#i-map"/></svg></span>
             </div>
             <div class="feature-item-body">
               <h3 class="feature-item-title">Xem thêm các quán ăn</h3>
               <p class="feature-item-desc">
-                Khám phá toàn bộ quán ăn và thực đơn qua công cụ Tìm món AI.
+                Xem bản đồ vị trí, khoảng cách và danh sách quán ăn đã xác minh.
               </p>
               <span class="feature-item-link">
-                Tìm món & Quán ăn AI →
+                Xem trên Bản đồ & Dẫn đường →
               </span>
             </div>
           </div>
         </div>
       </section>
-
-      <!-- Danh sách Quán ăn xác minh -->
-      <div id="home-restaurants-wrapper">
-        <div class="section-header" id="restaurants-section-anchor" style="margin-top:0.5rem;">
-          <div>
-            <h2><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg> Quán ngon đã xác minh giá tại Biên Hòa</h2>
-            <p style="font-size:0.84rem; color:var(--text-muted);">Bấm vào từng quán để xem thực đơn hoặc bấm chỉ đường.</p>
-          </div>
-          <div>
-            <select id="home-area-filter" class="form-control" style="width:auto; display:inline-block;" onchange="renderHomeRestaurants()">
-              <option value="all">Tất cả khu vực (18 quán)</option>
-              <option value="Trấn Biên">Phường Trấn Biên (7 quán)</option>
-              <option value="Tam Hiệp">Phường Tam Hiệp (5 quán)</option>
-              <option value="Tân Triều">Phường Tân Triều (3 quán)</option>
-              <option value="Bửu Long">Phường Bửu Long</option>
-              <option value="Thanh Bình">Phường Thanh Bình</option>
-              <option value="Thống Nhất">Phường Thống Nhất</option>
-            </select>
-          </div>
-        </div>
-        <div id="home-restaurants-grid" class="grid-3"></div>
-        <div id="home-restaurants-more-wrap" style="text-align:center; margin-bottom:1.5rem;"></div>
-      </div>
 
       <!-- Đặc sản nổi bật (Ẩn trên điện thoại để giao diện tinh gọn, xem tại tab Đặc sản) -->
       <div id="home-specialties-wrapper" class="hide-on-mobile">

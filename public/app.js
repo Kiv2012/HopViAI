@@ -328,7 +328,7 @@ function runHeroSuggestedPrompt() {
 }
 
 function scrollToRestaurants() {
-  switchView('recommend');
+  switchView('map');
 }
 
 function showNotificationToast(msg) {
@@ -411,7 +411,7 @@ function buildNotifications() {
     id: `sys-data-${rests.length}-${photos}`, icon: 'store', tone: 'info',
     title: 'Dữ liệu quán ăn đã được cập nhật',
     text: `${rests.length} quán đã xác minh${photos ? ` và ${photos} ảnh thực tế` : ''} từ khảo sát tại Đồng Nai.`,
-    go: role === 'customer' ? () => switchView('recommend') : null
+    go: role === 'customer' ? () => switchView('map') : null
   });
 
   if (role === 'customer') {
