@@ -327,8 +327,8 @@
         </div>
       </section>
 
-      <!-- Danh sách Quán ăn xác minh (Ẩn trên điện thoại để giao diện tinh gọn, chuyển qua thanh menu đáy) -->
-      <div id="home-restaurants-wrapper" class="hide-on-mobile">
+      <!-- Danh sách Quán ăn xác minh -->
+      <div id="home-restaurants-wrapper">
         <div class="section-header" id="restaurants-section-anchor" style="margin-top:0.5rem;">
           <div>
             <h2><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg> Quán ngon đã xác minh giá tại Biên Hòa</h2>
@@ -546,6 +546,31 @@
             </button>
           </div>
         </div>
+      </div>
+
+      <!-- DANH SÁCH QUÁN NGON ĐÃ XÁC MINH DƯỚI BẢN ĐỒ (CẢ MOBILE & DESKTOP) -->
+      <div id="map-restaurants-wrapper" style="margin-top:1.5rem;">
+        <div class="section-header" id="map-restaurants-section-anchor" style="margin-bottom:0.75rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+          <div>
+            <h2 style="font-size:1.15rem; margin-bottom:0.2rem;"><svg class="ic" aria-hidden="true"><use href="#i-store"/></svg> Quán ngon đã xác minh tại Biên Hòa</h2>
+            <p style="font-size:0.83rem; color:var(--text-muted); margin:0;">
+              Bấm "Dẫn đường" để vẽ lộ trình trực tiếp trên bản đồ phía trên hoặc bấm "Gợi ý tại đây"
+            </p>
+          </div>
+          <div>
+            <select id="map-area-filter" class="form-control" style="width:auto; font-size:0.85rem; padding:0.4rem 0.65rem;" onchange="renderMapRestaurants()">
+              <option value="all">Tất cả khu vực (18 quán)</option>
+              <option value="Trấn Biên">Phường Trấn Biên (7 quán)</option>
+              <option value="Tam Hiệp">Phường Tam Hiệp (5 quán)</option>
+              <option value="Tân Triều">Phường Tân Triều (3 quán)</option>
+              <option value="Bửu Long">Phường Bửu Long</option>
+              <option value="Thanh Bình">Phường Thanh Bình</option>
+              <option value="Thống Nhất">Phường Thống Nhất</option>
+            </select>
+          </div>
+        </div>
+        <div id="map-restaurants-grid" class="grid-3"></div>
+        <div id="map-restaurants-more-wrap" style="text-align:center; margin-top:1rem; margin-bottom:1.5rem;"></div>
       </div>
     </section>
 
