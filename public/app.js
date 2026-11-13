@@ -324,15 +324,7 @@ function runHeroSuggestedPrompt() {
 }
 
 function scrollToRestaurants() {
-  const isMobile = window.innerWidth <= 768;
-  if (isMobile) {
-    switchView('map');
-  } else {
-    const el = document.getElementById('restaurants-section-anchor');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
+  switchView('recommend');
 }
 
 function showNotificationToast(msg) {
@@ -415,7 +407,7 @@ function buildNotifications() {
     id: `sys-data-${rests.length}-${photos}`, icon: 'store', tone: 'info',
     title: 'Dữ liệu quán ăn đã được cập nhật',
     text: `${rests.length} quán đã xác minh${photos ? ` và ${photos} ảnh thực tế` : ''} từ khảo sát tại Đồng Nai.`,
-    go: role === 'customer' ? () => { switchView('home'); setTimeout(scrollToRestaurants, 150); } : null
+    go: role === 'customer' ? () => switchView('recommend') : null
   });
 
   if (role === 'customer') {
