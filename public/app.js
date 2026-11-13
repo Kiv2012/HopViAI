@@ -3158,6 +3158,7 @@ function renderWpDashboardWidgets(d) {
       ${q('admin-feedbacks', 'message', 'Kiểm duyệt phản hồi')}
       ${q('admin-users', 'users', 'Quản lý người dùng')}
       ${q('admin-system', 'sliders', 'Hệ thống & AI')}
+      <a class="wp-quick" href="/tech-report.html" target="_blank" style="text-decoration:none;">${wpIc('file')}<span>Báo cáo Công nghệ</span></a>
     </div>`;
   }
 
